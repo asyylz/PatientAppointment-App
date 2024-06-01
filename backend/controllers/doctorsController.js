@@ -4,6 +4,8 @@ const doctors = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/doctors.json`)
 );
 
+console.log(doctors);
+
 // 1-) ROUTES HANDLERS
 // GET Doctors:sending back to the client
 exports.getAllDoctors = (req, res) => {
@@ -24,8 +26,9 @@ exports.createDoctor = (req, res) => {
   const newId = doctors[doctors.length - 1].id + 1;
   const newDoctor = Object.assign({ id: newId }, req.body);
   doctors.push(newDoctor);
+
   fs.writeFile(
-    `$${__dirname}/../dev-data/data/doctors.json`,
+    `${__dirname}/dev-data/data/doctors.json`,
     JSON.stringify(doctors),
     err => {
       res.status(201).json({
