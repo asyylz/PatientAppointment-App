@@ -199,5 +199,11 @@
         }
       }
     ]
+  },
+  {
+    "id": 6,
+    "name": "Dr. Asiye Yaliz",
+    "gender": "F",
+    "image": "/img/doctors/chan_small.jpg"
   }
 ]

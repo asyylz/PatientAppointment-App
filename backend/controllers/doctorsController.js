@@ -28,7 +28,7 @@ exports.createDoctor = (req, res) => {
   doctors.push(newDoctor);
 
   fs.writeFile(
-    `${__dirname}/dev-data/data/doctors.json`,
+    `${__dirname}/../dev-data/data/doctors.json`,
     JSON.stringify(doctors),
     err => {
       res.status(201).json({
