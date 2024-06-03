@@ -1,42 +1,104 @@
-const fs = require('fs');
+const Doctor = require('./../models/doctorModel');
 
-const doctors = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/doctors.json`)
-);
+/* ------------------- ROUTES HANDLERS ------------------ */
+// GET ALL Doctors:sending back to the client
+exports.getAllDoctors = async (req, res) => {
+  try {
+    const queryObj = { ...req.query };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach(el => delete queryObj[el]);
+    console.log(req.query, queryObj);
+    const doctors = await Doctor.find(req.query);
 
-console.log(doctors);
-
-// 1-) ROUTES HANDLERS
-// GET Doctors:sending back to the client
-exports.getAllDoctors = (req, res) => {
-  console.log(req.requestTime);
-  res.status(200).json({
-    status: 'success',
-    requestedAt: req.requestTime,
-    results: doctors.length,
-    data: {
-      doctors
-    }
-  });
+    res.status(200).json({
+      status: 'success',
+      requestedAt: req.requestTime,
+      results: doctors.length,
+      data: {
+        doctors
+      }
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
 };
 
-// POST
-exports.createDoctor = (req, res) => {
-  //console.log(req.body);
-  const newId = doctors[doctors.length - 1].id + 1;
-  const newDoctor = Object.assign({ id: newId }, req.body);
-  doctors.push(newDoctor);
+// GET SINGLE
+exports.getDoctor = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const doctor = await Doctor.findById(req.params.id);
+    res.status(200).json({
+      status: 'success',
+      data: {
+        doctor
+      }
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
+};
 
-  fs.writeFile(
-    `${__dirname}/../dev-data/data/doctors.json`,
-    JSON.stringify(doctors),
-    err => {
-      res.status(201).json({
+// UPDATE
+exports.updateDoctor = async (req, res) => {
+  try {
+    const updatedDoctor = await Doctor.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+    if (updatedDoctor) {
+      return res.status(201).json({
         status: 'success',
         data: {
-          doctor: newDoctor
+          tour: updatedDoctor
         }
       });
     }
-  );
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'Invalid data set'
+    });
+  }
+};
+
+// POST
+exports.createDoctor = async (req, res) => {
+  try {
+    const newDoctor = await Doctor.create(req.body);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        doctor: newDoctor
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// DELETE
+exports.deleteDoctor = async (req, res) => {
+  try {
+    await Doctor.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: 'success',
+      data: null
+    });
+  } catch (err) {
+    res.status(204).json({
+      status: 'success',
+      data: null
+    });
+  }
 };

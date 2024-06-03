@@ -8,4 +8,9 @@ router
   .get(doctorsController.getAllDoctors)
   .post(doctorsController.createDoctor);
 
+router
+  .route('/:id')
+  .get(doctorsController.getDoctor)
+  .patch(doctorsController.updateDoctor)
+  .delete(doctorsController.deleteDoctor);
 module.exports = router;

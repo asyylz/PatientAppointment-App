@@ -7,7 +7,7 @@
     "availability": {
       "Monday": "8:30am - 5:30pm",
       "Wednesday": "1:30pm - 7:30pm",
-      "Thrusday": "10am - 8pm",
+      "Thursday": "10am - 8pm",
       "Friday": "9am - 12pm"
     },
     "phone": "416-486-1956",
@@ -85,7 +85,7 @@
       {
         "name": "",
         "rating": 2.5,
-        "comments": "Dr. Lewis is good, but the person whop answers the phone and who you depend on to get an appointment, keep track of information, etc, is terrible. Her command of the english language isn't great, and results in a LOT of errors.",
+        "comments": "Dr. Lewis is good, but the person who answers the phone and who you depend on to get an appointment, keep track of information, etc., is terrible. Her command of the English language isn't great, and results in a LOT of errors.",
         "attributes": {
           "staff": 1,
           "punctual": 2,
@@ -138,7 +138,7 @@
       {
         "name": "",
         "rating": 4.75,
-        "comments": "very caring and attentive",
+        "comments": "Very caring and attentive",
         "attributes": {
           "staff": 4,
           "punctual": 5,
@@ -190,7 +190,7 @@
       {
         "name": "",
         "rating": 4.5,
-        "comments": "Wonderful doctor: respectful, skillful, thorough, takes time, cares. ",
+        "comments": "Wonderful doctor: respectful, skillful, thorough, takes time, cares.",
         "attributes": {
           "staff": 4,
           "punctual": 4,
@@ -199,11 +199,5 @@
         }
       }
     ]
-  },
-  {
-    "id": 6,
-    "name": "Dr. Asiye Yaliz",
-    "gender": "F",
-    "image": "/img/doctors/chan_small.jpg"
   }
 ]
