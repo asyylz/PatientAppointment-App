@@ -1,18 +1,21 @@
 const Doctor = require('./../models/doctorModel');
-
+const APIFeatures = require('./../utils/apiFeatures');
 /* ------------------- ROUTES HANDLERS ------------------ */
 // GET ALL Doctors:sending back to the client
 exports.getAllDoctors = async (req, res) => {
   try {
-    const queryObj = { ...req.query };
-    const excludedFields = ['page', 'sort', 'limit', 'fields'];
-    excludedFields.forEach(el => delete queryObj[el]);
-    console.log(req.query, queryObj);
-    const doctors = await Doctor.find(req.query);
+    // EXECUTE QUERY
+    const features = new APIFeatures(Doctor.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
 
+    const doctors = await features.query;
+
+    // SEND RESPONSE
     res.status(200).json({
       status: 'success',
-      requestedAt: req.requestTime,
       results: doctors.length,
       data: {
         doctors
@@ -28,7 +31,6 @@ exports.getAllDoctors = async (req, res) => {
 
 // GET SINGLE
 exports.getDoctor = async (req, res) => {
-  console.log(req.params.id);
   try {
     const doctor = await Doctor.findById(req.params.id);
     res.status(200).json({
