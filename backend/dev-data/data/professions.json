@@ -1,0 +1,48 @@
+[
+  {
+    "professionMain": "Allergy & Immunology",
+    "professionSub": [
+      "Allergy",
+      "Allergy & Immunology",
+      "Immunology",
+      "Immunopathology",
+      "Pediatric Allergy"
+    ]
+  },
+  {
+    "professionMain": "Anesthesiology",
+    "professionSub": [
+      "Anesthesiology",
+      "Critical Care Anesthesiology",
+      "Critical Care Medicine",
+      "Pain Management"
+    ]
+  },
+  {
+    "professionMain": "Cardiology",
+    "professionSub": [
+      "Cardiovascular Disease",
+      "Cardiovascular Surgery",
+      "Interventional Cardiology",
+      "Immunopathology",
+      "Pediatric Cardiology"
+    ]
+  },
+  {
+    "professionMain": "Pediatrics",
+    "professionSub": [
+      "Adolescent Medicine",
+      "Child Neurology",
+      "Child Psychiatry",
+      "Developmental-Behavioral Pediatrics",
+      "Neonatal-Perinatal Medicine",
+      "Pediatrics",
+      "Pediatric Anesthesiology",
+      "Pediatric Cardiology",
+      "Pediatric Critical Care",
+      "Pediatric Emergency Medicine",
+      "Pediatric Endocrinology",
+      "Pediatric Gastroenterology"
+    ]
+  }
+]

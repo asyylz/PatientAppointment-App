@@ -1,0 +1,32 @@
+[
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "Password1!",
+    "role": "doctor"
+  },
+  {
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "password": "Password2!",
+    "role": "systemuser"
+  },
+  {
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "password": "Password3!",
+    "role": "patient"
+  },
+  {
+    "name": "Bob Brown",
+    "email": "bob.brown@example.com",
+    "password": "Password4!",
+    "role": "doctor"
+  },
+  {
+    "name": "Charlie Black",
+    "email": "charlie.black@example.com",
+    "password": "Password5!",
+    "role": "patient"
+  }
+]

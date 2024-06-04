@@ -1,7 +1,9 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const Doctor = require('./../../models/doctorModel');
+//const Doctor = require('./../../models/doctorModel');
+//const Profession = require('./../../models/professionModel');
+const User = require('./../../models/userModel');
 
 dotenv.config({ path: './.env.local' });
 const DB = process.env.DATABASE.replace(
@@ -18,14 +20,14 @@ mongoose
   });
 
 // Read File
-const doctors = JSON.parse(
-  fs.readFileSync(`${__dirname}/doctors.json`, 'utf-8')
+const professions = JSON.parse(
+  fs.readFileSync(`${__dirname}/users.json`, 'utf-8')
 );
 
 // Import Data
 const importData = async () => {
   try {
-    await Doctor.create(doctors);
+    await User.create(professions);
     console.log('Data Imported');
   } catch (err) {
     console.log(err);
@@ -36,7 +38,7 @@ const importData = async () => {
 // Delete All Data
 const deleteData = async () => {
   try {
-    await Doctor.deleteMany();
+    await User.deleteMany();
     console.log('Data Deleted');
   } catch (err) {
     console.log(err);
@@ -49,5 +51,3 @@ if (process.argv[2] === '--import') {
 } else if (process.argv[2] === '--delete') {
   deleteData();
 }
-
-console.log(process.argv);

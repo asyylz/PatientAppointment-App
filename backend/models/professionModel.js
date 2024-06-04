@@ -25,7 +25,7 @@ const professionSchema = new mongoose.Schema({
     type: String,
     trim: true,
     maxlength: [10, 'Description must have less or equal than 80 characters'],
-    minlength: [50, 'Description must have more or equal than 10 characters']
+    minlength: [80, 'Description must have more or equal than 10 characters']
   }
 });
 

@@ -7,21 +7,18 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Email is required'],
     validate: [
       {
-        // This validator checks if the email contains the '@' character
         validator: function(val) {
           return val.includes('@');
         },
         message: 'Email should contain @ character'
       },
       {
-        // This validator checks if the email is not empty
         validator: function(val) {
           return val.trim().length > 0;
         },
         message: 'Email is empty'
       },
       {
-        // This validator uses a regular expression to check if the email is valid
         validator: function(val) {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           return emailRegex.test(val);
@@ -34,8 +31,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is required'],
     trim: true,
-    maxlength: [12, 'Password must have less or equal than 40 characters'],
-    minlength: [8, 'Password must have more or equal than 10 characters'],
+    maxlength: [40, 'Password must have less or equal than 40 characters'],
+    minlength: [8, 'Password must have more or equal than 8 characters'],
     validate: {
       validator: function(val) {
         const hasUpperCase = /[A-Z]/.test(val);
@@ -57,8 +54,6 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-const Usermodel = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
-module.exports = {
-  Usermodel
-};
+module.exports = User;
