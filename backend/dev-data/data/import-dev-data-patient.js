@@ -1,9 +1,16 @@
 const fs = require('fs');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+
 const Patient = require('../../models/patientModel');
 
 dotenv.config({ path: './.env.local' });
+
+
+console.log(dotenv.config({ path: './.env.local' }));
+
+console.log('asiye', process.env.DATABASE);
+
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
@@ -17,12 +24,11 @@ mongoose
     console.log('DB connection successful!');
   });
 
-// Read File
+//Read File
 const patients = JSON.parse(
   fs.readFileSync(`${__dirname}/patients.json`, 'utf-8')
 );
 
-console.log(patients);
 // Import Data
 const importData = async () => {
   try {

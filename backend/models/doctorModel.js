@@ -70,11 +70,11 @@ const availabilitySchema = new mongoose.Schema({
 
 // Define the main doctor schema
 const doctorSchema = new mongoose.Schema({
-  id: {
-    type: Number,
+  firstName: {
+    type: String,
     required: true
   },
-  name: {
+  lastName: {
     type: String,
     required: true
   },

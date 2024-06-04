@@ -9,7 +9,8 @@ const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
-console.log(DB);
+console.log('asiye', process.env.DATABASE);
+
 mongoose
   .connect(DB, {
     //.connect(process.env.DATABASE_LOCAL, {
@@ -17,6 +18,7 @@ mongoose
   .then(() => {
     console.log('DB connection successful!');
   });
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
