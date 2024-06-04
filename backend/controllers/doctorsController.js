@@ -1,5 +1,6 @@
 const Doctor = require('./../models/doctorModel');
 const APIFeatures = require('./../utils/apiFeatures');
+
 /* ------------------- ROUTES HANDLERS ------------------ */
 // GET ALL Doctors:sending back to the client
 exports.getAllDoctors = async (req, res) => {
@@ -17,7 +18,7 @@ exports.getAllDoctors = async (req, res) => {
     res.status(200).json({
       status: 'success',
       results: doctors.length,
-      data: {
+      doctors: {
         doctors
       }
     });

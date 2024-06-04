@@ -4,7 +4,6 @@ const patients = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/patients.json`)
 );
 
-console.log(patients);
 
 // 1-) ROUTES HANDLERS
 // GET Doctors:sending back to the client
