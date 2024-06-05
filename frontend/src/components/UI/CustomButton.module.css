@@ -1,0 +1,21 @@
+.card {
+    background: rgba(173, 217, 209, 1);
+    padding: 5px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 28px;
+    cursor: pointer;
+}
+
+.cardName {
+    color: #444;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.iconBox {
+    font-size: 45px;
+    color: #444;
+}

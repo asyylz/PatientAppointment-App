@@ -1,7 +1,7 @@
 [
   {
-    "professionMain": "Allergy & Immunology",
-    "professionSub": [
+    "departmentMain": "Allergy & Immunology",
+    "departmentSub": [
       "Allergy",
       "Allergy & Immunology",
       "Immunology",
@@ -10,8 +10,8 @@
     ]
   },
   {
-    "professionMain": "Anesthesiology",
-    "professionSub": [
+    "departmentMain": "Anesthesiology",
+    "departmentSub": [
       "Anesthesiology",
       "Critical Care Anesthesiology",
       "Critical Care Medicine",
@@ -19,8 +19,8 @@
     ]
   },
   {
-    "professionMain": "Cardiology",
-    "professionSub": [
+    "departmentMain": "Cardiology",
+    "departmentSub": [
       "Cardiovascular Disease",
       "Cardiovascular Surgery",
       "Interventional Cardiology",
@@ -29,8 +29,8 @@
     ]
   },
   {
-    "professionMain": "Pediatrics",
-    "professionSub": [
+    "departmentMain": "Pediatrics",
+    "departmentSub": [
       "Adolescent Medicine",
       "Child Neurology",
       "Child Psychiatry",
