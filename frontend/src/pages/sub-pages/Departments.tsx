@@ -1,36 +1,34 @@
-import { useEffect, useState } from 'react';
 import CustomButton from '../../components/UI/CustomButton';
 import classes from './Department.module.css';
-import axios from 'axios';
-
-interface Profession {
-  id: number;
-  name: string;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from './../../store/index';
+import { fetchDepartments } from './../../store/departments-slice';
+import { useEffect } from 'react';
 
 const Departments: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const { departments, status, error } = useSelector(
+    (state: RootState) => state.departments
+  );
+
   useEffect(() => {
-    getAllProfessions();
-  }, []);
-
-  const [data, setData] = useState<Profession[] | null>(null);
-
-  const getAllProfessions = async () => {
-    try {
-      const response = await axios.get(
-        'http://localhost:3000/api/v1/departments'
-      );
-      console.log(response.data.data);
-    } catch (err) {
-      console.log(err);
+    if (status === 'idle') {
+      dispatch(fetchDepartments());
     }
-  };
+  }, [status, dispatch]);
 
   return (
     <div className={classes.container} style={{ border: '2px solid red' }}>
-      <CustomButton />
-      <CustomButton />
-      <CustomButton />
+      {status === 'loading' && <p>Loading...</p>}
+      {status === 'succeeded' &&
+        departments.map((department) => (
+          <CustomButton
+            key={department._id}
+            department={department}
+          />
+        ))}
+      {status === 'failed' && <p>{error}</p>}
     </div>
   );
 };
