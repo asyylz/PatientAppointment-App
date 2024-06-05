@@ -2,10 +2,10 @@ const Doctor = require('./../models/doctorModel');
 const APIFeatures = require('./../utils/apiFeatures');
 
 /* ------------------- ROUTES HANDLERS ------------------ */
-// GET ALL Doctors:sending back to the client
+// GET ALL // Doctors:sending back to the client
 exports.getAllDoctors = async (req, res) => {
   try {
-    // EXECUTE QUERY
+    // EXECUTE QUERY //
     const features = new APIFeatures(Doctor.find(), req.query)
       .filter()
       .sort()
@@ -14,7 +14,7 @@ exports.getAllDoctors = async (req, res) => {
 
     const doctors = await features.query;
 
-    // SEND RESPONSE
+    // SEND RESPONSE //
     res.status(200).json({
       status: 'success',
       results: doctors.length,
@@ -30,7 +30,7 @@ exports.getAllDoctors = async (req, res) => {
   }
 };
 
-// GET SINGLE
+// GET SINGLE //
 exports.getDoctor = async (req, res) => {
   try {
     const doctor = await Doctor.findById(req.params.id);
@@ -48,7 +48,7 @@ exports.getDoctor = async (req, res) => {
   }
 };
 
-// UPDATE
+// UPDATE //
 exports.updateDoctor = async (req, res) => {
   try {
     const updatedDoctor = await Doctor.findByIdAndUpdate(
@@ -75,7 +75,7 @@ exports.updateDoctor = async (req, res) => {
   }
 };
 
-// POST
+// POST //
 exports.createDoctor = async (req, res) => {
   try {
     const newDoctor = await Doctor.create(req.body);
@@ -90,7 +90,7 @@ exports.createDoctor = async (req, res) => {
   }
 };
 
-// DELETE
+// DELETE //
 exports.deleteDoctor = async (req, res) => {
   try {
     await Doctor.findByIdAndDelete(req.params.id);
