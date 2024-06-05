@@ -12,9 +12,9 @@ const customButton: React.FC<CustomButtonProps> = ({ department }) => {
     >
       <div className={classes.cardName}>{department.departmentMain}</div>
 
-      <div className={classes.iconBox}>
+      {/* <div className={classes.iconBox}>
         <FaUserDoctor />
-      </div>
+      </div> */}
     </div>
   );
 };

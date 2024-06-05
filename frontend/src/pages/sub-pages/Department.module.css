@@ -1,14 +1,16 @@
 .container {
     display: grid;
     padding: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    border: 3px solid green;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
     /* Change 150px to your minimum width */
     gap: 3rem;
     /* Adjust the gap between grid items as needed */
     width: 100%;
     max-width: 1200px;
     /* Optional: max width for the container */
-    margin: 0 auto;
+    margin: 2rem auto;
     /* Center the container */
+    justify-content: center; 
 
 }
