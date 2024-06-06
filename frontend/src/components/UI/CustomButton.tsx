@@ -4,7 +4,7 @@ import classes from './CustomButton.module.css';
 interface CustomButtonProps {
   department: Department;
 }
-const customButton: React.FC<CustomButtonProps> = ({ department }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ department }) => {
   return (
     <div
       className={classes.wrapper}
@@ -32,4 +32,4 @@ const customButton: React.FC<CustomButtonProps> = ({ department }) => {
   );
 };
 
-export default customButton;
+export default CustomButton;

@@ -1,3 +1,18 @@
+.container {
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
+    gap: 3rem;
+    width: 100%;
+    /* Optional: max width for the container */
+    margin: 2rem auto;
+    /* Center the container */
+    justify-content: center;
+    grid-auto-columns: auto
+        /* This allows items to fill gaps */
+
+}
+
 .header {
     text-align: center;
     margin: 1rem auto;

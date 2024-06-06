@@ -22,10 +22,10 @@ const Doctors: React.FC = () => {
   }, [status, dispatch]);
 
   return (
-    <div style={{ marginTop: '2rem' }}>
+    <div style={{ border: '3px solid red', marginTop: '2rem' }}>
       <h1 className={classes.header}>OUR DOCTORS</h1>
       <hr />
-      <div>
+      <div className={classes.container}>
         {status === 'loading' && <p>Loading...</p>}
         {doctors.map((doctor) => (
           <DoctorProfilCard key={doctor.id} doctor={doctor as Doctor} />
