@@ -12,7 +12,6 @@ exports.getAllDepartments = async (req, res) => {
       .paginate();
 
     const departments = await features.query;
-    console.log(departments);
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',

@@ -3,14 +3,17 @@ import classes from './Department.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from './../../store/index';
 import { fetchDepartments } from './../../store/departments-slice';
+
 import { useEffect } from 'react';
 
 const Departments: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { departments, status, error } = useSelector(
-    (state: RootState) => state.departments
-  );
+  const {
+    entities: departments,
+    status,
+    error,
+  } = useSelector((state: RootState) => state.departments);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -19,7 +22,7 @@ const Departments: React.FC = () => {
   }, [status, dispatch]);
 
   return (
-    <>
+    <div>
       <h1 className={classes.header}>DEPARTMENTS</h1>
       <hr />
       <div
@@ -36,7 +39,7 @@ const Departments: React.FC = () => {
           ))}
         {status === 'failed' && <p>{error}</p>}
       </div>
-    </>
+    </div>
   );
 };
 

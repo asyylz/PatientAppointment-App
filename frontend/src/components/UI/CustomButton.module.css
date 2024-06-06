@@ -1,3 +1,7 @@
+.wrapper {
+    height: fit-content;
+}
+
 .card {
     background: rgba(173, 217, 209, 1);
     padding: 5px 30px;
@@ -23,5 +27,26 @@
 
 .iconBox {
     font-size: 45px;
+    color: #444;
+}
+
+.subDepartmentsContainer {
+    margin-top: 1rem;
+    padding-left: 40px;
+}
+
+.subDepartment {
+    list-style: disc;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.subDepartment a {
+    text-decoration: none;
+    color: #444;
+}
+
+.subDepartment a:hover {
+    text-decoration: underline;
     color: #444;
 }

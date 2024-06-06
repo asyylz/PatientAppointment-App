@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import departmentsSlice from './departments-slice';
+import departmentsReducer from './departments-slice';
+import doctorsReducer from './doctors-slice';
 
 const store = configureStore({
-  reducer: { departments: departmentsSlice.reducer }, // root reducer
+  reducer: {
+    departments: departmentsReducer,
+    doctors: doctorsReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

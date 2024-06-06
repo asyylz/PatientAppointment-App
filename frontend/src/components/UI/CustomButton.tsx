@@ -1,4 +1,4 @@
-import { FaUserDoctor } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 import classes from './CustomButton.module.css';
 
 interface CustomButtonProps {
@@ -7,14 +7,27 @@ interface CustomButtonProps {
 const customButton: React.FC<CustomButtonProps> = ({ department }) => {
   return (
     <div
-      className={classes.card}
-      //style={{ border: '1px solid red', marginTop: '2rem' }}
+      className={classes.wrapper}
+      // style={{ border: '3px solid green' }}
     >
-      <div className={classes.cardName}>{department.departmentMain}</div>
+      <div
+        className={classes.card}
+        //style={{ border: '1px solid red', marginTop: '2rem' }}
+      >
+        <div className={classes.cardName}>{department?.departmentMain}</div>
+      </div>
 
-      {/* <div className={classes.iconBox}>
-        <FaUserDoctor />
-      </div> */}
+      <div
+      //style={{ border: '1px solid red' }}
+      >
+        <ul className={classes.subDepartmentsContainer}>
+          {department?.departmentSub?.map((el: string, index: number) => (
+            <li className={classes.subDepartment} key={index}>
+              <Link to="">{el}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

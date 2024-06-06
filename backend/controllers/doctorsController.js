@@ -18,7 +18,7 @@ exports.getAllDoctors = async (req, res) => {
     res.status(200).json({
       status: 'success',
       results: doctors.length,
-      doctors: {
+      data: {
         doctors
       }
     });

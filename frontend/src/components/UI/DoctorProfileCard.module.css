@@ -1,0 +1,128 @@
+:root {
+    --surface-color: rgba(173, 217, 209, 1);
+    --curve: 40;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #fef8f8;
+}
+
+.card-doctors-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 4rem 5vw;
+    list-style-type: none;
+    text-align: center;
+    justify-self: center;
+
+}
+
+.doctorsProfileCard {
+    position: relative;
+    display: block;
+    border-radius: calc(var(--curve) * 1px);
+    overflow: hidden;
+    text-decoration: none;
+    height: 350px;
+    width: 80%;
+}
+
+.cardImage {
+    width: 100%;
+    height: auto;
+}
+
+.cardOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    border-radius: calc(var(--curve) * 1px);
+    background-color: var(--surface-color);
+    transform: translateY(100%);
+    transition: .2s ease-in-out;
+}
+
+.doctorProfileCard:hover .cardOverlay {
+    transform: translateY(0);
+}
+
+.cardHeader {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    padding: 2em;
+    border-radius: calc(var(--curve) * 1px) 0 0 0;
+    background-color: var(--surface-color);
+    transform: translateY(-100%);
+    transition: .2s ease-in-out;
+    height: 180px;
+}
+
+.cardArc {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: 99%;
+    right: 0;
+    z-index: 1;
+}
+
+.cardArc path {
+    fill: var(--surface-color);
+}
+
+.doctorsProfileCard:hover .cardHeader {
+    transform: translateY(0);
+}
+
+.cardThumb {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 1em;
+}
+
+.cardTitle {
+    margin: 0 0 1.5em 2em;
+    color: #444;
+}
+
+.cardHeadertext h3 {
+    color: #444;
+}
+
+
+.cardDescription {
+    padding: 0 2em 2em;
+    margin: 0;
+    color: #444;
+    font-family: "MockFlowFont";
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+
+@media (max-width:790px) {
+    .doctors-profile-card {
+        height: 450px;
+        width: 60%;
+    }
+
+    .card-doctors-wrapper {
+        margin-left: 10rem;
+        width: 90%;
+
+    }
+}

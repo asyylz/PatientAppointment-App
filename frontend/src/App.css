@@ -1,9 +1,12 @@
+:root {
+    --font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-
+    font-family: var(--font-family)
 }
 
 body {
@@ -126,7 +129,8 @@ img {
 .card.selected .card-name {
     color: rgba(173, 217, 209, 1);
 }
-hr{
+
+hr {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7);
 }
 
@@ -169,6 +173,7 @@ hr{
     .cards {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .tables {
         grid-template-columns: 1fr;
     }

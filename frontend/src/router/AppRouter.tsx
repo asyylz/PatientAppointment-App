@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import HomePage from './../pages/HomePage';
 import Departments from './../pages/sub-pages/Departments';
+import Doctors from '../pages/sub-pages/Doctors';
 
 const routes: RouteObject[] = [
   {
@@ -12,7 +13,7 @@ const routes: RouteObject[] = [
     children: [
       { path: 'dashboard', index: true },
       { path: 'appointments' },
-      { path: 'doctors' },
+      { path: 'doctors', element: <Doctors /> },
       { path: 'departments', element: <Departments /> },
       { path: 'payments' },
       { path: 'settings' },
