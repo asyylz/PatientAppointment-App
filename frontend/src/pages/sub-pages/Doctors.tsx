@@ -22,7 +22,8 @@ const Doctors: React.FC = () => {
   }, [status, dispatch]);
 
   return (
-    <div style={{ border: '3px solid red', marginTop: '2rem' }}>
+    <div 
+    style={{marginTop: '2rem' }}>
       <h1 className={classes.header}>OUR DOCTORS</h1>
       <hr />
       <div className={classes.container}>

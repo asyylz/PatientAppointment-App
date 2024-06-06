@@ -6,33 +6,46 @@ interface DoctorProfilCardProps {
 
 const DoctorProfilCard: React.FC<DoctorProfilCardProps> = () => {
   return (
-    <a href="" className={classes.doctorsProfileCard}>
-      <img
-        src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        className={classes.cardImage}
-        alt=""
-      />
-      <div className={classes.cardOverlay}>
-        <div className={classes.cardHeader}>
-          <svg className={classes.cardArc} xmlns="http://www.w3.org/2000/svg">
-            <path d="M 40 80 c 22 0 40 -22 40 -40 v 40 Z" />
-          </svg>
-          <img
-            className={classes.cardThumb}
-            src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt=""
-          />
-          <div className={classes.cardHeaderText}>
-            <h2 className={classes.cardTitle}>Asiye</h2>
-            <h3>Cardiology</h3>
+    <div
+      className={classes.cardContainer}
+      //style={{ border: '1px solid red' }}
+    >
+      <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div className={classes.ourTeam}>
+          <div className={classes.picture}>
+            <img src="https://picsum.photos/130/130?image=1027" />
+          </div>
+          <div>
+            <div>
+              <h3 className={classes.name}>Michele Miller</h3>
+              <h4 className={classes.title}>Web Developer</h4>
+            </div>
+            <ul className={classes.social}>
+              <li className={classes.iconBox}>
+                <a href="">
+                  <i className="fas fa-envelope"></i> {/* Facebook Icon */}
+                </a>
+              </li>
+              <li className={classes.iconBox}>
+                <a href="">
+                  <i className="fab fa-facebook"></i>
+                </a>
+              </li>
+              <li className={classes.iconBox}>
+                <a href="">
+                  <i className="fab fa-linkedin "></i>
+                </a>
+              </li>
+              <li className={classes.iconBox}>
+                <a href="">
+                  <i className="fab fa-instagram"></i>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-        <p className={classes.cardDescription}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores,
-          blanditiis?
-        </p>
       </div>
-    </a>
+    </div>
   );
 };
 

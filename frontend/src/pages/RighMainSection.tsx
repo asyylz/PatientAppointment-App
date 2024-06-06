@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 const RighMainSection: React.FC = () => {
   return (
     <div 
-    style={{ border: '1px solid yellow', marginTop: '60px' }}
+    style={{ marginTop: '60px' }}
     >
       <Outlet />
     </div>
