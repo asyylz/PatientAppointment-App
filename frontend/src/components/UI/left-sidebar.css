@@ -1,4 +1,3 @@
-
 .sidebar {
     position: fixed;
     width: 300px;
@@ -51,20 +50,26 @@
     text-align: center;
     font-size: 38px;
     color: #444;
+    /* border: 1px solid red; */
 }
 
 
 .sidebar ul li a i {
-    width: 4em !important;
-    min-width: 60px;
+    /* width: 4em !important;
+    min-width: 60px; */
     text-align: center;
     margin: 10px;
-    flex: 1;
+    /* flex: 1; */
 
 }
 
-.sidebar ul li a .icon-div {
+/* .sidebar ul li a .icon-div {
     width: 50px;
+
+} */
+
+.iconBox {
+    width: 60px;
 }
 
 .sidebar .title {
@@ -72,4 +77,5 @@
     font-size: 22px;
     flex: 2;
     text-align: start;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

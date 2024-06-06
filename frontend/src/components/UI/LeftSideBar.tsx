@@ -19,10 +19,11 @@ export default function LeftSideBar() {
             return (
               <li key={section.title}>
                 <Link to={section.title.toLowerCase()}>
-                  <i className={section.icon}></i>
-                  <div>
-                    <div className="title">{section.title}</div>
+                  <div className="iconBox">
+                    <i className={section.icon}></i>
                   </div>
+
+                  <div className="title">{section.title}</div>
                 </Link>
               </li>
             );

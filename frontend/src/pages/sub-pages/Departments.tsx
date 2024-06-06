@@ -19,19 +19,24 @@ const Departments: React.FC = () => {
   }, [status, dispatch]);
 
   return (
-    <div className={classes.container} 
-    //style={{ border: '2px solid red' }}
-    >
-      {status === 'loading' && <p>Loading...</p>}
-      {status === 'succeeded' &&
-        departments.map((department) => (
-          <CustomButton
-            key={department._id}
-            department={department as Department}
-          />
-        ))}
-      {status === 'failed' && <p>{error}</p>}
-    </div>
+    <>
+      <h1 className={classes.header}>DEPARTMENTS</h1>
+      <hr />
+      <div
+        className={classes.container}
+        //style={{ border: '2px solid red' }}
+      >
+        {status === 'loading' && <p>Loading...</p>}
+        {status === 'succeeded' &&
+          departments.map((department) => (
+            <CustomButton
+              key={department._id}
+              department={department as Department}
+            />
+          ))}
+        {status === 'failed' && <p>{error}</p>}
+      </div>
+    </>
   );
 };
 

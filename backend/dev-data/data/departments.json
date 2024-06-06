@@ -31,6 +31,7 @@
   {
     "departmentMain": "Pediatrics",
     "departmentSub": [
+      "Pediatrics",
       "Adolescent Medicine",
       "Child Neurology",
       "Child Psychiatry",
@@ -42,7 +43,234 @@
       "Pediatric Critical Care",
       "Pediatric Emergency Medicine",
       "Pediatric Endocrinology",
-      "Pediatric Gastroenterology"
+      "Pediatric Gastroenterology",
+      "Pediatric Hematology-Oncology",
+      "Pediatric Infectious Disease",
+      "Pediatric Internal Medicine",
+      "Pediatric Nephrology",
+      "Pediatric Ophthalmology",
+      "Pediatric Orthopedic Surgery",
+      "Pediatric Otolaryngology",
+      "Pediatric Pathology",
+      "Pediatric Pulmonology",
+      "Pediatric Radiology",
+      "Pediatric Rheumatology",
+      "Pediatric Sports Medicine",
+      "Pediatric Surgery",
+      "Pediatric Urology",
+      "Perinatal Medicine"
+    ]
+  },
+  {
+    "departmentMain": "Dermatology",
+    "departmentSub": [
+      "Dermatology",
+      "Dermatopathology",
+      "Endocrinology,Diabetes & Metabolism",
+      "Diabetes"
+    ]
+  },
+  {
+    "departmentMain": "Plastic Surgery",
+    "departmentSub": ["Maxillofacial Surgery", "Plastic Surgery"]
+  },
+  {
+    "departmentMain": "Preventative Medicine",
+    "departmentSub": [
+      "Aerospace Medicine",
+      "General Preventive Medicine",
+      "Medical Toxicology",
+      "Occupational Medicine",
+      "Undersea Medicine"
+    ]
+  },
+  {
+    "departmentMain": "Physical Medicine & Rehabilitation",
+    "departmentSub": ["Physical Medicine & Rehabilitation"]
+  },
+  {
+    "departmentMain": "Endocrinology",
+    "departmentSub": ["Pediatric Endocrinology", "Reproductive Endocrinology"]
+  },
+  {
+    "departmentMain": "Emergency Medicine",
+    "departmentSub": ["Emergency Medicine", "Urgent Care"]
+  },
+  {
+    "departmentMain": "Family Practice/General Practice",
+    "departmentSub": [
+      "Family Practice",
+      "Geriatric Family Practice",
+      "General Practice"
+    ]
+  },
+  {
+    "departmentMain": "Geriatrics",
+    "departmentSub": ["Geriatrics", "Geriatric Family Practice", "Rheumatology"]
+  },
+  {
+    "departmentMain": "Internal Medicine",
+    "departmentSub": [
+      "Adolescent Medicine",
+      "Diagnostic Laboratory Immunology",
+      "Gastroenterology",
+      "Hematology",
+      "Hepatology",
+      "Hospitalist",
+      "Infectious Diseases",
+      "Internal Medicine",
+      "Int-Med Cardiac Electrophysiology",
+      "Nephrology",
+      "Nutrition",
+      "Pulmonary Disease",
+      "Pulmonary Critical Care Medicine",
+      "Rheumatology",
+      "Vascular Surgery"
+    ]
+  },
+  {
+    "departmentMain": "Medical Genetics",
+    "departmentSub": ["Genetics", "Clinical Genetics"]
+  },
+  {
+    "departmentMain": "Neurology",
+    "departmentSub": [
+      "Child Neurology",
+      "Clinical Neurophysiology",
+      "Critical Care Neurological Surgery",
+      "Neurological Surgery",
+      "Neurology",
+      "Spinal Cord Injury",
+      "Vascular Neurology"
+    ]
+  },
+  {
+    "departmentMain": "Obstetrics & Gynecology",
+    "departmentSub": [
+      "Critical Care Obstetrics & Gynecology",
+      "Gynecology",
+      "Maternal & Fetal Medicine",
+      "Obstetrics",
+      "Obstetrics & Gynecology",
+      "Reproductive Endocrinology"
+    ]
+  },
+  {
+    "departmentMain": "Oncology (Cancer)",
+    "departmentSub": [
+      "Gynecological Oncology",
+      "Medical Oncology",
+      "Hematology/Oncology",
+      "Pediatric Hematology-Oncology",
+      "Radiation Oncology",
+      "Surgical Oncology"
+    ]
+  },
+  {
+    "departmentMain": "Orthopedics",
+    "departmentSub": [
+      "Adult Orthopedic Surgery",
+      "Foot & Ankle Orthopedics",
+      "Orthopedic Musculoskeletal Oncology",
+      "Orthopedic Surgery",
+      "Orthopedic Surgery & Sports Medicine",
+      "Orthopedic Surgery of the Spine",
+      "Osteopathic Manipulative Medicine",
+      "Orthopedic Trauma Surgery",
+      "Pediatric Orthopedic Surgery",
+      "Sports Medicine"
+    ]
+  },
+  {
+    "departmentMain": "Pathology",
+    "departmentSub": [
+      "Anatomic Pathology",
+      "Blood Banking",
+      "Chemical Pathology",
+      "Clinical Pharmacology",
+      "Clinical Pathology",
+      "Cytopathology",
+      "Forensic Pathology",
+      "Hematology",
+      "Medical Microbiology",
+      "Neuropathology",
+      "Oral Pathology",
+      "Pathology",
+      "Pathology-Hematology",
+      "Pediatric Hematology-Oncology",
+      "Radioisotropic Pathology"
+    ]
+  },
+  {
+    "departmentMain": "Urology",
+    "departmentSub": ["Urological Surgery"]
+  },
+  {
+    "departmentMain": "Other",
+    "departmentSub": [
+      "Addiction Medicine",
+      "Bariatrician",
+      "Clinical Pharmacology",
+      "Critical Care Medicine",
+      "Flexible",
+      "Legal Medicine",
+      "Nuclear Medicine",
+      "Other Specialty",
+      "Pain Medicine",
+      "Palliative Medicine",
+      "Pharmaceutical Medicine",
+      "Phlebology",
+      "Public Health",
+      "Unspecified"
+    ]
+  },
+  {
+    "departmentMain": "Surgery",
+    "departmentSub": [
+      "Abdominal Surgery",
+      "Adult Orthopedic Surgery",
+      "Cardiovascular Surgery",
+      "Colon & Rectal Surgery",
+      "Critical Care Neurological Surgery",
+      "Critical Care Surgery",
+      "Dermatologic Surgery",
+      "General Surgery",
+      "Hand Surgery",
+      "Head & Neck Surgery",
+      "Maxillofacial Surgery",
+      "Neurological Surgery",
+      "Orthopedic Surgery",
+      "Orthopedic Surgery & Sports Medicine",
+      "Orthopedic Trauma Surgery",
+      "Pediatric Orthopedic Surgery",
+      "Pediatric Surgery",
+      "Plastic Surgery",
+      "Thoracic Surgery",
+      "Traumatic Surgery",
+      "Urological Surgery",
+      "Vascular Surgery"
+    ]
+  },
+  {
+    "departmentMain": "Radiology",
+    "departmentSub": [
+      "Diagnostic Radiology",
+      "Nuclear Radiology",
+      "Neuroradiology",
+      "Pediatric Radiology",
+      "Radiation Oncology",
+      "Radiology",
+      "Vascular & Interventional Radiology"
+    ]
+  },
+  {
+    "departmentMain": "Psychiatry",
+    "departmentSub": [
+      "Child Psychiatry",
+      "Forensic Psychiatry",
+      "Geriatric Psychiatry",
+      "Psychiatry",
+      "Psychoanalysis"
     ]
   }
 ]
