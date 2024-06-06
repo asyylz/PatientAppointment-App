@@ -13,7 +13,6 @@ const Doctors: React.FC = () => {
     status,
     error,
   } = useSelector((state: RootState) => state.doctors);
-  console.log(doctors);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -22,8 +21,7 @@ const Doctors: React.FC = () => {
   }, [status, dispatch]);
 
   return (
-    <div 
-    style={{marginTop: '2rem' }}>
+    <div style={{ marginTop: '6rem' }}>
       <h1 className={classes.header}>OUR DOCTORS</h1>
       <hr />
       <div className={classes.container}>

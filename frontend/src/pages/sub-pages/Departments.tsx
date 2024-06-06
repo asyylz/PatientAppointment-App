@@ -22,7 +22,7 @@ const Departments: React.FC = () => {
   }, [status, dispatch]);
 
   return (
-    <div>
+    <div style={{ marginTop: '6rem' }}>
       <h1 className={classes.header}>DEPARTMENTS</h1>
       <hr />
       <div
