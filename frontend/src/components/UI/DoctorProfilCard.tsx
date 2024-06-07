@@ -41,7 +41,8 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({ doctor }) => {
               //style={{ border: '1px solid blue' }}
               className={classes.action}
             >
-              <Link to={doctor._id}>Make Appointment</Link>
+              <Link to={doctor._id.toString()}>Make Appointment</Link>
+              {/* <Link to={`:${doctor._id.toString()}`}>Make Appointment</Link> */}
             </div>
 
             {/* <ul 

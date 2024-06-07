@@ -1,15 +1,13 @@
 import React from 'react';
 import DoctorDetails from '../../components/UI/DoctorDetails';
 import { RootState } from './../../store/index';
-import { Outlet, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const DoctorDetailsPage: React.FC = () => {
-  //const { doctorId } = useParams<{ doctorId: string }>();
-  const params = useParams<{ doctorId: string }>(); // Get the parameters from the URL
-  const doctorId = params.doctorId; // Access the doctorId parameter
-  console.log(params);
-  console.log(doctorId);
+  const { doctorId } = useParams<{ doctorId: string }>();
+  // const params = useParams<{ doctorId: string }>(); // Get the parameters from the URL
+  // const doctorId = params.doctorId; // Access the doctorId parameter
 
   const {
     entities: doctors,
@@ -17,7 +15,7 @@ const DoctorDetailsPage: React.FC = () => {
     error,
   } = useSelector((state: RootState) => state.doctors);
 
-  const doctor = doctors.find((doctor) => doctor._id === doctorId);
+  const doctor = doctors.find((doctor) => doctor._id.toString() === doctorId);
 
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -31,9 +29,9 @@ const DoctorDetailsPage: React.FC = () => {
     return <div>Doctor not found</div>;
   }
   return (
-    <div>
-      <Outlet />
-      {/* <DoctorDetails doctor={doctor as Doctor} /> */}
+    <div style={{ border: '4px solid green' }}>
+      <h1>Doctor</h1>
+      <DoctorDetails doctor={doctor as Doctor} />
     </div>
   );
 };

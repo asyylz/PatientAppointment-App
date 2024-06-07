@@ -1,0 +1,37 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 1rem;
+    margin-top: 1rem;
+    min-height: 100vh;
+}
+
+.leftSectionWrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 300px auto;
+    grid-gap: 1rem;
+    padding: 1rem;
+    align-items: center; /* Center items vertically */
+    justify-items: center; /* Center items horizontally */
+
+}
+
+
+.picture {
+    display: block;
+    height: 250px;
+    width: 250px;
+    position: relative;
+
+}
+
+
+@media (max-width:700px) {
+    .wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+}

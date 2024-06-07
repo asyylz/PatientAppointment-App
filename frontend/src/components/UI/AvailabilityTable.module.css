@@ -1,0 +1,25 @@
+:root {
+    --font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.wrapper {
+    padding: 1rem;
+    font-family: var(--font-family);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+th {
+    background-color: #f2f2f2;
+}
