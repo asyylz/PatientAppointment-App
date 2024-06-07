@@ -7,7 +7,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     z-index: 0;
 
-} 
+}
 
 .sidebar ul li {
     width: 100%;
@@ -53,20 +53,10 @@
     /* border: 1px solid red; */
 }
 
-
-.sidebar ul li a i {
-    /* width: 4em !important;
-    min-width: 60px; */
+ul li a i {
     text-align: center;
     margin: 10px;
-    /* flex: 1; */
-
 }
-
-.sidebar ul li a .icon-div {
-    width: 50px;
-
-} 
 
 .iconBox {
     width: 60px;
@@ -78,4 +68,21 @@
     flex: 2;
     text-align: start;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+@media (max-width:1230px) {
+    .sidebar {
+        width: 60px !important;
+    }
+
+    .sidebar ul li a i {
+        min-width: 60px;
+        font-size: 44px;
+        text-align: center;
+    }
+
+    .sidebar .title {
+        display: none;
+    }
+
 }

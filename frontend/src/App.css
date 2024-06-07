@@ -11,80 +11,25 @@
 
 body {
     overflow-x: hidden;
-
 }
 
-#root {
-    position: relative;
-    width: 100%;
-}
-
-.main {
-    position: absolute;
+/* .main {
     width: calc(100% - 300px);
     min-height: 100vh;
     left: 300px;
     background: #f5f5f5;
-}
-
-.top-bar {
-    position: fixed;
-    height: 60px;
-    background: rgba(173, 217, 209, 1);
-    width: calc(100% - 300px);
-    display: grid;
-    grid-template-columns: 10fr 0.4fr 1fr;
-    grid-gap: 5px;
-    align-items: center;
-    color: #444;
-    padding: 0 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.top-bar .search {
-    position: relative;
-    max-width: 400px;
-
-}
-
-.search input {
-    width: 100%;
-    min-width: 128px;
-    height: 40px;
-    padding: 0 40px;
-    font-size: 16px;
-    outline: none;
-    border: none;
-    background: #f5f5f5;
-    position: relative;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 28px;
-}
-
-.search label .search-icon {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    cursor: pointer;
-}
-
-.user {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-}
+} */
 
 
-img {
+
+/* img {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     object-fit: cover;
-}
+} */
 
 .cards {
     margin-top: 50px;
@@ -95,7 +40,7 @@ img {
     grid-gap: 20px;
 }
 
-.cards .card {
+/* .cards .card {
     background: rgba(173, 217, 209, 1);
     padding: 5px 30px;
     display: flex;
@@ -115,9 +60,9 @@ img {
 .icon-box {
     font-size: 45px;
     color: #444;
-}
+} */
 
-.card.selected {
+/* .card.selected {
     background: #444;
 }
 
@@ -128,7 +73,7 @@ img {
 
 .card.selected .card-name {
     color: rgba(173, 217, 209, 1);
-}
+} */
 
 hr {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7);
@@ -141,31 +86,6 @@ hr {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 20px;
-    }
-
-    .sidebar {
-        width: 60px !important;
-    }
-
-    .sidebar ul li a i {
-        min-width: 60px;
-        font-size: 44px;
-        text-align: center;
-    }
-
-    .sidebar .title {
-        display: none;
-    }
-
-    .main {
-        width: calc(100% - 60px);
-        left: 60px;
-    }
-
-    .top-bar {
-        width: calc(100% - 60px);
-
-
     }
 }
 
@@ -202,12 +122,12 @@ hr {
         padding: 10px;
     }
 
-    .search input {
+    /* .search input {
         padding: 0 10px;
     }
 
     .user {
         width: 40px;
         height: 40px;
-    }
+    } */
 }

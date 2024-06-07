@@ -15,6 +15,14 @@
 
 }
 
+.card:hover {
+    background-color: #444;
+}
+
+.card:hover .cardName {
+    color: #fff;
+}
+
 .cardName {
     color: #444;
     font-size: 20px;
@@ -24,6 +32,7 @@
     line-height: 27px;
     padding-top: 6px;
 }
+
 
 .iconBox {
     font-size: 45px;

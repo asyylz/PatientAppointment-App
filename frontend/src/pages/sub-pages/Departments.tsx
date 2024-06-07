@@ -22,9 +22,19 @@ const Departments: React.FC = () => {
   }, [status, dispatch]);
 
   return (
-    <div style={{ marginTop: '6rem' }}>
-      <h1 className={classes.header}>DEPARTMENTS</h1>
-      <hr />
+    <div
+    //style={{border:'1px solid red'}}
+    >
+      <div
+      //style={{border:'3px solid green'}}
+      className={classes.headerWrapper}
+      >
+        <h1
+        //style={{border:'1px solid red'}}
+        >DEPARTMENTS</h1>
+        <hr />
+      </div>
+
       <div
         className={classes.container}
         //style={{ border: '2px solid red' }}

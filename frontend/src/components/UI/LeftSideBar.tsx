@@ -1,7 +1,8 @@
-import './left-sidebar.css';
+//import './left-sidebar.css';
 import { Link } from 'react-router-dom';
+import classes from './LeftSideBar.module.css';
 const sideBarSectionList = [
-  { title: 'Brand Name', icon: 'fas fa-clinic-medical' },
+  { title: 'HOSPITAL', icon: 'fas fa-clinic-medical' },
   { title: 'Dashboard', icon: 'fas fa-th-large' },
   { title: 'Appointments', icon: 'fas fa-stethoscope' },
   { title: 'Doctors', icon: 'fas fa-user-md' },
@@ -13,17 +14,17 @@ const sideBarSectionList = [
 export default function LeftSideBar() {
   return (
     <>
-      <div className="sidebar">
+      <div className={classes.sidebar}>
         <ul>
           {sideBarSectionList.map((section) => {
             return (
               <li key={section.title}>
                 <Link to={section.title.toLowerCase()}>
-                  <div className="iconBox">
+                  <div className={classes.iconBox}>
                     <i className={section.icon}></i>
                   </div>
 
-                  <div className="title">{section.title}</div>
+                  <div className={classes.title}>{section.title}</div>
                 </Link>
               </li>
             );
