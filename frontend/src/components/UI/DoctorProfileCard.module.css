@@ -92,12 +92,7 @@ img {
     text-decoration: none;
 }
 
-li {
-
-    list-style-type: none;
-}
-
-.link {
+/* .link {
     text-decoration: none;
     font-size: 40px;
     color: #444;
@@ -108,4 +103,25 @@ li {
     font-size: 45px;
     background-color: #444;
     padding: 5px;
+} */
+
+.action {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action a {
+    text-decoration: none;
+    color: #444;
+    width: 200px;
+    background: rgba(173, 217, 209, 1);
+    padding: 5px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 28px;
+    cursor: pointer;
 }

@@ -20,6 +20,8 @@ interface ObjectId {
   $oid: string;
 }
 
+//type $oid = string;
+
 interface Doctor {
   _id: ObjectId;
   id: number;

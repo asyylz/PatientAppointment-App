@@ -12,19 +12,20 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({ doctor }) => {
     (state: RootState) => state.departments
   );
 
-  console.log(doctor);
-  console.log(departments);
-
   const department: Department | undefined = departments.find(
     (department) => String(department._id) === doctor.departmentId
   );
+
   return (
     <div
       className={classes.cardContainer}
       //style={{ border: '1px solid red' }}
     >
       <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div className={classes.ourTeam}>
+        <div
+          //style={{ border: '1px solid blue' }}
+          className={classes.ourTeam}
+        >
           <div className={classes.picture}>
             {/* <img src={doctor.image} /> */}
             <img src="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*" />
@@ -36,7 +37,17 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({ doctor }) => {
               >{`${doctor.firstName} ${doctor.lastName}`}</h3>
               <h4 className={classes.title}>{department?.departmentMain}</h4>
             </div>
-            <ul className={classes.social}>
+            <div
+              //style={{ border: '1px solid blue' }}
+              className={classes.action}
+            >
+              <Link to={doctor._id}>Make Appointment</Link>
+            </div>
+
+            {/* <ul 
+            style={{border:'1px solid red'}}
+            
+            className={classes.social}>
               <li className={classes.iconBox}>
                 <Link to="" className={classes.link}>
                   <i className="fas fa-envelope"></i>
@@ -57,7 +68,7 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({ doctor }) => {
                   <i className="fab fa-instagram"></i>
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
