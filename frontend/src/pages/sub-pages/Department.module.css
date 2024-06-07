@@ -1,3 +1,10 @@
+.mainWrapper {
+    position: relative;
+    grid-template-columns: 1fr;
+    
+}
+
+
 .container {
     display: grid;
     padding: 1rem;
@@ -10,23 +17,14 @@
     justify-content: center;
     grid-auto-columns: auto
         /* This allows items to fill gaps */
-
 }
+
+.headerWrapper {
+    display: fixed;
+}
+
 
 h1 {
     padding: 1rem 0;
     text-align: center;
 }
-
-/* .button {
-    background: rgba(173, 217, 209, 1);
-    padding: 5px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-    border-radius: 28px;
-    cursor: pointer;
-    height: 60px;
-    margin: 20px;
-} */

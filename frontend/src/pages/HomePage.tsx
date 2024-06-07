@@ -5,20 +5,24 @@ import RightSubMain from './RighMainSection';
 import classes from './HomePage.module.css';
 export default function HomePage() {
   return (
-    <div 
-    //style={{ border: '2px solid red' }} 
-    className={classes.container}>
-      <div 
-//style={{ border: '2px solid green' }}
-      className={classes.leftSection}>
-        <LeftSideBar />
+      <div
+        //style={{ border: '2px solid red' }}
+        className={classes.container}
+      >
+        <div
+          //style={{ border: '2px solid green' }}
+          className={classes.leftSection}
+        >
+          <LeftSideBar />
+        </div>
+        <div
+          //style={{ border: '5px solid green' }}
+          className={classes.rigthSection}
+        >
+          <TopSearchBar />
+          <RightSubMain />
+        </div>
+        <Footer />
       </div>
-      <div 
-      //style={{ border: '5px solid green' }}
-      className={classes.rigthSection}>
-        <TopSearchBar />
-        <RightSubMain />
-      </div>
-    </div>
   );
 }

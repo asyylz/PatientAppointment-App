@@ -32,6 +32,7 @@ interface Doctor {
   __v: number;
   firstName: string;
   lastName: string;
+  departmentId: string;
 }
 interface Address {
   street: string;

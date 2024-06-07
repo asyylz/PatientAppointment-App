@@ -1,7 +1,7 @@
 .sidebar {
     position: fixed;
     width: 300px;
-    height: 100%;
+    min-height: 100vh;
     background: rgba(173, 217, 209, 1);
     overflow-x: hidden;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -34,10 +34,10 @@
 }
 
 .sidebar ul li:first-child {
-    line-height: 60px;
+    height: 80px;
     margin-bottom: 20px;
     font-weight: 600;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #444;
 }
 
 .sidebar ul li a {

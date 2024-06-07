@@ -1,12 +1,23 @@
+import { useSelector } from 'react-redux';
 import classes from './DoctorProfileCard.module.css';
 import { Link } from 'react-router-dom';
+import { RootState } from './../../store/index';
 
 interface DoctorProfilCardProps {
   doctor: Doctor;
 }
 
 const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({ doctor }) => {
+  const { entities: departments } = useSelector(
+    (state: RootState) => state.departments
+  );
+
   console.log(doctor);
+  console.log(departments);
+
+  const department: Department | undefined = departments.find(
+    (department) => String(department._id) === doctor.departmentId
+  );
   return (
     <div
       className={classes.cardContainer}
@@ -23,12 +34,12 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({ doctor }) => {
               <h3
                 className={classes.name}
               >{`${doctor.firstName} ${doctor.lastName}`}</h3>
-              <h4 className={classes.title}>Cardiolog</h4>
+              <h4 className={classes.title}>{department?.departmentMain}</h4>
             </div>
             <ul className={classes.social}>
               <li className={classes.iconBox}>
                 <Link to="" className={classes.link}>
-                  <i className="fas fa-envelope"></i> {/* Facebook Icon */}
+                  <i className="fas fa-envelope"></i>
                 </Link>
               </li>
               <li className={classes.iconBox}>

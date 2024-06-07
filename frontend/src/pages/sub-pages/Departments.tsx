@@ -23,7 +23,8 @@ const Departments: React.FC = () => {
 
   return (
     <div
-    //style={{border:'1px solid red'}}
+    className={classes.mainWrapper}
+    style={{border:'1px solid red'}}
     >
       <div
       //style={{border:'3px solid green'}}

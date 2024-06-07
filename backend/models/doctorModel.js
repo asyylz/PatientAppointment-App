@@ -89,7 +89,8 @@ const doctorSchema = new mongoose.Schema({
     required: true
   },
   address: addressSchema,
-  reviews: [reviewSchema]
+  reviews: [reviewSchema],
+  departmentId: String
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
