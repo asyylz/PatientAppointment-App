@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export interface EntityState<T> {
-  entities: T[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
-}
-
 export const fetchEntities = <T>(entity: string, url: string) =>
   createAsyncThunk<T[]>(`${entity}/fetch`, async () => {
     const response = await axios.get(url);
@@ -14,9 +8,12 @@ export const fetchEntities = <T>(entity: string, url: string) =>
     return response.data.data[entity]; // Assuming the data is under the entity property
   });
 
-export const createEntitySlice = <T>(entity: string, fetchEntityThunk: any) => {
-    
-  const initialState: EntityState<T> = {
+export const createEntitySlice = <T>(
+  entity: string,
+  fetchEntityThunk: any,
+  additionalReducers?: (builder: any) => void
+) => {
+  const initialState: ExtendedEntityState<T> = {
     entities: [],
     status: 'idle',
     error: null,
@@ -40,7 +37,7 @@ export const createEntitySlice = <T>(entity: string, fetchEntityThunk: any) => {
           (state, action: PayloadAction<T[]>) => {
             state.status = 'succeeded';
             state.entities = action.payload;
-            
+
             console.log('State updated:', state.entities); // Debug state update
           }
         )
@@ -48,6 +45,11 @@ export const createEntitySlice = <T>(entity: string, fetchEntityThunk: any) => {
           state.status = 'failed';
           state.error = action.error.message || `Failed to fetch ${entity}`;
         });
+
+      // Apply additional reducers if provided
+      if (additionalReducers) {
+        additionalReducers(builder);
+      }
     },
   });
 };

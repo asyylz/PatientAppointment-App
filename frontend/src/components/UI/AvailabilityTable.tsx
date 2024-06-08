@@ -1,7 +1,5 @@
 import React from 'react';
 import classes from './AvailabilityTable.module.css';
-import { RootState } from './../../store/index';
-import { useSelector } from 'react-redux';
 
 interface AvailabilityProps {
   availability: Availability;

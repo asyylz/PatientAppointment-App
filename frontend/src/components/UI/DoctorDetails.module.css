@@ -10,20 +10,28 @@
 .leftSectionWrapper {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 300px auto;
-    grid-gap: 1rem;
+    grid-template-rows: 250px auto;
+    grid-gap: 3rem;
     padding: 1rem;
-    align-items: center; /* Center items vertically */
-    justify-items: center; /* Center items horizontally */
+    /* align-items: center; */
+    /* Center items vertically */
+    justify-items: center;
+    /* Center items horizontally */
 
 }
 
 
 .picture {
-    display: block;
     height: 250px;
     width: 250px;
     position: relative;
+    box-shadow: 0px 44px 34px -3px rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    background-color: transparent;
+
+}
+.doctorInfo{
+   
 
 }
 

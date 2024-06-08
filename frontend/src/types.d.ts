@@ -14,6 +14,17 @@ interface EntityState<T> {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
+interface ExtendedEntityState<T> extends EntityState<T> {
+  selectedDoctor?: T;
+}
+
+interface RootState {
+  departments: ExtendedEntityState<Department>;
+  doctors: ExtendedEntityState<Doctor>;
+  selectedDoctor:Doctor
+}
+
+
 
 /* ----------------------- DOCTOR ----------------------- */
 interface ObjectId {

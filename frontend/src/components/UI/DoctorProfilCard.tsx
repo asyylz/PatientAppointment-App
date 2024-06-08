@@ -1,19 +1,22 @@
 import { useSelector } from 'react-redux';
 import classes from './DoctorProfileCard.module.css';
 import { Link } from 'react-router-dom';
-import { RootState } from './../../store/index';
 
 interface DoctorProfilCardProps {
   doctor: Doctor;
+  onSelectDoctor: (doctor: Doctor) => void;
 }
 
-const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({ doctor }) => {
+const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
+  doctor,
+  onSelectDoctor,
+}) => {
   const { entities: departments } = useSelector(
     (state: RootState) => state.departments
   );
 
   const department: Department | undefined = departments.find(
-    (department) => String(department._id) === doctor.departmentId
+    (department: Department) => String(department._id) === doctor.departmentId
   );
 
   return (
@@ -41,8 +44,12 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({ doctor }) => {
               //style={{ border: '1px solid blue' }}
               className={classes.action}
             >
-              <Link to={doctor._id.toString()}>Make Appointment</Link>
-              {/* <Link to={`:${doctor._id.toString()}`}>Make Appointment</Link> */}
+              <Link
+                to={doctor._id.toString()}
+                onClick={() => onSelectDoctor(doctor as Doctor)}
+              >
+                Make Appointment
+              </Link>
             </div>
 
             {/* <ul 

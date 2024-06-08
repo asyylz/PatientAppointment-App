@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from './../../store/index';
+import { AppDispatch } from './../../store/index';
 import { fetchDoctors } from './../../store/doctors-slice';
 import DoctorProfilCard from '../../components/UI/DoctorProfilCard';
 import classes from './Doctors.module.css';
-import { Outlet } from 'react-router-dom';
-
+import { doctorActions } from './../../store/doctors-slice';
 const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
@@ -14,6 +13,10 @@ const Doctors: React.FC = () => {
     status,
     error,
   } = useSelector((state: RootState) => state.doctors);
+
+  const handleSelectDoctor = (doctor: Doctor) => {
+    dispatch(doctorActions.selectDoctor(doctor));
+  };
 
   useEffect(() => {
     if (status === 'idle') {
@@ -28,8 +31,12 @@ const Doctors: React.FC = () => {
         <hr />
         <div className={classes.container}>
           {status === 'loading' && <p>Loading...</p>}
-          {doctors.map((doctor) => (
-            <DoctorProfilCard key={doctor.id} doctor={doctor as Doctor} />
+          {doctors.map((doctor: Doctor) => (
+            <DoctorProfilCard
+              key={doctor.id}
+              doctor={doctor as Doctor}
+              onSelectDoctor={handleSelectDoctor}
+            />
           ))}
           {status === 'failed' && <p>{error}</p>}
         </div>
