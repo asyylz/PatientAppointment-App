@@ -90,7 +90,7 @@ const doctorSchema = new mongoose.Schema({
   },
   address: addressSchema,
   reviews: [reviewSchema],
-  departmentId: String
+  departmentId: mongoose.Schema.Types.ObjectId
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);

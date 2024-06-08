@@ -1,5 +1,6 @@
 const express = require('express');
 const doctorsController = require('../controllers/doctorsController');
+const getDoctorsWithDepartmentNames = require('./../models/doctorModel');
 
 const router = express.Router();
 

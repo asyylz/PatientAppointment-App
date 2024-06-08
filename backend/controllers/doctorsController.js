@@ -1,4 +1,8 @@
+const mongoose = require('mongoose');
 const Doctor = require('./../models/doctorModel');
+const {
+  getDoctorsWithDepartmentNames
+} = require('./../utils/aggregationHandler');
 const APIFeatures = require('./../utils/apiFeatures');
 
 /* ------------------- ROUTES HANDLERS ------------------ */
@@ -12,7 +16,8 @@ exports.getAllDoctors = async (req, res) => {
       .limitFields()
       .paginate();
 
-    const doctors = await features.query;
+    // Get the enriched doctors data
+    const doctors = await getDoctorsWithDepartmentNames(features.query);
 
     // SEND RESPONSE //
     res.status(200).json({

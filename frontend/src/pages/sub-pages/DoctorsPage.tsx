@@ -5,6 +5,7 @@ import { fetchDoctors } from './../../store/doctors-slice';
 import DoctorProfilCard from '../../components/UI/DoctorProfilCard';
 import classes from './Doctors.module.css';
 import { doctorActions } from './../../store/doctors-slice';
+
 const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
@@ -13,6 +14,8 @@ const Doctors: React.FC = () => {
     status,
     error,
   } = useSelector((state: RootState) => state.doctors);
+  console.log(doctors);
+  
 
   const handleSelectDoctor = (doctor: Doctor) => {
     dispatch(doctorActions.selectDoctor(doctor));
