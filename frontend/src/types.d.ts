@@ -21,10 +21,8 @@ interface ExtendedEntityState<T> extends EntityState<T> {
 interface RootState {
   departments: ExtendedEntityState<Department>;
   doctors: ExtendedEntityState<Doctor>;
-  selectedDoctor:Doctor
+  selectedDoctor: Doctor;
 }
-
-
 
 /* ----------------------- DOCTOR ----------------------- */
 interface ObjectId {
@@ -46,6 +44,7 @@ interface Doctor {
   firstName: string;
   lastName: string;
   departmentId: string;
+  departmentName: string;
 }
 interface Address {
   street: string;
@@ -55,7 +54,7 @@ interface Address {
   _id: ObjectId;
 }
 interface Availability {
-  [day: string]: string | ObjectId;
+  [day: string]: string;
 }
 
 interface Reviews {
