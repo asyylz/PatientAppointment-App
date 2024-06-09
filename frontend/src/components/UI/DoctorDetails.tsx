@@ -2,9 +2,8 @@ import React from 'react';
 import classes from './DoctorDetails.module.css';
 import AvailabilityTable from './AvailabilityTable';
 import { useSelector } from 'react-redux';
-// interface DoctorDetailsProps {
-//   doctor: Doctor;
-// }
+
+
 const DoctorDetails: React.FC = () => {
   const {
     entities: doctors,
@@ -13,7 +12,7 @@ const DoctorDetails: React.FC = () => {
     selectedDoctor,
   } = useSelector((state: RootState) => state.doctors);
 
-  console.log(status);
+  
 
   if (status === 'loading') {
     return <div>Loading...</div>;

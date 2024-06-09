@@ -20,6 +20,10 @@ td {
     cursor: pointer;
 }
 
+.available {
+    background-color: #45C4B0;
+}
+
 th {
     background-color: #f2f2f2;
 }

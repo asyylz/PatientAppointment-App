@@ -1,20 +1,15 @@
 import React from 'react';
 import DoctorDetails from '../../components/UI/DoctorDetails';
-//import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const DoctorDetailsPage: React.FC = () => {
-  //const { doctorId } = useParams<{ doctorId: string }>();
-
   const {
     entities: doctors,
     status,
     error,
     selectedDoctor,
   } = useSelector((state: RootState) => state.doctors);
-
-  console.log(status);
-
+  
   if (status === 'loading') {
     return <div>Loading...</div>;
   }
