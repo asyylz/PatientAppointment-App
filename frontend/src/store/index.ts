@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import departmentsReducer from './departments-slice';
 import doctorsReducer from './doctors-slice';
+import reviewsReducer from './reviews-slice';
 
 const store= configureStore({
   reducer: {
     departments: departmentsReducer,
     doctors: doctorsReducer,
+    reviews: reviewsReducer,
   },
 });
 

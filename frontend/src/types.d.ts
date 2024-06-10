@@ -22,7 +22,9 @@ interface RootState {
   departments: ExtendedEntityState<Department>;
   doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
+  reviews: ExtendedEntityState<Review>;
 }
+
 
 /* ----------------------- DOCTOR ----------------------- */
 interface ObjectId {
