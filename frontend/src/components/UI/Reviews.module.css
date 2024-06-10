@@ -1,17 +1,18 @@
 /* reviews.module.css */
 
 .ratingContainer {
+    width: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row-reverse;
-    padding: 2em 2em 2em 5em;
-    gap: 10px;
+    margin-top: 1rem;
+    margin-left: 1rem;
     border-top-right-radius: 75px;
     border-bottom-right-radius: 75px;
     border: none;
     position: relative;
-    background: #2b2b2b;
+    background: #F2F2F2;
     box-shadow: 0 1px 1px hsl(0deg 0% 0%/0.075), 0 2px 2px hsl(0deg 0% 0%/0.075),
         0 4px 4px hsl(0deg 0% 0%/0.075), 0 8px 8px hsl(0deg 0% 0%/0.075),
         0 16px 16px hsl(0deg 0% 0%/0.075);
@@ -19,11 +20,11 @@
 
 .ratingContainer .ratingValue {
     position: absolute;
-    top: -10px;
-    left: -69px;
+    top: -5;
+    left: -10px;
     border-radius: 50%;
-    height: 138px;
-    width: 138px;
+    height: 50px;
+    width: 50px;
     background: #ffbb00;
     box-shadow: 0 1px 1px hsl(0deg 0% 0%/0.075), 0 2px 2px hsl(0deg 0% 0%/0.075),
         0 4px 4px hsl(0deg 0% 0%/0.075), 0 8px 8px hsl(0deg 0% 0%/0.075),
@@ -32,16 +33,15 @@
 
 .ratingContainer .ratingValue:before {
     position: absolute;
-    top: 0;
-    bottom: 0;
     left: 0;
     right: 0;
+    transform: translateY(50%);
     margin: auto;
     text-align: center;
-    line-height: 138px;
+    line-height: 24px;
     font-size: 20px;
     color: #2b2b2b;
-    content: "0";
+    /* content: "0"; */
     transform-origin: "center center";
     transition: all 0.25s ease 0s;
 }
@@ -49,8 +49,8 @@
 .ratingContainer .ratingValue:after {
     content: "";
     position: absolute;
-    height: 138px;
-    width: 138px;
+    height: 50px;
+    width: 50px;
     top: -1px;
     left: -1px;
     margin: auto;
@@ -64,8 +64,9 @@
 }
 
 .ratingContainer label {
-    height: 50px;
-    width: 50px;
+    /* border: 1px solid red; */
+    height: 40px;
+    width: 40px;
     transform-origin: "center center";
 }
 
@@ -112,66 +113,67 @@
 
 #rate1:checked~.ratingValue:before {
     content: "1";
-    font-size: 2.75em;
+    font-size: 20px;
 }
 
 .ratingContainer label[for="rate1"]:hover~.ratingValue:before {
     content: "1" !important;
-    font-size: 2.75em !important;
+    font-size: 20px !important;
 }
 
 #rate2:checked~.ratingValue:before {
     content: "2";
-    font-size: 3em;
+    font-size: 20px;
 }
 
 .ratingContainer label[for="rate2"]:hover~.ratingValue:before {
     content: "2" !important;
-    font-size: 3em !important;
+    font-size: 20px !important;
 }
 
 #rate3:checked~.ratingValue:before {
     content: "3";
-    font-size: 3.25em;
+    font-size: 20px;
 }
 
 .ratingContainer label[for="rate3"]:hover~.ratingValue:before {
     content: "3" !important;
-    font-size: 3.25em !important;
+    font-size: 20px !important;
 }
 
 #rate4:checked~.ratingValue:before {
     content: "4";
-    font-size: 3.5em;
+    font-size: 20px;
+    ;
 }
 
 .ratingContainer label[for="rate4"]:hover~.ratingValue:before {
     content: "4" !important;
-    font-size: 3.5em !important;
+    font-size: 20px !important;
 }
 
 #rate5:checked~.ratingValue:before {
     content: "5";
-    font-size: 3.75em;
+    font-size: 20px;
 }
 
 .ratingContainer label[for="rate5"]:hover~.ratingValue:before {
     content: "5" !important;
-    font-size: 3.75em !important;
+    font-size: 20px !important;
 }
 
 @keyframes pulse {
     0% {
-        height: 138px;
-        width: 138px;
+        height: 50px;
+        width: 50px;
         top: -1px;
         left: -1px;
         opacity: 1;
     }
 
     100% {
-        height: 170px;
-        width: 170px;
+        height: 100px;
+        width: 100px;
         top: -16px;
         left: -16px;
         opacity: 0;
@@ -179,13 +181,10 @@
 }
 
 .ratingContainer #rate5:checked~.ratingValue:after {
-    animation: pulse 0.4s ease-out 1;
+    animation: pulse 0.5s ease-out 1;
 }
 
-.ratingContainer label[for="rate5"]:hover~.ratingValue:before {
-    content: "5" !important;
-    font-size: 3.75em !important;
-}
+
 
 .filled {
     fill: #f7db5e;

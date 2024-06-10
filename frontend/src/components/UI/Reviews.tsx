@@ -44,7 +44,8 @@ const Reviews: React.FC<ReviewProps> = ({ reviews }) => {
         </React.Fragment>
       ))}
       <div className={classes.ratingValue}>
-        {rating !== null ? `You rated: ${rating}` : 'Select a rating'}
+        {rating}
+        {/* {rating !== null ? `You rated: ${rating}`:''} */}
       </div>
     </fieldset>
   );
