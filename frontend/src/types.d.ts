@@ -57,10 +57,12 @@ interface Availability {
   [day: string]: string;
 }
 
-interface Reviews {
+/* ----------------------- REVIEWS ----------------------- */
+interface Review {
   _id: ObjectId;
   name: string;
   rating: number;
+  doctorId: string;
   comments: string;
   attributes: Attributes;
 }

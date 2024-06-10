@@ -28,6 +28,5 @@ export const mapAvailability = (
       return time >= start && time < end ? 'Available' : '';
     });
   });
-  console.log(mapped);
   return mapped;
 };

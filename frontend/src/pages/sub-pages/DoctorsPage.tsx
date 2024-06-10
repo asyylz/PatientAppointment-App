@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './../../store/index';
 import { fetchDoctors } from './../../store/doctors-slice';
 import DoctorProfilCard from '../../components/UI/DoctorProfilCard';
-import classes from './Doctors.module.css';
+import classes from './DoctorsPage.module.css';
 import { doctorActions } from './../../store/doctors-slice';
 
 const Doctors: React.FC = () => {
@@ -29,10 +29,12 @@ const Doctors: React.FC = () => {
 
   return (
     <>
-      <div>
+   
         <h1 className={classes.header}>OUR DOCTORS</h1>
         <hr />
-        <div className={classes.container}>
+        <div 
+        style={{border:'1px solid red'}}
+        className={classes.container}>
           {status === 'loading' && <p>Loading...</p>}
           {doctors.map((doctor: Doctor) => (
             <DoctorProfilCard
@@ -43,7 +45,7 @@ const Doctors: React.FC = () => {
           ))}
           {status === 'failed' && <p>{error}</p>}
         </div>
-      </div>
+     
     </>
   );
 };

@@ -1,17 +1,16 @@
 .container {
     display: grid;
     padding: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
-    gap: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+    gap: 5rem;
     width: 100%;
     /* Optional: max width for the container */
-    margin: 2rem auto;
+    margin: 1rem auto;
     /* Center the container */
     justify-content: center;
     align-items: center;
     grid-auto-columns: auto
-        /* This allows items to fill gaps */
-
+    /* This allows items to fill gaps */
 }
 
 .header {
