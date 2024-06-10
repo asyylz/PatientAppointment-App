@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { fetchReviews } from '../../store/reviews-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
-
+import Reviews from './Reviews';
 
 const DoctorDetails: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -23,14 +23,11 @@ const DoctorDetails: React.FC = () => {
     error: reviewsError,
   } = useSelector((state: RootState) => state.reviews);
 
-
   useEffect(() => {
     if (selectedDoctor) {
       dispatch(fetchReviews(selectedDoctor._id.toString()));
     }
   }, [dispatch, selectedDoctor]);
-
-  console.log(reviews);
 
   if (doctorsStatus === 'loading') {
     return <div>Loading...</div>;
@@ -77,7 +74,9 @@ const DoctorDetails: React.FC = () => {
         style={{ border: '2px solid blue' }}
         className={classes.bottomSection}
       >
-        aa
+        <h1>Reviews</h1>
+        <hr />
+        <Reviews reviews={reviews as Review[]} />
       </div>
     </div>
   );
