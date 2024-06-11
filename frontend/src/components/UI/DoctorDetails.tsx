@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { fetchReviews } from '../../store/reviews-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
-import Reviews from './Review';
+import ReviewRead from './ReviewRead';
 
 const DoctorDetails: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -85,7 +85,7 @@ const DoctorDetails: React.FC = () => {
               {Object.entries(review.attributes)
                 .filter(([key]) => key !== '_id')
                 .map(([key, value], attrIndex) => (
-                  <Reviews
+                  <ReviewRead
                     key={attrIndex}
                     attributeName={key}
                     attributeValue={value}
