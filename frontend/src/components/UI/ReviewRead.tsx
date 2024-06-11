@@ -9,10 +9,7 @@ const ReviewRead: React.FC<ReviewProps> = ({
     <fieldset className={classes.ratingContainer}>
       {[5, 4, 3, 2, 1].map((value) => (
         <label
-          className={
-            value <= 4 ? `${classes.rated}` : `${classes.unrated}`
-          }
-          //style={{ border: '1px solid red' }}
+          className={value <= 4 ? `${classes.rated}` : `${classes.unrated}`}
         >
           <svg
             id="Object"

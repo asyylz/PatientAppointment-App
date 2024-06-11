@@ -69,7 +69,7 @@
 
 .ratingContainer label svg {
     opacity: 1;
-    scale: 1.25;
+
 }
 
 .ratingContainer label:hover svg {
@@ -83,10 +83,6 @@
 
 .color2 {
     fill: #f7db5e;
-    /* opacity: 1;
-    scale: 1.25;
-    rotate: 10deg; */
-
 }
 
 .color1 {
@@ -99,6 +95,7 @@
 
 .rated {
     opacity: 1;
+    scale: 1.3;
     rotate: 10deg;
 
 }
