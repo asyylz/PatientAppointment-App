@@ -42,12 +42,12 @@ const DoctorDetails: React.FC = () => {
   }
 
   //console.log(reviews);
-  
 
   return (
-    <div 
-    //style={{ border: '6px solid red' }} 
-    className={classes.wrapper}>
+    <div
+      //style={{ border: '6px solid red' }}
+      className={classes.wrapper}
+    >
       <div
         //style={{ border: '7px solid green' }}
         className={classes.leftSectionWrapper}
@@ -81,8 +81,7 @@ const DoctorDetails: React.FC = () => {
       >
         <h1>Reviews</h1>
         <hr />
-        <ul 
-        className={classes.reviewsWrapper}>
+        <ul className={classes.reviewsWrapper}>
           {reviews.map((review, index) => (
             <div
               key={index}
@@ -95,13 +94,9 @@ const DoctorDetails: React.FC = () => {
                     <img src="./../user-avatar.png" alt="" />
                   </div>
                   <h3>{review.name}</h3>
+                  <h2>{review.rating}</h2>
                 </div>
-                <div className={classes.commentAndRate}>
-                  <div>{review.comments}</div>
-                  <div className={classes.rating}>
-                    <h2>{review.rating}</h2>
-                  </div>
-                </div>
+                <div>{review.comments}</div>
               </div>
 
               {Object.entries(review.attributes)
