@@ -3,13 +3,17 @@ const Review = require('../models/reviewModel');
 // GET ALL //
 exports.getDoctorReviews = async (req, res) => {
   const { doctorId } = req.params;
+  console.log('asiye');
 
   try {
+    //await Review.updateMany({ doctorId: doctorId }, { $unset: { rating: '' } });
+
     const reviews = await Review.aggregate([
       { $match: { doctorId: doctorId } },
+      { $unset: 'rating' },
       {
         $addFields: {
-          'attributes.averageRating': {
+          averageRating: {
             $avg: [
               '$attributes.staff',
               '$attributes.punctual',

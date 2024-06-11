@@ -67,6 +67,7 @@ interface Review {
   doctorId: string;
   comments: string;
   attributes: Attributes;
+  averageRating: number;
 }
 interface Attributes {
   _id: ObjectId;
