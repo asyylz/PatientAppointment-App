@@ -41,10 +41,15 @@ const DoctorDetails: React.FC = () => {
     return <div>No doctor found.</div>;
   }
 
+  //console.log(reviews);
+  
+
   return (
-    <div style={{ border: '6px solid red' }} className={classes.wrapper}>
+    <div 
+    //style={{ border: '6px solid red' }} 
+    className={classes.wrapper}>
       <div
-        style={{ border: '7px solid green' }}
+        //style={{ border: '7px solid green' }}
         className={classes.leftSectionWrapper}
       >
         <div
@@ -63,7 +68,7 @@ const DoctorDetails: React.FC = () => {
         </div>
       </div>
       <div
-        style={{ border: '2px solid blue' }}
+        //style={{ border: '2px solid blue' }}
         className={classes.rigthSection}
       >
         <AvailabilityTable
@@ -71,17 +76,34 @@ const DoctorDetails: React.FC = () => {
         />
       </div>
       <div
-        style={{ border: '2px solid blue' }}
+        //style={{ border: '2px solid blue' }}
         className={classes.bottomSection}
       >
         <h1>Reviews</h1>
         <hr />
-        <ul className={classes.reviewsWrapper}>
+        <ul 
+        className={classes.reviewsWrapper}>
           {reviews.map((review, index) => (
-            <div key={index} className={classes.reviewContainer}>
-              <p>{review.name}</p>
-              <p>{review.comments}</p>
-              <p>{review.rating}</p>
+            <div
+              key={index}
+              //style={{ border: '3px solid red' }}
+              className={classes.reviewContainer}
+            >
+              <div className={classes.commenterInfo}>
+                <div className={classes.imgAndUser}>
+                  <div className={classes.image}>
+                    <img src="./../user-avatar.png" alt="" />
+                  </div>
+                  <h3>{review.name}</h3>
+                </div>
+                <div className={classes.commentAndRate}>
+                  <div>{review.comments}</div>
+                  <div className={classes.rating}>
+                    <h2>{review.rating}</h2>
+                  </div>
+                </div>
+              </div>
+
               {Object.entries(review.attributes)
                 .filter(([key]) => key !== '_id')
                 .map(([key, value], attrIndex) => (

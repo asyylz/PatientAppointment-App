@@ -17,8 +17,6 @@ export const fetchEntities = <T>(entity: string, url: string) =>
     url: (id: string) => string
   ) =>
     createAsyncThunk<T[], string>(`${entity}/fetchWithId`, async (id: string) => {
-      console.log(id)
-      console.log(url(id))
       const response = await axios.get(url(id));
       return response.data.data[entity]; // Assuming the data is under the entity property
     });
@@ -40,14 +38,12 @@ export const createEntitySlice = <T>(
     initialState,
     reducers: {
       addEntity: (state, action: PayloadAction<T>) => {
-        console.log(action.payload);
         state.entities.push(action.payload);
       },
     },
     extraReducers: (builder) => {
       builder
         .addCase(fetchEntityThunk.pending, (state) => {
-          console.log(fetchEntityThunk.pending);
           state.status = 'loading';
         })
         .addCase(

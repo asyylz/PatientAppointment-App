@@ -24,7 +24,8 @@ const DoctorDetailsPage: React.FC = () => {
   return (
     <div 
     className={classes.container} // not yet given styles
-    style={{ border: '4px solid purple' }}>
+    //style={{ border: '4px solid purple' }}
+    >
       <h1>{`Dr ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</h1>
       <h1>{selectedDoctor.departmentName}</h1>
       {/* {status === 'loading' && <div>Loading...</div>} */}
