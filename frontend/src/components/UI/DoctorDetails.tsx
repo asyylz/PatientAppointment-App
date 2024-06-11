@@ -60,11 +60,12 @@ const DoctorDetails: React.FC = () => {
           <img src="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*" />
         </div>
         <div
-          // style={{ border: '1px solid green' }}
+           //style={{ border: '1px solid green' }}
           className={classes.doctorInfo}
         >
-          <p>{`Dr. ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</p>
-          <p>{selectedDoctor.departmentName}</p>
+          <p style={{fontWeight:'bold'}}>{`Dr. ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</p>
+          <p style={{fontWeight:'bold'}}>{selectedDoctor.departmentName}</p>
+          <p>{selectedDoctor.doctorDescription}</p>
         </div>
       </div>
       <div

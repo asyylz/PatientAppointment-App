@@ -25,7 +25,6 @@ interface RootState {
   reviews: ExtendedEntityState<Review>;
 }
 
-
 /* ----------------------- DOCTOR ----------------------- */
 interface ObjectId {
   $oid: string;
@@ -47,6 +46,7 @@ interface Doctor {
   lastName: string;
   departmentId: string;
   departmentName: string;
+  doctorDescription: string;
 }
 interface Address {
   street: string;

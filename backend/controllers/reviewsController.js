@@ -3,10 +3,22 @@ const Review = require('../models/reviewModel');
 // GET ALL //
 exports.getDoctorReviews = async (req, res) => {
   const { doctorId } = req.params;
-  console.log(doctorId);
 
   try {
-    const reviews = await Review.find({ doctorId });
+    const reviews = await Review.aggregate([
+      { $match: { doctorId: doctorId } },
+      {
+        $addFields: {
+          'attributes.averageRating': {
+            $avg: [
+              '$attributes.staff',
+              '$attributes.punctual',
+              '$attributes.knowledge'
+            ]
+          }
+        }
+      }
+    ]);
     //const reviews = await Review.find();
     res.status(200).json({
       status: 'success',

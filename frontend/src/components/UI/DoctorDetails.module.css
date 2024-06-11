@@ -11,9 +11,8 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 250px auto;
-    grid-gap: 3rem;
+    grid-gap: 1rem;
     padding: 1rem;
-    /* align-items: center; */
     /* Center items vertically */
     justify-items: center;
     /* Center items horizontally */
@@ -34,10 +33,11 @@
 
 .doctorInfo p {
     font-size: 20px;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     color: #444;
     text-align: center;
     background-color: transparent;
+    text-align: start;
 }
 
 .bottomSection {
