@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import classes from './Reviews.module.css'; // Import the CSS module
-interface ReviewProps {
-  reviews: Review[];
-}
-const Reviews: React.FC<ReviewProps> = ({ reviews }) => {
+
+const Review: React.FC<ReviewProps> = ({ attributeName, attributeValue }) => {
   const [rating, setRating] = useState<number | null>(null);
 
   const handleRatingChange = (value: number) => {
     setRating(value);
   };
-  console.log(rating);
 
   return (
     <fieldset className={classes.ratingContainer}>
@@ -52,4 +49,4 @@ const Reviews: React.FC<ReviewProps> = ({ reviews }) => {
   );
 };
 
-export default Reviews;
+export default Review;

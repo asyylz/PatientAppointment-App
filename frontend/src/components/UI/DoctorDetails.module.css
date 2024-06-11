@@ -44,10 +44,41 @@
     grid-column: span 2;
 }
 
+.reviewsWrapper {
+    border: 3px solid green;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
 @media (max-width:1385px) {
     .wrapper {
         display: grid;
         grid-template-columns: 1fr;
     }
 
+}
+
+/* Media query for medium screens (e.g., tablets) */
+@media (max-width: 1500px) {
+    .reviewContainer {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on medium screens */
+    }
+}
+
+/* Media query for small screens (e.g., large phones) */
+@media (max-width: 887px) {
+    .reviewContainer {
+        grid-template-columns: repeat(1, 1fr);
+        /* 1 column on small screens */
+    }
+}
+
+/* Media query for extra small screens (e.g., small phones) */
+@media (max-width: 480px) {
+    .reviewContainer {
+        grid-template-columns: 1fr;
+        /* Single column on the smallest screens */
+    }
 }

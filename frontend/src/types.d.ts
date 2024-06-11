@@ -75,3 +75,7 @@ interface Attributes {
   helpful: number;
   knowledge: number;
 }
+interface ReviewProps {
+  attributeName: string;
+  attributeValue: number;
+}

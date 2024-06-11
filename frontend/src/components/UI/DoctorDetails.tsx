@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { fetchReviews } from '../../store/reviews-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
-import Reviews from './Reviews';
+import Reviews from './Review';
 
 const DoctorDetails: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -76,7 +76,24 @@ const DoctorDetails: React.FC = () => {
       >
         <h1>Reviews</h1>
         <hr />
-        <Reviews reviews={reviews as Review[]} />
+        <ul className={classes.reviewsWrapper}>
+          {reviews.map((review, index) => (
+            <div key={index} className={classes.reviewContainer}>
+              <p>{review.name}</p>
+              <p>{review.comments}</p>
+              <p>{review.rating}</p>
+              {Object.entries(review.attributes)
+                .filter(([key]) => key !== '_id')
+                .map(([key, value], attrIndex) => (
+                  <Reviews
+                    key={attrIndex}
+                    attributeName={key}
+                    attributeValue={value}
+                  />
+                ))}
+            </div>
+          ))}
+        </ul>
       </div>
     </div>
   );
