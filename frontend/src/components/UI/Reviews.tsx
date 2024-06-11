@@ -9,6 +9,7 @@ const Reviews: React.FC<ReviewProps> = ({ reviews }) => {
   const handleRatingChange = (value: number) => {
     setRating(value);
   };
+  console.log(rating);
 
   return (
     <fieldset className={classes.ratingContainer}>
@@ -44,7 +45,7 @@ const Reviews: React.FC<ReviewProps> = ({ reviews }) => {
         </React.Fragment>
       ))}
       <div className={classes.ratingValue}>
-        {rating}
+        <p>{rating}</p>
         {/* {rating !== null ? `You rated: ${rating}`:''} */}
       </div>
     </fieldset>
