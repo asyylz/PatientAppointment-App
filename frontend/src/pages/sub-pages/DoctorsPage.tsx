@@ -33,7 +33,7 @@ const Doctors: React.FC = () => {
         <h1 className={classes.header}>OUR DOCTORS</h1>
         <hr />
         <div 
-        style={{border:'1px solid red'}}
+        //style={{border:'1px solid red'}}
         className={classes.container}>
           {status === 'loading' && <p>Loading...</p>}
           {doctors.map((doctor: Doctor) => (

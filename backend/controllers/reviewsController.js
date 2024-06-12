@@ -3,7 +3,6 @@ const Review = require('../models/reviewModel');
 // GET ALL //
 exports.getDoctorReviews = async (req, res) => {
   const { doctorId } = req.params;
-  console.log('asiye');
 
   try {
     //await Review.updateMany({ doctorId: doctorId }, { $unset: { rating: '' } });

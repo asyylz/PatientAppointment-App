@@ -80,7 +80,11 @@ const doctorSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    required: true
+    required: [true, 'A doctor must have a gender'],
+    enum: {
+      values: ['M', 'F'],
+      message: 'Gender is either: male or female'
+    }
   },
   image: String,
   availability: availabilitySchema,

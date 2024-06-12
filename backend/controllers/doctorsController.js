@@ -54,7 +54,7 @@ exports.getDoctor = async (req, res) => {
 };
 
 // UPDATE //
-exports.updateDoctor = async (req, res) => {
+exports.updateDoctor = async (req, res, next) => {
   try {
     const updatedDoctor = await Doctor.findByIdAndUpdate(
       req.params.id,
@@ -68,15 +68,17 @@ exports.updateDoctor = async (req, res) => {
       return res.status(201).json({
         status: 'success',
         data: {
-          tour: updatedDoctor
+          doctor: updatedDoctor
         }
       });
     }
   } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: 'Invalid data set'
-    });
+    next(err);
+    // res.status(400).json({
+    //   status: 'fail',
+    //   message: 'Invalid data set',
+    //   error: err
+    // });
   }
 };
 
