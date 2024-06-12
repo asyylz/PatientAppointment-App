@@ -1,16 +1,17 @@
 const AppError = require('../utils/appError');
 
-const handleValidationErrorDB = err => {
-  console.log('asiye1');
-  const errors = Object.values(err.errors).map(el => el.message);
+const handleCastErrorDB = err => {
+  const message = `Invalid ${err.path}: ${err.value}.`;
+  return new AppError(message, 400);
+};
 
+const handleValidationErrorDB = err => {
+  const errors = Object.values(err.errors).map(el => el.message);
   const message = `Invalid input data. ${errors.join('. ')}`;
-  console.log(message);
   return new AppError(message, 400);
 };
 
 const sendErrorDev = (err, res) => {
-  console.log('asiye5');
   res.status(err.statusCode).json({
     status: err.status,
     error: err,
@@ -41,6 +42,8 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
+    if (err.name === 'CastError' || err.path === '_id')
+      err = handleCastErrorDB(err);
     if (err.name === 'ValidationError') err = handleValidationErrorDB(err);
 
     sendErrorProd(err, res);

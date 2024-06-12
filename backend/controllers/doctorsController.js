@@ -36,7 +36,7 @@ exports.getAllDoctors = async (req, res) => {
 };
 
 // GET SINGLE //
-exports.getDoctor = async (req, res) => {
+exports.getDoctor = async (req, res, next) => {
   try {
     const doctor = await Doctor.findById(req.params.id);
     res.status(200).json({
@@ -46,10 +46,7 @@ exports.getDoctor = async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err
-    });
+    next(err);
   }
 };
 
@@ -74,11 +71,6 @@ exports.updateDoctor = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    // res.status(400).json({
-    //   status: 'fail',
-    //   message: 'Invalid data set',
-    //   error: err
-    // });
   }
 };
 
