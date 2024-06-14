@@ -1,5 +1,5 @@
-const Patient = require('./../models/patientModel');
-const APIFeatures = require('./../utils/apiFeatures');
+const Patient = require('../models/patientModel');
+const APIFeatures = require('../utils/apiFeatures');
 
 // 1-) ROUTES HANDLERS
 // GET Doctors:sending back to the client

@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
-const Doctor = require('./../models/doctorModel');
+const Doctor = require('../models/doctorModel');
+
 const {
   getDoctorsWithDepartmentNames
-} = require('./../utils/aggregationHandler');
-const APIFeatures = require('./../utils/apiFeatures');
+} = require('../utils/aggregationHandler');
+const APIFeatures = require('../utils/apiFeatures');
 
 /* ------------------- ROUTES HANDLERS ------------------ */
 // GET ALL // Doctors:sending back to the client

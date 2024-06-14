@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -9,12 +10,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Email is required'],
     validate: [
-      {
-        validator: function(val) {
-          return val.includes('@');
-        },
-        message: 'Email should contain @ character'
-      },
+      // {
+      //   validator: function(val) {
+      //     return val.includes('@');
+      //   },
+      //   message: 'Email should contain @ character'
+      // },
       {
         validator: function(val) {
           return val.trim().length > 0;
@@ -35,18 +36,29 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Password is required'],
     trim: true,
     maxlength: [40, 'Password must have less or equal than 40 characters'],
-    minlength: [8, 'Password must have more or equal than 8 characters'],
-    validate: {
-      validator: function(val) {
-        const hasUpperCase = /[A-Z]/.test(val);
-        const hasLowerCase = /[a-z]/.test(val);
-        const hasDigit = /\d/.test(val);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+    minlength: [4, 'Password must have more or equal than 8 characters'],
+    // validate: {
+    //   validator: function(val) {
+    //     const hasUpperCase = /[A-Z]/.test(val);
+    //     const hasLowerCase = /[a-z]/.test(val);
+    //     const hasDigit = /\d/.test(val);
+    //     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(val);
 
-        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
+    //     return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
+    //   },
+    //   message:
+    //     'Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
+    // }
+  },
+  passwordConfirm: {
+    type: String,
+    required: [true, 'Please confirm your password'],
+    validate: {
+      // This only works on CREATE and SAVE!!!
+      validator: function(el) {
+        return el === this.password;
       },
-      message:
-        'Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
+      message: 'Passwords are not the same!'
     }
   },
   role: {
@@ -55,6 +67,14 @@ const userSchema = new mongoose.Schema({
     default: 'patient',
     required: true
   }
+});
+
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+
+  this.password = await bcrypt.hash(this.password, 12);
+  this.passwordConfirm = undefined;
+  next();
 });
 
 const User = mongoose.model('User', userSchema);

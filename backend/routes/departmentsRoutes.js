@@ -1,11 +1,11 @@
 const express = require('express');
-const departmentsController = require('../controllers/departmentsController');
+const departmentsControllers = require('../controllers/departmentsControllers');
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(departmentsController.getAllDepartments)
-  .post(departmentsController.createDepartment);
+  .get(departmentsControllers.getAllDepartments)
+  .post(departmentsControllers.createDepartment);
 
 module.exports = router;

@@ -20,7 +20,7 @@ mongoose
 
 const port = process.env.PORT || 3000;
 
-app.use(require('./controllers/errorController'));
+app.use(require('./controllers/errorControllers'));
 
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
