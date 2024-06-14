@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema({
     //   message:
     //     'Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
     // }
+    select: false
   },
   passwordConfirm: {
     type: String,
@@ -76,6 +77,10 @@ userSchema.pre('save', async function(next) {
   this.passwordConfirm = undefined;
   next();
 });
+
+userSchema.methods.correctPassword = async function(candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 
 const User = mongoose.model('User', userSchema);
 

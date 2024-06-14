@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
 
 // GET ALL //
-exports.getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     res.status(200).json({
@@ -12,12 +12,10 @@ exports.getAllUsers = async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err
-    });
+    next(err);
   }
 };
+
 // GET SINGLE //
 exports.getUser = async (req, res) => {
   try {
@@ -37,22 +35,22 @@ exports.getUser = async (req, res) => {
 };
 
 // POST //
-exports.createUser = async (req, res) => {
-  try {
-    const newUser = await User.create(req.body);
-    res.status(201).json({
-      status: 'success',
-      data: {
-        user: newUser
-      }
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err
-    });
-  }
-};
+// exports.createUser = async (req, res) => {
+//   try {
+//     const newUser = await User.create(req.body);
+//     res.status(201).json({
+//       status: 'success',
+//       data: {
+//         user: newUser
+//       }
+//     });
+//   } catch (err) {
+//     res.status(404).json({
+//       status: 'fail',
+//       message: err
+//     });
+//   }
+// };
 
 // DELETE //
 exports.deleteUser = async (req, res) => {

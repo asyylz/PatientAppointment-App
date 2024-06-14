@@ -14,10 +14,6 @@ router
   .get(usersControllers.getUser);
 //router.route('/auth?mode=login').get(usersController.getUser);
 
-router
-  .route('/')
-  .get(usersControllers.getAllUsers)
-  .post(usersControllers.createUser);
-router.route('/login?mode=register').post(usersControllers.createUser);
+router.route('/').get(usersControllers.getAllUsers);
 
 module.exports = router;
