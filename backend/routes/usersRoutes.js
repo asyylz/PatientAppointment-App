@@ -1,12 +1,12 @@
 const express = require('express');
 const usersControllers = require('../controllers/usersControllers');
-const authController = require('../controllers/authControllers');
+const authControllers = require('../controllers/authControllers');
 
 const router = express.Router();
 
 router.route('/').delete(usersControllers.deleteUser);
-router.post('/signup', authController.signup);
-//router.post('/login', authController.login);
+router.post('/signup', authControllers.signup);
+router.post('/login', authControllers.login);
 
 router
   .route('/:id')
