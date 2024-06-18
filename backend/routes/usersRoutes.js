@@ -8,6 +8,9 @@ router.route('/').delete(usersControllers.deleteUser);
 router.post('/signup', authControllers.signup);
 router.post('/login', authControllers.login);
 
+router.post('/forgotPassword', authControllers.forgotPassword);
+//router.patch('/resetPassword/:token', authControllers.resetPassword);
+
 router
   .route('/:id')
   .patch(usersControllers.updateUser)
