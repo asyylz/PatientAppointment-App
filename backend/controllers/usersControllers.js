@@ -62,18 +62,16 @@ exports.createUser = async (req, res) => {
 };
 
 // DELETE //
-exports.deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res, next) => {
+  console.log(req.user.id);
   try {
-    await User.findByIdAndDelete(req.params.id);
+    await User.findByIdAndUpdate(req.user.id, { active: false });
     res.status(204).json({
       status: 'success',
       data: null
     });
   } catch (err) {
-    res.status(204).json({
-      status: 'success',
-      data: null
-    });
+    next(err);
   }
 };
 
