@@ -16,10 +16,14 @@ router.patch(
   authControllers.protect,
   authControllers.updatePassword
 );
-router
-  .route('/:id')
-  .patch(usersControllers.updateUser)
-  .get(usersControllers.getUser);
+
+router.patch(
+  '/updateUser',
+  authControllers.protect,
+  usersControllers.updateUser
+);
+
+router.route('/:id').get(usersControllers.getUser);
 
 router.route('/').get(usersControllers.getAllUsers);
 

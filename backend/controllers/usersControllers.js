@@ -1,4 +1,13 @@
 const User = require('../models/userModel');
+const AppError = require('../utils/appError');
+
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach(el => {
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
+  });
+  return newObj;
+};
 
 // GET ALL //
 exports.getAllUsers = async (req, res, next) => {
@@ -35,22 +44,22 @@ exports.getUser = async (req, res) => {
 };
 
 // POST //
-// exports.createUser = async (req, res) => {
-//   try {
-//     const newUser = await User.create(req.body);
-//     res.status(201).json({
-//       status: 'success',
-//       data: {
-//         user: newUser
-//       }
-//     });
-//   } catch (err) {
-//     res.status(404).json({
-//       status: 'fail',
-//       message: err
-//     });
-//   }
-// };
+exports.createUser = async (req, res) => {
+  try {
+    const newUser = await User.create(req.body);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        user: newUser
+      }
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
+};
 
 // DELETE //
 exports.deleteUser = async (req, res) => {
@@ -69,24 +78,34 @@ exports.deleteUser = async (req, res) => {
 };
 
 // UPDATE //
-exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res, next) => {
+  // Create error if user posts password data
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(
+      new AppError(
+        'This route is not for  password updated. Please use updateMyPassword',
+        400
+      )
+    );
+  }
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
+    const filteredBody = filterObj(req.body, 'name', 'email');
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      filteredBody,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user: updatedUser
+      }
     });
-    if (updatedUser) {
-      return res.status(201).json({
-        status: 'success',
-        data: {
-          tour: updatedUser
-        }
-      });
-    }
   } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: 'Invalid data set'
-    });
+    next(err);
   }
 };
