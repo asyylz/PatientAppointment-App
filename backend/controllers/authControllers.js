@@ -22,7 +22,7 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-// POST //
+/* ----------------------- SIGNUP ----------------------- */
 exports.signup = async (req, res, next) => {
   try {
     const newUser = await User.create({
@@ -32,22 +32,13 @@ exports.signup = async (req, res, next) => {
       passwordConfirm: req.body.passwordConfirm
     });
 
-    const token = signToken(newUser._id);
-
-    res.status(201).json({
-      status: 'success',
-      token,
-      data: {
-        user: newUser
-      }
-    });
+    createSendToken(newUser, 201, res);
   } catch (err) {
     next(err);
   }
-
-  //createSendToken(newUser, 201, res);
 };
 
+/* ------------------------ LOGIN ----------------------- */
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -65,19 +56,13 @@ exports.login = async (req, res, next) => {
       return next(new AppError('Incorrect email or password', 401));
     }
 
-    const token = signToken(user._id);
-    res.status(200).json({
-      status: 'success',
-      token
-    });
+    createSendToken(user, 200, res);
   } catch (err) {
     next(err);
-
-    //   // 3) If everything ok, send token to client
-    //   createSendToken(user, 200, res);
   }
 };
 
+/* ----------------------- PROTECT ---------------------- */
 exports.protect = async (req, res, next) => {
   // 1) Getting token and check of it is there
   let token;
@@ -126,7 +111,7 @@ exports.protect = async (req, res, next) => {
     next(err);
   }
 };
-
+/* --------------------- RESTRICTTO --------------------- */
 exports.restrictTo = (...roles) => {
   // roles [ "admin","lead-guide"]
   return (req, res, next) => {
@@ -138,6 +123,7 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
+/* ------------------- FORGOT PASSWORD ------------------ */
 exports.forgotPassword = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
@@ -174,36 +160,36 @@ exports.forgotPassword = async (req, res, next) => {
     );
   }
 };
-
+/* ------------------- RESET PASSWORD ------------------- */
 exports.resetPassword = async (req, res, next) => {
-  const hashedToken = crypto
-    .createHash('sha256')
-    .update(req.params.token)
-    .digest('hex');
+  try {
+    const hashedToken = crypto
+      .createHash('sha256')
+      .update(req.params.token)
+      .digest('hex');
 
-  const user = await User.findOne({
-    passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() }
-  });
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { $gt: Date.now() }
+    });
 
-  if (!user) {
-    return next(new AppError('Token is invalid or has expired', 400));
+    if (!user) {
+      return next(new AppError('Token is invalid or has expired', 400));
+    }
+
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save();
+
+    createSendToken(user, 200, res);
+  } catch (err) {
+    next(err);
   }
-
-  user.password = req.body.password;
-  user.passwordConfirm = req.body.passwordConfirm;
-  user.passwordResetToken = undefined;
-  user.passwordResetExpires = undefined;
-  await user.save();
-
-  const token = signToken(user._id);
-
-  res.status(200).json({
-    status: 'success',
-    token
-  });
 };
 
+/* ------------------- UPDATE PASSWORD ------------------ */
 exports.updatePassword = async (req, res, next) => {
   const { oldPassword, newPassword, confirmNewPassword } = req.body;
 
