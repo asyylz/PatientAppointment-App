@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['doctor', 'systemuser', 'patient'],
+    enum: ['doctor', 'systemuser', 'patient', 'admin'],
     default: 'patient',
     required: true
   },
@@ -116,7 +116,6 @@ userSchema.methods.createPasswordResetToken = function() {
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
-
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

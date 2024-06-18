@@ -116,6 +116,17 @@ exports.protect = async (req, res, next) => {
   }
 };
 
+exports.restrictTo = (...roles) => {
+  // roles [ "admin","lead-guide"]
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You have no permisson to perform this action', 403)
+      );
+    }
+    next();
+  };
+};
 exports.forgotPassword = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
@@ -151,4 +162,33 @@ exports.forgotPassword = async (req, res, next) => {
       500
     );
   }
+};
+
+exports.resetPassword = async (req, res, next) => {
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex');
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() }
+  });
+
+  if (!user) {
+    return next(new AppError('Token is invalid or has expired', 400));
+  }
+
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save();
+
+  const token = signToken(user._id);
+
+  res.status(200).json({
+    status: 'success',
+    token
+  });
 };

@@ -31,22 +31,28 @@ exports.getAllPatients = async (req, res) => {
 };
 
 // POST
-exports.createPatient = (req, res) => {
-  //console.log(req.body);
-  const newId = patients[patients.length - 1].id + 1;
-  const newPatient = Object.assign({ id: newId }, req.body);
-  patients.push(newPatient);
+exports.createPatient = async (req, res, next) => {
+  try {
+    const newPatient = await Patient.create(req.body);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        patient: newPatient
+      }
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 
-  fs.writeFile(
-    `${__dirname}/../dev-data/data/patients.json`,
-    JSON.stringify(patients),
-    err => {
-      res.status(201).json({
-        status: 'success',
-        data: {
-          patient: newPatient
-        }
-      });
-    }
-  );
+exports.deletePatient = async (req, res, next) => {
+  try {
+    await Patient.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: 'success',
+      data: null
+    });
+  } catch (err) {
+    next(err);
+  }
 };

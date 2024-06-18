@@ -9,13 +9,12 @@ router.post('/signup', authControllers.signup);
 router.post('/login', authControllers.login);
 
 router.post('/forgotPassword', authControllers.forgotPassword);
-//router.patch('/resetPassword/:token', authControllers.resetPassword);
+router.patch('/resetPassword/:token', authControllers.resetPassword);
 
 router
   .route('/:id')
   .patch(usersControllers.updateUser)
   .get(usersControllers.getUser);
-//router.route('/auth?mode=login').get(usersController.getUser);
 
 router.route('/').get(usersControllers.getAllUsers);
 
