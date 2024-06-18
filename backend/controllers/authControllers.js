@@ -11,6 +11,17 @@ const signToken = id => {
   });
 };
 
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user
+    }
+  });
+};
+
 // POST //
 exports.signup = async (req, res, next) => {
   try {
@@ -191,4 +202,17 @@ exports.resetPassword = async (req, res, next) => {
     status: 'success',
     token
   });
+};
+
+exports.updatePassword = async (req, res, next) => {
+  const { oldPassword, newPassword, confirmNewPassword } = req.body;
+
+  const user = await User.findById(req.user.id).select('+password');
+  if (!(await user.correctPassword(oldPassword))) {
+    return next(new AppError('Current password of user is not match', 401));
+  }
+  user.password = newPassword;
+  user.passwordConfirm = confirmNewPassword;
+  await user.save();
+  createSendToken(user, 200, res);
 };
