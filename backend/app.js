@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const rateLimit = require('express-rate-limit');
 
 const doctorsRouter = require('./routes/doctorsRoutes');
 const patientsRouter = require('./routes/patientsRoutes');
@@ -60,17 +61,20 @@ app.use((req, res, next) => {
   next();
 });
 
+// ROUTES
+app.use('/api/v1/doctors', doctorsRouter);
+app.use('/api/v1/patients', patientsRouter);
+app.use('/api/v1/departments', departmentsRouter);
+app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/reviews', reviewsRouter);
+
+//Global Errors
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
 app.use(globalErrorHandler);
 
-// ROUTES
-app.use('/api/v1/doctors', doctorsRouter); // mounting router
-app.use('/api/v1/patients', patientsRouter); // mounting router
-app.use('/api/v1/departments', departmentsRouter); // mounting router
-app.use('/api/v1/users', usersRouter); // mounting router
-app.use('/api/v1/reviews', reviewsRouter); // mounting router
+
 
 module.exports = app;
