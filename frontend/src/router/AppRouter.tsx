@@ -10,6 +10,7 @@ import Payments from '../pages/sub-pages/Payments';
 import Appointments from '../pages/sub-pages/Appointments';
 import DoctorDetailsPage from './../pages/sub-pages/DoctorDetailsPage';
 import DoctorsLayout from '../pages/layouts/DoctorsLayout';
+import LoginAndRegisterPage from '../pages/LoginAndRegisterPage';
 
 const routes: RouteObject[] = [
   {
@@ -30,6 +31,10 @@ const routes: RouteObject[] = [
       { path: 'payments', element: <Payments /> },
       { path: 'settings' },
     ],
+  },
+  {
+    path: '/auth',
+    element: <LoginAndRegisterPage />,
   },
 ];
 

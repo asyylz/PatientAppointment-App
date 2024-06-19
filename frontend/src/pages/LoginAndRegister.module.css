@@ -1,0 +1,119 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-items: center;
+    color: #707070;
+    min-height: 100vh;
+    background: #F2F2F2;
+
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    left: 50vw;
+    top: 0;
+    height: 100vh;
+    width: 1px;
+    border-radius: 12px;
+    background: #C7BEBE;
+}
+
+.wrapper {
+    position: relative;
+    max-width: 430px;
+    width: 100%;
+    background: #fff;
+    padding: 34px;
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.wrapper h2 {
+    position: relative;
+    font-size: 22px;
+    font-weight: 600;
+    color: #707070;
+}
+
+.wrapper h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    height: 1px;
+    width: 100%;
+    border-radius: 12px;
+    background: #C7BEBE;
+}
+
+.wrapper form {
+    margin-top: 30px;
+}
+
+.wrapper form .inputBox {
+    height: 52px;
+    margin: 18px 0;
+}
+
+form .inputBox input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    padding: 0 15px;
+    font-size: 17px;
+    font-weight: 400;
+    color: #333;
+    border: 1.5px solid #C7BEBE;
+    border-bottom-width: 2.5px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.inputBox input:focus,
+.inputBox input:valid {
+    border-color: rgba(173, 217, 209, 1);
+}
+
+form .policy {
+    display: flex;
+    align-items: center;
+}
+
+form h3 {
+    color: #707070;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.button input {
+    color: #fff;
+    letter-spacing: 1px;
+    border: none;
+    background: rgba(173, 217, 209, 1);
+    cursor: pointer;
+    border: none;
+}
+
+.button input:hover {
+    color: #fff;
+    background-color: #444;
+    border: none;
+}
+
+@media (max-width: 945px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        margin: 3rem;
+
+    }
+
+    .container::before {
+        display: none;
+    }
+}
