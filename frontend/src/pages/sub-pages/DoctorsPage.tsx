@@ -15,7 +15,6 @@ const Doctors: React.FC = () => {
     error,
   } = useSelector((state: RootState) => state.doctors);
 
-  console.log(doctors);
 
   const handleSelectDoctor = (doctor: Doctor) => {
     dispatch(doctorActions.selectDoctor(doctor));
@@ -38,7 +37,7 @@ const Doctors: React.FC = () => {
         {status === 'loading' && <p>Loading...</p>}
 
         {status === 'succeeded' &&
-          doctors.map((doctor) => (
+          doctors.map((doctor: Doctor) => (
             <DoctorProfilCard
               key={doctor.id}
               doctor={doctor as Doctor}

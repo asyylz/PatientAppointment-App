@@ -22,13 +22,12 @@ interface ExtendedEntityState<T> extends EntityState<T> {
   selectedDoctor?: T;
 }
 
-
 interface RootState {
   departments: ExtendedEntityState<DepartmentState>;
   doctors: ExtendedEntityState<DoctorState>;
   selectedDoctor: Doctor;
   reviews: ExtendedEntityState<Review>;
-  currentUser: ExtendedEntityState<CurrentUser>;
+  currentUser: ExtendedEntityState<CurrentUserState>;
 }
 
 /* ----------------------- DOCTOR ----------------------- */
@@ -88,11 +87,14 @@ interface ReviewProps {
 }
 
 /* -------------------- CURRENT USER -------------------- */
-interface CurrentUser {
-  email: string;
-  password: string;
-  role: string;
-  _id: ObjectId;
+interface CurrentUserState {
+  token: string;
+  currentUser: {
+    email: string;
+    role: string;
+    _id: ObjectId;
+    __v: number;
+  };
 }
 
 /* ------------------------ AXIOS ----------------------- */

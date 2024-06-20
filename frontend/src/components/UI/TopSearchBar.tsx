@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 
 export default function TopSeacrhBar() {
@@ -13,9 +14,10 @@ export default function TopSeacrhBar() {
           </label>
         </div>
         <i className="fas fa-bell"></i>
-        <div className={classes.user}>
+
+        <Link to="/auth" className={classes.user}>
           <img src="./public/doctor.png" alt="" />
-        </div>
+        </Link>
       </div>
     </>
   );

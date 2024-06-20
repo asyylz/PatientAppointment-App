@@ -9,14 +9,21 @@ const AuthPage = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-
   const dispatch: AppDispatch = useDispatch();
+
+  const {
+    entities: { token, currentUser },
+    status,
+    error,
+  } = useSelector((state: RootState) => state.currentUser);
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(loginCurrentUser({ email, password }));
+    if (status === 'succeeded') {
+      window.location.href = '/';
+    }
   };
-
 
   return (
     <div className={classes.container}>

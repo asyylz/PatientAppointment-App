@@ -45,7 +45,6 @@ export const createEntitySlice = <T>(
   fetchEntityThunk: any,
   additionalReducers?: (builder: any) => void
 ) => {
-
   const initialState: ExtendedEntityState<T> = {
     entities: [],
     status: 'idle',
