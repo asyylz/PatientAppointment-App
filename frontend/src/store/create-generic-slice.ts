@@ -1,56 +1,41 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 type HttpMethod = 'get' | 'post' | 'patch' | 'delete';
-
-// Define a mapping type for axios methods
-interface AxiosMethods {
-  get: typeof axios.get;
-  post: typeof axios.post;
-  patch: typeof axios.patch;
-  delete: typeof axios.delete;
-}
 
 export const fetchEntities = <T>(
   entity: string,
   url: string,
   method: HttpMethod = 'get'
-  //requestBody?: object // Making requestBody optional
 ) =>
-  createAsyncThunk<T[], object | void>(`${entity}/fetch`, async (arg) => {
-    try {
-      const axiosMethods: AxiosMethods = {
-        get: axios.get,
-        post: axios.post,
-        patch: axios.patch,
-        delete: axios.delete,
-      };
-
-      let axiosConfig: AxiosRequestConfig = {};
-
-      if (arg && (method === 'post' || method === 'patch')) {
-        axiosConfig = {
-          data: arg,
+  createAsyncThunk<T | object, object | void>(
+    `${entity}/fetch`,
+    async (arg) => {
+      try {
+        const axiosMethods: Record<
+          HttpMethod,
+          (url: string, config?: AxiosRequestConfig) => Promise<AxiosResponse>
+        > = {
+          get: axios.get,
+          post: (url, config) => axios.post(url, arg, config),
+          patch: (url, config) => axios.patch(url, arg, config),
+          delete: axios.delete,
         };
+        const response = await axiosMethods[method](url);
+
+        console.log(`${entity} data:`, response.data.data);
+        return response.data.data;
+      } catch (err) {
+        console.log(err);
       }
-      console.log(arg);
-      const response = await axiosMethods[method](url, axiosConfig);
-
-      console.log(response);
-
-      console.log(`${entity} data:`, response.data.data);
-      return response.data.data[entity];
-    } catch (err) {
-      console.log(err);
     }
-  });
+  );
 
-  
 export const fetchEntitiesWithId = <T>(
   entity: string,
   url: (id: string) => string
 ) =>
-  createAsyncThunk<T[], string>(`${entity}/fetchWithId`, async (id: string) => {
+  createAsyncThunk<T, string>(`${entity}/fetchWithId`, async (id: string) => {
     const response = await axios.get(url(id));
     return response.data.data[entity]; // Assuming the data is under the entity property
   });
@@ -60,19 +45,18 @@ export const createEntitySlice = <T>(
   fetchEntityThunk: any,
   additionalReducers?: (builder: any) => void
 ) => {
+
   const initialState: ExtendedEntityState<T> = {
     entities: [],
     status: 'idle',
     error: null,
   };
-  console.log(initialState)
-  console.log(entity);
+
   return createSlice({
     name: entity,
     initialState,
     reducers: {
       addEntity: (state, action: PayloadAction<T>) => {
-        console.log(action.payload);
         state.entities.push(action.payload);
       },
     },
@@ -83,7 +67,7 @@ export const createEntitySlice = <T>(
         })
         .addCase(
           fetchEntityThunk.fulfilled,
-          (state, action: PayloadAction<T[] | object>) => {
+          (state, action: PayloadAction<T | object>) => {
             state.status = 'succeeded';
             state.entities = action.payload;
 

@@ -3,14 +3,17 @@ interface Department {
   departmentMain: string;
   departmentSub: [string];
 }
-interface DepartmentsState {
+
+interface DepartmentState {
   departments: Department[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
+}
+
+interface DoctorState {
+  doctors: Doctor[];
 }
 
 interface EntityState<T> {
-  entities: T[];
+  entities: T;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
@@ -19,9 +22,10 @@ interface ExtendedEntityState<T> extends EntityState<T> {
   selectedDoctor?: T;
 }
 
+
 interface RootState {
-  departments: ExtendedEntityState<Department>;
-  doctors: ExtendedEntityState<Doctor>;
+  departments: ExtendedEntityState<DepartmentState>;
+  doctors: ExtendedEntityState<DoctorState>;
   selectedDoctor: Doctor;
   reviews: ExtendedEntityState<Review>;
   currentUser: ExtendedEntityState<CurrentUser>;
@@ -92,4 +96,3 @@ interface CurrentUser {
 }
 
 /* ------------------------ AXIOS ----------------------- */
-

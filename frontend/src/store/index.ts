@@ -12,7 +12,7 @@ const store = configureStore({
     currentUser: currentUserReducer,
   },
 });
-
+  
 
 export type AppDispatch = typeof store.dispatch;
 export type AppStore = typeof store;

@@ -9,24 +9,14 @@ const AuthPage = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  // const {
-  //   entities: currentUser,
-  //   status,
-  //   error,
-  // } = useSelector((state: RootState) => state.currentUser);
 
   const dispatch: AppDispatch = useDispatch();
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // const formData = new FormData();
-    // formData.append('email', email);
-    // formData.append('password', password);
-
     dispatch(loginCurrentUser({ email, password }));
   };
-  console.log(email, password);
+
 
   return (
     <div className={classes.container}>

@@ -10,12 +10,12 @@ const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const {
-    entities: doctors,
+    entities: { doctors },
     status,
     error,
   } = useSelector((state: RootState) => state.doctors);
+
   console.log(doctors);
-  
 
   const handleSelectDoctor = (doctor: Doctor) => {
     dispatch(doctorActions.selectDoctor(doctor));
@@ -29,23 +29,24 @@ const Doctors: React.FC = () => {
 
   return (
     <>
-   
-        <h1 className={classes.header}>OUR DOCTORS</h1>
-        <hr />
-        <div 
+      <h1 className={classes.header}>OUR DOCTORS</h1>
+      <hr />
+      <div
         //style={{border:'1px solid red'}}
-        className={classes.container}>
-          {status === 'loading' && <p>Loading...</p>}
-          {doctors.map((doctor: Doctor) => (
+        className={classes.container}
+      >
+        {status === 'loading' && <p>Loading...</p>}
+
+        {status === 'succeeded' &&
+          doctors.map((doctor) => (
             <DoctorProfilCard
               key={doctor.id}
               doctor={doctor as Doctor}
               onSelectDoctor={handleSelectDoctor}
             />
           ))}
-          {status === 'failed' && <p>{error}</p>}
-        </div>
-     
+        {status === 'failed' && <p>{error}</p>}
+      </div>
     </>
   );
 };

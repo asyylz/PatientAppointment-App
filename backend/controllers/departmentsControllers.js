@@ -15,7 +15,6 @@ exports.getAllDepartments = async (req, res) => {
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
-      asiye: 'asiye',
       results: departments.length,
       data: {
         departments

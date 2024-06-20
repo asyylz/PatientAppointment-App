@@ -11,15 +11,15 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
   doctor,
   onSelectDoctor,
 }) => {
-  
-  const { entities: departments } = useSelector(
-    (state: RootState) => state.departments
-  );
+  const {
+    entities: { departments },
+  } = useSelector((state: RootState) => state.departments);
 
   const department: Department | undefined = departments.find(
     (department: Department) => String(department._id) === doctor.departmentId
   );
 
+  
   return (
     <div
       className={classes.cardContainer}

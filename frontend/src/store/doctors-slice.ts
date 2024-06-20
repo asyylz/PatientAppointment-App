@@ -1,14 +1,15 @@
 //import { RootState } from './index';
 import { fetchEntities, createEntitySlice } from './create-generic-slice';
 import { PayloadAction } from '@reduxjs/toolkit';
+
 // Fetch departments thunk
-export const fetchDoctors = fetchEntities<Doctor>(
+export const fetchDoctors = fetchEntities<DoctorState>(
   'doctors',
   'http://localhost:3000/api/v1/doctors/'
 );
 
 // Create doctors slice
-const doctorsSlice = createEntitySlice<Doctor>(
+const doctorsSlice = createEntitySlice<DoctorState>(
   'doctors',
   fetchDoctors,
   (builder) => {
