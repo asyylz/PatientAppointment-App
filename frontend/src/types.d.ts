@@ -87,6 +87,8 @@ interface ReviewProps {
 interface CurrentUser {
   email: string;
   password: string;
+  role: string;
+  _id: ObjectId;
 }
 
 /* ------------------------ AXIOS ----------------------- */

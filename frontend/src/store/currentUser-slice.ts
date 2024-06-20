@@ -3,7 +3,7 @@ import { fetchEntities, createEntitySlice } from './create-generic-slice';
 
 export const loginCurrentUser = fetchEntities<CurrentUser>(
   'currentUser',
-  'http://localhost:3000/api/v1/login',
+  'http://localhost:3000/api/v1/users/login',
   'post'
 );
 
@@ -12,7 +12,7 @@ const currentUserSlice = createEntitySlice<CurrentUser>(
   'currentUser',
   loginCurrentUser
 );
-
+console.log(currentUserSlice)
 // Export the actions and reducer
 export const { actions, reducer } = currentUserSlice;
 export default currentUserSlice.reducer;

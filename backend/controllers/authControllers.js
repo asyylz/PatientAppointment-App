@@ -28,7 +28,7 @@ const createSendToken = (user, statusCode, res) => {
     status: 'success',
     token,
     data: {
-      user
+      currentUser: user
     }
   });
 };
@@ -52,8 +52,7 @@ exports.signup = async (req, res, next) => {
 /* ------------------------ LOGIN ----------------------- */
 exports.login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-
+    const { email, password } = req.body.data;
     // 1) Check if email and password exist
     if (!email || !password) {
       return next(new AppError('Please provide email and password!', 400));

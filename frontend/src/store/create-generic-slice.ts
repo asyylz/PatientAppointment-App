@@ -18,27 +18,34 @@ export const fetchEntities = <T>(
   //requestBody?: object // Making requestBody optional
 ) =>
   createAsyncThunk<T[], object | void>(`${entity}/fetch`, async (arg) => {
-    const axiosMethods: AxiosMethods = {
-      get: axios.get,
-      post: axios.post,
-      patch: axios.patch,
-      delete: axios.delete,
-    };
-
-    let axiosConfig: AxiosRequestConfig = {};
-
-    if (arg && (method === 'post' || method === 'patch')) {
-      axiosConfig = {
-        data: arg,
+    try {
+      const axiosMethods: AxiosMethods = {
+        get: axios.get,
+        post: axios.post,
+        patch: axios.patch,
+        delete: axios.delete,
       };
+
+      let axiosConfig: AxiosRequestConfig = {};
+
+      if (arg && (method === 'post' || method === 'patch')) {
+        axiosConfig = {
+          data: arg,
+        };
+      }
+      console.log(arg);
+      const response = await axiosMethods[method](url, axiosConfig);
+
+      console.log(response);
+
+      console.log(`${entity} data:`, response.data.data);
+      return response.data.data[entity];
+    } catch (err) {
+      console.log(err);
     }
-
-    const response = await axiosMethods[method](url, axiosConfig);
-
-    console.log(`${entity} data:`, response.data.data);
-    return response.data.data[entity]; // Assuming the data is under the entity property
   });
 
+  
 export const fetchEntitiesWithId = <T>(
   entity: string,
   url: (id: string) => string
@@ -58,12 +65,14 @@ export const createEntitySlice = <T>(
     status: 'idle',
     error: null,
   };
-  //console.log(entity);
+  console.log(initialState)
+  console.log(entity);
   return createSlice({
     name: entity,
     initialState,
     reducers: {
       addEntity: (state, action: PayloadAction<T>) => {
+        console.log(action.payload);
         state.entities.push(action.payload);
       },
     },
@@ -74,7 +83,7 @@ export const createEntitySlice = <T>(
         })
         .addCase(
           fetchEntityThunk.fulfilled,
-          (state, action: PayloadAction<T[]>) => {
+          (state, action: PayloadAction<T[] | object>) => {
             state.status = 'succeeded';
             state.entities = action.payload;
 

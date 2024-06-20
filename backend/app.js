@@ -5,6 +5,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 
 const doctorsRouter = require('./routes/doctorsRoutes');
 const patientsRouter = require('./routes/patientsRoutes');
@@ -26,6 +27,9 @@ const limiter = rateLimit({
   message: 'Too many request from this IP, please try again  in an hour'
 });
 app.use('/api', limiter);
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Boody parser , reading data from  body into req.body
 app.use(express.json({ limit: '10kb' }));
