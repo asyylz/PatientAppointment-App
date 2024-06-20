@@ -14,6 +14,7 @@ interface EntityState<T> {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
+
 interface ExtendedEntityState<T> extends EntityState<T> {
   selectedDoctor?: T;
 }
@@ -23,6 +24,7 @@ interface RootState {
   doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
   reviews: ExtendedEntityState<Review>;
+  currentUser: ExtendedEntityState<CurrentUser>;
 }
 
 /* ----------------------- DOCTOR ----------------------- */
@@ -80,3 +82,12 @@ interface ReviewProps {
   attributeName: string;
   attributeValue: number;
 }
+
+/* -------------------- CURRENT USER -------------------- */
+interface CurrentUser {
+  email: string;
+  password: string;
+}
+
+/* ------------------------ AXIOS ----------------------- */
+

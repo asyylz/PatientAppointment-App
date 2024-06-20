@@ -11,6 +11,7 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
   doctor,
   onSelectDoctor,
 }) => {
+  
   const { entities: departments } = useSelector(
     (state: RootState) => state.departments
   );

@@ -10,7 +10,7 @@ import Payments from '../pages/sub-pages/Payments';
 import Appointments from '../pages/sub-pages/Appointments';
 import DoctorDetailsPage from './../pages/sub-pages/DoctorDetailsPage';
 import DoctorsLayout from '../pages/layouts/DoctorsLayout';
-import LoginAndRegisterPage from '../pages/LoginAndRegisterPage';
+import AuthPage from '../pages/AuthPage';
 
 const routes: RouteObject[] = [
   {
@@ -34,7 +34,7 @@ const routes: RouteObject[] = [
   },
   {
     path: '/auth',
-    element: <LoginAndRegisterPage />,
+    element: <AuthPage />,
   },
 ];
 

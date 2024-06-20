@@ -12,6 +12,7 @@ const sideBarSectionList = [
   { title: 'Help', icon: 'fas fa-question' },
 ];
 export default function LeftSideBar() {
+  
   return (
     <>
       <div className={classes.sidebar}>
