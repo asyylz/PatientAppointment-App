@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 3rem;
+    color: #444;
 }
 
 .userLeftSection {
@@ -38,23 +39,39 @@
 .userRightSection {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 400px 1fr;
+    grid-template-rows: 300px 1fr;
 }
 
 .userRightSection .rightTop {
     padding: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 200px;
     gap: 3rem;
 }
 
+
 .userRightSection .rightTop .box {
-    /* height: 300px;
-    min-width: 200px; */
     margin-top: 2rem;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    line-height: 1.2rem;
+    font-weight: 800;
+    font-size: 1.2rem;
+
+
+}
+
+svg {
+    height: 40px;
+    width: 40px;
+    position: relative;
+
 }
 
 .userRightSection .rightBottom {
@@ -65,7 +82,6 @@
 
 .userRightSection .rightBottom .appointments {
     padding: 2rem;
-    min-height: 300px;
 }
 
 .appointments h2 {
@@ -88,12 +104,20 @@
 
 .appointments .wrapper2 .appointmentBox {
     margin-top: 2rem;
-    height: 200px;
+    height: 150px;
     min-width: 430px;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     text-align: center;
-    /* flex-grow: 1; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    padding: 1rem;
+    line-height: 2rem;
+    font-weight: 800;
+    font-size: 1.2rem;
+
 }
 
 

@@ -24,7 +24,6 @@ export default function LeftSideBar() {
                   <div className={classes.iconBox}>
                     <i className={section.icon}></i>
                   </div>
-
                   <div className={classes.title}>{section.title}</div>
                 </Link>
               </li>
