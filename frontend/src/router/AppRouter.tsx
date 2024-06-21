@@ -11,6 +11,7 @@ import Appointments from '../pages/sub-pages/Appointments';
 import DoctorDetailsPage from './../pages/sub-pages/DoctorDetailsPage';
 import DoctorsLayout from '../pages/layouts/DoctorsLayout';
 import AuthPage from '../pages/AuthPage';
+import PrivateRoute from './PrivateRoute';
 
 const routes: RouteObject[] = [
   {
@@ -24,7 +25,14 @@ const routes: RouteObject[] = [
         element: <DoctorsLayout />,
         children: [
           { path: '/doctors', element: <DoctorsPage />, index: true },
-          { path: ':doctorId', element: <DoctorDetailsPage /> },
+          {
+            path: ':doctorId',
+            element: (
+              <PrivateRoute>
+                <DoctorDetailsPage />
+              </PrivateRoute>
+            ),
+          },
         ],
       },
       { path: 'departments', element: <Departments /> },

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../store/index';
 import { loginCurrentUser } from '../store/currentUser-slice';
 import { useState } from 'react';
+import { redirect } from 'react-router-dom';
 
 const AuthPage = () => {
   const [email, setEmail] = useState<string>('');
@@ -21,7 +22,8 @@ const AuthPage = () => {
     event.preventDefault();
     dispatch(loginCurrentUser({ email, password }));
     if (status === 'succeeded') {
-      window.location.href = '/';
+      console.log('elizah')
+      redirect('/');
     }
   };
 

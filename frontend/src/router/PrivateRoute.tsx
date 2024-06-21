@@ -1,7 +1,7 @@
 // PrivateRoute.tsx
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, redirect } from 'react-router-dom';
 
 const PrivateRoute: React.FC = () => {
   const {
@@ -10,8 +10,9 @@ const PrivateRoute: React.FC = () => {
     error,
   } = useSelector((state: RootState) => state.currentUser);
 
-  if (!currentUser || !token) {
-    return <Navigate to="/login" />;
+  console.log('asiye');
+  if (!currentUser && !token) {
+    redirect('/auth');
   }
 
   return <Outlet />;
