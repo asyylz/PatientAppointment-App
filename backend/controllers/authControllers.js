@@ -75,11 +75,23 @@ exports.login = async (req, res, next) => {
 };
 
 /* ----------------------- LOGOUT ----------------------- */
+// Logout handler
 exports.logout = async (req, res, next) => {
+  console.log(req.headers);
+  let token;
   try {
-    if (req.cookies.jwt) {
-      res.clearCookie('jwt', { path: '/logout' });
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer')
+    ) {
+      token = req.headers.authorization.split(' ')[1];
+      console.log('logout', token);
     }
+
+    res.cookie('jwt', '', {
+      expires: new Date(Date.now() + 10 * 1000), // expire cookie in 10 seconds
+      httpOnly: true
+    });
     res.status(200).json({ status: 'success' });
   } catch (err) {
     next(err);
@@ -90,6 +102,7 @@ exports.logout = async (req, res, next) => {
 exports.protect = async (req, res, next) => {
   // 1) Getting token and check of it is there
   let token;
+  console.log('asiye', req.headers);
   try {
     if (
       req.headers.authorization &&
@@ -97,6 +110,7 @@ exports.protect = async (req, res, next) => {
     ) {
       token = req.headers.authorization.split(' ')[1];
     }
+    console.log(token);
 
     if (!token)
       return next(

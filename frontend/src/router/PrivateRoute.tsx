@@ -10,24 +10,24 @@ interface PrivateRouteProps {
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const navigate = useNavigate();
   const {
-    entities: { token, data } = { token: null, data: null },
+    entities = { token: null, data: null },
     status,
     error,
   } = useSelector((state: RootState) => state.currentUser);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (!data && !token) {
+      if (!entities.data && !entities.token) {
         navigate('/auth');
       }
     }, 1200);
 
     return () => clearTimeout(timeoutId);
-  }, [data, token, navigate]);
+  }, [entities?.data, entities?.token, navigate]);
 
   return (
     <>
-      {!data && !token ? (
+      {!entities?.data && !entities?.token ? (
         <ModalCustom>
           <p>You should login to be able to book appointment.</p>
         </ModalCustom>

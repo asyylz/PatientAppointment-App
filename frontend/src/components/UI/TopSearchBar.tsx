@@ -4,9 +4,12 @@ import { useSelector } from 'react-redux';
 import { currentUserActions } from './../../store/currentUser-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
+import useAuthCall from './../../hooks/useAuthCall';
 
 const TopSearchBar: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+  //const dispatch: AppDispatch = useDispatch();
+  
+  const { logout } = useAuthCall();
   const navigate = useNavigate();
   const {
     entities = { token: null, data: null },
@@ -15,8 +18,9 @@ const TopSearchBar: React.FC = () => {
     image,
   } = useSelector((state: RootState) => state.currentUser);
 
-  const handleLogout = () => {
-    dispatch(currentUserActions.logout());
+  const handleLogout = async () => {
+    //dispatch(currentUserActions.logout());
+    await logout();
     navigate('/');
   };
 
