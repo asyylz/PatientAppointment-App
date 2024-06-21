@@ -22,7 +22,13 @@ const Dashboard: React.FC = () => {
           <p>Welcome {data.currentUser.name}</p>
         </div>
       </div>
-      <div className={classes.userRightSection}>asiye</div>
+      <div className={classes.userRightSection}>
+        <div className={classes.rightTop}>
+          <div className={classes.box}>1</div>
+          <div className={classes.box}>1</div>
+          <div className={classes.box}>1</div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -3,14 +3,14 @@
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 3rem;
-    background-color: #EDE8DB;
+    background-color: #f3f0ef;
 }
 
 .userLeftSection {
     box-shadow: 10px 0 10px rgba(0, 0, 0, 0.1);
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 300px 1fr;
+    grid-template-rows: 400px 1fr;
     gap: 1rem;
     align-items: center;
 
@@ -33,5 +33,31 @@
 .userLeftSection .wrapper p {
     font-size: 20px;
     margin: 2rem auto;
+    text-align: center;
+}
+
+.userRightSection {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 400px 1fr;
+}
+
+.userRightSection .rightTop {
+    /* display: flex;
+    justify-content: space-around;
+    gap: 1rem; */
+    /* border: 1px solid green; */
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.userRightSection .rightTop .box {
+    /* height: 300px;
+    min-width: 200px; */
+    margin-top: 2rem;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     text-align: center;
 }
