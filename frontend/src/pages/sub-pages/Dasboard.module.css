@@ -3,7 +3,6 @@
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 3rem;
-    background-color: #f3f0ef;
 }
 
 .userLeftSection {
@@ -43,10 +42,6 @@
 }
 
 .userRightSection .rightTop {
-    /* display: flex;
-    justify-content: space-around;
-    gap: 1rem; */
-    /* border: 1px solid green; */
     padding: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -60,4 +55,79 @@
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     text-align: center;
+}
+
+.userRightSection .rightBottom {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 30px;
+    margin: 2rem;
+}
+
+.userRightSection .rightBottom .appointments {
+    padding: 2rem;
+    min-height: 300px;
+}
+
+.appointments h2 {
+    margin-bottom: 2rem;
+
+}
+
+.appointments .wrapper1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.appointments .wrapper2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.appointments .wrapper2 .appointmentBox {
+    margin-top: 2rem;
+    height: 200px;
+    min-width: 430px;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-align: center;
+    /* flex-grow: 1; */
+}
+
+
+@media (max-width: 930px) {
+    .container {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 300px 300px 1fr;
+        gap: 1rem;
+    }
+
+    .userRightSection {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 300px 1fr;
+    }
+
+    .userRightSection .rightTop {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+    }
+
+}
+
+@media (max-width: 1610px) {
+    .appointments .wrapper2 {
+        justify-content: center;
+    }
+
+    .appointments .wrapper2 .appointmentBox {
+        min-width: 400px;
+    }
+
 }

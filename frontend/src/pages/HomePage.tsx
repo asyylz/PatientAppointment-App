@@ -8,7 +8,7 @@ export default function HomePage() {
       <div
         //style={{ border: '2px solid red' }}
         className={classes.container}
-      >
+      > 
         <div
           //style={{ border: '2px solid green' }}
           className={classes.leftSection}

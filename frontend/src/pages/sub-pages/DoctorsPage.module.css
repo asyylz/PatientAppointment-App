@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     grid-auto-columns: auto
-    /* This allows items to fill gaps */
+        /* This allows items to fill gaps */
 }
 
 .header {

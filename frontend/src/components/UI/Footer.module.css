@@ -8,12 +8,11 @@
 .footer {
     /* border: 1px solid red; */
     height: 200px;
-    border-top: 2px solid #444;
+    border-top: 4px solid #c4c4c4;
     width: 100%;
     background-color: var(--surface-color);
-    color: white;
     text-align: center;
-    margin-top: 300px;
     grid-column: 1 / span 2;
     z-index: 10;
+    margin-top: 70px;
 }
