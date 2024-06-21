@@ -13,7 +13,12 @@ interface DoctorState {
 }
 
 interface EntityState<T> {
-  entities: T[] | T;
+  entities: T[];
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
+}
+interface EntityStateForUser<T> {
+  entities: T;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
@@ -27,7 +32,7 @@ interface RootState {
   doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
   reviews: EntityState<Review>;
-  currentUser: EntityState<CurrentUser>;
+  currentUser: EntityStateForUser<CurrentUser>;
 }
 
 /* ----------------------- DOCTOR ----------------------- */
