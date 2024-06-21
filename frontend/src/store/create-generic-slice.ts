@@ -22,9 +22,12 @@ export const fetchEntities = <T>(
           delete: axios.delete,
         };
         const response = await axiosMethods[method](url);
-
         console.log(`${entity} data:`, response.data.data);
-        return response.data.data;
+        if (entity === 'currentUser') {
+          return response.data;
+        } else {
+          return response.data.data[entity];
+        }
       } catch (err) {
         console.log(err);
       }

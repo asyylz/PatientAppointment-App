@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
+import { useSelector } from 'react-redux';
 
 export default function TopSeacrhBar() {
+  const {
+    entities: { token, currentUser },
+    status,
+    error,
+  } = useSelector((state: RootState) => state.currentUser);
+
   return (
     <>
       <div className={classes.topBar}>
@@ -13,11 +20,17 @@ export default function TopSeacrhBar() {
             </div>
           </label>
         </div>
-        <i className="fas fa-bell"></i>
 
-        <Link to="/auth" className={classes.user}>
-          <img src="./public/doctor.png" alt="" />
-        </Link>
+        {token && currentUser ? (
+          <Link to="/logout" className={classes.user}>
+            <i className="fas fa-bell"></i>
+            <img src="./public/doctor.png" alt="" />
+          </Link>
+        ) : (
+          <Link className={classes.login} to="/auth">
+            Login
+          </Link>
+        )}
       </div>
     </>
   );

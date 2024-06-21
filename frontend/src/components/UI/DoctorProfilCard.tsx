@@ -13,7 +13,7 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
 }) => {
 
   const {
-    entities: { departments },
+    entities:  departments ,
   } = useSelector((state: RootState) => state.departments);
 
   const department: Department | undefined = departments.find(

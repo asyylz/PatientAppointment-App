@@ -1,0 +1,22 @@
+{
+  "textmarker.savedHighlights": [
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "{/*------------------------ Login ----------------------- */}",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkgoldenrod"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "{/*------------------------ Register ----------------------- */}",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkmagenta"
+    }
+  ]
+}

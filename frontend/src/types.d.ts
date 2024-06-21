@@ -13,7 +13,7 @@ interface DoctorState {
 }
 
 interface EntityState<T> {
-  entities: T;
+  entities: T[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
@@ -23,11 +23,11 @@ interface ExtendedEntityState<T> extends EntityState<T> {
 }
 
 interface RootState {
-  departments: ExtendedEntityState<DepartmentState>;
-  doctors: ExtendedEntityState<DoctorState>;
+  departments: EntityState<Department>;
+  doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
-  reviews: ExtendedEntityState<Review>;
-  currentUser: ExtendedEntityState<CurrentUserState>;
+  reviews: EntityState<Review>;
+  currentUser: EntityState<CurrentUser>;
 }
 
 /* ----------------------- DOCTOR ----------------------- */
@@ -87,13 +87,15 @@ interface ReviewProps {
 }
 
 /* -------------------- CURRENT USER -------------------- */
-interface CurrentUserState {
+interface CurrentUser {
   token: string;
-  currentUser: {
-    email: string;
-    role: string;
-    _id: ObjectId;
-    __v: number;
+  data: {
+    currentUser: {
+      email: string;
+      role: string;
+      _id: ObjectId;
+      __v: number;
+    };
   };
 }
 

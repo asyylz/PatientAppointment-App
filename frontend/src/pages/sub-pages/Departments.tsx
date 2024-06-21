@@ -9,7 +9,7 @@ const Departments: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const {
-    entities: { departments },
+    entities:  departments ,
     status,
     error,
   } = useSelector((state: RootState) => state.departments);

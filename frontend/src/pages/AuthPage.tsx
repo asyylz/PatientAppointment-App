@@ -3,8 +3,8 @@ import classes from './AuthPage.module.css';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../store/index';
 import { loginCurrentUser } from '../store/currentUser-slice';
-import { useState } from 'react';
-import { redirect } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthPage = () => {
   const [email, setEmail] = useState<string>('');
@@ -12,6 +12,7 @@ const AuthPage = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
+  const navigate = useNavigate();
   const {
     entities: { token, currentUser },
     status,
@@ -21,14 +22,18 @@ const AuthPage = () => {
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(loginCurrentUser({ email, password }));
-    if (status === 'succeeded') {
-      console.log('elizah')
-      redirect('/');
-    }
   };
+
+  useEffect(() => {
+    if (status === 'succeeded') {
+      console.log(status);
+      navigate('/');
+    }
+  }, [status, navigate]);
 
   return (
     <div className={classes.container}>
+      {/*------------------------ Login ----------------------- */}
       <div className={classes.wrapper}>
         <h2>Login</h2>
         <form action="" onSubmit={handleLogin}>
@@ -55,6 +60,7 @@ const AuthPage = () => {
           </div>
         </form>
       </div>
+      {/*------------------------ Register ----------------------- */}
       <div className={classes.wrapper}>
         <h2>Registration</h2>
         <form action="">

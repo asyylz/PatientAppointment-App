@@ -10,11 +10,12 @@ const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const {
-    entities: { doctors },
+    entities: doctors,
     status,
     error,
   } = useSelector((state: RootState) => state.doctors);
-
+  
+  console.log(doctors);
 
   const handleSelectDoctor = (doctor: Doctor) => {
     dispatch(doctorActions.selectDoctor(doctor));

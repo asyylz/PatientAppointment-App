@@ -26,8 +26,8 @@ const createSendToken = (user, statusCode, res) => {
 
   res.status(statusCode).json({
     status: 'success',
+    token,
     data: {
-      token,
       currentUser: user
     }
   });
@@ -54,7 +54,7 @@ exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     //const { email, password } = req.body.data;
-    
+
     // 1) Check if email and password exist
     if (!email || !password) {
       return next(new AppError('Please provide email and password!', 400));
@@ -69,6 +69,18 @@ exports.login = async (req, res, next) => {
     }
 
     createSendToken(user, 200, res);
+  } catch (err) {
+    next(err);
+  }
+};
+
+/* ----------------------- LOGOUT ----------------------- */
+exports.logout = async (req, res, next) => {
+  try {
+    if (req.cookies.jwt) {
+      res.clearCookie('jwt', { path: '/logout' });
+    }
+    res.status(200).json({ status: 'success' });
   } catch (err) {
     next(err);
   }
