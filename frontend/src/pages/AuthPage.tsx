@@ -33,7 +33,7 @@ const AuthPage = () => {
         if (selectedDoctor) {
           navigate(`/doctors/${selectedDoctor._id}`);
         } else {
-          navigate('/');
+          navigate('/dashboard');
         }
       }, 800);
     }
