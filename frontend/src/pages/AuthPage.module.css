@@ -9,7 +9,7 @@
 
 }
 
-.container::before {
+/* .container::before {
     content: '';
     position: absolute;
     left: 50vw;
@@ -18,7 +18,7 @@
     width: 1px;
     border-radius: 12px;
     background: #C7BEBE;
-}
+} */
 
 .wrapper {
     position: relative;

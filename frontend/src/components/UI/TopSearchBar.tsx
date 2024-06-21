@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 import { useSelector } from 'react-redux';
 
-export default function TopSeacrhBar() {
+const TopSearchBar: React.FC = () => {
   const {
     entities: { token, data },
     status,
@@ -34,4 +34,6 @@ export default function TopSeacrhBar() {
       </div>
     </>
   );
-}
+};
+
+export default TopSearchBar;

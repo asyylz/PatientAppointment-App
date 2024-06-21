@@ -12,6 +12,7 @@ import DoctorDetailsPage from './../pages/sub-pages/DoctorDetailsPage';
 import DoctorsLayout from '../pages/layouts/DoctorsLayout';
 import AuthPage from '../pages/AuthPage';
 import PrivateRoute from './PrivateRoute';
+import ModalCustom from '../components/UI/ModalCustom';
 
 const routes: RouteObject[] = [
   {
