@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 export default function TopSeacrhBar() {
   const {
-    entities: { token, currentUser },
+    entities: { token, data },
     status,
     error,
   } = useSelector((state: RootState) => state.currentUser);
@@ -21,7 +21,7 @@ export default function TopSeacrhBar() {
           </label>
         </div>
 
-        {token && currentUser ? (
+        {token && data ? (
           <Link to="/logout" className={classes.user}>
             <i className="fas fa-bell"></i>
             <img src="./public/doctor.png" alt="" />

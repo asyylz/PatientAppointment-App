@@ -48,8 +48,8 @@ export const createEntitySlice = <T>(
   fetchEntityThunk: any,
   additionalReducers?: (builder: any) => void
 ) => {
-  const initialState: ExtendedEntityState<T> = {
-    entities: [],
+  const initialState: ExtendedEntityState<T> | EntityState<T> = {
+    entities: [] | {},
     status: 'idle',
     error: null,
   };

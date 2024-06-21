@@ -13,7 +13,7 @@ interface DoctorState {
 }
 
 interface EntityState<T> {
-  entities: T[];
+  entities: T[] | T;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
@@ -88,6 +88,7 @@ interface ReviewProps {
 
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {
+  status: string;
   token: string;
   data: {
     currentUser: {

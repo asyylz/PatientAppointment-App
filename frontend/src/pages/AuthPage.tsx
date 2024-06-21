@@ -14,7 +14,7 @@ const AuthPage = () => {
 
   const navigate = useNavigate();
   const {
-    entities: { token, currentUser },
+    entities: { token, data },
     status,
     error,
   } = useSelector((state: RootState) => state.currentUser);
