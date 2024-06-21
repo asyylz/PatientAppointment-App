@@ -20,6 +20,8 @@ const AuthPage = () => {
     error,
   } = useSelector((state: RootState) => state.currentUser);
 
+  const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
+
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(loginCurrentUser({ email, password }));
@@ -28,10 +30,14 @@ const AuthPage = () => {
   useEffect(() => {
     if (status === 'succeeded') {
       setTimeout(() => {
-        navigate('/');
+        if (selectedDoctor) {
+          navigate(`/doctors/${selectedDoctor._id}`);
+        } else {
+          navigate('/');
+        }
       }, 800);
     }
-  }, [status, navigate]);
+  }, [status, navigate, selectedDoctor]);
 
   return (
     <div className={classes.container}>
