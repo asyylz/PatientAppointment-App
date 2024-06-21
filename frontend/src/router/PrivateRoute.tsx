@@ -10,19 +10,20 @@ interface PrivateRouteProps {
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const navigate = useNavigate();
   const {
-    entities: { token, data },
+    entities: { token, data } = { token: null, data: null },
     status,
     error,
   } = useSelector((state: RootState) => state.currentUser);
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log('asiye')
+    const timeoutId = setTimeout(() => {
       if (!data && !token) {
         navigate('/auth');
       }
     }, 1200);
-  });
+
+    return () => clearTimeout(timeoutId);
+  }, [data, token, navigate]);
 
   return (
     <>

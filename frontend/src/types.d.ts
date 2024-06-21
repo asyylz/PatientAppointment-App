@@ -94,8 +94,8 @@ interface ReviewProps {
 
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {
-  status: string;
-  token: string;
+  status: string | null;
+  token: string | null;
   data: {
     currentUser: {
       email: string;

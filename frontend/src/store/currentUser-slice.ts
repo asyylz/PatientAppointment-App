@@ -22,6 +22,15 @@ const currentUserSlice = createEntitySlice<CurrentUser>(
         state.image = action.payload;
       }
     );
+    builder.addCase(
+      'currentUser/logout',
+      (state: EntityStateForUser<CurrentUser | null>) => {
+        state.entities = null;
+        state.status = 'idle';
+        state.error = null;
+        state.image = undefined;
+      }
+    );
   }
 );
 
@@ -32,6 +41,10 @@ export const currentUserActions = {
   setImagePath: (image: string) => ({
     type: 'currentUser/setImagePath',
     payload: image,
+  }),
+  logout: () => ({
+    type: 'currentUser/logout',
+    payload: null,
   }),
 };
 

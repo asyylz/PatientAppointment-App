@@ -2,7 +2,10 @@ import { useSelector } from 'react-redux';
 import classes from './AuthPage.module.css';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../store/index';
-import { loginCurrentUser } from '../store/currentUser-slice';
+import {
+  currentUserActions,
+  loginCurrentUser,
+} from '../store/currentUser-slice';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ModalCustom from '../components/UI/ModalCustom';
@@ -15,7 +18,7 @@ const AuthPage = () => {
 
   const navigate = useNavigate();
   const {
-    entities: { token, data },
+    entities = { token: null, data: null },
     status,
     error,
   } = useSelector((state: RootState) => state.currentUser);
@@ -26,6 +29,16 @@ const AuthPage = () => {
     event.preventDefault();
     dispatch(loginCurrentUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (entities?.data?.currentUser.role === 'patient') {
+      dispatch(currentUserActions.setImagePath('./public/user-avatar.png'));
+      return;
+    } else if (entities?.data?.currentUser.role === 'doctor') {
+      dispatch(currentUserActions.setImagePath('./public/doctor.png'));
+      return;
+    }
+  }, [entities?.data?.currentUser?.role, dispatch]);
 
   useEffect(() => {
     if (status === 'succeeded') {
