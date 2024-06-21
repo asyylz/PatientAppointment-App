@@ -14,7 +14,6 @@ const Departments: React.FC = () => {
     error,
   } = useSelector((state: RootState) => state.departments);
 
-  console.log(departments);
 
   useEffect(() => {
     if (status === 'idle') {

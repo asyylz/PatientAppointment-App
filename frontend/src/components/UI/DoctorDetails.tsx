@@ -63,10 +63,10 @@ const DoctorDetails: React.FC = () => {
           //style={{ border: '1px solid green' }}
           className={classes.doctorInfo}
         >
-          <p
+          {/* <p
             style={{ fontWeight: 'bold' }}
           >{`Dr. ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</p>
-          <p style={{ fontWeight: 'bold' }}>{selectedDoctor.departmentName}</p>
+          <p style={{ fontWeight: 'bold' }}>{selectedDoctor.departmentName}</p> */}
           <p>{selectedDoctor.doctorDescription}</p>
         </div>
       </div>

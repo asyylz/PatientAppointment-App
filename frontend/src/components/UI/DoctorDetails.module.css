@@ -29,7 +29,9 @@
 
 }
 
-
+.doctorInfo{
+    margin-top: 2rem;
+}
 
 .doctorInfo p {
     font-size: 20px;

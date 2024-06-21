@@ -25,11 +25,13 @@ const AuthPage = () => {
     dispatch(loginCurrentUser({ email, password }));
   };
 
-  // useEffect(() => {
-  //   if (status === 'succeeded') {
-  //     navigate('/notification');
-  //   }
-  // }, [status, navigate]);
+  useEffect(() => {
+    if (status === 'succeeded') {
+      setTimeout(() => {
+        navigate('/');
+      }, 800);
+    }
+  }, [status, navigate]);
 
   return (
     <div className={classes.container}>

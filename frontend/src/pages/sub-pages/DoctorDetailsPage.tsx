@@ -28,7 +28,6 @@ const DoctorDetailsPage: React.FC = () => {
     >
       <h1>{`Dr ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</h1>
       <h1>{selectedDoctor.departmentName}</h1>
-      {/* {status === 'loading' && <div>Loading...</div>} */}
       <DoctorDetails />
     </div>
   );
