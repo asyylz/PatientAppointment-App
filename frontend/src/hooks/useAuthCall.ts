@@ -20,6 +20,16 @@ const useAuthCall = () => {
     }
   };
 
+  const login = async () => {
+    dispatch(currentUserActions.logout());
+    try {
+      await 
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return { logout };
 };
 

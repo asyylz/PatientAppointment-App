@@ -8,7 +8,7 @@ import useAuthCall from './../../hooks/useAuthCall';
 
 const TopSearchBar: React.FC = () => {
   //const dispatch: AppDispatch = useDispatch();
-  
+
   const { logout } = useAuthCall();
   const navigate = useNavigate();
   const {
@@ -19,7 +19,6 @@ const TopSearchBar: React.FC = () => {
   } = useSelector((state: RootState) => state.currentUser);
 
   const handleLogout = async () => {
-    //dispatch(currentUserActions.logout());
     await logout();
     navigate('/');
   };

@@ -17,7 +17,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (!entities.data && !entities.token) {
+      if (!entities?.data && !entities?.token) {
         navigate('/auth');
       }
     }, 1200);

@@ -18,7 +18,7 @@ const AuthPage = () => {
 
   const navigate = useNavigate();
   const {
-    entities = { token: null, data: null },
+    entities = { token: null, data: null, status: null },
     status,
     error,
   } = useSelector((state: RootState) => state.currentUser);
@@ -41,7 +41,7 @@ const AuthPage = () => {
   }, [entities?.data?.currentUser?.role, dispatch]);
 
   useEffect(() => {
-    if (status === 'succeeded') {
+    if (entities?.status === 'success') {
       setTimeout(() => {
         if (selectedDoctor) {
           navigate(`/doctors/${selectedDoctor._id}`);
@@ -50,11 +50,14 @@ const AuthPage = () => {
         }
       }, 800);
     }
-  }, [status, navigate, selectedDoctor]);
+  }, [entities?.status, navigate, selectedDoctor]);
+
+  // console.log(status)
+  console.log(entities?.status);
 
   return (
     <div className={classes.container}>
-      {status === 'succeeded' ? (
+      {entities?.status === 'success' ? (
         <ModalCustom>
           <p>Successful login!</p>
         </ModalCustom>
