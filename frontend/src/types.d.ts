@@ -33,7 +33,7 @@ interface RootState {
   doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
   reviews: EntityState<Review>;
-  currentUser: EntityStateForUser<CurrentUser>;
+  currentUser: CurrentUser;
 }
 
 /* ----------------------- DOCTOR ----------------------- */
@@ -94,16 +94,17 @@ interface ReviewProps {
 
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {
-  status: string | null;
-  token: string | null;
+  token: string;
   data: {
     currentUser: {
-      email: string;
-      name: string;
+      id: number;
       role: string;
-      _id: ObjectId;
-      __v: number;
-    };
+      name: string;
+      email: string;
+    } | null;
   };
+  image: string;
+  status: 'idle' | 'loading' | 'failed' | 'success' | null;
+  error?: string | null;
 }
 /* ------------------------ AXIOS ----------------------- */

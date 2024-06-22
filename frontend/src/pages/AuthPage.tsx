@@ -2,13 +2,10 @@ import { useSelector } from 'react-redux';
 import classes from './AuthPage.module.css';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../store/index';
-import {
-  currentUserActions,
-  loginCurrentUser,
-} from '../store/currentUser-slice';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ModalCustom from '../components/UI/ModalCustom';
+import { login, setImagePath } from '../store/currentUser-slice';
 
 const AuthPage = () => {
   const [email, setEmail] = useState<string>('');
@@ -17,31 +14,29 @@ const AuthPage = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
-  const {
-    entities = { token: null, data: null, status: null },
-    status,
-    error,
-  } = useSelector((state: RootState) => state.currentUser);
+  const { token, data, status, image, error } = useSelector(
+    (state: RootState) => state.currentUser
+  );
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(loginCurrentUser({ email, password }));
+    dispatch(login({ email, password }));
   };
 
   useEffect(() => {
-    if (entities?.data?.currentUser.role === 'patient') {
-      dispatch(currentUserActions.setImagePath('./public/user-avatar.png'));
+    if (data?.currentUser?.role === 'patient') {
+      dispatch(setImagePath('./public/user-avatar.png'));
       return;
-    } else if (entities?.data?.currentUser.role === 'doctor') {
-      dispatch(currentUserActions.setImagePath('./public/doctor.png'));
+    } else if (data?.currentUser?.role === 'doctor') {
+      dispatch(setImagePath('./public/doctor.png'));
       return;
     }
-  }, [entities?.data?.currentUser?.role, dispatch]);
+  }, [data?.currentUser?.role, dispatch]);
 
   useEffect(() => {
-    if (entities?.status === 'success') {
+    if (status === 'success') {
       setTimeout(() => {
         if (selectedDoctor) {
           navigate(`/doctors/${selectedDoctor._id}`);
@@ -50,14 +45,14 @@ const AuthPage = () => {
         }
       }, 800);
     }
-  }, [entities?.status, navigate, selectedDoctor]);
+  }, [ status,navigate, selectedDoctor]);
 
   // console.log(status)
-  console.log(entities?.status);
+  console.log(status);
 
   return (
     <div className={classes.container}>
-      {entities?.status === 'success' ? (
+      {status === 'success' ? (
         <ModalCustom>
           <p>Successful login!</p>
         </ModalCustom>

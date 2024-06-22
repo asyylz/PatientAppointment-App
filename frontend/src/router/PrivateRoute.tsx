@@ -1,7 +1,7 @@
 // PrivateRoute.tsx
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate, Outlet, redirect, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import ModalCustom from '../components/UI/ModalCustom';
 interface PrivateRouteProps {
   children: React.ReactNode;
@@ -9,25 +9,24 @@ interface PrivateRouteProps {
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const navigate = useNavigate();
-  const {
-    entities = { token: null, data: null },
-    status,
-    error,
-  } = useSelector((state: RootState) => state.currentUser);
+
+  const { token, data, status, error } = useSelector(
+    (state: RootState) => state.currentUser
+  );
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (!entities?.data && !entities?.token) {
+      if (!data && !token) {
         navigate('/auth');
       }
     }, 1200);
 
     return () => clearTimeout(timeoutId);
-  }, [entities?.data, entities?.token, navigate]);
+  }, [data, token, navigate]);
 
   return (
     <>
-      {!entities?.data && !entities?.token ? (
+      {!data.currentUser && !token ? (
         <ModalCustom>
           <p>You should login to be able to book appointment.</p>
         </ModalCustom>
