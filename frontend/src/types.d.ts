@@ -104,7 +104,14 @@ interface CurrentUser {
     } | null;
   };
   image: string;
-  status: 'idle' | 'loading' | 'failed' | 'success' | null;
+  status:
+    | 'idle'
+    | 'loading'
+    | 'failed'
+    | 'success'
+    | 'logout success'
+    | 'login success'
+    | null;
   error?: string | null;
 }
 /* ------------------------ AXIOS ----------------------- */

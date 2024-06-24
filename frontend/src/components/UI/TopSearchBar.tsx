@@ -1,21 +1,19 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/currentUser-slice';
-import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 
+
 const TopSearchBar: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
-  const { token, data, status, image, error } = useSelector(
+  const { token, data, image } = useSelector(
     (state: RootState) => state.currentUser
   );
 
   const handleLogout = async () => {
     await dispatch(logout(token));
-    navigate('/');
   };
 
   return (

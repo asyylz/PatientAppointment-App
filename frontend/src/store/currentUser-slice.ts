@@ -1,43 +1,55 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  PayloadAction,
+  createAsyncThunk,
+  createAction,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
-import useAxios from '../hooks/useAxios';
+import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
 
+// Define the initial state
 const initialState: CurrentUser = {
-  status: null,
+  status: 'idle',
   token: '',
   data: { currentUser: null },
   image: '',
 };
 
+// Async thunk for login
 export const login = createAsyncThunk<
   CurrentUser,
   { email: string; password: string }
 >('currentUser/login', async (credentials) => {
-  const response = await axios.post(
-    'http://localhost:3000/api/v1/users/login',
-    credentials
-  );
-  return response.data;
+  try {
+    const response = await axios.post(
+      'http://localhost:3000/api/v1/users/login',
+      credentials
+    );
+    toastSuccessNotify('Successfully login!');
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
 });
 
+// Async thunk for logout
 export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
   'currentUser/logout',
   async (token: string, { rejectWithValue }) => {
-    console.log('elizah');
-    // const axiosWithToken = useAxios();
     try {
-      console.log('asiye');
       await axios.get('http://localhost:3000/api/v1/users/logout', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      toastSuccessNotify('Successfully logout!');
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
+// Create the currentUserSlice
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
@@ -45,13 +57,6 @@ const currentUserSlice = createSlice({
     setImagePath: (state, action: PayloadAction<string>) => {
       state.image = action.payload;
     },
-    // clearUser: (state) => {
-    //   state.status = 'idle';
-    //   state.token = '';
-    //   state.data = { currentUser: null };
-    //   state.image = '';
-    //   state.error = null;
-    // },
   },
   extraReducers: (builder) => {
     builder
@@ -59,7 +64,7 @@ const currentUserSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.status = 'success';
+        state.status = 'login success';
         state.token = action.payload.token;
         state.data = action.payload.data;
         state.image = action.payload.image;
@@ -70,7 +75,7 @@ const currentUserSlice = createSlice({
         state.error = action.error.message || 'Login failed';
       })
       .addCase(logout.fulfilled, (state) => {
-        state.status = 'success';
+        state.status = 'logout success';
         state.token = '';
         state.data = { currentUser: null };
         state.image = '';
@@ -79,12 +84,15 @@ const currentUserSlice = createSlice({
       .addCase(logout.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || 'Logout failed';
+      })
+      .addCase('currentUser/stateToIdle', (state) => {
+        state.status = 'idle'; // Reset status to 'idle' on successful logout
       });
   },
 });
 
-const { reducer } = currentUserSlice;
+// Export actions and reducer
+export const logoutSuccess = createAction('currentUser/stateToIdle');
 
 export const { setImagePath } = currentUserSlice.actions;
-
-export default reducer;
+export default currentUserSlice.reducer;
