@@ -1,7 +1,7 @@
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export const toastWarnNotify = msg => {
+export const toastWarnNotify = (msg: string) => {
   toast.warn(msg, {
     autoClose: 1000,
     hideProgressBar: false,
@@ -12,7 +12,7 @@ export const toastWarnNotify = msg => {
   });
 };
 
-export const toastSuccessNotify = msg => {
+export const toastSuccessNotify = (msg: string) => {
   toast.success(msg, {
     autoClose: 1500,
     hideProgressBar: false,
@@ -23,7 +23,7 @@ export const toastSuccessNotify = msg => {
   });
 };
 
-export const toastErrorNotify = msg => {
+export const toastErrorNotify = (msg: string) => {
   toast.error(msg, {
     autoClose: 2000,
     hideProgressBar: false,

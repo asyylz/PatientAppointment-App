@@ -19,3 +19,15 @@ h3,
 h2 {
     color: #444;
 }
+
+.active {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    z-index: 100;
+}
+
+.inactive {
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+    z-index: 10;
+}

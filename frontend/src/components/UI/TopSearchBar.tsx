@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 
-
 const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { token, data, image } = useSelector(
     (state: RootState) => state.currentUser
@@ -14,6 +14,7 @@ const TopSearchBar: React.FC = () => {
 
   const handleLogout = async () => {
     await dispatch(logout(token));
+    navigate('/');
   };
 
   return (
