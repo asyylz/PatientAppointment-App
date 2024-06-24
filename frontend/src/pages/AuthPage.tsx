@@ -8,7 +8,7 @@ import { login, setImagePath } from '../store/currentUser-slice';
 
 const AuthPage = () => {
   const [email, setEmail] = useState<string>('aytekin@test.com');
-  const [password, setPassword] = useState<string>('newpass12');
+  const [password, setPassword] = useState<string>('newpass1');
 
   const dispatch: AppDispatch = useDispatch();
 

@@ -4,7 +4,7 @@ import {
   createAsyncThunk,
   createAction,
 } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
 
 // Define the initial state
@@ -15,11 +15,13 @@ const initialState: CurrentUser = {
   image: '',
 };
 
+
 // Async thunk for login
 export const login = createAsyncThunk<
   CurrentUser,
-  { email: string; password: string }
->('currentUser/login', async (credentials) => {
+  { email: string; password: string },
+  { rejectValue: string }
+>('currentUser/login', async (credentials, { rejectWithValue }) => {
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/login',
@@ -27,8 +29,16 @@ export const login = createAsyncThunk<
     );
     toastSuccessNotify('Successfully login!');
     return response.data;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response?.status === 401) {
+        toastErrorNotify(
+          `${(axiosError.response.data as { message: string }).message}`
+        );
+      }
+      return rejectWithValue(error.message);
+    }
   }
 });
 
@@ -43,8 +53,16 @@ export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
         },
       });
       toastSuccessNotify('Successfully logout!');
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.status === 401) {
+          toastErrorNotify(
+            `${(axiosError.response.data as { message: string }).message}`
+          );
+        }
+        return rejectWithValue(error.message);
+      }
     }
   }
 );
@@ -72,6 +90,7 @@ const currentUserSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
+        console.log(action.error.message);
         state.error = action.error.message || 'Login failed';
       })
       .addCase(logout.fulfilled, (state) => {
