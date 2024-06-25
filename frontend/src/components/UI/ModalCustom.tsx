@@ -9,16 +9,20 @@ interface ModalCustomProps {
 const ModalCustom: React.FC<ModalCustomProps> = ({ children }) => {
   const navigate = useNavigate();
 
+  const modalElement = document.getElementById('modal');
+  if (!modalElement) {
+    throw new Error('No modal element found with id "modal"');
+  }
   return createPortal(
     <div className={classes.container}>
       <div className={classes.wrapper}>
         {children}
-        <button onClick={() => navigate('/')} className={classes.closeButton}>
+        {/* <button onClick={() => navigate('/')} className={classes.closeButton}>
           Close
-        </button>
+        </button> */}
       </div>
     </div>,
-    document.getElementById('modal')
+    modalElement
   );
 };
 

@@ -4,6 +4,8 @@ import { generateTimeSlots } from '../../utils/timeSlots';
 import { mapAvailability } from '../../utils/mapAvailability';
 import { generateDates } from '../../helper/GenerateWeekDays';
 import { useSelector } from 'react-redux';
+import ModalCustom from './ModalCustom';
+import AppointmentForm from './AppointmentForm'
 
 interface AvailabilityProps {
   availability: Availability;
@@ -23,8 +25,8 @@ const days = [
 const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
   const { userData } = useSelector((state: RootState) => state.currentUser);
-
   const slots = generateTimeSlots();
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [appointment, setAppointment] = useState<Appointment>({
     doctorId: {
       $oid: '',
@@ -43,18 +45,19 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
     time: string,
     event: React.MouseEvent<HTMLTableCellElement>
   ) => {
-    if (
-      event.target instanceof HTMLElement &&
-      event.target.textContent === 'Available'
-    ) {
-      setAppointment({
-        doctorId: selectedDoctor?._id,
-        patientId: userData?._id,
-        date: time,
-        time: time,
-        reason: 'General checkup',
-      });
-    }
+    setOpenModal(true);
+    // if (
+    //   event.target instanceof HTMLElement &&
+    //   event.target.textContent === 'Available'
+    // ) {
+    //   setAppointment({
+    //     doctorId: selectedDoctor?._id,
+    //     patientId: userData?._id,
+    //     date: time,
+    //     time: time,
+    //     reason: 'General checkup',
+    //   });
+    // }
   };
 
   if (!availability) {
@@ -64,45 +67,53 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
   const mappedAvailability = mapAvailability(availability, slots);
 
   return (
-    <div className={classes.wrapper}>
-      {availability && (
-        <table className={classes.table}>
-          <thead>
-            <tr>
-              <th className={classes.th}>Time</th>
-              {days.map((day) => (
-                <th key={day} className={classes.th}>
-                  {day}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {slots.map((slot) => (
-              <tr key={slot}>
-                <td className={classes.td}>{slot}</td>
+    <>
+      {openModal && (
+        <ModalCustom>
+          <AppointmentForm />
+        </ModalCustom>
+      )}
+
+      <div className={classes.wrapper}>
+        {availability && (
+          <table className={classes.table}>
+            <thead>
+              <tr>
+                <th className={classes.th}>Time</th>
                 {days.map((day) => (
-                  <td
-                    key={day}
-                    className={`${
-                      mappedAvailability[day]?.[slots.indexOf(slot)] ===
-                      'Available'
-                        ? classes.available
-                        : ''
-                    }`}
-                    onClick={(event: React.MouseEvent<HTMLTableCellElement>) =>
-                      handleClick(slot, event)
-                    }
-                  >
-                    {mappedAvailability[day]?.[slots.indexOf(slot)] || ''}
-                  </td>
+                  <th key={day} className={classes.th}>
+                    {day}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {slots.map((slot) => (
+                <tr key={slot}>
+                  <td className={classes.td}>{slot}</td>
+                  {days.map((day) => (
+                    <td
+                      key={day}
+                      className={`${
+                        mappedAvailability[day]?.[slots.indexOf(slot)] ===
+                        'Available'
+                          ? classes.available
+                          : ''
+                      }`}
+                      onClick={(
+                        event: React.MouseEvent<HTMLTableCellElement>
+                      ) => handleClick(slot, event)}
+                    >
+                      {mappedAvailability[day]?.[slots.indexOf(slot)] || ''}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </>
   );
 };
 
