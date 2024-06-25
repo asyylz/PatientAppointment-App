@@ -14,7 +14,6 @@ const Dashboard: React.FC = () => {
       className={classes.container}
     >
       <div className={classes.userLeftSection}>
-        t
         <div className={classes.wrapper}>
           <div className={classes.image}>
             <img src={image} alt="" />

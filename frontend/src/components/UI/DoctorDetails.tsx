@@ -45,7 +45,7 @@ const DoctorDetails: React.FC = () => {
 
   return (
     <div
-      //style={{ border: '6px solid red' }}
+     // style={{ border: '6px solid red' }}
       className={classes.wrapper}
     >
       <div

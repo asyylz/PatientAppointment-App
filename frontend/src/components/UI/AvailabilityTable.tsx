@@ -71,8 +71,9 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
       {openModal && (
         <ModalCustom>
           <AppointmentForm
-            user={userData as object}
+            user={userData as userData}
             doctor={selectedDoctor as Doctor}
+            setOpenModal={setOpenModal}
           />
         </ModalCustom>
       )}

@@ -3,9 +3,14 @@ import classes from './AppointmentForm.module.css';
 interface AppointmentFormProps {
   user: userData;
   doctor: Doctor | null;
+  setOpenModal: (openModal: boolean) => void;
 }
 
-const AppointmentForm: React.FC<AppointmentFormProps> = ({ user, doctor }) => {
+const AppointmentForm: React.FC<AppointmentFormProps> = ({
+  user,
+  doctor,
+  setOpenModal,
+}) => {
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>Booking Form</h1>
@@ -49,7 +54,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ user, doctor }) => {
           cols={45}
         ></textarea>
         <button type="submit">Book</button>
-        <button>Close</button>
+        <button onClick={() => setOpenModal(false)}>Close</button>
       </form>
     </div>
   );

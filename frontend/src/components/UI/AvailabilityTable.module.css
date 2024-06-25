@@ -24,6 +24,11 @@ td {
     background-color: #45C4B0;
 }
 
+.available:hover {
+    color: #fff;
+    background-color: #444;
+}
+
 th {
     background-color: #f2f2f2;
 }

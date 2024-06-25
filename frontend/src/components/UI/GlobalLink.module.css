@@ -1,4 +1,6 @@
-.wrapper a {
+
+.wrapper a,
+.wrapper button {
     text-decoration: none;
     color: #444;
     width: 200px;
@@ -11,15 +13,20 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     border-radius: 28px;
     cursor: pointer;
+    outline: none;
+    border: none;
 }
 
-.wrapper a:hover {
+.wrapper a:hover,
+.wrapper button:hover {
     color: #fff;
     background-color: #444;
 }
 
 @media (max-width: 930px) {
-    .wrapper a {
+
+    .wrapper a,
+    .wrapper button {
         width: 150px;
     }
 }
