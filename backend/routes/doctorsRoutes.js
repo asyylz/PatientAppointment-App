@@ -13,4 +13,5 @@ router
   .get(doctorsController.getDoctor)
   .patch(doctorsController.updateDoctor)
   .delete(doctorsController.deleteDoctor);
+
 module.exports = router;

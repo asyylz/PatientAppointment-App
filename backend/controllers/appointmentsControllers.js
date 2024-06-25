@@ -2,9 +2,9 @@ const Appointment = require('../models/appointmentModel');
 
 // GET ALL //
 exports.getAllAppointments = async (req, res, next) => {
+  console.log('asiye');
   try {
     const appointments = await Appointment.find();
-    console.log('asiye');
     res.status(200).json({
       status: 'success',
       results: appointments.length,
@@ -16,6 +16,7 @@ exports.getAllAppointments = async (req, res, next) => {
     next(err);
   }
 };
+
 
 // GET SINGLE //
 exports.getUserAppointment = async (req, res) => {

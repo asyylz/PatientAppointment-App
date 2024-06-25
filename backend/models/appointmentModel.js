@@ -4,19 +4,19 @@ const mongoose = require('mongoose');
 const appointmentSchema = new mongoose.Schema({
   doctorId: {
     type: String,
-    required: true
+    required: [true, 'An appointment must have a doctorId']
   },
   patientId: {
     type: String,
-    required: true
+    required: [true, 'An appointment must have a patientId']
   },
   date: {
-    type: Date,
-    required: true
+    type: Date
+    //required: [true, 'An appointment must have a date']
   },
   reason: {
     type: String,
-    required: true
+    required: [true, 'An appointment must have a reason']
   }
 });
 
