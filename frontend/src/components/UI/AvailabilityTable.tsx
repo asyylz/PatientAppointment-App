@@ -32,12 +32,17 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
     patientId: {
       $oid: '',
     },
+    time: '',
     date: '',
     reason: '',
   });
+
   console.log(appointment);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (
+    time: string,
+    event: React.MouseEvent<HTMLTableCellElement>
+  ) => {
     if (
       event.target instanceof HTMLElement &&
       event.target.textContent === 'Available'
@@ -45,7 +50,8 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
       setAppointment({
         doctorId: selectedDoctor?._id,
         patientId: userData?._id,
-        date: '',
+        date: time,
+        time: time,
         reason: 'General checkup',
       });
     }
@@ -84,7 +90,9 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
                         ? classes.available
                         : ''
                     }`}
-                    onClick={handleClick}
+                    onClick={(event: React.MouseEvent<HTMLTableCellElement>) =>
+                      handleClick(slot, event)
+                    }
                   >
                     {mappedAvailability[day]?.[slots.indexOf(slot)] || ''}
                   </td>

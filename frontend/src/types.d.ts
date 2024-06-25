@@ -141,4 +141,5 @@ interface Appointment {
   patientId: ObjectId | undefined;
   date: date;
   reason: string;
+  time: string;
 }
