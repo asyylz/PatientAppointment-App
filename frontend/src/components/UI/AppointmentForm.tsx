@@ -12,43 +12,42 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ user, doctor }) => {
       <form action="#">
         <div className={classes.leftSection}>
           {' '}
-          <div className={classes.inputBox}>
-            <input
-              type="text"
-              placeholder="Choose Doctor"
-              value={`Dr.${doctor?.firstName} ${doctor?.lastName}`}
-              required
-            />
-            <div className={classes.underline}></div>
-          </div>
-          <div className={classes.inputBox}>
-            <input
-              type="text"
-              value={user.name}
-              placeholder="Patient Name"
-              required
-            />
-            <div className={classes.underline}></div>
-          </div>
-          <div className={classes.inputBox}>
-            <input placeholder="Appointment Date" type="date" required />
-            <div className={classes.underline}></div>
-          </div>
-          <div className={classes.inputBox}>
-            <input placeholder="Appointment Time" type="time" required />
-            <div className={classes.underline}></div>
-          </div>
+          <input
+            type="text"
+            placeholder="Choose Doctor"
+            value={`Dr.${doctor?.firstName} ${doctor?.lastName}`}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Choose Main Department"
+            value={doctor?.departmentName}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Choose Sub Department"
+            value={doctor?.departmentName}
+            required
+          />
         </div>
         <div className={classes.rightSection}>
-          <div className={classes.inputBox}>
-            <textarea
-              name="reason"
-              id="reason"
-              placeholder="Appointment reason"
-            ></textarea>
-            <div className={classes.underline}></div>
-          </div>
+          <input
+            type="text"
+            value={user.name}
+            placeholder="Patient Name"
+            required
+          />
+          <input placeholder="Appointment Date" type="date" required />
+          <input placeholder="Appointment Time" type="time" required />
         </div>
+        <textarea
+          className={classes.reason}
+          placeholder="Please write your concerns..."
+          name="story"
+          rows={8}
+          cols={45}
+        ></textarea>
         <button type="submit">Book</button>
         <button>Close</button>
       </form>
