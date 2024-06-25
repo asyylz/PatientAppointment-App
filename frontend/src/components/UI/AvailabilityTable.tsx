@@ -5,7 +5,7 @@ import { mapAvailability } from '../../utils/mapAvailability';
 import { generateDates } from '../../helper/GenerateWeekDays';
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
-import AppointmentForm from './AppointmentForm'
+import AppointmentForm from './AppointmentForm';
 
 interface AvailabilityProps {
   availability: Availability;
@@ -70,7 +70,10 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
     <>
       {openModal && (
         <ModalCustom>
-          <AppointmentForm />
+          <AppointmentForm
+            user={userData as object}
+            doctor={selectedDoctor as Doctor}
+          />
         </ModalCustom>
       )}
 
