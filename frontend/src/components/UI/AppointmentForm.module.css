@@ -40,9 +40,10 @@
     position: relative;
 }
 
-input {
+.container input {
     height: 100%;
     width: 100%;
+    padding-left: 10px;
     outline: none;
     font-size: 16px;
     border: none;

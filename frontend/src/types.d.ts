@@ -96,12 +96,7 @@ interface ReviewProps {
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {
   token: string;
-  userData: {
-    _id: ObjectId;
-    role: string;
-    name: string;
-    email: string;
-  } | null;
+  userData: userData | null;
   image: string;
   status:
     | 'idle'
@@ -112,6 +107,12 @@ interface CurrentUser {
     | 'login success'
     | null;
   error?: string | null;
+}
+interface userData {
+  _id: ObjectId;
+  role: string;
+  name: string;
+  email: string;
 }
 
 interface CurrentUserPayload {
