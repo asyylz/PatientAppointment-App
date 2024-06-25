@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { login, setImagePath } from '../store/currentUser-slice';
 
 const AuthPage = () => {
-  const [email, setEmail] = useState<string>('aytekin@test.com');
-  const [password, setPassword] = useState<string>('newpass12');
+  const [email, setEmail] = useState<string>('alice.johnson@example.com');
+  const [password, setPassword] = useState<string>('Password3!');
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -46,7 +46,9 @@ const AuthPage = () => {
   }, [status, navigate, selectedDoctor]);
 
   return (
-    <div className={classes.container}>
+    <div 
+    className={classes.container}
+    >
       {/*------------------------ Login ----------------------- */}
       <div className={classes.wrapper}>
         <h2>Login</h2>
@@ -56,7 +58,7 @@ const AuthPage = () => {
               type="text"
               placeholder="Enter your email"
               //value={email}
-              value="aytekin@test.com"
+              value="alice.johnson@example.com"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -66,7 +68,7 @@ const AuthPage = () => {
               type="password"
               placeholder="Enter your password"
               //value={password}
-              value="newpass12"
+              value="Password3!"
               onChange={(e) => setPassword(e.target.value)}
               required
             />

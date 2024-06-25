@@ -34,25 +34,26 @@ const Doctors: React.FC = () => {
       const filtered = doctors
         .filter(
           (doctor) =>
-            doctor.firstName.toLowerCase().includes(searchWord.toLowerCase()) ||
-            doctor.lastName.toLowerCase().includes(searchWord.toLowerCase())
+            doctor.firstName.toLowerCase().startsWith(searchWord.toLowerCase()) ||
+            doctor.lastName.toLowerCase().startsWith(searchWord.toLowerCase())
         )
-        .sort((a, b) => {
-          const aMainIncludes = a.firstName
-            .toLowerCase()
-            .includes(searchWord.toLowerCase());
-          const bMainIncludes = b.firstName
-            .toLowerCase()
-            .includes(searchWord.toLowerCase());
+        // .sort((a, b) => {
+        //   const aFirstnameIncludes = a.firstName
+        //     .toLowerCase()
+        //     .includes(searchWord.toLowerCase());
 
-          if (aMainIncludes && !bMainIncludes) {
-            return -1; // `a` should come before `b`
-          } else if (!aMainIncludes && bMainIncludes) {
-            return 1; // `b` should come before `a`
-          } else {
-            return 0; // keep the order as is
-          }
-        });
+        //   const bFirstnameIncludes = b.firstName
+        //     .toLowerCase()
+        //     .includes(searchWord.toLowerCase());
+
+        //   if (aFirstnameIncludes && !bFirstnameIncludes) {
+        //     return -1; // `a` should come before `b`
+        //   } else if (!aFirstnameIncludes && bFirstnameIncludes) {
+        //     return 1; // `b` should come before `a`
+        //   } else {
+        //     return 0; // keep the order as is
+        //   }
+        // });
 
       setFilteredDoctors(filtered);
     } else {

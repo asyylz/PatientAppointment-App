@@ -95,7 +95,7 @@ const doctorSchema = new mongoose.Schema({
   address: addressSchema,
   reviews: [reviewSchema],
   departmentId: mongoose.Schema.Types.ObjectId,
-  doctorDescription: String
+  doctorDescription: String,
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
