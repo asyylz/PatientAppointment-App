@@ -3,6 +3,7 @@ import departmentsReducer from './departments-slice';
 import doctorsReducer from './doctors-slice';
 import reviewsReducer from './reviews-slice';
 import currentUserReducer from './currentUser-slice';
+import searchReducer from './search-slice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     doctors: doctorsReducer,
     reviews: reviewsReducer,
     currentUser: currentUserReducer,
+    search: searchReducer,
   },
 });
 

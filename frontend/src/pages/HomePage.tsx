@@ -5,12 +5,11 @@ import RightSubMain from './layouts/RighMainSectionLayout';
 import classes from './HomePage.module.css';
 
 export default function HomePage() {
-
   return (
     <>
       <div
         //style={{ border: '2px solid red' }}
-        className={classes.container}
+        className={`${classes.container} ${classes.active}`}
       >
         <div
           //style={{ border: '2px solid green' }}

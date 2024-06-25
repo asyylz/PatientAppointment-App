@@ -34,6 +34,7 @@ interface RootState {
   selectedDoctor: Doctor;
   reviews: EntityState<Review>;
   currentUser: CurrentUser;
+  search: string;
 }
 
 /* ----------------------- DOCTOR ----------------------- */

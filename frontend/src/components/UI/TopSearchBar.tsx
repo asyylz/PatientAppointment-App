@@ -3,25 +3,44 @@ import classes from './TopSearchBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
+import { useEffect, useState } from 'react';
+import { setSearch, clearSearch } from '../../store/search-slice';
 
 const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState('');
 
   const { token, data, image } = useSelector(
     (state: RootState) => state.currentUser
   );
 
+console.log(searchInput)
+
+  useEffect(() => {
+    
+      const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
+      return () => {
+        clearTimeout(timeout);
+      };
+    
+  }, [dispatch, searchInput]);
+
   const handleLogout = async () => {
-    await dispatch(logout(token));
     navigate('/');
+    await dispatch(logout(token));
   };
 
   return (
     <>
       <div className={classes.topBar}>
         <div className={classes.search}>
-          <input type="text" name="search" placeholder="search here" />
+          <input
+            type="text"
+            name="search"
+            placeholder="search here"
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
           <label htmlFor="search">
             <div className={classes.searchIcon}>
               <i className="fas fa-search"></i>

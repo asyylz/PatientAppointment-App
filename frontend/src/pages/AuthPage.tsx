@@ -36,11 +36,12 @@ const AuthPage = () => {
 
   useEffect(() => {
     if (status === 'login success') {
-      if (selectedDoctor) {
-        navigate(`/doctors/${selectedDoctor._id}`);
-      } else {
-        navigate('/dashboard');
-      }
+      navigate(-1);
+      // if (selectedDoctor) {
+      //   navigate(`/doctors/${selectedDoctor._id}`);
+      // } else {
+      //   navigate('/dashboard');
+      // }
     }
   }, [status, navigate, selectedDoctor]);
 
