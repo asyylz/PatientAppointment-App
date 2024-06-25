@@ -27,7 +27,8 @@ const DoctorDetailsPage: React.FC = () => {
       className={classes.container} // not yet given styles
       //style={{ border: '4px solid purple' }}
     >
-      <GlobalLink text="Back" to={-1} />
+      {' '}
+      <GlobalLink text="Back" to={-1} />{' '}
       <h1>{`Dr ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</h1>
       <h1>{selectedDoctor.departmentName}</h1>
       <DoctorDetails />
