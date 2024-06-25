@@ -13,7 +13,7 @@ const AuthPage = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
-  const { token, data, status, image, error } = useSelector(
+  const { token, userData, status, image, error } = useSelector(
     (state: RootState) => state.currentUser
   );
 
@@ -25,30 +25,23 @@ const AuthPage = () => {
   };
 
   useEffect(() => {
-    if (data?.currentUser?.role === 'patient') {
+    if (userData?.role === 'patient') {
       dispatch(setImagePath('./public/user-avatar.png'));
       return;
-    } else if (data?.currentUser?.role === 'doctor') {
+    } else if (userData?.role === 'doctor') {
       dispatch(setImagePath('./public/doctor.png'));
       return;
     }
-  }, [data?.currentUser?.role, dispatch]);
+  }, [userData?.role, dispatch]);
 
   useEffect(() => {
     if (status === 'login success') {
       navigate(-1);
-      // if (selectedDoctor) {
-      //   navigate(`/doctors/${selectedDoctor._id}`);
-      // } else {
-      //   navigate('/dashboard');
-      // }
     }
   }, [status, navigate, selectedDoctor]);
 
   return (
-    <div 
-    className={classes.container}
-    >
+    <div className={classes.container}>
       {/*------------------------ Login ----------------------- */}
       <div className={classes.wrapper}>
         <h2>Login</h2>

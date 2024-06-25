@@ -96,9 +96,29 @@ interface ReviewProps {
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {
   token: string;
+  userData: {
+    _id: ObjectId;
+    role: string;
+    name: string;
+    email: string;
+  } | null;
+  image: string;
+  status:
+    | 'idle'
+    | 'loading'
+    | 'failed'
+    | 'success'
+    | 'logout success'
+    | 'login success'
+    | null;
+  error?: string | null;
+}
+
+interface CurrentUserPayload {
+  token: string;
   data: {
-    currentUser: {
-      id: number;
+    user: {
+      _id: ObjectId;
       role: string;
       name: string;
       email: string;
@@ -115,4 +135,10 @@ interface CurrentUser {
     | null;
   error?: string | null;
 }
-/* ------------------------ AXIOS ----------------------- */
+/* ------------------------ APPOINTMENT ----------------------- */
+interface Appointment {
+  doctorId: ObjectId | undefined;
+  patientId: ObjectId | undefined;
+  date: date;
+  reason: string;
+}

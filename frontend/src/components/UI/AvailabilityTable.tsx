@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './AvailabilityTable.module.css';
 import { generateTimeSlots } from '../../utils/timeSlots';
 import { mapAvailability } from '../../utils/mapAvailability';
+import { generateDates } from '../../helper/GenerateWeekDays';
+import { useSelector } from 'react-redux';
 
 interface AvailabilityProps {
   availability: Availability;
@@ -19,14 +21,41 @@ const days = [
 /* ------------------------ MAIN ------------------------ */
 
 const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
+  const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
+  const { userData } = useSelector((state: RootState) => state.currentUser);
+
   const slots = generateTimeSlots();
-  
+  const [appointment, setAppointment] = useState<Appointment>({
+    doctorId: {
+      $oid: '',
+    },
+    patientId: {
+      $oid: '',
+    },
+    date: '',
+    reason: '',
+  });
+  console.log(appointment);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (
+      event.target instanceof HTMLElement &&
+      event.target.textContent === 'Available'
+    ) {
+      setAppointment({
+        doctorId: selectedDoctor?._id,
+        patientId: userData?._id,
+        date: '',
+        reason: 'General checkup',
+      });
+    }
+  };
+
   if (!availability) {
     return <div>No availability data for this doctor</div>;
   }
 
   const mappedAvailability = mapAvailability(availability, slots);
-
 
   return (
     <div className={classes.wrapper}>
@@ -49,12 +78,13 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
                 {days.map((day) => (
                   <td
                     key={day}
-                    className={`${classes.td} ${
+                    className={`${
                       mappedAvailability[day]?.[slots.indexOf(slot)] ===
                       'Available'
                         ? classes.available
                         : ''
                     }`}
+                    onClick={handleClick}
                   >
                     {mappedAvailability[day]?.[slots.indexOf(slot)] || ''}
                   </td>

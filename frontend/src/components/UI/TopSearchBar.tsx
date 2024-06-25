@@ -11,19 +11,17 @@ const TopSearchBar: React.FC = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
 
-  const { token, data, image } = useSelector(
+  const { token, userData, image } = useSelector(
     (state: RootState) => state.currentUser
   );
 
-console.log(searchInput)
+  console.log(searchInput);
 
   useEffect(() => {
-    
-      const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
-      return () => {
-        clearTimeout(timeout);
-      };
-    
+    const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [dispatch, searchInput]);
 
   const handleLogout = async () => {
@@ -48,9 +46,9 @@ console.log(searchInput)
           </label>
         </div>
 
-        {token && data ? (
+        {token && userData ? (
           <div className={classes.user}>
-            <h3>{data?.currentUser?.name}</h3>
+            <h3>{userData?.name}</h3>
             <i className="fas fa-bell"></i>
             <img src={image} alt="" />
             <button onClick={handleLogout}>Logout</button>

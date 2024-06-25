@@ -7,18 +7,17 @@ import {
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
 
-// Define the initial state
 const initialState: CurrentUser = {
   status: 'idle',
   token: '',
-  data: { currentUser: null },
+  userData: null,
   image: '',
 };
 
 
 // Async thunk for login
 export const login = createAsyncThunk<
-  CurrentUser,
+  CurrentUserPayload,
   { email: string; password: string },
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
@@ -28,6 +27,7 @@ export const login = createAsyncThunk<
       credentials
     );
     toastSuccessNotify('Successfully login!');
+    console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -84,7 +84,7 @@ const currentUserSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.status = 'login success';
         state.token = action.payload.token;
-        state.data = action.payload.data;
+        state.userData = action.payload.data.user;
         state.image = action.payload.image;
         state.error = null;
       })
@@ -96,7 +96,7 @@ const currentUserSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.status = 'logout success';
         state.token = '';
-        state.data = { currentUser: null };
+        state.userData = null;
         state.image = '';
         state.error = null;
       })

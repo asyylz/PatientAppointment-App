@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import GlobalLink from '../../components/UI/GlobalLink';
 
 const Dashboard: React.FC = () => {
-  const { token, data, status, error, image } = useSelector(
+  const { token, userData, status, error, image } = useSelector(
     (state: RootState) => state.currentUser
   );
 
@@ -14,11 +14,12 @@ const Dashboard: React.FC = () => {
       className={classes.container}
     >
       <div className={classes.userLeftSection}>
+        t
         <div className={classes.wrapper}>
           <div className={classes.image}>
             <img src={image} alt="" />
           </div>
-          <p>Welcome {data?.currentUser?.name}</p>
+          <p>Welcome {userData?.name}</p>
         </div>
       </div>
       <div className={classes.userRightSection}>

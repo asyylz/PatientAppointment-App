@@ -7,9 +7,11 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const { token, data } = useSelector((state: RootState) => state.currentUser);
+  const { token, userData } = useSelector(
+    (state: RootState) => state.currentUser
+  );
 
-  if (!data?.currentUser || !token) {
+  if (!userData || !token) {
     toastErrorNotify('You should login');
     return <p>Please login to be able to see this page</p>; // Render nothing or a loading indicator while redirecting
   }
