@@ -31,7 +31,7 @@
     gap: 1rem;
 }
 
-.container input {
+.container input, .container select {
     width: 100%;
     padding-left: 10px;
     outline: none;
@@ -41,12 +41,14 @@
     margin-top: 25px;
 }
 
-.container input {
+.container input,.container select {
     border-bottom: 3px solid rgba(173, 217, 209, 1)
 }
 
 input:focus,
 input:hover,
+select:hover,
+select:focus,
 .container textarea:hover,
 .container textarea:focus {
     border-bottom: 4px solid rgba(173, 217, 209, 1);

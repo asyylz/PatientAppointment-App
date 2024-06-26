@@ -3,16 +3,18 @@ const mongoose = require('mongoose');
 // Define the address schema
 const appointmentSchema = new mongoose.Schema({
   doctorId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Doctor',
     required: [true, 'An appointment must have a doctorId']
   },
   patientId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Patient',
     required: [true, 'An appointment must have a patientId']
   },
-  date: {
+  datetime: {
     type: Date
-    //required: [true, 'An appointment must have a date']
+    //required: [true, 'An appointment must have a date and time']
   },
   reason: {
     type: String,

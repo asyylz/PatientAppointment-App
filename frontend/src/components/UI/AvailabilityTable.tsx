@@ -21,44 +21,12 @@ const days = [
 ];
 
 /* ------------------------ MAIN ------------------------ */
-
 const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
   const { userData } = useSelector((state: RootState) => state.currentUser);
   const slots = generateTimeSlots();
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [appointment, setAppointment] = useState<Appointment>({
-    doctorId: {
-      $oid: '',
-    },
-    patientId: {
-      $oid: '',
-    },
-    time: '',
-    date: '',
-    reason: '',
-  });
 
-  console.log(appointment);
-
-  const handleClick = (
-    time: string,
-    event: React.MouseEvent<HTMLTableCellElement>
-  ) => {
-    setOpenModal(true);
-    // if (
-    //   event.target instanceof HTMLElement &&
-    //   event.target.textContent === 'Available'
-    // ) {
-    //   setAppointment({
-    //     doctorId: selectedDoctor?._id,
-    //     patientId: userData?._id,
-    //     date: time,
-    //     time: time,
-    //     reason: 'General checkup',
-    //   });
-    // }
-  };
 
   if (!availability) {
     return <div>No availability data for this doctor</div>;
@@ -77,7 +45,6 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
           />
         </ModalCustom>
       )}
-
       <div className={classes.wrapper}>
         {availability && (
           <table className={classes.table}>
@@ -104,9 +71,7 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
                           ? classes.available
                           : ''
                       }`}
-                      onClick={(
-                        event: React.MouseEvent<HTMLTableCellElement>
-                      ) => handleClick(slot, event)}
+                      onClick={() => setOpenModal(true)}
                     >
                       {mappedAvailability[day]?.[slots.indexOf(slot)] || ''}
                     </td>

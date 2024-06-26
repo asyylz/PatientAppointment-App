@@ -26,10 +26,10 @@ const AuthPage = () => {
 
   useEffect(() => {
     if (userData?.role === 'patient') {
-      dispatch(setImagePath('./public/user-avatar.png'));
+      dispatch(setImagePath('./user-avatar.png'));
       return;
     } else if (userData?.role === 'doctor') {
-      dispatch(setImagePath('./public/doctor.png'));
+      dispatch(setImagePath('./doctor.png'));
       return;
     }
   }, [userData?.role, dispatch]);
