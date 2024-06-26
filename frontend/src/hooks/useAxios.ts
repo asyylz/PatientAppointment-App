@@ -2,15 +2,11 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 const useAxios = () => {
-  const {
-    entities = { token: null, data: null },
-    status,
-    error,
-  } = useSelector((state: RootState) => state.currentUser);
-
+  const { token } = useSelector((state: RootState) => state.currentUser);
+  console.log('asiye from axios');
   const axiosWithToken = axios.create({
     baseURL: import.meta.env.BASE_URL,
-    headers: { Authorization: `Bearer ${entities?.token}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
   return axiosWithToken;
 };

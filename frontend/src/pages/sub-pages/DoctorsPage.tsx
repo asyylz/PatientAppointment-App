@@ -31,29 +31,28 @@ const Doctors: React.FC = () => {
 
   useEffect(() => {
     if (searchWord) {
-      const filtered = doctors
-        .filter(
-          (doctor) =>
-            doctor.firstName.toLowerCase().startsWith(searchWord.toLowerCase()) ||
-            doctor.lastName.toLowerCase().startsWith(searchWord.toLowerCase())
-        )
-        // .sort((a, b) => {
-        //   const aFirstnameIncludes = a.firstName
-        //     .toLowerCase()
-        //     .includes(searchWord.toLowerCase());
+      const filtered = doctors.filter(
+        (doctor) =>
+          doctor.firstName.toLowerCase().startsWith(searchWord.toLowerCase()) ||
+          doctor.lastName.toLowerCase().startsWith(searchWord.toLowerCase())
+      );
+      // .sort((a, b) => {
+      //   const aFirstnameIncludes = a.firstName
+      //     .toLowerCase()
+      //     .includes(searchWord.toLowerCase());
 
-        //   const bFirstnameIncludes = b.firstName
-        //     .toLowerCase()
-        //     .includes(searchWord.toLowerCase());
+      //   const bFirstnameIncludes = b.firstName
+      //     .toLowerCase()
+      //     .includes(searchWord.toLowerCase());
 
-        //   if (aFirstnameIncludes && !bFirstnameIncludes) {
-        //     return -1; // `a` should come before `b`
-        //   } else if (!aFirstnameIncludes && bFirstnameIncludes) {
-        //     return 1; // `b` should come before `a`
-        //   } else {
-        //     return 0; // keep the order as is
-        //   }
-        // });
+      //   if (aFirstnameIncludes && !bFirstnameIncludes) {
+      //     return -1; // `a` should come before `b`
+      //   } else if (!aFirstnameIncludes && bFirstnameIncludes) {
+      //     return 1; // `b` should come before `a`
+      //   } else {
+      //     return 0; // keep the order as is
+      //   }
+      // });
 
       setFilteredDoctors(filtered);
     } else {
@@ -74,7 +73,6 @@ const Doctors: React.FC = () => {
         {status === 'succeeded' &&
           filteredDoctors.map((doctor: Doctor) => (
             <DoctorProfilCard
-              key={doctor.id}
               doctor={doctor as Doctor}
               onSelectDoctor={handleSelectDoctor}
             />

@@ -22,6 +22,7 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
 
   return (
     <div
+    key={doctor._id}
       className={classes.cardContainer}
       //style={{ border: '1px solid red' }}
     >

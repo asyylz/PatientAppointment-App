@@ -4,6 +4,7 @@ const useHttp = () => {
   const axiosWithToken = useAxios();
 
   const createAppointment = async (data: Appointment) => {
+    console.log(data)
     try {
       await axiosWithToken.post(
         'http://localhost:3000/api/v1/appointments',

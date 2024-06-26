@@ -140,6 +140,8 @@ interface CurrentUserPayload {
 interface Appointment {
   doctorId: ObjectId | undefined;
   patientId: ObjectId | undefined;
+  departmentId: string | undefined;
+  subDepartmentName: string;
   date: date;
   reason: string;
   time: string;
