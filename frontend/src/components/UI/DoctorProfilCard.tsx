@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import classes from './DoctorProfileCard.module.css';
 import { Link } from 'react-router-dom';
 
@@ -11,18 +10,9 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
   doctor,
   onSelectDoctor,
 }) => {
-
-  const {
-    entities:  departments ,
-  } = useSelector((state: RootState) => state.departments);
-
-  const department: Department | undefined = departments.find(
-    (department: Department) => String(department._id) === doctor.departmentId
-  );
-
   return (
     <div
-    key={doctor._id}
+      key={doctor._id.toString()}
       className={classes.cardContainer}
       //style={{ border: '1px solid red' }}
     >
@@ -40,7 +30,9 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
               <h3
                 className={classes.name}
               >{`${doctor.firstName} ${doctor.lastName}`}</h3>
-              <h4 className={classes.title}>{department?.departmentMain}</h4>
+              <h4 className={classes.title}>
+                {doctor.departmentId.departmentMain}
+              </h4>
             </div>
             <div
               //style={{ border: '1px solid blue' }}
@@ -53,32 +45,6 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
                 Make Appointment
               </Link>
             </div>
-
-            {/* <ul 
-            style={{border:'1px solid red'}}
-            
-            className={classes.social}>
-              <li className={classes.iconBox}>
-                <Link to="" className={classes.link}>
-                  <i className="fas fa-envelope"></i>
-                </Link>
-              </li>
-              <li className={classes.iconBox}>
-                <Link to="" className={classes.link}>
-                  <i className="fab fa-facebook"></i>
-                </Link>
-              </li>
-              <li className={classes.iconBox}>
-                <Link to="" className={classes.link}>
-                  <i className="fab fa-linkedin "></i>
-                </Link>
-              </li>
-              <li className={classes.iconBox}>
-                <Link to="" className={classes.link}>
-                  <i className="fab fa-instagram"></i>
-                </Link>
-              </li>
-            </ul> */}
           </div>
         </div>
       </div>

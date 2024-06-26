@@ -19,20 +19,20 @@ const appointmentSchema = new mongoose.Schema({
   },
   subDepartmentName: {
     type: String,
-    ref: 'Departments'
-    //required: [true, 'An appointment must have a subDepartmentName']
+    ref: 'Departments',
+    required: [true, 'You should choose   a sub department']
   },
   date: {
-    type: Date
-    //required: [true, 'An appointment must have a date and time']
+    type: Date,
+    required: [true, 'An appointment must have a date ']
   },
   time: {
-    type: String
-    //required: [true, 'An appointment must have a date and time']
+    type: String,
+    required: [true, 'An appointment must have a time']
   },
   reason: {
     type: String,
-    required: [true, 'An appointment must have a reason']
+    required: [true, 'You should specify your concerns...']
   }
 });
 

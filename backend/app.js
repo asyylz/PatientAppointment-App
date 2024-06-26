@@ -13,6 +13,7 @@ const departmentsRouter = require('./routes/departmentsRoutes');
 const appointmentsRouter = require('./routes/appointmentsRoutes');
 const usersRouter = require('./routes/usersRoutes');
 const reviewsRouter = require('./routes/reviewsRoutes');
+const availabilitiesRouter = require('./routes/availabilitiesRoutes');
 const globalErrorHandler = require('./controllers/errorControllers');
 const AppError = require('./utils/appError');
 
@@ -73,6 +74,7 @@ app.use('/api/v1/departments', departmentsRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/reviews', reviewsRouter);
 app.use('/api/v1/appointments', appointmentsRouter);
+app.use('/api/v1/availabilities', availabilitiesRouter);
 
 //Global Errors
 app.all('*', (req, res, next) => {

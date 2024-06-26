@@ -26,6 +26,7 @@ export const fetchEntities = <T>(
         if (entity === 'currentUser') {
           return response.data;
         } else {
+          console.log(response.data.data[entity]);
           return response.data.data[entity];
         }
       } catch (err) {

@@ -56,7 +56,11 @@ interface Doctor {
   __v: number;
   firstName: string;
   lastName: string;
-  departmentId: string;
+  departmentId: {
+    _id: ObjectId;
+    departmentMain: string;
+    departmentSub: [string];
+  };
   departmentName: string;
   doctorDescription: string;
 }

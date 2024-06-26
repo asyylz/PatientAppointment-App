@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { Schema } = mongoose;
 // Define the address schema
 const addressSchema = new mongoose.Schema({
   street: {
@@ -61,12 +61,6 @@ const reviewSchema = new mongoose.Schema({
 });
 
 // Define the availability schema
-const availabilitySchema = new mongoose.Schema({
-  Monday: String,
-  Wednesday: String,
-  Thursday: String,
-  Friday: String
-});
 
 // Define the main doctor schema
 const doctorSchema = new mongoose.Schema({
@@ -87,15 +81,18 @@ const doctorSchema = new mongoose.Schema({
     }
   },
   image: String,
-  availability: availabilitySchema,
   phone: {
     type: String,
     required: true
   },
   address: addressSchema,
   reviews: [reviewSchema],
-  departmentId: mongoose.Schema.Types.ObjectId,
-  doctorDescription: String,
+  departmentId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Department',
+    required: true
+  },
+  doctorDescription: String
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);

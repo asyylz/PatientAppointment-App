@@ -15,8 +15,6 @@ const TopSearchBar: React.FC = () => {
     (state: RootState) => state.currentUser
   );
 
-  console.log(searchInput);
-
   useEffect(() => {
     const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
     return () => {

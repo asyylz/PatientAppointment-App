@@ -1,5 +1,5 @@
 const Doctor = require('../models/doctorModel');
-
+const Availability = require('../models/availabilityModel');
 const {
   getDoctorsWithDepartmentNames
 } = require('../utils/aggregationHandler');
@@ -10,14 +10,15 @@ const APIFeatures = require('../utils/apiFeatures');
 exports.getAllDoctors = async (req, res) => {
   try {
     // EXECUTE QUERY //
-    const features = new APIFeatures(Doctor.find(), req.query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
-
+    // const features = new APIFeatures(Doctor.find(), req.query)
+    //   .filter()
+    //   .sort()
+    //   .limitFields()
+    //   .paginate();
+    // console.log(features.query);
     // Get the enriched doctors data
-    const doctors = await getDoctorsWithDepartmentNames(features.query);
+    // const doctors = await getDoctorsWithDepartmentNames(features.query);
+    const doctors = await Doctor.find().populate('departmentId');
 
     // SEND RESPONSE //
     res.status(200).json({
@@ -38,11 +39,28 @@ exports.getAllDoctors = async (req, res) => {
 // GET SINGLE //
 exports.getDoctor = async (req, res, next) => {
   try {
-    const doctor = await Doctor.findById(req.params.id);
+    const doctorId = req.params.id;
+
+    // Fetch the doctor document by id
+    const doctor = await Doctor.findById(doctorId);
+
+    // If doctor is not found, handle appropriately
+    if (!doctor) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'Doctor not found'
+      });
+    }
+
+    // Fetch availability data for the doctor
+    const availability = await Availability.find({ doctorId });
+
+    // Respond with populated data
     res.status(200).json({
       status: 'success',
       data: {
-        doctor
+        doctor,
+        availability // Include availability data in the response
       }
     });
   } catch (err) {

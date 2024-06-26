@@ -17,7 +17,6 @@ exports.getAllAppointments = async (req, res, next) => {
   }
 };
 
-
 // GET SINGLE //
 exports.getUserAppointment = async (req, res) => {
   try {
@@ -65,9 +64,11 @@ exports.createAppointment = async (req, res) => {
       }
     });
   } catch (err) {
+    //console.log(err.errors.reason.message);
     res.status(404).json({
       status: 'fail',
-      message: err
+      message: err.errors
+      //message: err.errors.reason.message
     });
   }
 };

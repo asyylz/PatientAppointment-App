@@ -54,7 +54,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     e.preventDefault();
     try {
       createAppointment(appointment);
-      console.log('asiye')
     } catch (error) {
       console.error('Error booking appointment', error);
       alert('Failed to book appointment');
@@ -64,9 +63,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>Booking Form</h1>
-      <form
-      onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <div className={classes.leftSection}>
           {' '}
           <input
@@ -80,7 +77,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <option value={0}>{filteredDepartments[0].departmentMain}</option>
           </select>
           <select name="subDepartmentName" onChange={handleChange}>
-            <option value={0}>Choose Sub Department</option>
+            <option>Choose Sub Department</option>
             {filteredDepartments[0].departmentSub.map((el, index) => (
               <option key={index} value={el}>
                 {el}
