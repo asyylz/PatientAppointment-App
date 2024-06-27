@@ -25,18 +25,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [appointment, setAppointment] = useState<Appointment>({
     doctorId: doctor?._id,
     patientId: user._id,
-    departmentId: doctor?.departmentId,
-    subDepartmentName: '',
+    //departmentId: doctor?.departmentId,
+    //subDepartmentName: '',
     date: '',
     time: '',
     reason: '',
   });
-
-  const filteredDepartments = departments?.filter(
-    (department) => doctor?.departmentId === department._id.toString()
-  );
-
-  console.log(appointment);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -74,11 +68,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             required
           />
           <select name="mainDepartment">
-            <option value={0}>{filteredDepartments[0].departmentMain}</option>
+            <option value={0}>{doctor?.departmentId.departmentMain}</option>
           </select>
           <select name="subDepartmentName" onChange={handleChange}>
             <option>Choose Sub Department</option>
-            {filteredDepartments[0].departmentSub.map((el, index) => (
+            {doctor?.departmentId.departmentSub.map((el, index) => (
               <option key={index} value={el}>
                 {el}
               </option>

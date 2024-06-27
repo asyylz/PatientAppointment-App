@@ -23,12 +23,7 @@ export const fetchEntities = <T>(
         };
         const response = await axiosMethods[method](url);
         console.log(`${entity} data:`, response.data.data);
-        if (entity === 'currentUser') {
-          return response.data;
-        } else {
-          console.log(response.data.data[entity]);
-          return response.data.data[entity];
-        }
+        return response.data.data[entity];
       } catch (err) {
         console.log(err);
       }

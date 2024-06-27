@@ -49,7 +49,7 @@ interface Doctor {
   id: number;
   gender: string;
   image: string;
-  availability: Availability;
+  availabilities: Availability[];
   phone: string;
   address: Address;
   reviews: Reviews[];
@@ -61,7 +61,6 @@ interface Doctor {
     departmentMain: string;
     departmentSub: [string];
   };
-  departmentName: string;
   doctorDescription: string;
 }
 interface Address {
@@ -72,7 +71,10 @@ interface Address {
   _id: ObjectId;
 }
 interface Availability {
-  [day: string]: string;
+  _id: ObjectId;
+  doctorId: ObjectId;
+  day: string;
+  time: string;
 }
 
 /* ----------------------- REVIEWS ----------------------- */
@@ -144,8 +146,8 @@ interface CurrentUserPayload {
 interface Appointment {
   doctorId: ObjectId | undefined;
   patientId: ObjectId | undefined;
-  departmentId: string | undefined;
-  subDepartmentName: string;
+  // departmentId: string | undefined;
+  // subDepartmentName: string;
   date: date;
   reason: string;
   time: string;

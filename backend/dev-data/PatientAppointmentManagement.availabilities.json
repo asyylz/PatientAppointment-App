@@ -1,107 +1,107 @@
 [
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "09:00"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "09:30"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "10:00"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "10:30"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "11:00"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "11:30"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "13:00"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "13:30"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "14:00"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "14:30"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "15:00"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "15:30"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "16:00"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "16:30"
   },
   {
     "doctorId": {
-      "$oid": "665f0f2959c971659af920ca"
+      "$oid": "665f0f2959c971659af920e5"
     },
-    "day": "Friday",
+    "day": "Tuesday",
     "time": "17:00"
   }
 ]

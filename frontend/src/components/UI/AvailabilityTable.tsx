@@ -19,6 +19,8 @@ const days = [
   'Saturday',
   'Sunday',
 ];
+const timeSlots = generateTimeSlots();
+console.log(timeSlots);
 
 /* ------------------------ MAIN ------------------------ */
 const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
@@ -27,12 +29,13 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
   const slots = generateTimeSlots();
   const [openModal, setOpenModal] = useState<boolean>(false);
 
+  console.log(selectedDoctor?.availabilities);
 
-  if (!availability) {
-    return <div>No availability data for this doctor</div>;
-  }
+  // if (!availability) {
+  //   return <div>No availability data for this doctor</div>;
+  // }
 
-  const mappedAvailability = mapAvailability(availability, slots);
+  //const mappedAvailability = mapAvailability(availability, slots);
 
   return (
     <>
@@ -46,41 +49,41 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
         </ModalCustom>
       )}
       <div className={classes.wrapper}>
-        {availability && (
-          <table className={classes.table}>
-            <thead>
-              <tr>
-                <th className={classes.th}>Time</th>
-                {days.map((day) => (
-                  <th key={day} className={classes.th}>
-                    {day}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {slots.map((slot) => (
-                <tr key={slot}>
-                  <td className={classes.td}>{slot}</td>
-                  {days.map((day) => (
+        <table className={classes.table}>
+          <thead>
+            <tr>
+              <th className={classes.th}>Time</th>
+              {days.map((day, index) => (
+                <th key={index} className={classes.th}>
+                  {day}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {timeSlots.map((time, timeIndex) => (
+              <tr key={timeIndex}>
+                <td className={classes.td}>{time}</td>
+                {days.map((day, dayIndex) => {
+                  // Check if there's an availability for the current day and time
+                  const availability = selectedDoctor?.availabilities.find(
+                    (slot) => slot.day === day && slot.time === time
+                  );
+
+                  return (
                     <td
-                      key={day}
-                      className={`${
-                        mappedAvailability[day]?.[slots.indexOf(slot)] ===
-                        'Available'
-                          ? classes.available
-                          : ''
-                      }`}
+                      key={`${timeIndex}-${dayIndex}`}
+                      className={`${availability ? classes.available : ''}`}
                       onClick={() => setOpenModal(true)}
                     >
-                      {mappedAvailability[day]?.[slots.indexOf(slot)] || ''}
+                      {availability ? 'Available' : '-'}
                     </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );

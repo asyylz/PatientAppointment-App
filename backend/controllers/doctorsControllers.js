@@ -1,31 +1,33 @@
+const mongoose = require('mongoose');
 const Doctor = require('../models/doctorModel');
 const Availability = require('../models/availabilityModel');
+
 const {
   getDoctorsWithDepartmentNames
 } = require('../utils/aggregationHandler');
 const APIFeatures = require('../utils/apiFeatures');
+const { format } = require('morgan');
 
 /* ------------------- ROUTES HANDLERS ------------------ */
 // GET ALL // Doctors:sending back to the client
-exports.getAllDoctors = async (req, res) => {
+exports.getAllDoctors = async (req, res, next) => {
   try {
     // EXECUTE QUERY //
-    // const features = new APIFeatures(Doctor.find(), req.query)
-    //   .filter()
-    //   .sort()
-    //   .limitFields()
-    //   .paginate();
-    // console.log(features.query);
-    // Get the enriched doctors data
-    // const doctors = await getDoctorsWithDepartmentNames(features.query);
-    const doctors = await Doctor.find().populate('departmentId');
+    const doctorsWithAvailabilities = await mongoose.connection
+      .collection('doctorsWithAvailabilities')
+      .find()
+      .toArray();
+    // Populate departmentId field if necessary
+    const populatedDoctors = await mongoose
+      .model('Doctor')
+      .populate(doctorsWithAvailabilities, { path: 'departmentId' });
 
     // SEND RESPONSE //
     res.status(200).json({
       status: 'success',
-      results: doctors.length,
+      results: populatedDoctors.length,
       data: {
-        doctors
+        doctors: populatedDoctors
       }
     });
   } catch (err) {
@@ -33,6 +35,7 @@ exports.getAllDoctors = async (req, res) => {
       status: 'fail',
       message: err
     });
+    next(err);
   }
 };
 
