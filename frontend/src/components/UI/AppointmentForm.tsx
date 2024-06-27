@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
-import { useSelector } from 'react-redux';
 import useHttp from './../../hooks/useHttp';
+import {
+  formatDateForInput,
+  convertDateStringToDate,
+} from './../../helper/generateDates';
 
 interface AppointmentFormProps {
   user: userData;
   doctor: Doctor | null;
+  slot: { time: string; date: string };
   setOpenModal: (openModal: boolean) => void;
 }
 
@@ -13,13 +17,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   user,
   doctor,
   setOpenModal,
+  slot,
 }) => {
-  const {
-    entities: departments,
-    status,
-    error,
-  } = useSelector((state: RootState) => state.departments);
-
   const { createAppointment } = useHttp();
 
   const [appointment, setAppointment] = useState<Appointment>({
@@ -27,7 +26,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     patientId: user._id,
     //departmentId: doctor?.departmentId,
     //subDepartmentName: '',
-    date: '',
+    appointmentDate: convertDateStringToDate(slot.date),
     time: '',
     reason: '',
   });
@@ -38,10 +37,22 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     >
   ) => {
     const { name, value } = e.target;
-    setAppointment((prevValuesAppointment) => ({
-      ...prevValuesAppointment,
-      [name]: value,
-    }));
+
+    console.log(name, value);
+
+    if (name === 'appointmentDate') {
+      const formattedDate = convertDateStringToDate(value);
+      console.log(formattedDate);
+      setAppointment((prevValuesAppointment) => ({
+        ...prevValuesAppointment,
+        appointmentDate: formattedDate,
+      }));
+    } else {
+      setAppointment((prevValuesAppointment) => ({
+        ...prevValuesAppointment,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -88,14 +99,15 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
           <input
             placeholder="Appointment Date"
+            defaultValue={formatDateForInput(slot.date)}
             type="date"
-            name="date"
+            name="appointmentDate"
             onChange={handleChange}
             required
           />
           <input
             placeholder="Appointment Time"
-            value="09:00"
+            defaultValue={slot.time}
             name="time"
             type="time"
             onChange={handleChange}

@@ -36,8 +36,3 @@ export const generateDates = (numberOfDays: number) => {
   return dates;
 };
 
-// Example usage: Generate dates for the next 7 days
-// const numberOfDays = 7;
-// const dates = generateDates(numberOfDays);
-
-// console.log(dates);

@@ -55,6 +55,7 @@ exports.getDoctorAppointment = async (req, res) => {
 
 // POST //
 exports.createAppointment = async (req, res) => {
+  console.log('Asiye', req.body);
   try {
     const newAppointment = await Appointment.create(req.body);
     res.status(201).json({

@@ -71,8 +71,9 @@ const Doctors: React.FC = () => {
         {status === 'loading' && <p>Loading...</p>}
 
         {status === 'succeeded' &&
-          filteredDoctors.map((doctor: Doctor) => (
+          filteredDoctors.map((doctor: Doctor, index) => (
             <DoctorProfilCard
+              key={index}
               doctor={doctor as Doctor}
               onSelectDoctor={handleSelectDoctor}
             />

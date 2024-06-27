@@ -22,9 +22,14 @@ const appointmentSchema = new mongoose.Schema({
   //   ref: 'Departments',
   //   required: [true, 'You should choose   a sub department']
   // },
-  date: {
+  appointmentDate: {
     type: Date,
     required: [true, 'An appointment must have a date ']
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+    select: false
   },
   time: {
     type: String,
