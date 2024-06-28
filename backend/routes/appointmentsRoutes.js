@@ -7,12 +7,12 @@ const router = express.Router();
 router
   .route('/')
   .get(authControllers.protect, appointmentsControllers.getAllAppointments)
-  .get(authControllers.protect, appointmentsControllers.getUserAppointment)
   .post(authControllers.protect, appointmentsControllers.createAppointment)
   .get(authControllers.protect, appointmentsControllers.getDoctorAppointment);
 
 router
   .route('/:id')
-  .delete(authControllers.protect, appointmentsControllers.deleteAppointment);
+  .delete(authControllers.protect, appointmentsControllers.deleteAppointment)
+  .get(authControllers.protect, appointmentsControllers.getPatientAppointments);
 
 module.exports = router;

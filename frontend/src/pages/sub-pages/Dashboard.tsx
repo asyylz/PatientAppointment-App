@@ -1,12 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
 import GlobalLink from '../../components/UI/GlobalLink';
+import axios from 'axios';
 
 const Dashboard: React.FC = () => {
   const { token, userData, status, error, image } = useSelector(
     (state: RootState) => state.currentUser
   );
+
+  const [appointments, setAppointments] = useState<Appointment[]>();
+
+  const getAppointments = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/appointments/${userData._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const appointmentsData = await getAppointments();
+      setAppointments(appointmentsData);
+    };
+    fetchData();
+  }, []);
+
+  console.log(appointments);
 
   return (
     <div

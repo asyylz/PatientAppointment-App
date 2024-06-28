@@ -76,6 +76,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     select: false
+  },
+  appointments: {
+    type: Object
   }
 });
 
@@ -91,6 +94,13 @@ userSchema.pre(/^find/, function(next) {
   this.find({ active: { $ne: false } });
   next();
 });
+
+// userSchema.post('findOne', function(next) {
+//   if (this.role === 'patient') {
+//     this.populate('appointments', { appointments collection patient id should match this .user_id });
+//   }
+//   next();
+// });
 
 userSchema.methods.correctPassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);

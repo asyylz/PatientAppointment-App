@@ -18,13 +18,13 @@ exports.getAllAppointments = async (req, res, next) => {
 };
 
 // GET SINGLE //
-exports.getUserAppointment = async (req, res) => {
+exports.getPatientAppointments = async (req, res) => {
   try {
-    const appointment = await Appointment.findById(req.params.id);
+    const appointments = await Appointment.find({ patientId: req.params.id });
     res.status(200).json({
       status: 'success',
       data: {
-        appointment
+        appointments
       }
     });
   } catch (err) {

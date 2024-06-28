@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const sendEmail = require('./../utils/email');
+const Appointment = require('./../models/appointmentModel');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -77,7 +78,6 @@ exports.login = async (req, res, next) => {
 /* ----------------------- LOGOUT ----------------------- */
 // Logout handler
 exports.logout = async (req, res, next) => {
-  console.log(req.headers);
   let token;
   try {
     if (

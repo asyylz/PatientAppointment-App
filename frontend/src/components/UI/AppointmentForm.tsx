@@ -24,10 +24,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [appointment, setAppointment] = useState<Appointment>({
     doctorId: doctor?._id,
     patientId: user._id,
-    //departmentId: doctor?.departmentId,
-    //subDepartmentName: '',
     appointmentDate: convertDateStringToDate(slot.date),
-    time: '',
+    time: slot.time,
     reason: '',
   });
 
@@ -37,8 +35,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     >
   ) => {
     const { name, value } = e.target;
-
-    console.log(name, value);
 
     if (name === 'appointmentDate') {
       const formattedDate = convertDateStringToDate(value);
@@ -57,11 +53,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      createAppointment(appointment);
-    } catch (error) {
-      console.error('Error booking appointment', error);
-      alert('Failed to book appointment');
+
+    const response = await createAppointment(appointment);
+    console.log(response);
+    if (response.status === 'success') {
+      setOpenModal(false);
     }
   };
 
@@ -81,7 +77,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           <select name="mainDepartment">
             <option value={0}>{doctor?.departmentId.departmentMain}</option>
           </select>
-          <select name="subDepartmentName" onChange={handleChange}>
+          <select name="subDepartmentName" onChange={handleChange} required>
             <option>Choose Sub Department</option>
             {doctor?.departmentId.departmentSub.map((el, index) => (
               <option key={index} value={el}>
