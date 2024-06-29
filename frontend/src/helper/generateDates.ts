@@ -38,7 +38,6 @@ export const getWeekDatesFromToday = () => {
   return weekDates;
 };
 
-
 export const convertDateStringToDate = (dateString: string): Date => {
   const [day, month, year] = dateString.split(
     `${dateString.includes('/') ? '/' : '-'}`
@@ -49,4 +48,23 @@ export const convertDateStringToDate = (dateString: string): Date => {
 export const formatDateForInput = (dateString: string): string => {
   const parts = dateString.split('/');
   return `${parts[2]}-${parts[1]}-${parts[0]}`;
+};
+
+export const formatDateForUI = (isoString: string) => {
+  const date = new Date(isoString);
+  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  const formattedDate = date.toLocaleDateString('en-GB', options); // Format as DD/MM/YYYY
+
+  const daysOfWeek = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  const dayOfWeek = daysOfWeek[date.getUTCDay()]; // Get the day of the week
+
+  return `${formattedDate} ${dayOfWeek}`;
 };

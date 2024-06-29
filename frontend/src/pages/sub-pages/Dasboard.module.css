@@ -58,7 +58,7 @@
     text-align: center;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 1rem;
     line-height: 1.2rem;
     font-weight: 800;

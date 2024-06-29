@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
 import GlobalLink from '../../components/UI/GlobalLink';
-import axios from 'axios';
+import useAxios from '../../hooks/useAxios';
+import { formatDateForUI } from '../../helper/generateDates';
 
 const Dashboard: React.FC = () => {
   const { token, userData, status, error, image } = useSelector(
     (state: RootState) => state.currentUser
   );
-
+  const axiosWithToken = useAxios();
   const [appointments, setAppointments] = useState<Appointment[]>();
+  const [total, setTotal] = useState<AppointmentStats>({
+    totalAppointments: 0,
+    upcomingAppointments: 0,
+  });
 
   const getAppointments = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/appointments/${userData._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const response = await axiosWithToken.get(
+        `http://localhost:3000/api/v1/appointments/${userData?._id}`
       );
       return response.data;
     } catch (err) {
@@ -27,16 +27,18 @@ const Dashboard: React.FC = () => {
       return [];
     }
   };
-
   useEffect(() => {
     const fetchData = async () => {
       const appointmentsData = await getAppointments();
-      setAppointments(appointmentsData);
+      console.log(appointmentsData);
+      setAppointments(appointmentsData.data.appointments);
+      setTotal({
+        totalAppointments: appointmentsData.total,
+        upcomingAppointments: appointmentsData.upcomingAppointments,
+      });
     };
     fetchData();
   }, []);
-
-  console.log(appointments);
 
   return (
     <div
@@ -54,7 +56,7 @@ const Dashboard: React.FC = () => {
       <div className={classes.userRightSection}>
         <div className={classes.rightTop}>
           <div className={classes.box}>
-            <p>Total Visits</p>
+            <p>Total Visits: {total.totalAppointments}</p>
             <svg viewBox="0 0 448 512">
               <path
                 fill="#444"
@@ -63,7 +65,7 @@ const Dashboard: React.FC = () => {
             </svg>
           </div>
           <div className={classes.box}>
-            <p>Upcoming Visits</p>
+            <p>Upcoming Visits: {total.upcomingAppointments}</p>
             <svg fill="#444" viewBox="0 0 576 512">
               <path d="M142.4 21.9c5.6 16.8-3.5 34.9-20.2 40.5L96 71.1V192c0 53 43 96 96 96s96-43 96-96V71.1l-26.1-8.7c-16.8-5.6-25.8-23.7-20.2-40.5s23.7-25.8 40.5-20.2l26.1 8.7C334.4 19.1 352 43.5 352 71.1V192c0 77.2-54.6 141.6-127.3 156.7C231 404.6 278.4 448 336 448c61.9 0 112-50.1 112-112V265.3c-28.3-12.3-48-40.5-48-73.3c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V336c0 97.2-78.8 176-176 176c-92.9 0-168.9-71.9-175.5-163.1C87.2 334.2 32 269.6 32 192V71.1c0-27.5 17.6-52 43.8-60.7l26.1-8.7c16.8-5.6 34.9 3.5 40.5 20.2zM480 224a32 32 0 1 0 0-64 32 32 0 1 0 0 64z" />
             </svg>
@@ -86,14 +88,13 @@ const Dashboard: React.FC = () => {
             </div>
             <hr />
             <div className={classes.wrapper2}>
-              <div className={classes.appointmentBox}>
-                <p>Dr John Doe</p>
-                <p>Appointment Date:</p>
-                <p>Time:</p>
-                <p>Satutus:</p>
-              </div>
-              <div className={classes.appointmentBox}>2</div>
-              <div className={classes.appointmentBox}>3</div>
+              {appointments?.map((appointment: Appointment) => (
+                <div className={classes.appointmentBox}>
+                  <p>{`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId?.lastName}`}</p>
+                  <p>Time: {appointment.time}</p>
+                  <p>Date: {formatDateForUI(appointment.appointmentDate)}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

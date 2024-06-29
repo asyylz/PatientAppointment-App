@@ -20,9 +20,27 @@ exports.getAllAppointments = async (req, res, next) => {
 // GET SINGLE //
 exports.getPatientAppointments = async (req, res) => {
   try {
-    const appointments = await Appointment.find({ patientId: req.params.id });
+    const appointments = await Appointment.find({
+      patientId: req.params.id
+    })
+      .populate('doctorId', { firstName: 1, lastName: 1 })
+      .sort({ appointmentDate: -1 });
+
+    const totalAppointments = await Appointment.countDocuments({
+      patientId: req.params.id
+    });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const upcomingAppointmentsCount = await Appointment.countDocuments({
+      patientId: req.params.id,
+      appointmentDate: { $gte: today }
+    });
+
     res.status(200).json({
       status: 'success',
+      total: totalAppointments,
+      upcomingAppointments: upcomingAppointmentsCount,
       data: {
         appointments
       }

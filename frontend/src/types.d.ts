@@ -144,11 +144,21 @@ interface CurrentUserPayload {
 }
 /* ------------------------ APPOINTMENT ----------------------- */
 interface Appointment {
-  doctorId: ObjectId | undefined;
   patientId: ObjectId | undefined;
+  doctorId: {
+    _id: ObjectId | undefined;
+    firstName: string;
+    lastName: string;
+  };
   // departmentId: string | undefined;
   // subDepartmentName: string;
   appointmentDate: date;
   reason: string;
   time: string;
+}
+
+/* ------------------ APPOINTMENT STATS ----------------- */
+interface AppointmentStats {
+  totalAppointments: number;
+  upcomingAppointments: number;
 }
