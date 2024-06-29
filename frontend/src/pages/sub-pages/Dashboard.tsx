@@ -40,6 +40,8 @@ const Dashboard: React.FC = () => {
     fetchData();
   }, []);
 
+  console.log(appointments);
+
   return (
     <div
       //style={{ border: '3px solid green' }}
@@ -89,7 +91,14 @@ const Dashboard: React.FC = () => {
             <hr />
             <div className={classes.wrapper2}>
               {appointments?.map((appointment: Appointment) => (
-                <div className={classes.appointmentBox}>
+                // <div className={classes.appointmentBox}>
+                <div
+                  className={
+                    new Date(appointment.appointmentDate) < new Date()
+                      ? `${classes.appointmentBox} ${classes.close}`
+                      : `${classes.appointmentBox} ${classes.open}`
+                  }
+                >
                   <p>{`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId?.lastName}`}</p>
                   <p>Time: {appointment.time}</p>
                   <p>Date: {formatDateForUI(appointment.appointmentDate)}</p>
