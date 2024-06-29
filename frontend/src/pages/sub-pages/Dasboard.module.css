@@ -64,7 +64,18 @@
     font-weight: 800;
     font-size: 1.2rem;
 
+}
 
+.userRightSection .rightTop .box1 {
+    border: 3px solid #70CFDE
+}
+
+.userRightSection .rightTop .box2 {
+    border: 3px solid #CADE70
+}
+
+.userRightSection .rightTop .box3 {
+    border: 3px solid #FFCB9A
 }
 
 svg {
