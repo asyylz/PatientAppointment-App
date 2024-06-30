@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import GlobalLink from '../../components/UI/GlobalLink';
 import useAxios from '../../hooks/useAxios';
 import { formatDateForUI } from '../../helper/generateDates';
+import TotalVisit from './../../../public/totalVisits.svg';
 
 const Dashboard: React.FC = () => {
   const { token, userData, status, error, image } = useSelector(
@@ -12,6 +13,7 @@ const Dashboard: React.FC = () => {
 
   const {
     entities: departments,
+
     //status,
     //error,
   } = useSelector((state: RootState) => state.departments);
