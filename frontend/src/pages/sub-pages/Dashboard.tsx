@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import GlobalLink from '../../components/UI/GlobalLink';
 import useAxios from '../../hooks/useAxios';
 import { formatDateForUI } from '../../helper/generateDates';
-import TotalVisit from './../../../public/totalVisits.svg';
 
 const Dashboard: React.FC = () => {
   const { token, userData, status, error, image } = useSelector(
@@ -107,7 +106,8 @@ const Dashboard: React.FC = () => {
                 // <div className={classes.appointmentBox}>
                 <div
                   className={
-                    new Date(appointment.appointmentDate) < new Date()
+                    new Date(appointment.appointmentDate) <=
+                    new Date(new Date().setHours(0, 0, 0, 0))
                       ? `${classes.appointmentBox} ${classes.close}`
                       : `${classes.appointmentBox} ${classes.open}`
                   }
