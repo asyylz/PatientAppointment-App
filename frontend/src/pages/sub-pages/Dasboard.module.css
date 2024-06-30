@@ -115,7 +115,7 @@ svg {
 
 .appointments .wrapper2 .appointmentBox {
     margin-top: 2rem;
-    height: 150px;
+    height: 180px;
     min-width: 430px;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -133,6 +133,7 @@ svg {
 
 .close {
     border: 3px solid #F0788C;
+    text-decoration: line-through;
 }
 
 .open {

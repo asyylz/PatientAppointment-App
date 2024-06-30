@@ -9,6 +9,13 @@ const Dashboard: React.FC = () => {
   const { token, userData, status, error, image } = useSelector(
     (state: RootState) => state.currentUser
   );
+
+  const {
+    entities: departments,
+    //status,
+    //error,
+  } = useSelector((state: RootState) => state.departments);
+
   const axiosWithToken = useAxios();
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [total, setTotal] = useState<AppointmentStats>({
@@ -42,6 +49,10 @@ const Dashboard: React.FC = () => {
 
   console.log(appointments);
 
+  const totalDoctors = [
+    ...new Set(appointments?.map((appointment) => appointment.doctorId._id)),
+  ];
+
   return (
     <div
       //style={{ border: '3px solid green' }}
@@ -73,7 +84,7 @@ const Dashboard: React.FC = () => {
             </svg>
           </div>
           <div className={`${classes.box} ${classes.box3}`}>
-            <p>Total Doctors</p>
+            <p>Total Doctors : {totalDoctors.length}</p>
             <svg viewBox="0 0 448 512">
               <path
                 fill="#FFCB9A"
@@ -100,6 +111,18 @@ const Dashboard: React.FC = () => {
                   }
                 >
                   <p>{`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId?.lastName}`}</p>
+                  <p>
+                    Department:
+                    {departments.map((department) => {
+                      if (
+                        department._id.toString() ===
+                        appointment.doctorId.departmentId.toString()
+                      ) {
+                        return <span> {department.departmentMain}</span>; // Return the departmentMain value
+                      }
+                      return null; // Ensure a return value is always provided
+                    })}
+                  </p>
                   <p>Time: {appointment.time}</p>
                   <p>Date: {formatDateForUI(appointment.appointmentDate)}</p>
                   <p>Concerns: {appointment.reason}</p>

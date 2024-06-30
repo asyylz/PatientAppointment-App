@@ -1,3 +1,7 @@
+const mongoose = require('mongoose');
+
+const { ObjectId } = mongoose.Types;
+
 const Appointment = require('../models/appointmentModel');
 
 // GET ALL //
@@ -19,16 +23,21 @@ exports.getAllAppointments = async (req, res, next) => {
 
 // GET SINGLE //
 exports.getPatientAppointments = async (req, res) => {
+  console.log(typeof req.params.id);
   try {
     const appointments = await Appointment.find({
       patientId: req.params.id
     })
-      .populate('doctorId', { firstName: 1, lastName: 1 })
+      .populate('doctorId', { firstName: 1, lastName: 1, departmentId: 1 })
       .sort({ appointmentDate: -1 });
 
     const totalAppointments = await Appointment.countDocuments({
       patientId: req.params.id
     });
+
+    // const totalDoctors = await Appointment.find([
+    //   { $match: { patientId: req.params.id } }
+    // ]);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);

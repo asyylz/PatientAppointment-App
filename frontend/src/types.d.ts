@@ -149,6 +149,7 @@ interface Appointment {
     _id: ObjectId | undefined;
     firstName: string;
     lastName: string;
+    departmentId: ObjectId;
   };
   // departmentId: string | undefined;
   // subDepartmentName: string;
