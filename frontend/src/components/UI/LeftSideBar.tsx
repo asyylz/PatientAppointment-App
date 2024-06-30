@@ -1,10 +1,11 @@
 //import './left-sidebar.css';
 import { Link } from 'react-router-dom';
 import classes from './LeftSideBar.module.css';
+import { useSelector } from 'react-redux';
 const sideBarSectionList = [
   { title: 'HOSPITAL', icon: 'fas fa-clinic-medical' },
   { title: 'Dashboard', icon: 'fas fa-th-large' },
-  { title: 'Appointments', icon: 'fas fa-stethoscope' },
+  // { title: 'Appointments', icon: 'fas fa-stethoscope' },
   { title: 'Doctors', icon: 'fas fa-user-md' },
   { title: 'Departments', icon: 'fas fa-puzzle-piece' },
   { title: 'Payments', icon: 'fas fa-hand-holding-usd' },
@@ -12,7 +13,9 @@ const sideBarSectionList = [
   { title: 'Help', icon: 'fas fa-question' },
 ];
 export default function LeftSideBar() {
-  
+  const { token, userData, status, image, error } = useSelector(
+    (state: RootState) => state.currentUser
+  );
   return (
     <>
       <div className={classes.sidebar}>
@@ -29,6 +32,16 @@ export default function LeftSideBar() {
               </li>
             );
           })}
+          {userData?.role === 'doctor' && (
+            <li key="appointments">
+              <Link to="/appointments">
+                <div className={classes.iconBox}>
+                  <i className="fas fa-stethoscope"></i>
+                </div>
+                <div className={classes.title}>Appointments</div>
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </>

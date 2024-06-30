@@ -23,7 +23,6 @@ exports.getAllAppointments = async (req, res, next) => {
 
 // GET SINGLE //
 exports.getPatientAppointments = async (req, res) => {
-  console.log(typeof req.params.id);
   try {
     const appointments = await Appointment.find({
       patientId: req.params.id
@@ -59,6 +58,45 @@ exports.getPatientAppointments = async (req, res) => {
       status: 'fail',
       message: err
     });
+  }
+};
+
+// GET SINGLE //
+exports.getDoctorAppointments = async (req, res, next) => {
+  try {
+    const appointments = await Appointment.find({
+      doctorId: req.params.id
+    })
+      .populate('patientId', { name: 1, email: 1 })
+      .sort({ appointmentDate: -1 });
+
+    // const totalAppointments = await Appointment.countDocuments({
+    //   patientId: req.params.id
+    // });
+
+    // const totalDoctors = await Appointment.find([
+    //   { $match: { patientId: req.params.id } }
+    // ]);
+
+    // const today = new Date();
+    // today.setHours(0, 0, 0, 0);
+    // const upcomingAppointmentsCount = await Appointment.countDocuments({
+    //   patientId: req.params.id,
+    //   appointmentDate: { $gte: today }
+    // });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        appointments
+      }
+    });
+  } catch (err) {
+    // res.status(404).json({
+    //   status: 'fail',
+    //   message: err
+    // });
+    next(err);
   }
 };
 

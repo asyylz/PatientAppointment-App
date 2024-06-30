@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
   } = useSelector((state: RootState) => state.departments);
 
   const axiosWithToken = useAxios();
+
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [total, setTotal] = useState<AppointmentStats>({
     totalAppointments: 0,
@@ -27,7 +28,7 @@ const Dashboard: React.FC = () => {
   const getAppointments = async () => {
     try {
       const response = await axiosWithToken.get(
-        `http://localhost:3000/api/v1/appointments/${userData?._id}`
+        `http://localhost:3000/api/v1/appointments/patients/${userData?._id}`
       );
       return response.data;
     } catch (err) {

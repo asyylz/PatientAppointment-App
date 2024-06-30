@@ -12,6 +12,7 @@ import DoctorDetailsPage from './../pages/sub-pages/DoctorDetailsPage';
 import DoctorsLayout from '../pages/layouts/DoctorsLayout';
 import AuthPage from '../pages/AuthPage';
 import PrivateRoute from './PrivateRoute';
+import PrivateRouteForRoles from './PrivateRouteForRoles';
 
 const routes: RouteObject[] = [
   {
@@ -27,7 +28,14 @@ const routes: RouteObject[] = [
           </PrivateRoute>
         ),
       },
-      { path: 'appointments', element: <Appointments /> },
+      {
+        path: 'appointments',
+        element: (
+          <PrivateRouteForRoles allowedRole="doctor">
+            <Appointments />
+          </PrivateRouteForRoles>
+        ),
+      },
       {
         path: 'doctors',
         element: <DoctorsLayout />,

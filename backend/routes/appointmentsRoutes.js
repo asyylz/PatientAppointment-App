@@ -11,8 +11,12 @@ router
   .get(authControllers.protect, appointmentsControllers.getDoctorAppointment);
 
 router
-  .route('/:id')
+  .route('/patients/:id')
   .delete(authControllers.protect, appointmentsControllers.deleteAppointment)
   .get(authControllers.protect, appointmentsControllers.getPatientAppointments);
+router
+  .route('/doctors/:id')
+  .delete(authControllers.protect, appointmentsControllers.deleteAppointment)
+  .get(authControllers.protect, appointmentsControllers.getDoctorAppointments);
 
 module.exports = router;
