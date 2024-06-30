@@ -9,7 +9,7 @@ const appointmentSchema = new mongoose.Schema({
   },
   patientId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Patient',
+    ref: 'User',
     required: [true, 'An appointment must have a patientId']
   },
   // departmentId: {

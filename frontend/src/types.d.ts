@@ -158,6 +158,19 @@ interface Appointment {
   time: string;
 }
 
+interface AppointmentForDoctors {
+  _id: Key | null | undefined;
+  doctorId: ObjectId | undefined;
+  patientId: {
+    _id: ObjectId | undefined;
+    name: string;
+    email: string;
+  };
+  appointmentDate: date;
+  reason: string;
+  time: string;
+}
+
 /* ------------------ APPOINTMENT STATS ----------------- */
 interface AppointmentStats {
   totalAppointments: number;

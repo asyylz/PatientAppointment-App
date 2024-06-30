@@ -1,0 +1,20 @@
+.gapLine {
+    height: 5px;
+}
+
+td .icons {
+    padding: 7px;
+    color: green;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+}
+
+td .icons.edit {
+    color: blue;
+}
+
+td .icons.trash {
+    color: red;
+}

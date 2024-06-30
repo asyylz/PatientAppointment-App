@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import useAxios from '../../hooks/useAxios';
 import { useSelector } from 'react-redux';
+import { formatDateForUI } from '../../helper/generateDates';
+import classes from './Appointments.module.css';
+import { MdDoneOutline } from 'react-icons/md';
+import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 
 const Appointments: React.FC = () => {
   const axiosWithToken = useAxios();
-  const [appointments, setAppointments] = useState<Appointment[]>();
+  const [appointments, setAppointments] = useState<AppointmentForDoctors[]>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const { userData } = useSelector((state: RootState) => state.currentUser);
-console.log(userData)
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -17,7 +21,7 @@ console.log(userData)
           `http://localhost:3000/api/v1/appointments/doctors/${userData?._id}`
         );
         console.log(response.data.data);
-        setAppointments(response.data.data);
+        setAppointments(response.data.data.appointments);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -36,32 +40,35 @@ console.log(userData)
       <thead>
         <tr>
           <th>Patient Name</th>
-          <th>DOB</th>
+          {/* <th>DOB</th> */}
           <th>Concerns</th>
-          <th>Appointment Date</th>
-          <th>Status</th>
-          <th>Referrals</th>
+          <th>Date</th>
+          <th>Time</th>
+          {/* <th>Status</th>
+          <th>Referrals</th> */}
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-        //key={patient.id}
-        //className={patient.isSeen ? 'completed' : 'active'}
-        >
-          <td>Patient Name</td>
-          <td>Patient DOB</td>
-          <td>Concerns</td>
-          <td>Appointment Date</td>
-          {/* <td>{patient.isSeen ? 'Completed' : 'Active'}</td>
-                <td>{patient.referral ? 'Referred' : 'Not Applied'}</td> */}
-          <td>
-            {/* <FaRegEdit className="icons edit" />
-                  <MdDoneOutline className="icons tick" />
-                  <FaRegTrashAlt className="icons trash" /> */}
-          </td>
-        </tr>
-        <tr className="gap-line"></tr>
+        <tr className={classes.gapLine}></tr>
+        {appointments?.map((appointment: AppointmentForDoctors) => (
+          <>
+            <tr key={appointment._id}>
+              <td>{appointment.patientId?.name}</td>
+              <td>{appointment.reason}</td>
+              <td>{formatDateForUI(appointment.appointmentDate)}</td>
+              <td>{appointment.time}</td>
+              <td>
+                <FaRegEdit className={`${classes.icons} ${classes.edit}`} />
+                <MdDoneOutline className={`${classes.icons} ${classes.tick}`} />
+                <FaRegTrashAlt
+                  className={`${classes.icons} ${classes.trash}`}
+                />
+              </td>
+            </tr>
+            <tr className={classes.gapLine}></tr>
+          </>
+        ))}
       </tbody>
     </table>
   );
