@@ -21,13 +21,14 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
 }) => {
   const { createAppointment } = useHttp();
 
-  const [appointment, setAppointment] = useState<Appointment>({
+  const [appointment, setAppointment] = useState<AppointmentForBooking>({
     doctorId: doctor?._id,
-    patientId: user._id,
+    patientId: user?._id,
     appointmentDate: convertDateStringToDate(slot.date),
     time: slot.time,
     reason: '',
   });
+  console.log(slot.date)
 
   const handleChange = (
     e: React.ChangeEvent<

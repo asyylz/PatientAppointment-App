@@ -15,7 +15,7 @@ interface AvailabilityProps {
 const timeSlots = generateTimeSlots();
 
 const daysMappedToDates = getWeekDatesFromToday();
-console.log(daysMappedToDates);
+
 
 /* ------------------------ MAIN ------------------------ */
 const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {

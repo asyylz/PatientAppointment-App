@@ -119,6 +119,7 @@ interface userData {
   role: string;
   name: string;
   email: string;
+  doctorId: ObjectId;
 }
 
 interface CurrentUserPayload {
@@ -158,15 +159,15 @@ interface Appointment {
   time: string;
 }
 interface AppointmentForBooking {
-  patientId: ObjectId;
-  doctorId: ObjectId;
+  patientId: ObjectId | undefined;
+  doctorId: ObjectId | undefined;
   appointmentDate: date;
   reason: string;
   time: string;
 }
 
 interface AppointmentForDoctors {
-  _id: Key | null | undefined;
+  _id: ObjectId | undefined;
   doctorId: ObjectId | undefined;
   patientId: {
     _id: ObjectId | undefined;

@@ -4,30 +4,25 @@ import useHttp from '../../hooks/useHttp';
 import {
   formatDateForInput,
   convertDateStringToDate,
+  formatDateForInput2,
 } from '../../helper/generateDates';
 
 interface AppointmentFormProps {
-  user: userData;
-  doctor: Doctor | null;
-  slot: { time: string; date: string };
   setOpenModal: (openModal: boolean) => void;
+  appointment: AppointmentForDoctors | undefined;
 }
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
-  user,
-  doctor,
   setOpenModal,
-  slot,
+  appointment,
 }) => {
-  const { createAppointment } = useHttp();
+  const { updateAppointment } = useHttp();
+  console.log(appointment);
 
-  const [appointment, setAppointment] = useState<AppointmentForBooking>({
-    doctorId: doctor?._id,
-    patientId: user._id,
-    appointmentDate: convertDateStringToDate(slot.date),
-    time: slot.time,
-    reason: '',
-  });
+  const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
+    object | undefined
+  >();
+  console.log(updatedAppointmentData);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -39,12 +34,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     if (name === 'appointmentDate') {
       const formattedDate = convertDateStringToDate(value);
       console.log(formattedDate);
-      setAppointment((prevValuesAppointment) => ({
+      setUpdatedAppointmentData((prevValuesAppointment) => ({
         ...prevValuesAppointment,
         appointmentDate: formattedDate,
       }));
     } else {
-      setAppointment((prevValuesAppointment) => ({
+      setUpdatedAppointmentData((prevValuesAppointment) => ({
         ...prevValuesAppointment,
         [name]: value,
       }));
@@ -54,7 +49,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const response = await createAppointment(appointment);
+    const response = await updateAppointment(updatedAppointmentData);
     console.log(response);
     if (response.status === 'success') {
       setOpenModal(false);
@@ -65,7 +60,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     <div className={classes.container}>
       <h1 className={classes.title}>Booking Form</h1>
       <form onSubmit={handleSubmit}>
-        <div className={classes.leftSection}>
+        {/* <div className={classes.leftSection}>
           {' '}
           <input
             type="text"
@@ -85,17 +80,17 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
         <div className={classes.rightSection}>
           <input
             type="text"
-            value={user.name}
+            value={appointment?.patientId.name}
             placeholder="Patient Name"
             required
           />
           <input
             placeholder="Appointment Date"
-            defaultValue={formatDateForInput(slot.date)}
+            defaultValue={formatDateForInput2(appointment?.appointmentDate)}
             type="date"
             name="appointmentDate"
             onChange={handleChange}
@@ -103,7 +98,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
           <input
             placeholder="Appointment Time"
-            defaultValue={slot.time}
+            defaultValue={appointment?.time}
             name="time"
             type="time"
             onChange={handleChange}
@@ -114,6 +109,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           className={classes.reason}
           placeholder="Please write your concerns..."
           name="reason"
+          defaultValue={appointment?.reason}
           onChange={handleChange}
           rows={8}
           cols={45}

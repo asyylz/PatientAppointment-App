@@ -14,7 +14,7 @@ thead tr th {
     cursor:default;
 }
 
-table tr {
+.appointments tr {
     background: var(--completed-background);
     border-bottom: 3px solid rgba(0, 0, 0, 0.2);
 }

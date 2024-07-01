@@ -39,15 +39,25 @@ export const getWeekDatesFromToday = () => {
 };
 
 export const convertDateStringToDate = (dateString: string): Date => {
+  console.log(dateString);
   const [day, month, year] = dateString.split(
     `${dateString.includes('/') ? '/' : '-'}`
   );
+  console.log(new Date(Number(year), Number(month) - 1, Number(day)));
   return new Date(Number(year), Number(month) - 1, Number(day));
 };
 
 export const formatDateForInput = (dateString: string): string => {
+  console.log(dateString);
   const parts = dateString.split('/');
   return `${parts[2]}-${parts[1]}-${parts[0]}`;
+};
+
+export const formatDateForInput2 = (dateString: string): string => {
+  console.log(dateString);
+  const part = dateString.split('T');
+  const parts = part[0].split('-');
+  return `${parts[0]}-${parts[1]}-${parts[2]}`;
 };
 
 export const formatDateForUI = (isoString: string) => {
@@ -68,4 +78,3 @@ export const formatDateForUI = (isoString: string) => {
 
   return `${formattedDate} ${dayOfWeek}`;
 };
-

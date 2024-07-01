@@ -19,4 +19,8 @@ router
   .delete(authControllers.protect, appointmentsControllers.deleteAppointment)
   .get(authControllers.protect, appointmentsControllers.getDoctorAppointments);
 
+router
+  .route('/:id')
+  .patch(authControllers.protect, appointmentsControllers.updateAppointment);
+
 module.exports = router;
