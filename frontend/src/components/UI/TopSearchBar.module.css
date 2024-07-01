@@ -4,7 +4,7 @@
     background: rgba(173, 217, 209, 1);
     width: calc(100% - 300px);
     display: grid;
-    grid-template-columns: 10fr 0.4fr 1fr;
+    grid-template-columns: 10fr auto;
     grid-gap: 5px;
     align-items: center;
     color: #444;

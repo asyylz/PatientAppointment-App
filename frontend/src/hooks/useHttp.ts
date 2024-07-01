@@ -7,7 +7,7 @@ const useHttp = () => {
   const axiosWithToken = useAxios();
   const navigate = useNavigate();
 
-  const createAppointment = async (data: Appointment) => {
+  const createAppointment = async (data: AppointmentForBooking) => {
     console.log(data);
     try {
       const response = await axiosWithToken.post(

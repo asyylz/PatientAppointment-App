@@ -5,7 +5,7 @@ import { generateTimeSlots } from '../../utils/timeSlots';
 //import { generateDates } from '../../helper/GenerateWeekDays';
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
-import AppointmentForm from './AppointmentForm';
+import AppointmentForm from './AppointmentBookingForm';
 import { getWeekDatesFromToday } from '../../helper/generateDates';
 
 interface AvailabilityProps {
@@ -27,7 +27,6 @@ const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
   // if (!availability) {
   //   return <div>No availability data for this doctor</div>;
   // }
-
 
   const handleSlotClick = (time: string, date: string) => {
     setOpenModal(true);

@@ -157,6 +157,13 @@ interface Appointment {
   reason: string;
   time: string;
 }
+interface AppointmentForBooking {
+  patientId: ObjectId;
+  doctorId: ObjectId;
+  appointmentDate: date;
+  reason: string;
+  time: string;
+}
 
 interface AppointmentForDoctors {
   _id: Key | null | undefined;

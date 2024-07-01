@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import classes from './AppointmentForm.module.css';
+import classes from './AppointmentBookingForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import {
   formatDateForInput,
   convertDateStringToDate,
 } from '../../helper/generateDates';
 
-interface AppointmentFormProps {
+interface AppointmentBookingFormProps {
   user: userData;
   doctor: Doctor | null;
   slot: { time: string; date: string };
   setOpenModal: (openModal: boolean) => void;
 }
 
-const AppointmentForm: React.FC<AppointmentFormProps> = ({
+const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
   user,
   doctor,
   setOpenModal,
@@ -21,7 +21,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 }) => {
   const { createAppointment } = useHttp();
 
-  const [appointment, setAppointment] = useState<AppointmentForBooking>({
+  const [appointment, setAppointment] = useState<Appointment>({
     doctorId: doctor?._id,
     patientId: user._id,
     appointmentDate: convertDateStringToDate(slot.date),
@@ -125,4 +125,4 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   );
 };
 
-export default AppointmentForm;
+export default AppointmentBookingForm;

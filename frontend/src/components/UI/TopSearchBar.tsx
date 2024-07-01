@@ -46,7 +46,11 @@ const TopSearchBar: React.FC = () => {
 
         {token && userData ? (
           <div className={classes.user}>
-            <h3>{userData?.name}</h3>
+            <h3>
+              {userData?.role === 'doctor'
+                ? `Dr. ${userData?.name}`
+                : userData?.name}
+            </h3>
             <i className="fas fa-bell"></i>
             <img src={image} alt="" />
             <button onClick={handleLogout}>Logout</button>

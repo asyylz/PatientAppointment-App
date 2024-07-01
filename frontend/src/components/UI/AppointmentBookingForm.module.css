@@ -1,0 +1,90 @@
+.container {
+    height: 95%;
+    width: 95%;
+    background: #F0F1F2;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 20px 0 10px 0;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    bottom: -10px;
+    left: 0;
+    border-radius: 5px;
+    background: linear-gradient(0deg, rgba(34, 193, 195, 1) 23%, rgba(173, 217, 209, 1) 91%);
+}
+
+.container form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.container input, .container select {
+    width: 100%;
+    padding-left: 10px;
+    outline: none;
+    font-size: 16px;
+    border: none;
+    height: 45px;
+    margin-top: 25px;
+}
+
+.container input,.container select {
+    border-bottom: 3px solid rgba(173, 217, 209, 1)
+}
+
+input:focus,
+input:hover,
+select:hover,
+select:focus,
+.container textarea:hover,
+.container textarea:focus {
+    border-bottom: 4px solid rgba(173, 217, 209, 1);
+    transform: scaleX(1);
+    outline: none;
+}
+
+.container button {
+    text-decoration: none;
+    font-size: 18px;
+    color: #444;
+    width: 200px;
+    height: 40px;
+    background: rgba(173, 217, 209, 1);
+    padding: 5px 30px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 28px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.container textarea {
+    border: none;
+    margin: 25px 0;
+    border-bottom: 3px solid rgba(173, 217, 209, 1);
+    padding: 0.5rem;
+    font-size: 16px;
+    grid-column: span 2;
+}
+
+
+.container button:hover {
+    color: #fff;
+    background-color: #444;
+}

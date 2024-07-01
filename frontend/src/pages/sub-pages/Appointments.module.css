@@ -1,20 +1,52 @@
+* {
+    --active-background: rgba(252, 106, 83, 0.6);
+    --completed-background: rgba(75, 191, 82, 0.5);
+    --primary-background: rgba(173, 217, 209, 1);
+    --primary-textcolor: #444;
+}
+
 .gapLine {
     height: 5px;
 }
 
+thead tr th {
+    font-weight: 600;
+    cursor:default;
+}
+
+table tr {
+    background: var(--completed-background);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+}
+
+tbody table tr:last-child {
+    border-bottom: none;
+}
+
+td .row {
+    background-color: rgba(75, 191, 82, 0.5);
+}
+
 td .icons {
     padding: 7px;
-    color: green;
+    color: #fff;
     border-radius: 50%;
     height: 30px;
     width: 30px;
     margin-left: 5px;
 }
 
-td .icons.edit {
-    color: blue;
+td .icons.tick {
+    background: #32bea6;
+    cursor: pointer;
 }
 
 td .icons.trash {
-    color: red;
+    background: #ed5564;
+    cursor: pointer;
+}
+
+td .icons.edit {
+    background: #4BB2F2;
+    cursor: pointer;
 }
