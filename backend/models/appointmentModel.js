@@ -12,16 +12,6 @@ const appointmentSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'An appointment must have a patientId']
   },
-  // departmentId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Departments',
-  //   required: [true, 'An appointment must have a departmentId']
-  // },
-  // subDepartmentName: {
-  //   type: String,
-  //   ref: 'Departments',
-  //   required: [true, 'You should choose   a sub department']
-  // },
   appointmentDate: {
     type: Date,
     required: [true, 'An appointment must have a date ']

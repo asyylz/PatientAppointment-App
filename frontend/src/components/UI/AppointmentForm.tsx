@@ -22,6 +22,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
     object | undefined
   >();
+
   console.log(updatedAppointmentData);
 
   const handleChange = (
@@ -45,11 +46,14 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       }));
     }
   };
+  console.log(updatedAppointmentData);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const response = await updateAppointment(updatedAppointmentData);
+    const response = await updateAppointment(
+      updatedAppointmentData,
+      appointment?._id
+    );
     console.log(response);
     if (response.status === 'success') {
       setOpenModal(false);
@@ -60,28 +64,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     <div className={classes.container}>
       <h1 className={classes.title}>Booking Form</h1>
       <form onSubmit={handleSubmit}>
-        {/* <div className={classes.leftSection}>
-          {' '}
-          <input
-            type="text"
-            name="doctor"
-            placeholder="Choose Doctor"
-            value={`Dr.${doctor?.firstName} ${doctor?.lastName}`}
-            required
-          />
-          <select name="mainDepartment">
-            <option value={0}>{doctor?.departmentId.departmentMain}</option>
-          </select>
-          <select name="subDepartmentName" onChange={handleChange} required>
-            <option>Choose Sub Department</option>
-            {doctor?.departmentId.departmentSub.map((el, index) => (
-              <option key={index} value={el}>
-                {el}
-              </option>
-            ))}
-          </select>
-        </div> */}
-        <div className={classes.rightSection}>
+        <div className={classes.leftSection}>
           <input
             type="text"
             value={appointment?.patientId.name}
@@ -104,17 +87,37 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             onChange={handleChange}
             required
           />
+          <textarea
+            className={classes.reason}
+            placeholder="Please write your concerns..."
+            name="reason"
+            defaultValue={appointment?.reason}
+            onChange={handleChange}
+            rows={8}
+            cols={36}
+          ></textarea>
         </div>
-        <textarea
-          className={classes.reason}
-          placeholder="Please write your concerns..."
-          name="reason"
-          defaultValue={appointment?.reason}
-          onChange={handleChange}
-          rows={8}
-          cols={45}
-        ></textarea>
-        <button type="submit">Book</button>
+        <div className={classes.leftSection}>
+          <select name="status" id="status" onChange={handleChange}>
+            <option>Pelease choose a status</option>
+            <option value="completed">Completed</option>
+          </select>
+          <select name="referral" id="referral" onChange={handleChange}>
+            <option>Pelease choose a status</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+          <textarea
+            className={classes.result}
+            placeholder="Please write diagnoses..."
+            name="diagnose"
+            onChange={handleChange}
+            rows={8}
+            cols={36}
+          ></textarea>
+        </div>
+
+        <button type="submit">Update</button>
         <button onClick={() => setOpenModal(false)}>Close</button>
       </form>
     </div>

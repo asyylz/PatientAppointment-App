@@ -8,7 +8,6 @@ const useHttp = () => {
   const navigate = useNavigate();
 
   const createAppointment = async (data: AppointmentForBooking) => {
-    console.log(data);
     try {
       const response = await axiosWithToken.post(
         'http://localhost:3000/api/v1/appointments',
@@ -21,14 +20,16 @@ const useHttp = () => {
       toastErrorNotify(`${error.response.data.message[fieldName].message}`);
     }
   };
-  const updateAppointment = async (data: object) => {
+  const updateAppointment = async (data: object | undefined, id: ObjectId) => {
     console.log(data);
+    console.log(id);
+
     try {
-      const response = await axiosWithToken.post(
-        'http://localhost:3000/api/v1/appointments',
+      const response = await axiosWithToken.patch(
+        `http://localhost:3000/api/v1/appointments/${id}`,
         data
       );
-      toastSuccessNotify('Your appointment successfully placed');
+      toastSuccessNotify('Your appointment successfully updated');
       return response.data;
     } catch (error: AxiosError) {
       const fieldName = Object.keys(error.response.data.message)[0];
