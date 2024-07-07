@@ -23,7 +23,7 @@ export default function LeftSideBar() {
           {sideBarSectionList.map((section) => {
             return (
               <li key={section.title}>
-                <Link to={section.title.toLowerCase()}>
+                <Link to={`/user/${section.title.toLowerCase()}`}>
                   <div className={classes.iconBox}>
                     <i className={section.icon}></i>
                   </div>
@@ -34,7 +34,7 @@ export default function LeftSideBar() {
           })}
           {userData?.role === 'doctor' && (
             <li key="appointments">
-              <Link to="/appointments">
+              <Link to="/user/appointments">
                 <div className={classes.iconBox}>
                   <i className="fas fa-stethoscope"></i>
                 </div>

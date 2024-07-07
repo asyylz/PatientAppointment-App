@@ -1,7 +1,6 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
 import HomePage from './../pages/HomePage';
 import Departments from './../pages/sub-pages/Departments';
 import DoctorsPage from '../pages/sub-pages/DoctorsPage';
@@ -13,15 +12,19 @@ import DoctorsLayout from '../pages/layouts/DoctorsLayout';
 import AuthPage from '../pages/AuthPage';
 import PrivateRoute from './PrivateRoute';
 import PrivateRouteForRoles from './PrivateRouteForRoles';
+import MainLayout from '../pages/layouts/MainLayout';
 
 const routes: RouteObject[] = [
   {
     path: '/',
     element: <HomePage />,
+  },
+  {
+    path: '/user',
+    element: <MainLayout />,
     children: [
       {
         path: 'dashboard',
-        index: true,
         element: (
           <PrivateRoute>
             <Dashboard />
@@ -37,10 +40,9 @@ const routes: RouteObject[] = [
         ),
       },
       {
-        path: 'doctors',
         element: <DoctorsLayout />,
         children: [
-          { path: '/doctors', element: <DoctorsPage />, index: true },
+          { path: 'doctors', element: <DoctorsPage />, index: true },
           {
             path: ':doctorId',
             element: (
@@ -56,6 +58,7 @@ const routes: RouteObject[] = [
       { path: 'settings' },
     ],
   },
+
   {
     path: '/auth',
     element: <AuthPage />,

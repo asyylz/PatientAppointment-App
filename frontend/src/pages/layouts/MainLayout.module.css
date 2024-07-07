@@ -1,0 +1,41 @@
+.container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr auto;
+    min-height: 100vh;
+    overflow: hidden;
+    transition: transform 0.5s ease-in, opacity 0.5s ease-in;
+
+}
+
+.leftSection {
+    min-height: 100vh;
+    grid-column: 1;
+
+}
+
+.rightSection {
+    min-height: 100vh;
+    grid-column: 2;
+}
+
+.outletContainer {
+    margin-top: 5rem;
+    min-height: 100vh;
+    border: 1px solid red;
+
+}
+
+.container .active {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    z-index: 100;
+}
+
+
+@media (max-width:1230px) {
+    .container {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+    }
+}
