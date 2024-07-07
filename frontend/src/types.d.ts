@@ -30,12 +30,12 @@ interface ExtendedEntityState<T> extends EntityState<T> {
 
 interface RootState {
   departments: EntityState<Department>;
+  appointmentsForDoctor: EntityState<AppointmentForDoctors>;
+  reviews: EntityState<Review>;
   doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
-  reviews: EntityState<Review>;
   currentUser: CurrentUser;
   search: string;
-  appointmentsForDoctorSlice: AppointmentForDoctors[];
 }
 
 /* ----------------------- DOCTOR ----------------------- */

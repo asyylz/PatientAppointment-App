@@ -45,7 +45,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       }));
     }
   };
-  console.log(updatedAppointmentData);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,7 +52,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       updatedAppointmentData,
       appointment?._id
     );
-    console.log(response);
     if (response.status === 'success') {
       setOpenModal(false);
     }

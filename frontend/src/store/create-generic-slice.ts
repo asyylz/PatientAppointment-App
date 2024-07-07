@@ -54,7 +54,7 @@ export const fetchEntitiesWithIdAndToken = <T>(
   url: (id: string) => string
 ) =>
   createAsyncThunk<T, { id: string; token: string }>(
-    `${entity}/fetchWithId`,
+    `${entity}/fetchWithIdAndToken`,
     async ({ id, token }) => {
       console.log(
         'Fetching entity:',
@@ -64,14 +64,13 @@ export const fetchEntitiesWithIdAndToken = <T>(
         'with Token',
         token
       );
-console.log(entity)
+      console.log(entity);
       const response = await axios.get(url(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(response.data.data);
 
-      return response.data.data[entity]; // Assuming the data is under the entity property
-      //return response.data.data.appointments; // Assuming the data is under the entity property
+      return response.data.data[entity];
     }
   );
 
@@ -110,6 +109,7 @@ export const createEntitySlice = <T>(
           (state, action: PayloadAction<T | object>) => {
             state.status = 'succeeded';
             state.entities = action.payload;
+            state.error = null;
 
             console.log('State updated:', state.entities); // Debug state update
           }
