@@ -4,14 +4,16 @@ import doctorsReducer from './doctors-slice';
 import reviewsReducer from './reviews-slice';
 import currentUserReducer from './currentUser-slice';
 import searchReducer from './search-slice';
+import appointmentsForDoctorReducer from './appointmentsForDoctor-slice';
 
 const store = configureStore({
   reducer: {
+    currentUser: currentUserReducer,
     departments: departmentsReducer,
     doctors: doctorsReducer,
     reviews: reviewsReducer,
-    currentUser: currentUserReducer,
     search: searchReducer,
+    appointmentsForDoctor: appointmentsForDoctorReducer,
   },
 });
 

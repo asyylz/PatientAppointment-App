@@ -1,11 +1,10 @@
 import { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
+
 import useAxios from './useAxios';
-import { useNavigate } from 'react-router-dom';
 
 const useHttp = () => {
   const axiosWithToken = useAxios();
-  const navigate = useNavigate();
 
   const createAppointment = async (data: AppointmentForBooking) => {
     try {
@@ -20,7 +19,7 @@ const useHttp = () => {
       toastErrorNotify(`${error.response.data.message[fieldName].message}`);
     }
   };
-  const updateAppointment = async (data: object | undefined, id: ObjectId) => {
+  const updateAppointment = async (data: object | undefined, id: ObjectId | undefined) => {
     console.log(data);
     console.log(id);
 

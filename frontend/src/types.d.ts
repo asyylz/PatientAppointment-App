@@ -35,6 +35,7 @@ interface RootState {
   reviews: EntityState<Review>;
   currentUser: CurrentUser;
   search: string;
+  appointmentsForDoctorSlice: AppointmentForDoctors[];
 }
 
 /* ----------------------- DOCTOR ----------------------- */
@@ -167,10 +168,10 @@ interface AppointmentForBooking {
 }
 
 interface AppointmentForDoctors {
-  _id: ObjectId | undefined;
-  doctorId: ObjectId | undefined;
+  _id: ObjectId;
+  doctorId: ObjectId;
   patientId: {
-    _id: ObjectId | undefined;
+    _id: ObjectId;
     name: string;
     email: string;
   };

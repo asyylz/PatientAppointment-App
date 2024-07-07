@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
 import GlobalLink from '../../components/UI/GlobalLink';
-import useAxios from '../../hooks/useAxios';
 import { formatDateForUI } from '../../helper/generateDates';
+import useAxios from '../../hooks/useAxios';
 
 const Dashboard: React.FC = () => {
   const { token, userData, status, error, image } = useSelector(
@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
   } = useSelector((state: RootState) => state.departments);
 
   const axiosWithToken = useAxios();
+
 
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [total, setTotal] = useState<AppointmentStats>({

@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { createAxiosInstance } from '../helper/axiosInstance';
 
+/* ------------------------------------------------------ */
+/*                        ENTITIES                        */
+/* ------------------------------------------------------ */
 type HttpMethod = 'get' | 'post' | 'patch' | 'delete';
 
 export const fetchEntities = <T>(
@@ -30,6 +34,9 @@ export const fetchEntities = <T>(
     }
   );
 
+/* ------------------------------------------------------ */
+/*                    ENTITIES WITH ID                    */
+/* ------------------------------------------------------ */
 export const fetchEntitiesWithId = <T>(
   entity: string,
   url: (id: string) => string
@@ -39,6 +46,38 @@ export const fetchEntitiesWithId = <T>(
     return response.data.data[entity]; // Assuming the data is under the entity property
   });
 
+/* ------------------------------------------------------ */
+/*               ENTITIES WITH TOKEN                      */
+/* ------------------------------------------------------ */
+export const fetchEntitiesWithIdAndToken = <T>(
+  entity: string,
+  url: (id: string) => string
+) =>
+  createAsyncThunk<T, { id: string; token: string }>(
+    `${entity}/fetchWithId`,
+    async ({ id, token }) => {
+      console.log(
+        'Fetching entity:',
+        entity,
+        'with id:',
+        id,
+        'with Token',
+        token
+      );
+console.log(entity)
+      const response = await axios.get(url(id), {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response.data.data);
+
+      return response.data.data[entity]; // Assuming the data is under the entity property
+      //return response.data.data.appointments; // Assuming the data is under the entity property
+    }
+  );
+
+/* ------------------------------------------------------ */
+/*                     CREATING SLICE                     */
+/* ------------------------------------------------------ */
 export const createEntitySlice = <T>(
   entity: string,
   fetchEntityThunk: any,

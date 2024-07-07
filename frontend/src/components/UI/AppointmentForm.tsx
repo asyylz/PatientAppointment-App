@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import {
-  formatDateForInput,
   convertDateStringToDate,
   formatDateForInput2,
 } from '../../helper/generateDates';
@@ -73,7 +72,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
           <input
             placeholder="Appointment Date"
-            defaultValue={formatDateForInput2(appointment?.appointmentDate)}
+            value={formatDateForInput2(appointment?.appointmentDate)}
             type="date"
             name="appointmentDate"
             onChange={handleChange}
@@ -81,7 +80,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
           <input
             placeholder="Appointment Time"
-            defaultValue={appointment?.time}
+            value={appointment?.time}
             name="time"
             type="time"
             onChange={handleChange}
@@ -103,7 +102,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <option value="completed">Completed</option>
           </select>
           <select name="referral" id="referral" onChange={handleChange}>
-            <option>Pelease choose a status</option>
+            <option>Pelease choose a referral status</option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
           </select>

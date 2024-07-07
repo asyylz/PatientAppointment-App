@@ -28,6 +28,19 @@ const appointmentSchema = new mongoose.Schema({
   reason: {
     type: String,
     required: [true, 'You should specify your concerns...']
+  },
+  diagnose: {
+    type: String,
+    default: null
+  },
+  status: {
+    type: String,
+    enum: ['completed', 'pending'],
+    default: null
+  },
+  referral: {
+    type: Boolean,
+    default: false
   }
 });
 

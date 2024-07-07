@@ -100,6 +100,7 @@ exports.updateAppointment = async (req, res, next) => {
         appointment: updatedAppointment
       }
     });
+    console.log(updatedAppointment)
   } catch (err) {
     next(err);
   }
