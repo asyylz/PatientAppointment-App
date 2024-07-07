@@ -17,6 +17,51 @@
         "wholeMatch": false
       },
       "color": "darkmagenta"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                        ENTITIES                        */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkolivegreen"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                    ENTITIES WITH ID                    */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkslateblue"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "  /* ------------------------------------------------------ */\n  /*               ENTITIES WITH TOKEN                      */\n  /* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkslategray"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                     CREATING SLICE                     */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*            ENTITIES WITH TOKEN AND ID                  */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkblue"
     }
   ]
 }

@@ -22,8 +22,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     object | undefined
   >();
 
-  console.log(updatedAppointmentData);
-
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -67,6 +65,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             value={appointment?.patientId.name}
             placeholder="Patient Name"
             required
+            readOnly
           />
           <input
             placeholder="Appointment Date"
@@ -95,14 +94,24 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           ></textarea>
         </div>
         <div className={classes.leftSection}>
-          <select name="status" id="status" onChange={handleChange}>
+          <select
+            name="status"
+            id="status"
+            onChange={handleChange}
+            defaultValue={appointment?.status}
+          >
             <option>Pelease choose a status</option>
             <option value="completed">Completed</option>
           </select>
-          <select name="referral" id="referral" onChange={handleChange}>
+          <select
+            name="referral"
+            id="referral"
+            onChange={handleChange}
+            defaultValue={appointment?.referral.toString()}
+          >
             <option>Pelease choose a referral status</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
           <textarea
             className={classes.result}

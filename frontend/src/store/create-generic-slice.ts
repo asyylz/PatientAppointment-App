@@ -47,7 +47,7 @@ export const fetchEntitiesWithId = <T>(
   });
 
 /* ------------------------------------------------------ */
-/*               ENTITIES WITH TOKEN                      */
+/*            ENTITIES WITH TOKEN AND ID                  */
 /* ------------------------------------------------------ */
 export const fetchEntitiesWithIdAndToken = <T>(
   entity: string,

@@ -1,5 +1,4 @@
 .container {
-    border:3px solid red;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
@@ -10,7 +9,7 @@
 
 }
 
-/* .container::before {
+.container::before {
     content: '';
     position: absolute;
     left: 50vw;
@@ -19,7 +18,7 @@
     width: 1px;
     border-radius: 12px;
     background: #C7BEBE;
-} */
+}
 
 .wrapper {
     position: relative;

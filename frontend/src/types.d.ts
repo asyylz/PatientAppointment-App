@@ -178,6 +178,8 @@ interface AppointmentForDoctors {
   appointmentDate: date;
   reason: string;
   time: string;
+  status: string;
+  referral: boolean;
 }
 
 /* ------------------ APPOINTMENT STATS ----------------- */
