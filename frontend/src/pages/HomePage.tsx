@@ -1,7 +1,7 @@
 import Footer from '../components/UI/Footer';
 import LeftSideBar from '../components/UI/LeftSideBar';
 import TopSearchBar from './../components/UI/TopSearchBar';
-import RightSubMain from './layouts/RighMainSectionLayout';
+import RighMainSectionLayout from './layouts/RighMainSectionLayout';
 import classes from './HomePage.module.css';
 
 export default function HomePage() {
@@ -22,7 +22,7 @@ export default function HomePage() {
           className={classes.rigthSection}
         >
           <TopSearchBar />
-          <RightSubMain />
+          <RighMainSectionLayout />
         </div>
         <Footer />
       </div>
