@@ -1,6 +1,6 @@
 * {
-    --active-background: rgba(252, 106, 83, 0.6);
-    --completed-background: rgba(75, 191, 82, 0.5);
+    --completed-background: rgba(252, 106, 83, 0.6);
+    --active-background: rgba(75, 191, 82, 0.5);
     --primary-background: rgba(173, 217, 209, 1);
     --primary-textcolor: #444;
 }
@@ -9,9 +9,30 @@
     height: 5px;
 }
 
+
+
+table {
+    width: 95%;
+    table-layout: auto; /* Adjusts the width of cells based on content */
+    border-collapse: collapse;
+   margin: 1rem auto;
+  }
+
 thead tr th {
     font-weight: 600;
-    cursor:default;
+    cursor: default;
+}
+
+.row.active {
+    background: var(--active-background);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.row {
+    background: var(--completed-background);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    text-decoration: line-through;
 }
 
 .appointments tr {
@@ -23,9 +44,6 @@ tbody table tr:last-child {
     border-bottom: none;
 }
 
-td .row {
-    background-color: rgba(75, 191, 82, 0.5);
-}
 
 td .icons {
     padding: 7px;

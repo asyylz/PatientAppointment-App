@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <div>asiye</div>;
+  return <div>intro home page</div>;
 }

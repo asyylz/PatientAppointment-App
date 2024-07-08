@@ -57,7 +57,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Booking Form</h1>
+      <h1 className={classes.title}>Appointment Details</h1>
       <form onSubmit={handleSubmit}>
         <div className={classes.leftSection}>
           <input
@@ -72,16 +72,17 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             value={formatDateForInput2(appointment?.appointmentDate)}
             type="date"
             name="appointmentDate"
-            onChange={handleChange}
-            required
+            // onChange={handleChange}
+            readOnly
           />
           <input
             placeholder="Appointment Time"
             value={appointment?.time}
             name="time"
             type="time"
-            onChange={handleChange}
-            required
+            step="1800"
+            readOnly
+            //onChange={handleChange}
           />
           <textarea
             className={classes.reason}

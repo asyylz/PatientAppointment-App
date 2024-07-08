@@ -100,7 +100,7 @@ exports.updateAppointment = async (req, res, next) => {
         appointment: updatedAppointment
       }
     });
-    console.log(updatedAppointment)
+    console.log(updatedAppointment);
   } catch (err) {
     next(err);
   }
@@ -110,6 +110,23 @@ exports.updateAppointment = async (req, res, next) => {
 exports.getDoctorAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.findById(req.params.id);
+    res.status(200).json({
+      status: 'success',
+      data: {
+        appointment
+      }
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
+};
+
+exports.getAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findById({ _id: req.params.id });
     res.status(200).json({
       status: 'success',
       data: {
@@ -147,13 +164,15 @@ exports.createAppointment = async (req, res) => {
 
 // DELETE //
 exports.deleteAppointment = async (req, res, next) => {
+  console.log(req.params.id);
   try {
-    await Appointment.findByIdAndUpdate(req.appointment.id);
+    await Appointment.deleteOne({ _id: req.params.id });
     res.status(204).json({
       status: 'success',
       data: null
     });
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

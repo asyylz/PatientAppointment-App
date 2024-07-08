@@ -19,7 +19,10 @@ const useHttp = () => {
       toastErrorNotify(`${error.response.data.message[fieldName].message}`);
     }
   };
-  const updateAppointment = async (data: object | undefined, id: ObjectId | undefined) => {
+  const updateAppointment = async (
+    data: object | undefined,
+    id: ObjectId | undefined
+  ) => {
     console.log(data);
     console.log(id);
 
@@ -36,7 +39,22 @@ const useHttp = () => {
     }
   };
 
-  return { createAppointment, updateAppointment };
+  const deleteAppointment = async (id: ObjectId | undefined) => {
+    console.log(id);
+
+    try {
+      const response = await axiosWithToken.delete(
+        `http://localhost:3000/api/v1/appointments/${id}`
+      );
+      toastSuccessNotify('Your appointment successfully deleted.');
+      return response
+    } catch (error: AxiosError) {
+      console.log(error);
+      toastErrorNotify(`${error.response.data.message}`);
+    }
+  };
+
+  return { createAppointment, updateAppointment, deleteAppointment };
 };
 
 export default useHttp;

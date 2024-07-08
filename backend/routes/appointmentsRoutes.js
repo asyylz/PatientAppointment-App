@@ -21,6 +21,8 @@ router
 
 router
   .route('/:id')
-  .patch(authControllers.protect, appointmentsControllers.updateAppointment);
+  .patch(authControllers.protect, appointmentsControllers.updateAppointment)
+  .get(authControllers.protect, appointmentsControllers.getAppointment)
+  .delete(authControllers.protect, appointmentsControllers.deleteAppointment);
 
 module.exports = router;
