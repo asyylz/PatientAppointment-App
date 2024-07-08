@@ -174,6 +174,7 @@ interface AppointmentForDoctors {
     _id: ObjectId;
     name: string;
     email: string;
+    DOB: date;
   };
   appointmentDate: date;
   reason: string;

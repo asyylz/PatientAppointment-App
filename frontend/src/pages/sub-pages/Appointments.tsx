@@ -92,6 +92,7 @@ const Appointments: React.FC = () => {
             <th>Date</th>
             <th>Concerns</th>
             <th>Time</th>
+            <th>Diagnose</th>
             <th>Referrals</th>
             <th>Actions</th>
           </tr>
@@ -113,6 +114,7 @@ const Appointments: React.FC = () => {
                 <td>{formatDateForUI(appointment.appointmentDate)}</td>
                 <td>{appointment.reason}</td>
                 <td>{appointment.time}</td>
+                <td>{appointment.diagnose}</td>
                 <td>{appointment.referral ? 'Yes' : 'No'}</td>
                 <td>
                   <FaRegTrashAlt
