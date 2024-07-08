@@ -116,6 +116,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </select>
           <textarea
             className={classes.result}
+            defaultValue={appointment?.diagnose}
             placeholder="Please write diagnoses..."
             name="diagnose"
             onChange={handleChange}

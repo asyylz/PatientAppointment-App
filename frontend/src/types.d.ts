@@ -180,6 +180,7 @@ interface AppointmentForDoctors {
   time: string;
   status: string;
   referral: boolean;
+  diagnose: string;
 }
 
 /* ------------------ APPOINTMENT STATS ----------------- */

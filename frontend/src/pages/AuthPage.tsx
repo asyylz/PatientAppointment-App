@@ -15,7 +15,7 @@ const AuthPage = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
-  const { token, userData, status, image, error } = useSelector(
+  const { userData, status } = useSelector(
     (state: RootState) => state.currentUser
   );
 
@@ -38,7 +38,7 @@ const AuthPage = () => {
 
   useEffect(() => {
     if (status === 'login success') {
-      navigate(-1);
+      navigate('/user/dashboard');
     }
   }, [status, navigate, selectedDoctor]);
 

@@ -11,12 +11,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Email is required'],
     validate: [
-      // {
-      //   validator: function(val) {
-      //     return val.includes('@');
-      //   },
-      //   message: 'Email should contain @ character'
-      // },
+      {
+        validator: function(val) {
+          return val.includes('@');
+        },
+        message: 'Email should contain @ character'
+      },
       {
         validator: function(val) {
           return val.trim().length > 0;
@@ -77,9 +77,7 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false
   },
-  appointments: {
-    type: Object
-  }
+  DOB: Date
 });
 
 userSchema.pre('save', async function(next) {
