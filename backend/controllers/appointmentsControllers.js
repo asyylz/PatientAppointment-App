@@ -124,9 +124,17 @@ exports.getDoctorAppointment = async (req, res) => {
   }
 };
 
-exports.getAppointment = async (req, res) => {
+exports.getAppointment = async (req, res, next) => {
   try {
-    const appointment = await Appointment.findById({ _id: req.params.id });
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      const error = new Error(
+        'The appointment with this id could not be found'
+      );
+      error.statusCode = 404;
+      error.status = 'fail';
+      return next(error);
+    }
     res.status(200).json({
       status: 'success',
       data: {
@@ -134,10 +142,11 @@ exports.getAppointment = async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err
-    });
+    // res.status(500).json({
+    //   status: 'error',
+    //   message: err.message
+    // });
+    next(err);
   }
 };
 
@@ -172,7 +181,6 @@ exports.deleteAppointment = async (req, res, next) => {
       data: null
     });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };

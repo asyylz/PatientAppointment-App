@@ -21,9 +21,7 @@
 
 .outletContainer {
     margin-top: 5rem;
-    min-height: 100vh;
-    border: 1px solid red;
-
+    min-height: 100vh
 }
 
 .container .active {

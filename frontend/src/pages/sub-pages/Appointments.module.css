@@ -9,14 +9,13 @@
     height: 5px;
 }
 
-
-
-table {
+table.appointments {
     width: 95%;
-    table-layout: auto; /* Adjusts the width of cells based on content */
+    table-layout: auto;
     border-collapse: collapse;
-   margin: 1rem auto;
-  }
+    margin: 0 auto;
+
+}
 
 thead tr th {
     font-weight: 600;
@@ -67,4 +66,35 @@ td .icons.trash {
 td .icons.edit {
     background: #4BB2F2;
     cursor: pointer;
+}
+
+
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+button {
+    text-decoration: none;
+    color: #444;
+    width: 200px;
+    background: rgba(173, 217, 209, 1);
+    padding: 5px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 28px;
+    cursor: pointer;
+    border: none;
+    font-size: 1.1rem;
+
+}
+
+button:hover {
+    color: #fff;
+    background-color: #444;
 }

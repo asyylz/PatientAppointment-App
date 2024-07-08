@@ -7,7 +7,7 @@ import {
 } from '../../helper/generateDates';
 
 interface AppointmentFormProps {
-  setOpenModal: (openModal: boolean) => void;
+  setOpenModal: (openModal: string) => void;
   appointment: AppointmentForDoctors | undefined;
 }
 
@@ -51,7 +51,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       appointment?._id
     );
     if (response.status === 'success') {
-      setOpenModal(false);
+      setOpenModal('');
     }
   };
 
@@ -125,7 +125,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         </div>
 
         <button type="submit">Update</button>
-        <button onClick={() => setOpenModal(false)}>Close</button>
+        <button onClick={() => setOpenModal('')}>Close</button>
       </form>
     </div>
   );

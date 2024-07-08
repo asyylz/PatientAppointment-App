@@ -16,7 +16,9 @@ const Appointments: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
 
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<string>('');
+  const [appointmentIdToDelete, setAppointmentIdToDelete] =
+    useState<ObjectId | null>(null);
 
   const { userData, token } = useSelector(
     (state: RootState) => state.currentUser
@@ -29,7 +31,6 @@ const Appointments: React.FC = () => {
 
   useEffect(() => {
     if (userData?._id) {
-      console.log(userData.doctorId);
       dispatch(
         fetchAppointmentsForDoctor({ id: userData.doctorId.toString(), token })
       );
@@ -37,13 +38,26 @@ const Appointments: React.FC = () => {
   }, [dispatch, token, userData?._id, userData?.doctorId, openModal]);
 
   const handleClick = (appointment: AppointmentForDoctors) => {
-    setOpenModal(true);
+    setOpenModal('open appointment details');
     setSelectedAppointment(appointment);
   };
 
-  const handleDelete = async (id: ObjectId) => {
-    const response = await deleteAppointment(id);
-    console.log(response);
+  const handleDelete = (id: ObjectId) => {
+    setOpenModal('confirmation');
+    setAppointmentIdToDelete(id);
+  };
+
+  const confirmDelete = () => {
+    if (appointmentIdToDelete) {
+      deleteAppointment(appointmentIdToDelete);
+    }
+    setOpenModal('');
+    setAppointmentIdToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setOpenModal('');
+    setAppointmentIdToDelete(null);
   };
 
   if (status === 'loading') return <div>Loading...</div>;
@@ -53,12 +67,21 @@ const Appointments: React.FC = () => {
 
   return (
     <>
-      {openModal && selectedAppointment && (
-        <ModalCustom>
+      {openModal === 'open appointment details' && selectedAppointment && (
+        <ModalCustom height="700px" width="900px">
           <AppointmentForm
             setOpenModal={setOpenModal}
             appointment={selectedAppointment}
           />
+        </ModalCustom>
+      )}
+      {openModal === 'confirmation' && (
+        <ModalCustom height="300px" width="500px">
+          <p>Please confirm to delete the appointment?</p>
+          <div className={classes.buttonContainer}>
+            <button onClick={confirmDelete}>Confirm</button>
+            <button onClick={cancelDelete}>Cancel</button>
+          </div>
         </ModalCustom>
       )}
       <table className={classes.appointments}>
