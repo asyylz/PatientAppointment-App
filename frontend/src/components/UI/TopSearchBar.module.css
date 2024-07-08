@@ -15,7 +15,8 @@
 
 .search {
     position: relative;
-    max-width: 400px;
+    width: 80%;
+    min-width: 200px;
 
 }
 
@@ -64,6 +65,10 @@
     height: 50px;
 }
 
+.user button {
+    width: 100px;
+}
+
 img {
     position: absolute;
     width: 100%;
@@ -71,14 +76,6 @@ img {
     top: 0;
     left: 0;
     object-fit: cover;
-}
-
-.login {
-    text-decoration: none;
-    color: #444;
-    font-size: 1.2rem;
-    cursor: pointer;
-    font-weight: 800;
 }
 
 @media (max-width:1230px) {

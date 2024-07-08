@@ -1,19 +1,26 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
-import { setSearch, clearSearch } from '../../store/search-slice';
+import { setSearch } from '../../store/search-slice';
+import GlobalLink from './GlobalLink';
 
 const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
-
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { token, userData, image } = useSelector(
     (state: RootState) => state.currentUser
   );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
@@ -46,19 +53,23 @@ const TopSearchBar: React.FC = () => {
 
         {token && userData ? (
           <div className={classes.user}>
-            <h3>
-              {userData?.role === 'doctor'
-                ? `Dr. ${userData?.name}`
-                : userData?.name}
-            </h3>
-            <i className="fas fa-bell"></i>
-            <img src={image} alt="" />
-            <button onClick={handleLogout}>Logout</button>
+            {windowWidth > 768 ? (
+              <>
+                <h3>
+                  {userData?.role === 'doctor'
+                    ? `Dr. ${userData?.name}`
+                    : userData?.name}
+                </h3>
+                <i className="fas fa-bell"></i>
+                <img src={image} alt="User" />
+                <button onClick={handleLogout}>Logout</button>
+              </>
+            ) : (
+              <img src={image} alt="User" />
+            )}
           </div>
         ) : (
-          <Link className={classes.login} to="/auth">
-            Login
-          </Link>
+          <GlobalLink text="Login" to="/auth" />
         )}
       </div>
     </>
