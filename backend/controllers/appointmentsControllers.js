@@ -68,7 +68,7 @@ exports.getDoctorAppointments = async (req, res, next) => {
     const appointments = await Appointment.find({
       doctorId: req.params.id
     })
-      .populate('patientId', { name: 1, email: 1 })
+      .populate('patientId', { name: 1, email: 1, DOB: 1 })
       .sort({ appointmentDate: -1 });
 
     res.status(200).json({
@@ -87,7 +87,6 @@ exports.getDoctorAppointments = async (req, res, next) => {
 };
 // UPDATE //
 exports.updateAppointment = async (req, res, next) => {
-  console.log(req.body);
   try {
     const updatedAppointment = await Appointment.findByIdAndUpdate(
       req.params.id,

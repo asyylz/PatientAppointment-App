@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { formatDateForUI } from '../../helper/generateDates';
+import { formatDateForInput, formatDateForInput2, formatDateForUI } from '../../helper/generateDates';
 import classes from './Appointments.module.css';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import ModalCustom from '../../components/UI/ModalCustom';
@@ -88,7 +88,7 @@ const Appointments: React.FC = () => {
         <thead>
           <tr>
             <th>Patient Name</th>
-            {/* <th>DOB</th> */}
+            <th>DOB</th>
             <th>Date</th>
             <th>Concerns</th>
             <th>Time</th>
@@ -109,6 +109,7 @@ const Appointments: React.FC = () => {
                 onClick={() => handleClick(appointment)}
               >
                 <td>{appointment.patientId?.name}</td>
+                <td>{formatDateForInput2(appointment.patientId?.DOB)}</td>
                 <td>{formatDateForUI(appointment.appointmentDate)}</td>
                 <td>{appointment.reason}</td>
                 <td>{appointment.time}</td>
