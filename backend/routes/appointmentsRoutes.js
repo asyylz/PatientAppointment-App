@@ -26,7 +26,7 @@ router
   .delete(
     authControllers.protect,
     //authControllers.isDoctor,
-    authControllers.restrictTo('doctor'),
+    authControllers.restrictTo('doctor', 'patient'),
     appointmentsControllers.deleteAppointment
   );
 

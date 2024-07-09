@@ -1,52 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './AppointmentCard.module.css';
 import { useSelector } from 'react-redux';
 import { formatDateForUI } from '../../helper/generateDates';
 import { RxCross2 } from 'react-icons/rx';
-import ModalCustom from './ModalCustom';
-import useHttp from './../../hooks/useHttp';
+
 interface AppointCardProps {
   appointment: Appointment;
+  setOpenModal: (openModel: string) => void;
+  setAppointmentIdToDelete: (appointmentIdToDelete: ObjectId) => void;
 }
 
-const AppointmentCard: React.FC<AppointCardProps> = ({ appointment }) => {
+const AppointmentCard: React.FC<AppointCardProps> = ({
+  appointment,
+  setOpenModal,
+  setAppointmentIdToDelete,
+}) => {
   const { entities: departments } = useSelector(
     (state: RootState) => state.departments
   );
-  const [openModal, setOpenModal] = useState<string>('');
-  const [appointmentIdToDelete, setAppointmentIdToDelete] =
-    useState<ObjectId | null>(null);
-
-  const { deleteAppointment } = useHttp();
 
   const handleDelete = (id: ObjectId) => {
     setOpenModal('confirmation');
     setAppointmentIdToDelete(id);
   };
 
-  const confirmDelete = () => {
-    if (appointmentIdToDelete) {
-      deleteAppointment(appointmentIdToDelete);
-    }
-    setOpenModal('');
-    setAppointmentIdToDelete(null);
-  };
-
-  const cancelDelete = () => {
-    setOpenModal('');
-    setAppointmentIdToDelete(null);
-  };
   return (
     <>
-      {openModal === 'confirmation' && (
-        <ModalCustom height="300px" width="500px">
-          <p>Please confirm to cancel the appointment?</p>
-          <div className={classes.buttonContainer}>
-            <button onClick={confirmDelete}>Confirm</button>
-            <button onClick={cancelDelete}>Cancel</button>
-          </div>
-        </ModalCustom>
-      )}
       <div
         className={
           new Date(appointment.appointmentDate) <=

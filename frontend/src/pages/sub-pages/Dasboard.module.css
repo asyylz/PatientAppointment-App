@@ -172,6 +172,13 @@ svg {
 
 }
 
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 @media (max-width: 930px) {
     .container {
         min-height: 100vh;
