@@ -1,3 +1,13 @@
+* {
+    --color_1: #70CFDE;
+    --color_2: #CADE70;
+    --color_3: #FFCB9A;
+    --color_4: #F0788C;
+    --color_5: #45C4B0;
+
+
+}
+
 .container {
     min-height: 100vh;
     display: grid;
@@ -67,15 +77,15 @@
 }
 
 .userRightSection .rightTop .box1 {
-    border: 3px solid #70CFDE
+    border: 3px solid var(--color_1)
 }
 
 .userRightSection .rightTop .box2 {
-    border: 3px solid #CADE70
+    border: 3px solid var(--color_2)
 }
 
 .userRightSection .rightTop .box3 {
-    border: 3px solid #FFCB9A
+    border: 3px solid var(--color_3)
 }
 
 svg {
@@ -133,22 +143,19 @@ svg {
 }
 
 .close {
-    border: 3px solid #F0788C;
+    border: 3px solid var(--color_4);
     text-decoration: line-through;
 }
 
 .open {
-    border: 3px solid #45C4B0;
+    border: 3px solid var(--color_5);
 }
 
-.icons.cross {
-    height: 10px;
-    width: 10px;
-    color: #F0788C;
-    position: absolute;
-    top: 0.5rem;
-    right: 2.5rem;
-    cursor: pointer;
+.icons.stethoscope {
+    height: 30px;
+    width: 30px;
+    color: var(--color_2);
+
 }
 
 @media (max-width: 930px) {
