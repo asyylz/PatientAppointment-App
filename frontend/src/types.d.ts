@@ -23,6 +23,11 @@ interface EntityStateForUser<T> {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
+interface EntityStateForPatientAppointments<T> {
+  entities: T;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
+}
 
 interface ExtendedEntityState<T> extends EntityState<T> {
   selectedDoctor?: T;
@@ -31,7 +36,7 @@ interface ExtendedEntityState<T> extends EntityState<T> {
 interface RootState {
   departments: EntityState<Department>;
   appointmentsForDoctor: EntityState<AppointmentForDoctors>;
-  appointmentsForPatient: EntityState<Appointment>;
+  appointmentsForPatient: EntityStateForPatientAppointments<AppointmentsForPatient>;
   reviews: EntityState<Review>;
   doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
@@ -147,6 +152,7 @@ interface CurrentUserPayload {
 }
 /* ------------------------ APPOINTMENT ----------------------- */
 interface Appointment {
+  _id: ObjectId;
   patientId: ObjectId | undefined;
   doctorId: {
     _id: ObjectId | undefined;
@@ -154,11 +160,15 @@ interface Appointment {
     lastName: string;
     departmentId: ObjectId;
   };
-  // departmentId: string | undefined;
-  // subDepartmentName: string;
   appointmentDate: date;
   reason: string;
   time: string;
+}
+
+interface AppointmentsForPatient {
+  appointmentsForPatient: Appointment[];
+  upcomingAppointments: number;
+  total: number;
 }
 interface AppointmentForBooking {
   patientId: ObjectId | undefined;

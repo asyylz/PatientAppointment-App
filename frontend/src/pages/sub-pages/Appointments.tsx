@@ -42,7 +42,7 @@ const Appointments: React.FC = () => {
   }, [dispatch, openModal, token, userData?._id, userData?.doctorId]);
 
   const handleClick = (appointment: AppointmentForDoctors) => {
-    setOpenModal('open appointment details');
+    setOpenModal('open');
     setSelectedAppointment(appointment);
   };
 
@@ -71,7 +71,7 @@ const Appointments: React.FC = () => {
 
   return (
     <>
-      {openModal === 'open appointment details' && selectedAppointment && (
+      {openModal === 'open' && selectedAppointment && (
         <ModalCustom height="700px" width="900px">
           <AppointmentForm
             setOpenModal={setOpenModal}

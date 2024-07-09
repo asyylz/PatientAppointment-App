@@ -21,10 +21,6 @@ const Dashboard: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  // const [total, setTotal] = useState<AppointmentStats>({
-  //   totalAppointments: 0,
-  //   upcomingAppointments: 0,
-  // });
 
   useEffect(() => {
     if (userData?._id) {

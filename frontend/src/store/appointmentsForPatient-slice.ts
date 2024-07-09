@@ -8,12 +8,12 @@ export const patientAppointmentsUrl = (id: string) => {
 };
 
 export const fetchAppointmentsForPatient =
-  fetchEntitiesWithIdAndToken<Appointment>(
+  fetchEntitiesWithIdAndToken<AppointmentsForPatient>(
     'appointmentsForPatient',
     patientAppointmentsUrl
   );
 
-const appointmentsForPatientSlice = createEntitySlice<Appointment>(
+const appointmentsForPatientSlice = createEntitySlice<AppointmentsForPatient>(
   'appointmentsForPatient',
   fetchAppointmentsForPatient
 );
