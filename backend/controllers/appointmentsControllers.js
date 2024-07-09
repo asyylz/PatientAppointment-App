@@ -172,7 +172,7 @@ exports.createAppointment = async (req, res) => {
 
 // DELETE //
 exports.deleteAppointment = async (req, res, next) => {
-  console.log(req.params.id);
+  console.log('from deleteAppointment', req.params.id);
   try {
     await Appointment.deleteOne({ _id: req.params.id });
     res.status(204).json({

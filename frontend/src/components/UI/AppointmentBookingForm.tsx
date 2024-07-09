@@ -28,7 +28,6 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
     time: slot.time,
     reason: '',
   });
-  
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -73,9 +72,9 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
             name="doctor"
             placeholder="Choose Doctor"
             value={`Dr.${doctor?.firstName} ${doctor?.lastName}`}
-            required
+            readOnly
           />
-          <select name="mainDepartment">
+          <select name="mainDepartment" aria-readonly>
             <option value={0}>{doctor?.departmentId.departmentMain}</option>
           </select>
           <select name="subDepartmentName" onChange={handleChange} required>
@@ -92,7 +91,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
             type="text"
             value={user.name}
             placeholder="Patient Name"
-            required
+            readOnly
           />
           <input
             placeholder="Appointment Date"

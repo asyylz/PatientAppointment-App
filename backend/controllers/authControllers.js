@@ -5,6 +5,7 @@ const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const sendEmail = require('./../utils/email');
 const Appointment = require('./../models/appointmentModel');
+const { log } = require('console');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -102,7 +103,8 @@ exports.logout = async (req, res, next) => {
 exports.protect = async (req, res, next) => {
   // 1) Getting token and check of it is there
   let token;
-  console.log('asiye', req.headers);
+  console.log('from protect', req.headers);
+
   try {
     if (
       req.headers.authorization &&
@@ -110,7 +112,6 @@ exports.protect = async (req, res, next) => {
     ) {
       token = req.headers.authorization.split(' ')[1];
     }
-    console.log(token);
 
     if (!token)
       return next(
@@ -236,3 +237,16 @@ exports.updatePassword = async (req, res, next) => {
   await user.save();
   createSendToken(user, 200, res);
 };
+
+// exports.isDoctor = async (req, res, next) => {
+//   console.log('from isDoctor', req.user._id);
+//   console.log('from isDoctor', req.user.id);
+//   console.log(req.user.role === 'doctor');
+//   //const user = await User.findById(req.user._id);
+//   if (req.user.role !== 'doctor') {
+//     return next(
+//       new AppError('You are not authorized to perform this action', 403)
+//     );
+//   }
+//   next();
+// };

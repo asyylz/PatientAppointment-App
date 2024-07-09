@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { formatDateForInput, formatDateForInput2, formatDateForUI } from '../../helper/generateDates';
+import {
+  formatDateForInput2,
+  formatDateForUI,
+} from '../../helper/generateDates';
 import classes from './Appointments.module.css';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import ModalCustom from '../../components/UI/ModalCustom';
@@ -9,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
 import useHttp from './../../hooks/useHttp';
+
 
 const Appointments: React.FC = () => {
   const [selectedAppointment, setSelectedAppointment] =
@@ -35,7 +39,7 @@ const Appointments: React.FC = () => {
         fetchAppointmentsForDoctor({ id: userData.doctorId.toString(), token })
       );
     }
-  }, [dispatch, token, userData?._id, userData?.doctorId, openModal]);
+  }, [dispatch, openModal, token, userData?._id, userData?.doctorId]);
 
   const handleClick = (appointment: AppointmentForDoctors) => {
     setOpenModal('open appointment details');

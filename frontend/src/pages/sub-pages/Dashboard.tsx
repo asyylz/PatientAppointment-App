@@ -2,23 +2,17 @@ import React, { useEffect, useState } from 'react';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
 import GlobalLink from '../../components/UI/GlobalLink';
-import { formatDateForUI } from '../../helper/generateDates';
 import useAxios from '../../hooks/useAxios';
+import AppointmentCard from '../../components/UI/AppointmentCard';
+
 
 const Dashboard: React.FC = () => {
-  const { token, userData, status, error, image } = useSelector(
+
+  const { userData, image } = useSelector(
     (state: RootState) => state.currentUser
   );
 
-  const {
-    entities: departments,
-
-    //status,
-    //error,
-  } = useSelector((state: RootState) => state.departments);
-
   const axiosWithToken = useAxios();
-
 
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [total, setTotal] = useState<AppointmentStats>({
@@ -105,32 +99,35 @@ const Dashboard: React.FC = () => {
             <hr />
             <div className={classes.wrapper2}>
               {appointments?.map((appointment: Appointment) => (
-                // <div className={classes.appointmentBox}>
-                <div
-                  className={
-                    new Date(appointment.appointmentDate) <=
-                    new Date(new Date().setHours(0, 0, 0, 0))
-                      ? `${classes.appointmentBox} ${classes.close}`
-                      : `${classes.appointmentBox} ${classes.open}`
-                  }
-                >
-                  <p>{`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId?.lastName}`}</p>
-                  <p>
-                    Department:
-                    {departments.map((department) => {
-                      if (
-                        department._id.toString() ===
-                        appointment.doctorId.departmentId.toString()
-                      ) {
-                        return <span> {department.departmentMain}</span>; // Return the departmentMain value
-                      }
-                      return null; // Ensure a return value is always provided
-                    })}
-                  </p>
-                  <p>Time: {appointment.time}</p>
-                  <p>Date: {formatDateForUI(appointment.appointmentDate)}</p>
-                  <p>Concerns: {appointment.reason}</p>
-                </div>
+                <AppointmentCard appointment={appointment} />
+                // <div
+                //   className={
+                //     new Date(appointment.appointmentDate) <=
+                //     new Date(new Date().setHours(0, 0, 0, 0))
+                //       ? `${classes.appointmentBox} ${classes.close}`
+                //       : `${classes.appointmentBox} ${classes.open}`
+                //   }
+                // >
+                //   <p>{`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId?.lastName}`}</p>
+                //   <p>
+                //     Department:
+                //     {departments.map((department) => {
+                //       if (
+                //         department._id.toString() ===
+                //         appointment.doctorId.departmentId.toString()
+                //       ) {
+                //         return <span> {department.departmentMain}</span>;
+                //       }
+                //       return null; // Ensure a return value is always provided
+                //     })}
+                //   </p>
+                //   <p>Time: {appointment.time}</p>
+                //   <p>Date: {formatDateForUI(appointment.appointmentDate)}</p>
+                //   <p>Concerns: {appointment.reason}</p>
+                //   <div className={`${classes.icons} ${classes.cross}`}>
+                //     <RxCross2 />
+                //   </div>
+                // </div>
               ))}
             </div>
           </div>

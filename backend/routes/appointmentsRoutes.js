@@ -23,6 +23,11 @@ router
   .route('/:id')
   .patch(authControllers.protect, appointmentsControllers.updateAppointment)
   .get(authControllers.protect, appointmentsControllers.getAppointment)
-  .delete(authControllers.protect, appointmentsControllers.deleteAppointment);
+  .delete(
+    authControllers.protect,
+    //authControllers.isDoctor,
+    authControllers.restrictTo('doctor'),
+    appointmentsControllers.deleteAppointment
+  );
 
 module.exports = router;

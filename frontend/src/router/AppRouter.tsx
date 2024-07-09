@@ -44,7 +44,7 @@ const routes: RouteObject[] = [
         children: [
           { path: 'doctors', element: <DoctorsPage />, index: true },
           {
-            path: ':doctorId',
+            path: 'doctors/:doctorId',
             element: (
               <PrivateRoute>
                 <DoctorDetailsPage />
