@@ -16,6 +16,7 @@ const DoctorDetails: React.FC = () => {
     error: doctorsError,
     selectedDoctor,
   } = useSelector((state: RootState) => state.doctors);
+  
 
   const {
     entities: reviews,
@@ -41,11 +42,9 @@ const DoctorDetails: React.FC = () => {
     return <div>No doctor found.</div>;
   }
 
-  //console.log(reviews);
-
   return (
     <div
-     // style={{ border: '6px solid red' }}
+      // style={{ border: '6px solid red' }}
       className={classes.wrapper}
     >
       <div
@@ -63,10 +62,6 @@ const DoctorDetails: React.FC = () => {
           //style={{ border: '1px solid green' }}
           className={classes.doctorInfo}
         >
-          {/* <p
-            style={{ fontWeight: 'bold' }}
-          >{`Dr. ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</p>
-          <p style={{ fontWeight: 'bold' }}>{selectedDoctor.departmentName}</p> */}
           <p>{selectedDoctor.doctorDescription}</p>
         </div>
       </div>
@@ -74,9 +69,7 @@ const DoctorDetails: React.FC = () => {
         //style={{ border: '2px solid blue' }}
         className={classes.rigthSection}
       >
-        <AvailabilityTable
-          availability={selectedDoctor.availability as Availability}
-        />
+        <AvailabilityTable />
       </div>
       <div
         //style={{ border: '2px solid blue' }}
@@ -94,7 +87,7 @@ const DoctorDetails: React.FC = () => {
               <div className={classes.commenterInfo}>
                 <div className={classes.imgAndUser}>
                   <div className={classes.image}>
-                    <img src="./../user-avatar.png" alt="" />
+                    <img src="/../user-avatar.png" alt="" />
                   </div>
                   <h3>{review.name}</h3>
                   <h2>{review.averageRating.toFixed(1)}</h2>

@@ -62,6 +62,78 @@
         "wholeMatch": false
       },
       "color": "darkblue"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* -------------------- AVAILABILITIES -------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkturquoise"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ----------------------- REVIEWS ----------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkgray"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* -------------------- CURRENT USER -------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkkhaki"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------ APPOINTMENT ----------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkorange"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ----------------------- DOCTOR ----------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darksalmon"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* --------------------- DEPARTMENTS -------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkseagreen"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------- ENTITIES STATES ------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "red"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* --------------------- ROOT STATE --------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
     }
   ]
 }

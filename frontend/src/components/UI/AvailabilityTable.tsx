@@ -1,43 +1,38 @@
 import React, { useState } from 'react';
 import classes from './AvailabilityTable.module.css';
 import { generateTimeSlots } from '../../utils/timeSlots';
-//import { mapAvailability } from '../../utils/mapAvailability';
-//import { generateDates } from '../../helper/GenerateWeekDays';
+
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
 import AppointmentForm from './AppointmentBookingForm';
 import { getWeekDatesFromToday } from '../../helper/generateDates';
 
-interface AvailabilityProps {
-  availability: Availability;
-}
-
 const timeSlots = generateTimeSlots();
 
 const daysMappedToDates = getWeekDatesFromToday();
 
-
-/* ------------------------ MAIN ------------------------ */
-const AvailabilityTable: React.FC<AvailabilityProps> = ({ availability }) => {
+/* ------------------------------------------------------ */
+/*                          MAIN                          */
+/* ------------------------------------------------------ */
+const AvailabilityTable: React.FC = () => {
+  /* -------------------- Redux States -------------------- */
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
   const { userData } = useSelector((state: RootState) => state.currentUser);
+
+  /* ---------------------- useSates ---------------------- */
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [slot, setSlot] = useState({ time: '', date: '' });
 
-  // if (!availability) {
-  //   return <div>No availability data for this doctor</div>;
-  // }
-
+  
   const handleSlotClick = (time: string, date: string) => {
     setOpenModal(true);
     setSlot({ time, date });
-    console.log(`Selected time: ${time}, Selected day: ${date}`);
   };
 
   return (
     <>
       {openModal && (
-        <ModalCustom>
+        <ModalCustom height="900px" width="700px">
           <AppointmentForm
             slot={slot}
             user={userData as userData}

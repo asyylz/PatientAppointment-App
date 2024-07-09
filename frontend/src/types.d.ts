@@ -1,17 +1,12 @@
-interface Department {
-  _id: number;
-  departmentMain: string;
-  departmentSub: [string];
+interface ObjectId {
+  $oid: string;
 }
 
-interface DepartmentState {
-  departments: Department[];
-}
+// interface DoctorState {
+//   doctors: Doctor[];
+// }
 
-interface DoctorState {
-  doctors: Doctor[];
-}
-
+/* ------------------- ENTITIES STATES ------------------ */
 interface EntityState<T> {
   entities: T[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -34,6 +29,7 @@ interface ExtendedEntityState<T> extends EntityState<T> {
   selectedDoctor?: T;
 }
 
+/* --------------------- ROOT STATE --------------------- */
 interface RootState {
   departments: EntityState<Department>;
   appointmentsForDoctor: EntityStateForAppointments<AppointmentForDoctors>;
@@ -45,13 +41,18 @@ interface RootState {
   search: string;
 }
 
-/* ----------------------- DOCTOR ----------------------- */
-interface ObjectId {
-  $oid: string;
+/* --------------------- DEPARTMENTS -------------------- */
+interface Department {
+  _id: number;
+  departmentMain: string;
+  departmentSub: [string];
 }
 
-//type $oid = string;
+interface DepartmentState {
+  departments: Department[];
+}
 
+/* ----------------------- DOCTOR ----------------------- */
 interface Doctor {
   _id: ObjectId;
   id: number;
@@ -78,6 +79,7 @@ interface Address {
   postal: string;
   _id: ObjectId;
 }
+/* -------------------- AVAILABILITIES -------------------- */
 interface Availability {
   _id: ObjectId;
   doctorId: ObjectId;
@@ -199,10 +201,4 @@ interface Appointment {
   appointmentDate: date;
   reason: string;
   time: string;
-}
-
-/* ------------------ APPOINTMENT STATS ----------------- */
-interface AppointmentStats {
-  totalAppointments: number;
-  upcomingAppointments: number;
 }
