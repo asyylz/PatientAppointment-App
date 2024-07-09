@@ -23,7 +23,8 @@ interface EntityStateForUser<T> {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
-interface EntityStateForPatientAppointments<T> {
+
+interface EntityStateForAppointments<T> {
   entities: T;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
@@ -35,8 +36,8 @@ interface ExtendedEntityState<T> extends EntityState<T> {
 
 interface RootState {
   departments: EntityState<Department>;
-  appointmentsForDoctor: EntityState<AppointmentForDoctors>;
-  appointmentsForPatient: EntityStateForPatientAppointments<AppointmentsForPatient>;
+  appointmentsForDoctor: EntityStateForAppointments<AppointmentForDoctors>;
+  appointmentsForPatient: EntityStateForAppointments<AppointmentsForPatient>;
   reviews: EntityState<Review>;
   doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
@@ -151,19 +152,6 @@ interface CurrentUserPayload {
   error?: string | null;
 }
 /* ------------------------ APPOINTMENT ----------------------- */
-interface Appointment {
-  _id: ObjectId;
-  patientId: ObjectId | undefined;
-  doctorId: {
-    _id: ObjectId | undefined;
-    firstName: string;
-    lastName: string;
-    departmentId: ObjectId;
-  };
-  appointmentDate: date;
-  reason: string;
-  time: string;
-}
 
 interface AppointmentsForPatient {
   appointmentsForPatient: Appointment[];
@@ -179,20 +167,38 @@ interface AppointmentForBooking {
 }
 
 interface AppointmentForDoctors {
+  appointmentsForDoctor: [
+    {
+      _id: ObjectId;
+      doctorId: ObjectId;
+      patientId: {
+        _id: ObjectId;
+        name: string;
+        email: string;
+        DOB: date;
+      };
+      appointmentDate: date;
+      reason: string;
+      time: string;
+      status: string;
+      referral: boolean;
+      diagnose: string;
+    }
+  ];
+}
+
+interface Appointment {
   _id: ObjectId;
-  doctorId: ObjectId;
-  patientId: {
-    _id: ObjectId;
-    name: string;
-    email: string;
-    DOB: date;
+  patientId: ObjectId | undefined;
+  doctorId: {
+    _id: ObjectId | undefined;
+    firstName: string;
+    lastName: string;
+    departmentId: ObjectId;
   };
   appointmentDate: date;
   reason: string;
   time: string;
-  status: string;
-  referral: boolean;
-  diagnose: string;
 }
 
 /* ------------------ APPOINTMENT STATS ----------------- */

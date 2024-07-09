@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { login, setImagePath } from '../store/currentUser-slice';
 
 const AuthPage = () => {
- // const [email, setEmail] = useState<string>('aytekin@test.com');
-  const [email, setEmail] = useState<string>('alice.johnson@example.com');
-  //const [password, setPassword] = useState<string>('newpass12');
-  const [password, setPassword] = useState<string>('Password3!');
+  const [email, setEmail] = useState<string>('aytekin@test.com');
+  //const [email, setEmail] = useState<string>('alice.johnson@example.com');
+  const [password, setPassword] = useState<string>('newpass12');
+  //const [password, setPassword] = useState<string>('Password3!');
 
   const dispatch: AppDispatch = useDispatch();
 

@@ -56,11 +56,10 @@ export const fetchEntitiesWithIdAndToken = <T>(
   createAsyncThunk<T, { id: string; token: string }>(
     `${entity}/fetchWithIdAndToken`,
     async ({ id, token }) => {
-      
       const response = await axios.get(url(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
-
+      console.log(response.data.data);
       // return response.data.data[entity];
       return response.data.data;
     }

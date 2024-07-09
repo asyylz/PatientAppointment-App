@@ -13,7 +13,6 @@ import { AppDispatch } from '../../store';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
 import useHttp from './../../hooks/useHttp';
 
-
 const Appointments: React.FC = () => {
   const [selectedAppointment, setSelectedAppointment] =
     useState<AppointmentForDoctors>();
@@ -27,11 +26,10 @@ const Appointments: React.FC = () => {
   const { userData, token } = useSelector(
     (state: RootState) => state.currentUser
   );
-  const {
-    entities: appointments,
-    status,
-    error,
-  } = useSelector((state: RootState) => state.appointmentsForDoctor);
+  const { entities, status, error } = useSelector(
+    (state: RootState) => state.appointmentsForDoctor
+  );
+  const { appointmentsForDoctor } = entities;
 
   useEffect(() => {
     if (userData?._id) {
@@ -103,7 +101,7 @@ const Appointments: React.FC = () => {
         </thead>
         <tbody>
           <tr className={classes.gapLine}></tr>
-          {appointments?.map((appointment: AppointmentForDoctors) => (
+          {appointmentsForDoctor?.map((appointment: AppointmentForDoctors) => (
             <React.Fragment key={appointment._id.toString()}>
               <tr
                 className={
