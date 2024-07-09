@@ -152,9 +152,23 @@ svg {
 }
 
 .icons.stethoscope {
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
     color: var(--color_2);
+
+}
+
+.icons.totalVisit {
+    height: 40px;
+    width: 40px;
+    color: var(--color_1);
+
+}
+
+.icons.totalDoctor {
+    height: 40px;
+    width: 40px;
+    color: var(--color_3);
 
 }
 

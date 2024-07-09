@@ -25,7 +25,7 @@ exports.getAllAppointments = async (req, res, next) => {
 exports.getPatientAppointments = async (req, res) => {
   try {
     console.log('asiye');
-    const appointments = await Appointment.find({
+    const appointmentsForPatient = await Appointment.find({
       patientId: req.params.id
     })
       .populate('doctorId', { firstName: 1, lastName: 1, departmentId: 1 })
@@ -34,10 +34,6 @@ exports.getPatientAppointments = async (req, res) => {
     const totalAppointments = await Appointment.countDocuments({
       patientId: req.params.id
     });
-
-    // const totalDoctors = await Appointment.find([
-    //   { $match: { patientId: req.params.id } }
-    // ]);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -48,10 +44,10 @@ exports.getPatientAppointments = async (req, res) => {
 
     res.status(200).json({
       status: 'success',
-      total: totalAppointments,
-      upcomingAppointments: upcomingAppointmentsCount,
       data: {
-        appointments
+        total: totalAppointments,
+        upcomingAppointments: upcomingAppointmentsCount,
+        appointmentsForPatient
       }
     });
   } catch (err) {
@@ -65,7 +61,7 @@ exports.getPatientAppointments = async (req, res) => {
 // GET SINGLE //
 exports.getDoctorAppointments = async (req, res, next) => {
   try {
-    const appointments = await Appointment.find({
+    const appointmentsForDoctor = await Appointment.find({
       doctorId: req.params.id
     })
       .populate('patientId', { name: 1, email: 1, DOB: 1 })
@@ -74,7 +70,7 @@ exports.getDoctorAppointments = async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       data: {
-        appointments
+        appointmentsForDoctor
       }
     });
   } catch (err) {

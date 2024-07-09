@@ -5,6 +5,7 @@ import reviewsReducer from './reviews-slice';
 import currentUserReducer from './currentUser-slice';
 import searchReducer from './search-slice';
 import appointmentsForDoctorReducer from './appointmentsForDoctor-slice';
+import appointmentsForPatientReducer from './appointmentsForPatient-slice';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     reviews: reviewsReducer,
     search: searchReducer,
     appointmentsForDoctor: appointmentsForDoctorReducer,
+    appointmentsForPatient: appointmentsForPatientReducer,
   },
 });
 

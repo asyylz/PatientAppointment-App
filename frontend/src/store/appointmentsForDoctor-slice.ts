@@ -9,7 +9,7 @@ export const doctorAppointmentsUrl = (id: string) => {
 
 export const fetchAppointmentsForDoctor =
   fetchEntitiesWithIdAndToken<AppointmentForDoctors>(
-    'appointments',
+    'appointmentsForDoctor',
     doctorAppointmentsUrl
   );
 

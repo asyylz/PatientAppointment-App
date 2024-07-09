@@ -31,6 +31,7 @@ interface ExtendedEntityState<T> extends EntityState<T> {
 interface RootState {
   departments: EntityState<Department>;
   appointmentsForDoctor: EntityState<AppointmentForDoctors>;
+  appointmentsForPatient: EntityState<Appointment>;
   reviews: EntityState<Review>;
   doctors: ExtendedEntityState<Doctor>;
   selectedDoctor: Doctor;
