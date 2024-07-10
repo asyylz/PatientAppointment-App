@@ -3,7 +3,7 @@ import classes from './AppointmentBookingForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import {
   formatDateForInput,
-  convertDateStringToDate,
+  convertDateAndTimeStringToDate,
 } from '../../helper/generateDates';
 
 interface AppointmentBookingFormProps {
@@ -21,13 +21,20 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
 }) => {
   const { createAppointment } = useHttp();
 
+  /* ----------------------- States ----------------------- */
+  const [appointmentDate, setAppointmentDate] = useState(slot.date);
+  const [appointmentTime, setAppointmentTime] = useState(slot.time);
+
   const [appointment, setAppointment] = useState<AppointmentForBooking>({
     doctorId: doctor?._id,
     patientId: user?._id,
-    appointmentDate: convertDateStringToDate(slot.date),
-    time: slot.time,
+    appointmentDateAndTime: convertDateAndTimeStringToDate(
+      slot.date,
+      slot.time
+    ),
     reason: '',
   });
+  //console.log(appointment);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -37,11 +44,24 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
     const { name, value } = e.target;
 
     if (name === 'appointmentDate') {
-      const formattedDate = convertDateStringToDate(value);
-      console.log(formattedDate);
+      setAppointmentDate(value);
+      const formattedDate = convertDateAndTimeStringToDate(
+        value,
+        appointmentTime
+      );
       setAppointment((prevValuesAppointment) => ({
         ...prevValuesAppointment,
-        appointmentDate: formattedDate,
+        appointmentDateAndTime: formattedDate,
+      }));
+    } else if (name === 'appointmentTime') {
+      setAppointmentTime(value);
+      const formattedDate = convertDateAndTimeStringToDate(
+        appointmentDate,
+        value
+      );
+      setAppointment((prevValuesAppointment) => ({
+        ...prevValuesAppointment,
+        appointmentDateAndTime: formattedDate,
       }));
     } else {
       setAppointment((prevValuesAppointment) => ({
@@ -104,7 +124,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
           <input
             placeholder="Appointment Time"
             defaultValue={slot.time}
-            name="time"
+            name="appointmentTime"
             type="time"
             onChange={handleChange}
             required

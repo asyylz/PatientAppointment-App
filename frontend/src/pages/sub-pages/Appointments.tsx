@@ -24,6 +24,7 @@ const Appointments: React.FC = () => {
   const [appointmentIdToDelete, setAppointmentIdToDelete] =
     useState<ObjectId | null>(null);
 
+  /* -------------------- Redux States -------------------- */
   const { userData, token } = useSelector(
     (state: RootState) => state.currentUser
   );

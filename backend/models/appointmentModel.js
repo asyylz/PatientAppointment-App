@@ -12,18 +12,14 @@ const appointmentSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'An appointment must have a patientId']
   },
-  appointmentDate: {
+  appointmentDateAndTime: {
     type: Date,
-    required: [true, 'An appointment must have a date ']
+    required: [true, 'An appointment must have a date and time ']
   },
   createdAt: {
     type: Date,
     default: Date.now(),
     select: false
-  },
-  time: {
-    type: String,
-    required: [true, 'An appointment must have a time']
   },
   reason: {
     type: String,

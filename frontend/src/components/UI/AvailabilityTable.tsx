@@ -11,13 +11,16 @@ const timeSlots = generateTimeSlots();
 
 const daysMappedToDates = getWeekDatesFromToday();
 
-/* ------------------------------------------------------ */
-/*                          MAIN                          */
-/* ------------------------------------------------------ */
+/* ---------------------- COMPONENT --------------------- */
 const AvailabilityTable: React.FC = () => {
   /* -------------------- Redux States -------------------- */
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
   const { userData } = useSelector((state: RootState) => state.currentUser);
+
+  const { entities, status, error } = useSelector(
+    (state: RootState) => state.appointmentsForDoctor
+  );
+  const { appointmentsForDoctor } = entities;
 
   /* ---------------------- useSates ---------------------- */
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -63,6 +66,30 @@ const AvailabilityTable: React.FC = () => {
                   const availability = selectedDoctor?.availabilities.find(
                     (slot) => slot.day === day.day && slot.time === time
                   );
+                  //console.log(availability);
+                  // let isBooked;
+                  // if (availability) {
+                  //   const day = appointmentsForDoctor.filter(
+                  //     (appointment) =>
+                  //       appointment.appointmentDate ==
+                  //       '2024-07-10T11:30:00.000Z'
+                  //   );
+                  //   console.log(day);
+                  //   //2024-07-10T11:30:00.000Z
+
+                  //   console.log(
+                  //     isPastDate(availability.day, availability.time)
+                  //       .availabilityDateTimeString
+                  //   );
+
+                  //   isBooked = appointmentsForDoctor.map(
+                  //     (appointment) =>
+                  //       appointment.appointmentDate ==
+                  //       isPastDate(availability.day, availability.time)
+                  //         .availabilityDateTimeString
+                  //   );
+                  //   console.log(isBooked);
+                  // }
 
                   return (
                     <td
@@ -70,6 +97,7 @@ const AvailabilityTable: React.FC = () => {
                       className={
                         availability
                           ? isPastDate(availability.day, availability.time)
+                              .availabilityDateTime < new Date()
                             ? `${classes.available} ${classes.past}`
                             : `${classes.available}`
                           : ''

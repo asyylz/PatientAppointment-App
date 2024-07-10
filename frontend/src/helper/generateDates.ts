@@ -38,13 +38,26 @@ export const getWeekDatesFromToday = () => {
   return weekDates;
 };
 
-export const convertDateStringToDate = (dateString: string): Date => {
-  console.log(dateString);
-  const [day, month, year] = dateString.split(
-    `${dateString.includes('/') ? '/' : '-'}`
-  );
-  console.log(new Date(Number(year), Number(month) - 1, Number(day)));
-  return new Date(Number(year), Number(month) - 1, Number(day));
+export const convertDateAndTimeStringToDate = (
+  dateString: string,
+  timeString: string
+): Date => {
+  // Split time string into hours and minutes
+  const [hours, minutes] = timeString.split(':').map(Number);
+
+  // Define a variable to hold the new Date
+  let newDate: Date;
+
+  // Check the format of the date string and create a new Date object accordingly
+  if (dateString.includes('/')) {
+    const [day, month, year] = dateString.split('/').map(Number);
+    newDate = new Date(year, month - 1, day, hours, minutes, 0);
+  } else {
+    const [year, month, day] = dateString.split('-').map(Number);
+    newDate = new Date(year, month - 1, day, hours, minutes, 0);
+  }
+
+  return newDate;
 };
 
 export const formatDateForInput = (dateString: string): string => {
@@ -103,22 +116,28 @@ export const isPastDate = (
   // Get the current date
   const currentDate = new Date();
   // Get the current week's Monday
-  const currentMonday = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1));
+  const currentMonday = new Date(
+    currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1)
+  );
 
   // Adjust the day of the week to get the specific day's date
   const availabilityDate = new Date(currentMonday);
-  availabilityDate.setDate(currentMonday.getDate() + daysOfWeek[availabilityDay] - 1);
+  availabilityDate.setDate(
+    currentMonday.getDate() + daysOfWeek[availabilityDay] - 1
+  );
 
   // Combine the availability date and time into a single string
-  const availabilityDateTimeString = `${availabilityDate.toISOString().split('T')[0]}T${availabilityTime}:00.000Z`;
+  const availabilityDateTimeString = `${
+    availabilityDate.toISOString().split('T')[0]
+  }T${availabilityTime}:00.000Z`;
 
   // Create a Date object for the availability
   const availabilityDateTime = new Date(availabilityDateTimeString);
 
+  //console.log(availabilityDateTimeString);
   // Create a Date object for the current date and time
   const currentDateTime = new Date();
 
   // Compare the availability date and time with the current date and time
-  return availabilityDateTime < currentDateTime;
+  return { availabilityDateTime, availabilityDateTimeString };
 };
-

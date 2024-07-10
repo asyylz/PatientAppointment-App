@@ -162,9 +162,9 @@ interface AppointmentsForPatient {
 interface AppointmentForBooking {
   patientId: ObjectId | undefined;
   doctorId: ObjectId | undefined;
-  appointmentDate: date;
+  appointmentDateAndTime: date;
   reason: string;
-  time: string;
+  //time: string;
 }
 
 interface Appointment {

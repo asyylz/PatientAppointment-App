@@ -24,7 +24,6 @@ exports.getAllAppointments = async (req, res, next) => {
 // GET SINGLE //
 exports.getPatientAppointments = async (req, res) => {
   try {
-    console.log('asiye');
     const appointmentsForPatient = await Appointment.find({
       patientId: req.params.id
     })
@@ -147,7 +146,7 @@ exports.getAppointment = async (req, res, next) => {
 
 // POST //
 exports.createAppointment = async (req, res) => {
-  console.log('Asiye', req.body);
+  console.log('from createAppointment', req.body);
   try {
     const newAppointment = await Appointment.create(req.body);
     res.status(201).json({
