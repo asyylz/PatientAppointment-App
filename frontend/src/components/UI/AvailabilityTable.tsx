@@ -5,7 +5,7 @@ import { generateTimeSlots } from '../../utils/timeSlots';
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
 import AppointmentForm from './AppointmentBookingForm';
-import { getWeekDatesFromToday } from '../../helper/generateDates';
+import { getWeekDatesFromToday, isPastDate } from '../../helper/generateDates';
 
 const timeSlots = generateTimeSlots();
 
@@ -23,7 +23,6 @@ const AvailabilityTable: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [slot, setSlot] = useState({ time: '', date: '' });
 
-  
   const handleSlotClick = (time: string, date: string) => {
     setOpenModal(true);
     setSlot({ time, date });
@@ -68,7 +67,13 @@ const AvailabilityTable: React.FC = () => {
                   return (
                     <td
                       key={`${timeIndex}-${dayIndex}`}
-                      className={`${availability ? classes.available : ''}`}
+                      className={
+                        availability
+                          ? isPastDate(availability.day, availability.time)
+                            ? `${classes.available} ${classes.past}`
+                            : `${classes.available}`
+                          : ''
+                      }
                       onClick={() => handleSlotClick(time, day.date)}
                     >
                       {availability ? 'Available' : '-'}

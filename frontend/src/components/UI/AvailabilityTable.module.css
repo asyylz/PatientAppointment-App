@@ -29,6 +29,11 @@ td {
     background-color: #444;
 }
 
+.available.past {
+    background-color: var(--completed-background);
+    text-decoration: line-through;
+}
+
 th {
     background-color: #f2f2f2;
 }
