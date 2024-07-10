@@ -34,7 +34,8 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
     ),
     reason: '',
   });
-  //console.log(appointment);
+  
+  console.log(appointment);
 
   const handleChange = (
     e: React.ChangeEvent<

@@ -59,7 +59,6 @@ export const fetchEntitiesWithIdAndToken = <T>(
       const response = await axios.get(url(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(response.data.data);
       // return response.data.data[entity];
       return response.data.data;
     }

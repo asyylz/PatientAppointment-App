@@ -30,16 +30,22 @@ td {
     background-color: #444;
 }
 
-.available.past,
-.booked.past {
+.past {
+    pointer-events: none;
+}
+
+.past {
     background-color: var(--completed-background);
     text-decoration: line-through;
+    cursor: default;
 }
 
 .booked {
     font-size: 1.3rem;
     background-color: var(--completed-background);
+    cursor: default;
 }
+
 
 th {
     background-color: #f2f2f2;

@@ -29,6 +29,7 @@ const AvailabilityTable: React.FC = () => {
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;
+  console.log(appointmentsForDoctor);
 
   useEffect(() => {
     if (selectedDoctor) {
@@ -99,27 +100,33 @@ const AvailabilityTable: React.FC = () => {
                       : 'Available'
                     : '-';
 
+                  const conditionalClassName =
+                    availability && slotStatus === 'Booked'
+                      ? convertToDateandDateString(
+                          availability.day,
+                          availability.time
+                        ).availabilityDateTime < new Date()
+                        ? `${classes.booked} ${classes.past}`
+                        : `${classes.booked}`
+                      : availability && slotStatus === 'Available'
+                      ? convertToDateandDateString(
+                          availability.day,
+                          availability.time
+                        ).availabilityDateTime < new Date()
+                        ? `${classes.available} ${classes.past}`
+                        : `${classes.available}`
+                      : '';
+
                   return (
                     <td
                       key={`${timeIndex}-${dayIndex}`}
-                      className={
-                        availability && slotStatus === 'Booked'
-                          ? convertToDateandDateString(
-                              availability.day,
-                              availability.time
-                            ).availabilityDateTime < new Date()
-                            ? `${classes.booked} ${classes.past}`
-                            : `${classes.booked}`
-                          : availability && slotStatus === 'Available'
-                          ? convertToDateandDateString(
-                              availability.day,
-                              availability.time
-                            ).availabilityDateTime < new Date()
-                            ? `${classes.available} ${classes.past}`
-                            : `${classes.available}`
-                          : ''
+                      className={conditionalClassName}
+                      onClick={
+                        slotStatus === 'Available' &&
+                        !conditionalClassName.includes('past')
+                          ? () => handleSlotClick(time, day.date)
+                          : undefined
                       }
-                      onClick={() => handleSlotClick(time, day.date)}
                     >
                       {slotStatus}
                     </td>

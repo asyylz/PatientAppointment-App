@@ -51,10 +51,10 @@ export const convertDateAndTimeStringToDate = (
   // Check the format of the date string and create a new Date object accordingly
   if (dateString.includes('/')) {
     const [day, month, year] = dateString.split('/').map(Number);
-    newDate = new Date(year, month - 1, day, hours, minutes, 0);
+    newDate = new Date(year, month - 1, day, hours + 1, minutes, 0);
   } else {
     const [year, month, day] = dateString.split('-').map(Number);
-    newDate = new Date(year, month - 1, day, hours, minutes, 0);
+    newDate = new Date(year, month - 1, day, hours + 1, minutes, 0);
   }
 
   return newDate;

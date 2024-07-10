@@ -133,7 +133,7 @@
         "ignoreCase": false,
         "wholeMatch": false
       },
-      "color": "green"
+      "color": "darkviolet"
     },
     {
       "pattern": {
@@ -152,6 +152,69 @@
         "wholeMatch": false
       },
       "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ---------------------- useSates ---------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ----------------------- States ----------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "// GET DOCTOR APPOINTMENTS //",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "// GET PATIENT APPOINTMENTS //",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "convertToDateandDateString",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "green"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "slotStatus",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "lightgreen"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "conditionalClassName",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "lightblue"
     }
   ]
 }
