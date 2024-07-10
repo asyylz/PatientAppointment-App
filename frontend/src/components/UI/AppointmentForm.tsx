@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
-import {
-  convertDateAndTimeStringToDate,
-  formatDateForInput2,
-} from '../../helper/generateDates';
+import { convertDateAndTimeStringToDate } from '../../helper/generateDates';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
@@ -69,7 +66,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
           <input
             placeholder="Appointment Date"
-            value={formatDateForInput2(appointment?.appointmentDate)}
+            value={appointment?.appointmentDateAndTime}
             type="date"
             name="appointmentDate"
             // onChange={handleChange}

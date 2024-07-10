@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  formatDateForInput2,
-  formatDateForUI,
-} from '../../helper/generateDates';
+import { formatDateForUI } from '../../helper/generateDates';
 import classes from './Appointments.module.css';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import ModalCustom from '../../components/UI/ModalCustom';
@@ -108,17 +105,26 @@ const Appointments: React.FC = () => {
               <React.Fragment key={appointment._id.toString()}>
                 <tr
                   className={
-                    new Date(appointment.appointmentDate) > new Date()
+                    new Date(appointment.appointmentDateAndTime) > new Date()
                       ? `${classes.row} ${classes.active}`
                       : `${classes.row}`
                   }
                   onClick={() => handleClick(appointment)}
                 >
                   <td>{appointment.patientId?.name}</td>
-                  <td>{formatDateForInput2(appointment.patientId?.DOB)}</td>
-                  <td>{formatDateForUI(appointment.appointmentDate)}</td>
+                  <td>{appointment.patientId?.DOB}</td>
+                  <td>{formatDateForUI(appointment.appointmentDateAndTime)}</td>
                   <td>{appointment.reason}</td>
-                  <td>{appointment.time}</td>
+                  <td>
+                    {`${new Date(appointment.appointmentDateAndTime)
+                      .getHours()
+                      .toString()}:${new Date(
+                      appointment.appointmentDateAndTime
+                    )
+                      .getMinutes()
+                      .toString()
+                      .padStart(2, '0')}`}
+                  </td>
                   <td>{appointment.diagnose}</td>
                   <td>{appointment.referral ? 'Yes' : 'No'}</td>
                   <td>

@@ -73,7 +73,50 @@ export const getDateFromDateString = (dateString: string): string => {
   return `${parts[2]}/${parts[1]}/${parts[0]}`;
 };
 
+export const convertToDateandDateString = (
+  availabilityDay: string,
+  availabilityTime: string
+) => {
+  // Map days of the week to their index
+  const daysOfWeek = {
+    Sunday: 0,
+    Monday: 1,
+    Tuesday: 2,
+    Wednesday: 3,
+    Thursday: 4,
+    Friday: 5,
+    Saturday: 6,
+  };
 
+  // Get the current date
+  const currentDate = new Date();
+  // Get the current week's Monday
+  const currentMonday = new Date(
+    currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1)
+  );
+
+  // Adjust the day of the week to get the specific day's date
+  const availabilityDate = new Date(currentMonday);
+  availabilityDate.setDate(
+    currentMonday.getDate() +
+      (Object.keys(daysOfWeek).indexOf(availabilityDay) - 1 || 0)
+  );
+
+  // Combine the availability date and time into a single string
+  const availabilityDateTimeString = `${
+    availabilityDate.toISOString().split('T')[0]
+  }T${availabilityTime}:00.000Z`;
+
+  // Create a Date object for the availability
+  const availabilityDateTime = new Date(availabilityDateTimeString);
+
+  //console.log(availabilityDateTimeString);
+  // Create a Date object for the current date and time
+  const currentDateTime = new Date();
+
+  // Compare the availability date and time with the current date and time
+  return { availabilityDateTime, availabilityDateTimeString };
+};
 
 /* ---------------------- separate ---------------------- */
 
@@ -101,48 +144,4 @@ export const formatDateForUI = (isoString: string) => {
   const dayOfWeek = daysOfWeek[date.getUTCDay()]; // Get the day of the week
 
   return `${formattedDate} ${dayOfWeek}`;
-};
-
-export const isPastDate = (
-  availabilityDay: string,
-  availabilityTime: string
-) => {
-  // Map days of the week to their index
-  const daysOfWeek = {
-    Sunday: 0,
-    Monday: 1,
-    Tuesday: 2,
-    Wednesday: 3,
-    Thursday: 4,
-    Friday: 5,
-    Saturday: 6,
-  };
-
-  // Get the current date
-  const currentDate = new Date();
-  // Get the current week's Monday
-  const currentMonday = new Date(
-    currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1)
-  );
-
-  // Adjust the day of the week to get the specific day's date
-  const availabilityDate = new Date(currentMonday);
-  availabilityDate.setDate(
-    currentMonday.getDate() + daysOfWeek[availabilityDay] - 1
-  );
-
-  // Combine the availability date and time into a single string
-  const availabilityDateTimeString = `${
-    availabilityDate.toISOString().split('T')[0]
-  }T${availabilityTime}:00.000Z`;
-
-  // Create a Date object for the availability
-  const availabilityDateTime = new Date(availabilityDateTimeString);
-
-  //console.log(availabilityDateTimeString);
-  // Create a Date object for the current date and time
-  const currentDateTime = new Date();
-
-  // Compare the availability date and time with the current date and time
-  return { availabilityDateTime, availabilityDateTimeString };
 };

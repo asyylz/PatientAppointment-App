@@ -1,12 +1,7 @@
-const mongoose = require('mongoose');
-
-const { ObjectId } = mongoose.Types;
-
 const Appointment = require('../models/appointmentModel');
 
 // GET ALL //
 exports.getAllAppointments = async (req, res, next) => {
-  console.log('asiye');
   try {
     const appointments = await Appointment.find();
     res.status(200).json({
@@ -21,7 +16,7 @@ exports.getAllAppointments = async (req, res, next) => {
   }
 };
 
-// GET SINGLE //
+// GET PATIENT APPOINTMENTS //
 exports.getPatientAppointments = async (req, res) => {
   try {
     const appointmentsForPatient = await Appointment.find({
@@ -57,7 +52,7 @@ exports.getPatientAppointments = async (req, res) => {
   }
 };
 
-// GET SINGLE //
+// GET DOCTOR APPOINTMENTS //
 exports.getDoctorAppointments = async (req, res, next) => {
   try {
     const appointmentsForDoctor = await Appointment.find({
@@ -94,7 +89,6 @@ exports.updateAppointment = async (req, res, next) => {
         appointment: updatedAppointment
       }
     });
-    console.log(updatedAppointment);
   } catch (err) {
     next(err);
   }

@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './AvailabilityTable.module.css';
 import { generateTimeSlots } from '../../utils/timeSlots';
 
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
 import AppointmentForm from './AppointmentBookingForm';
-import { getWeekDatesFromToday, isPastDate } from '../../helper/generateDates';
+import {
+  convertDateAndTimeStringToDate,
+  getWeekDatesFromToday,
+  convertToDateandDateString,
+} from '../../helper/generateDates';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store';
+import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
 
 const timeSlots = generateTimeSlots();
 
@@ -14,13 +21,34 @@ const daysMappedToDates = getWeekDatesFromToday();
 /* ---------------------- COMPONENT --------------------- */
 const AvailabilityTable: React.FC = () => {
   /* -------------------- Redux States -------------------- */
+  const dispatch: AppDispatch = useDispatch();
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
-  const { userData } = useSelector((state: RootState) => state.currentUser);
+  const { userData, token } = useSelector(
+    (state: RootState) => state.currentUser
+  );
 
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;
+
+  console.log(appointmentsForDoctor);
+
+  const deneme: string[] = appointmentsForDoctor?.map(
+    (appointment) => appointment.appointmentDateAndTime
+  );
+  console.log(deneme);
+
+  useEffect(() => {
+    if (selectedDoctor) {
+      dispatch(
+        fetchAppointmentsForDoctor({
+          id: selectedDoctor?._id.toString(),
+          token,
+        })
+      );
+    }
+  }, [dispatch, token, selectedDoctor]);
 
   /* ---------------------- useSates ---------------------- */
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -66,45 +94,34 @@ const AvailabilityTable: React.FC = () => {
                   const availability = selectedDoctor?.availabilities.find(
                     (slot) => slot.day === day.day && slot.time === time
                   );
-                  //console.log(availability);
-                  // let isBooked;
-                  // if (availability) {
-                  //   const day = appointmentsForDoctor.filter(
-                  //     (appointment) =>
-                  //       appointment.appointmentDate ==
-                  //       '2024-07-10T11:30:00.000Z'
-                  //   );
-                  //   console.log(day);
-                  //   //2024-07-10T11:30:00.000Z
-
-                  //   console.log(
-                  //     isPastDate(availability.day, availability.time)
-                  //       .availabilityDateTimeString
-                  //   );
-
-                  //   isBooked = appointmentsForDoctor.map(
-                  //     (appointment) =>
-                  //       appointment.appointmentDate ==
-                  //       isPastDate(availability.day, availability.time)
-                  //         .availabilityDateTimeString
-                  //   );
-                  //   console.log(isBooked);
-                  // }
 
                   return (
                     <td
                       key={`${timeIndex}-${dayIndex}`}
                       className={
                         availability
-                          ? isPastDate(availability.day, availability.time)
-                              .availabilityDateTime < new Date()
+                          ? convertToDateandDateString(
+                              availability.day,
+                              availability.time
+                            ).availabilityDateTime < new Date()
                             ? `${classes.available} ${classes.past}`
                             : `${classes.available}`
                           : ''
                       }
                       onClick={() => handleSlotClick(time, day.date)}
                     >
-                      {availability ? 'Available' : '-'}
+                      {availability
+                        ? appointmentsForDoctor?.find(
+                            (appointment) =>
+                              appointment.appointmentDateAndTime ===
+                              convertToDateandDateString(
+                                availability.day,
+                                availability.time
+                              ).availabilityDateTimeString
+                          )
+                          ? 'Booked'
+                          : 'Available'
+                        : '-'}
                     </td>
                   );
                 })}
