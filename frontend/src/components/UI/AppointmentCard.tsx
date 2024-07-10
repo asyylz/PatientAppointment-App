@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './AppointmentCard.module.css';
 import { useSelector } from 'react-redux';
-import { formatDateForUI } from '../../helper/generateDates';
+import { getDateFromDateString } from '../../helper/generateDates';
 import { RxCross2 } from 'react-icons/rx';
 
 interface AppointCardProps {
@@ -28,8 +28,9 @@ const AppointmentCard: React.FC<AppointCardProps> = ({
     <>
       <div
         className={
-          new Date(appointment.appointmentDate) <=
-          new Date(new Date().setHours(0, 0, 0, 0))
+          new Date(appointment.appointmentDateAndTime) <=
+          // new Date(new Date().setHours(0, 0, 0, 0))
+          new Date()
             ? `${classes.appointmentBox} ${classes.close}`
             : `${classes.appointmentBox} ${classes.open}`
         }
@@ -47,8 +48,16 @@ const AppointmentCard: React.FC<AppointCardProps> = ({
             return null; // Ensure a return value is always provided
           })}
         </p>
-        <p>Time: {appointment.time}</p>
-        <p>Date: {formatDateForUI(appointment.appointmentDate)}</p>
+        <p>
+          Time:
+          {`${new Date(appointment.appointmentDateAndTime)
+            .getHours()
+            .toString()}:${new Date(appointment.appointmentDateAndTime)
+            .getMinutes()
+            .toString()
+            .padStart(2, '0')}`}
+        </p>
+        <p>Date: {getDateFromDateString(appointment.appointmentDateAndTime)}</p>
         <p>Concerns: {appointment.reason}</p>
         <div
           className={`${classes.icons} ${classes.cross}`}

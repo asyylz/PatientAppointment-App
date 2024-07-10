@@ -66,14 +66,19 @@ export const formatDateForInput = (dateString: string): string => {
   return `${parts[2]}-${parts[1]}-${parts[0]}`;
 };
 
-export const formatDateForInput2 = (dateString: string): string => {
+export const getDateFromDateString = (dateString: string): string => {
   console.log(dateString);
   const part = dateString.split('T');
   const parts = part[0].split('-');
-  return `${parts[0]}-${parts[1]}-${parts[2]}`;
+  return `${parts[2]}/${parts[1]}/${parts[0]}`;
 };
 
+
+
+/* ---------------------- separate ---------------------- */
+
 export const formatDateForUI = (isoString: string) => {
+  console.log(isoString);
   // Extract the date part from the ISO string
   const datePart = isoString.split('T')[0];
   const [year, month, day] = datePart.split('-').map(Number);

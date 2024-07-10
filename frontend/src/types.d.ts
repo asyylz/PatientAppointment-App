@@ -164,7 +164,6 @@ interface AppointmentForBooking {
   doctorId: ObjectId | undefined;
   appointmentDateAndTime: date;
   reason: string;
-  //time: string;
 }
 
 interface Appointment {
@@ -176,9 +175,8 @@ interface Appointment {
     lastName: string;
     departmentId: ObjectId;
   };
-  appointmentDate: date;
+  appointmentDateAndTime: date;
   reason: string;
-  time: string;
 }
 
 interface AppointmentsForDoctor {
@@ -193,9 +191,8 @@ interface SingleAppointmentForDoctor {
     email: string;
     DOB: date;
   };
-  appointmentDate: date;
+  appointmentDateAndTime: date;
   reason: string;
-  time: string;
   status: string;
   referral: boolean;
   diagnose: string;

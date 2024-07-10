@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import {
-  convertDateStringToDate,
+  convertDateAndTimeStringToDate,
   formatDateForInput2,
 } from '../../helper/generateDates';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
-  appointment: AppointmentForDoctors | undefined;
+  appointment: AppointmentsForDoctor | undefined;
 }
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
@@ -30,7 +30,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     const { name, value } = e.target;
 
     if (name === 'appointmentDate') {
-      const formattedDate = convertDateStringToDate(value);
+      const formattedDate = convertDateAndTimeStringToDate(value);
       console.log(formattedDate);
       setUpdatedAppointmentData((prevValuesAppointment) => ({
         ...prevValuesAppointment,
