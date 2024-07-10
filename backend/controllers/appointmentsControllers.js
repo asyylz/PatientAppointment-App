@@ -28,7 +28,7 @@ exports.getPatientAppointments = async (req, res) => {
       patientId: req.params.id
     })
       .populate('doctorId', { firstName: 1, lastName: 1, departmentId: 1 })
-      .sort({ appointmentDate: -1 });
+      .sort({ appointmentDateAndTime: -1 });
 
     const totalAppointments = await Appointment.countDocuments({
       patientId: req.params.id

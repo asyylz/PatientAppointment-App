@@ -29,7 +29,6 @@ const AppointmentCard: React.FC<AppointCardProps> = ({
       <div
         className={
           new Date(appointment.appointmentDateAndTime) <=
-          // new Date(new Date().setHours(0, 0, 0, 0))
           new Date()
             ? `${classes.appointmentBox} ${classes.close}`
             : `${classes.appointmentBox} ${classes.open}`

@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
     (state: RootState) => state.appointmentsForPatient
   );
   const { total, appointmentsForPatient, upcomingAppointments } = entities;
-  console.log(appointmentsForPatient);
+
 
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
