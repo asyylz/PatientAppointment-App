@@ -32,7 +32,7 @@ interface ExtendedEntityState<T> extends EntityState<T> {
 /* --------------------- ROOT STATE --------------------- */
 interface RootState {
   departments: EntityState<Department>;
-  appointmentsForDoctor: EntityStateForAppointments<AppointmentForDoctors>;
+  appointmentsForDoctor: EntityStateForAppointments<AppointmentsForDoctor>;
   appointmentsForPatient: EntityStateForAppointments<AppointmentsForPatient>;
   reviews: EntityState<Review>;
   doctors: ExtendedEntityState<Doctor>;
@@ -154,7 +154,6 @@ interface CurrentUserPayload {
   error?: string | null;
 }
 /* ------------------------ APPOINTMENT ----------------------- */
-
 interface AppointmentsForPatient {
   appointmentsForPatient: Appointment[];
   upcomingAppointments: number;
@@ -166,27 +165,6 @@ interface AppointmentForBooking {
   appointmentDate: date;
   reason: string;
   time: string;
-}
-
-interface AppointmentForDoctors {
-  appointmentsForDoctor: [
-    {
-      _id: ObjectId;
-      doctorId: ObjectId;
-      patientId: {
-        _id: ObjectId;
-        name: string;
-        email: string;
-        DOB: date;
-      };
-      appointmentDate: date;
-      reason: string;
-      time: string;
-      status: string;
-      referral: boolean;
-      diagnose: string;
-    }
-  ];
 }
 
 interface Appointment {
@@ -201,4 +179,25 @@ interface Appointment {
   appointmentDate: date;
   reason: string;
   time: string;
+}
+
+interface AppointmentsForDoctor {
+  appointmentsForDoctor: SingleAppointmentForDoctor[];
+}
+interface SingleAppointmentForDoctor {
+  _id: ObjectId;
+  doctorId: ObjectId;
+  patientId: {
+    _id: ObjectId;
+    name: string;
+    email: string;
+    DOB: date;
+  };
+  appointmentDate: date;
+  reason: string;
+  time: string;
+  status: string;
+  referral: boolean;
+  diagnose: string;
+  _v: number;
 }

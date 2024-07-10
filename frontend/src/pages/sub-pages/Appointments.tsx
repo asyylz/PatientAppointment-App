@@ -13,9 +13,10 @@ import { AppDispatch } from '../../store';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
 import useHttp from './../../hooks/useHttp';
 
+/* ---------------------- COMPONENT --------------------- */
 const Appointments: React.FC = () => {
   const [selectedAppointment, setSelectedAppointment] =
-    useState<AppointmentForDoctors>();
+    useState<SingleAppointmentForDoctor>();
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
 
@@ -39,7 +40,7 @@ const Appointments: React.FC = () => {
     }
   }, [dispatch, openModal, token, userData?._id, userData?.doctorId]);
 
-  const handleClick = (appointment: AppointmentForDoctors) => {
+  const handleClick = (appointment: SingleAppointmentForDoctor) => {
     setOpenModal('open');
     setSelectedAppointment(appointment);
   };
@@ -101,36 +102,38 @@ const Appointments: React.FC = () => {
         </thead>
         <tbody>
           <tr className={classes.gapLine}></tr>
-          {appointmentsForDoctor?.map((appointment: AppointmentForDoctors) => (
-            <React.Fragment key={appointment._id.toString()}>
-              <tr
-                className={
-                  new Date(appointment.appointmentDate) > new Date()
-                    ? `${classes.row} ${classes.active}`
-                    : `${classes.row}`
-                }
-                onClick={() => handleClick(appointment)}
-              >
-                <td>{appointment.patientId?.name}</td>
-                <td>{formatDateForInput2(appointment.patientId?.DOB)}</td>
-                <td>{formatDateForUI(appointment.appointmentDate)}</td>
-                <td>{appointment.reason}</td>
-                <td>{appointment.time}</td>
-                <td>{appointment.diagnose}</td>
-                <td>{appointment.referral ? 'Yes' : 'No'}</td>
-                <td>
-                  <FaRegTrashAlt
-                    className={`${classes.icons} ${classes.trash}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDelete(appointment._id);
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr className={classes.gapLine}></tr>
-            </React.Fragment>
-          ))}
+          {appointmentsForDoctor?.map(
+            (appointment: SingleAppointmentForDoctor) => (
+              <React.Fragment key={appointment._id.toString()}>
+                <tr
+                  className={
+                    new Date(appointment.appointmentDate) > new Date()
+                      ? `${classes.row} ${classes.active}`
+                      : `${classes.row}`
+                  }
+                  onClick={() => handleClick(appointment)}
+                >
+                  <td>{appointment.patientId?.name}</td>
+                  <td>{formatDateForInput2(appointment.patientId?.DOB)}</td>
+                  <td>{formatDateForUI(appointment.appointmentDate)}</td>
+                  <td>{appointment.reason}</td>
+                  <td>{appointment.time}</td>
+                  <td>{appointment.diagnose}</td>
+                  <td>{appointment.referral ? 'Yes' : 'No'}</td>
+                  <td>
+                    <FaRegTrashAlt
+                      className={`${classes.icons} ${classes.trash}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(appointment._id);
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr className={classes.gapLine}></tr>
+              </React.Fragment>
+            )
+          )}
         </tbody>
       </table>
     </>
