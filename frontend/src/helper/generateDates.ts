@@ -61,6 +61,7 @@ export const formatDateForInput2 = (dateString: string): string => {
 };
 
 export const formatDateForUI = (isoString: string) => {
+  console.log(isoString)
   const date = new Date(isoString);
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
   const formattedDate = date.toLocaleDateString('en-GB', options); // Format as DD/MM/YYYY
@@ -75,6 +76,6 @@ export const formatDateForUI = (isoString: string) => {
     'Saturday',
   ];
   const dayOfWeek = daysOfWeek[date.getUTCDay()]; // Get the day of the week
-
+console.log(`${formattedDate} ${dayOfWeek}`)
   return `${formattedDate} ${dayOfWeek}`;
 };
