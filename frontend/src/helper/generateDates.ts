@@ -61,7 +61,7 @@ export const convertDateAndTimeStringToDate = (
 };
 
 export const formatDateForInput = (dateString: string): string => {
-  console.log(dateString);
+  //console.log(dateString);
   const parts = dateString.split('/');
   return `${parts[2]}-${parts[1]}-${parts[0]}`;
 };

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import classes from './AvailabilityTable.module.css';
 import { generateTimeSlots } from '../../utils/timeSlots';
-
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
 import AppointmentForm from './AppointmentBookingForm';
 import {
-  convertDateAndTimeStringToDate,
   getWeekDatesFromToday,
   convertToDateandDateString,
 } from '../../helper/generateDates';
@@ -31,13 +29,6 @@ const AvailabilityTable: React.FC = () => {
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;
-
-  console.log(appointmentsForDoctor);
-
-  const deneme: string[] = appointmentsForDoctor?.map(
-    (appointment) => appointment.appointmentDateAndTime
-  );
-  console.log(deneme);
 
   useEffect(() => {
     if (selectedDoctor) {
@@ -95,11 +86,31 @@ const AvailabilityTable: React.FC = () => {
                     (slot) => slot.day === day.day && slot.time === time
                   );
 
+                  const slotStatus = availability
+                    ? appointmentsForDoctor?.find(
+                        (appointment) =>
+                          appointment.appointmentDateAndTime ===
+                          convertToDateandDateString(
+                            availability.day,
+                            availability.time
+                          ).availabilityDateTimeString
+                      )
+                      ? 'Booked'
+                      : 'Available'
+                    : '-';
+
                   return (
                     <td
                       key={`${timeIndex}-${dayIndex}`}
                       className={
-                        availability
+                        availability && slotStatus === 'Booked'
+                          ? convertToDateandDateString(
+                              availability.day,
+                              availability.time
+                            ).availabilityDateTime < new Date()
+                            ? `${classes.booked} ${classes.past}`
+                            : `${classes.booked}`
+                          : availability && slotStatus === 'Available'
                           ? convertToDateandDateString(
                               availability.day,
                               availability.time
@@ -110,18 +121,7 @@ const AvailabilityTable: React.FC = () => {
                       }
                       onClick={() => handleSlotClick(time, day.date)}
                     >
-                      {availability
-                        ? appointmentsForDoctor?.find(
-                            (appointment) =>
-                              appointment.appointmentDateAndTime ===
-                              convertToDateandDateString(
-                                availability.day,
-                                availability.time
-                              ).availabilityDateTimeString
-                          )
-                          ? 'Booked'
-                          : 'Available'
-                        : '-'}
+                      {slotStatus}
                     </td>
                   );
                 })}

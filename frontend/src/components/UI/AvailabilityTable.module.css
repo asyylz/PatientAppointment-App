@@ -22,6 +22,7 @@ td {
 
 .available {
     background-color: #45C4B0;
+    font-size: 1.1rem;
 }
 
 .available:hover {
@@ -29,9 +30,15 @@ td {
     background-color: #444;
 }
 
-.available.past {
+.available.past,
+.booked.past {
     background-color: var(--completed-background);
     text-decoration: line-through;
+}
+
+.booked {
+    font-size: 1.3rem;
+    background-color: var(--completed-background);
 }
 
 th {
