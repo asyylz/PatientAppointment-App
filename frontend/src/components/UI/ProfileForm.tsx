@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classes from './ProfileForm.module.css';
 import CustomInput from './CustomInput';
 import { useSelector } from 'react-redux';
 import { formatDateForInput } from '../../helper/generateDates';
-import useHttp from './../../hooks/useHttp';
-import { login, updateUserInfo } from '../../store/currentUser-slice';
+import { updateUserInfo } from '../../store/currentUser-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 
 const ProfileForm: React.FC = () => {
-  //const { updateUserInfo, getUserInfo } = useHttp();
-
   const dispatch: AppDispatch = useDispatch();
   const { userData, status, image, token } = useSelector(
     (state: RootState) => state.currentUser
   );
   const [updatedUserData, setUpdatedUserData] = useState<object>({});
-
-  // useEffect(() => {
-  //   if (userData) {
-  //     getUserInfo(userData._id);
-  //   }
-  // }, [updateUserInfo]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -47,9 +38,6 @@ const ProfileForm: React.FC = () => {
 
   const updateInfo = () => {
     dispatch(updateUserInfo({ updatedUserData, token }));
-    // if (userData) {
-    //   getUserInfo(userData._id);
-    // }
     setUpdatedUserData({});
   };
 

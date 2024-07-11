@@ -2,10 +2,6 @@ interface ObjectId {
   $oid: string;
 }
 
-// interface DoctorState {
-//   doctors: Doctor[];
-// }
-
 /* ------------------- ENTITIES STATES ------------------ */
 interface EntityState<T> {
   entities: T[];
@@ -132,6 +128,7 @@ interface userData {
   email: string;
   doctorId: ObjectId;
   DOB: date;
+  __v: number;
 }
 
 interface CurrentUserPayload {

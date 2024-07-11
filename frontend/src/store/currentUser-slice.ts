@@ -3,9 +3,12 @@ import {
   PayloadAction,
   createAsyncThunk,
   createAction,
+  Draft,
 } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
+
+type WritableDraft<T> = Draft<T> & Partial<T>;
 
 const initialState: CurrentUser = {
   status: 'idle',
@@ -67,7 +70,7 @@ export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
 );
 
 export const updateUserInfo = createAsyncThunk<
-  object,
+  CurrentUserPayload,
   { token: string; updatedUserData: object },
   { rejectValue: string }
 >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
@@ -116,7 +119,7 @@ const currentUserSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.status = 'login success';
         state.token = action.payload.token;
-        state.userData = action.payload.data.user;
+        state.userData = action.payload.data.user as WritableDraft<userData>;
         state.image = action.payload.image;
         state.error = null;
       })
@@ -138,8 +141,9 @@ const currentUserSlice = createSlice({
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.status = 'update success';
-        console.log(action.payload); // Check payload content
-        state.userData = action.payload.data.user; // Use the returned data
+        console.log(action.payload); 
+        //state.userData = action.payload.data.user;
+        state.userData = action.payload.data.user as WritableDraft<userData>;
         state.error = null;
       })
       .addCase(updateUserInfo.rejected, (state, action) => {
