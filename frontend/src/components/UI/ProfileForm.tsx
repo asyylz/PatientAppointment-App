@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import classes from './ProfileForm.module.css';
 import CustomInput from './CustomInput';
 import { useSelector } from 'react-redux';
-import {
-  convertDateAndTimeStringToDate,
-  formatDateForInput,
-} from '../../helper/generateDates';
+import { formatDateForInput } from '../../helper/generateDates';
 import useHttp from './../../hooks/useHttp';
 
 const ProfileForm: React.FC = () => {
@@ -13,7 +10,6 @@ const ProfileForm: React.FC = () => {
   const { userData, status, image } = useSelector(
     (state: RootState) => state.currentUser
   );
-  const [inputValue, setInputValue] = useState<string>('');
   const [updatedUserData, setUpdatedUserData] = useState<object>({});
 
   const handleInputChange = (
@@ -40,6 +36,7 @@ const ProfileForm: React.FC = () => {
 
   const updateInfo = () => {
     updateUserInfo(updatedUserData);
+    setUpdatedUserData({});
   };
 
   if (status === 'loading') <p>Loading...</p>;
@@ -56,7 +53,9 @@ const ProfileForm: React.FC = () => {
           </div>
 
           <div className={classes.buttonWrapper}>
-            <button onClick={updateInfo}>Update</button>
+            <button onClick={updateInfo} type="submit">
+              Update
+            </button>
             <button>Cancel</button>
           </div>
         </div>
@@ -88,21 +87,18 @@ const ProfileForm: React.FC = () => {
             type="password"
             name="Password"
             placeHolder="Enter your password"
-            value={inputValue}
             onChange={handleInputChange}
           />
           <CustomInput
             type="password"
             name="Password"
             placeHolder="Confirm your new password"
-            value={inputValue}
             onChange={handleInputChange}
           />
           <CustomInput
             type="password"
             name="Password"
             placeHolder="Confirm your new password"
-            value={inputValue}
             onChange={handleInputChange}
           />
         </div>

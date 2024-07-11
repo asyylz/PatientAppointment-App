@@ -78,6 +78,9 @@ exports.deleteUser = async (req, res, next) => {
 // UPDATE //
 exports.updateUser = async (req, res, next) => {
   // Create error if user posts password data
+
+  console.log('from updateUser', req.body);
+
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
@@ -87,7 +90,7 @@ exports.updateUser = async (req, res, next) => {
     );
   }
   try {
-    const filteredBody = filterObj(req.body, 'name', 'email');
+    const filteredBody = filterObj(req.body, 'name', 'email', 'DOB');
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
       filteredBody,
