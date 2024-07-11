@@ -29,7 +29,7 @@ router.delete(
   usersControllers.deleteUser
 );
 
-router.route('/:id').get(usersControllers.getUser);
+router.route('/:id').get(authControllers.protect, usersControllers.getUser);
 
 router.route('/').get(usersControllers.getAllUsers);
 

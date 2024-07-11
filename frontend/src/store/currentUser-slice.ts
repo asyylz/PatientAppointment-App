@@ -14,7 +14,6 @@ const initialState: CurrentUser = {
   image: '',
 };
 
-
 // Async thunk for login
 export const login = createAsyncThunk<
   CurrentUserPayload,
@@ -67,6 +66,39 @@ export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
   }
 );
 
+export const updateUserInfo = createAsyncThunk<
+  object,
+  { token: string; updatedUserData: object },
+  { rejectValue: string }
+>('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
+  console.log(tokenAndData.token);
+  console.log(tokenAndData.updatedUserData);
+  try {
+    const response = await axios.patch(
+      'http://localhost:3000/api/v1/users/updateUser',
+      tokenAndData.updatedUserData,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenAndData.token}`,
+        },
+      }
+    );
+
+    toastSuccessNotify('Successfully updated!');
+    return response.data; // Return the response data
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response?.status === 401) {
+        toastErrorNotify(
+          `${(axiosError.response.data as { message: string }).message}`
+        );
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+});
+
 // Create the currentUserSlice
 const currentUserSlice = createSlice({
   name: 'currentUser',
@@ -103,6 +135,16 @@ const currentUserSlice = createSlice({
       .addCase(logout.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || 'Logout failed';
+      })
+      .addCase(updateUserInfo.fulfilled, (state, action) => {
+        state.status = 'update success';
+        console.log(action.payload); // Check payload content
+        state.userData = action.payload.data.user; // Use the returned data
+        state.error = null;
+      })
+      .addCase(updateUserInfo.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || 'Update failed';
       })
       .addCase('currentUser/stateToIdle', (state) => {
         state.status = 'idle'; // Reset status to 'idle' on successful logout

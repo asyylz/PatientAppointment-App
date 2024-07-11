@@ -121,6 +121,7 @@ interface CurrentUser {
     | 'success'
     | 'logout success'
     | 'login success'
+    | 'update success'
     | null;
   error?: string | null;
 }

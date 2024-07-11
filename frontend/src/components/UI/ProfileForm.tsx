@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './ProfileForm.module.css';
 import CustomInput from './CustomInput';
 import { useSelector } from 'react-redux';
 import { formatDateForInput } from '../../helper/generateDates';
 import useHttp from './../../hooks/useHttp';
+import { login, updateUserInfo } from '../../store/currentUser-slice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store';
 
 const ProfileForm: React.FC = () => {
-  const { updateUserInfo } = useHttp();
-  const { userData, status, image } = useSelector(
+  //const { updateUserInfo, getUserInfo } = useHttp();
+
+  const dispatch: AppDispatch = useDispatch();
+  const { userData, status, image, token } = useSelector(
     (state: RootState) => state.currentUser
   );
   const [updatedUserData, setUpdatedUserData] = useState<object>({});
+
+  // useEffect(() => {
+  //   if (userData) {
+  //     getUserInfo(userData._id);
+  //   }
+  // }, [updateUserInfo]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -35,7 +46,10 @@ const ProfileForm: React.FC = () => {
   console.log(updatedUserData);
 
   const updateInfo = () => {
-    updateUserInfo(updatedUserData);
+    dispatch(updateUserInfo({ updatedUserData, token }));
+    // if (userData) {
+    //   getUserInfo(userData._id);
+    // }
     setUpdatedUserData({});
   };
 
@@ -50,13 +64,6 @@ const ProfileForm: React.FC = () => {
               <img src={image} alt="" />
             </div>
             <button>Upload Avatar</button>
-          </div>
-
-          <div className={classes.buttonWrapper}>
-            <button onClick={updateInfo} type="submit">
-              Update
-            </button>
-            <button>Cancel</button>
           </div>
         </div>
 
@@ -82,25 +89,12 @@ const ProfileForm: React.FC = () => {
             placeHolder="Enter your DOB"
             onChange={handleInputChange}
           />
-          <CustomInput
-            defaultValue="password"
-            type="password"
-            name="Password"
-            placeHolder="Enter your password"
-            onChange={handleInputChange}
-          />
-          <CustomInput
-            type="password"
-            name="Password"
-            placeHolder="Confirm your new password"
-            onChange={handleInputChange}
-          />
-          <CustomInput
-            type="password"
-            name="Password"
-            placeHolder="Confirm your new password"
-            onChange={handleInputChange}
-          />
+          <div className={classes.buttonWrapper}>
+            <button onClick={updateInfo} type="submit">
+              Update
+            </button>
+            <button>Cancel</button>
+          </div>
         </div>
       </div>
     )

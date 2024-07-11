@@ -227,7 +227,7 @@ exports.resetPassword = async (req, res, next) => {
 /* ------------------- UPDATE PASSWORD ------------------ */
 exports.updatePassword = async (req, res, next) => {
   const { oldPassword, newPassword, confirmNewPassword } = req.body;
-
+  console.log('from updatePassword', req.user.id);
   const user = await User.findById(req.user.id).select('+password');
   if (!(await user.correctPassword(oldPassword))) {
     return next(new AppError('Current password of user is not match', 401));

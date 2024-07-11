@@ -60,14 +60,29 @@ const useHttp = () => {
     }
   };
 
-  const updateUserInfo = async (updatedUserData: object) => {
+  // const updateUserInfo = async (updatedUserData: object) => {
+  //   console.log(updatedUserData);
+  //   try {
+  //     const response = await axiosWithToken.patch(
+  //       `http://localhost:3000/api/v1/users/updateUser`,
+  //       updatedUserData
+  //     );
+  //     toastSuccessNotify('Your profile  successfully updated.');
+  //     return response;
+  //   } catch (error: AxiosError) {
+  //     console.log(error);
+  //     toastErrorNotify(`${error.response.data.message}`);
+  //   }
+  // };
+
+  const updateUserPassWord = async (updatedUserData: object) => {
     console.log(updatedUserData);
     try {
       const response = await axiosWithToken.patch(
-        `http://localhost:3000/api/v1/users/updateUser`,
+        `http://localhost:3000/api/v1/users/updateMyPassword`,
         updatedUserData
       );
-      toastSuccessNotify('Your profile successfully updated.');
+      toastSuccessNotify('Your password successfully updated.');
       return response;
     } catch (error: AxiosError) {
       console.log(error);
@@ -75,11 +90,26 @@ const useHttp = () => {
     }
   };
 
+  // const getUserInfo = async (id: ObjectId) => {
+  //   try {
+  //     const response = await axiosWithToken.get(
+  //       `http://localhost:3000/api/v1/users/${id}`
+  //     );
+  //     console.log(response.data);
+  //     return response.data;
+  //   } catch (error: AxiosError) {
+  //     console.log(error);
+  //     toastErrorNotify(`${error.response.data.message}`);
+  //   }
+  // };
+
   return {
     createAppointment,
     updateAppointment,
     deleteAppointment,
-    updateUserInfo,
+   // updateUserInfo,
+    updateUserPassWord,
+   // getUserInfo,
   };
 };
 

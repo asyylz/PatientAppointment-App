@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import Tab from './../UI/Tab';
 import classes from './TabContainer.module.css';
 import ProfileForm from './../UI/ProfileForm';
+import PasswordUpdateForm from './../UI/PasswordUpdateForm';
 
 const tabList = [
-  { title: 'Personal Info', component: ProfileForm },
-  { title: 'Adress Info', component: AddressForm },
-  //{ title: 'Password Update', component: PasswordUpdate },
+  { title: 'Profile Settings', component: ProfileForm },
+  { title: 'Password Settings', component: PasswordUpdateForm }
 ];
 
 const TabContainer: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('Personal Info');
+  const [activeTab, setActiveTab] = useState<string>('Profile Settings');
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);

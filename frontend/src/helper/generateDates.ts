@@ -73,7 +73,7 @@ export const formatDateForInput = (dateString: string): string => {
 };
 
 export const getDateFromDateString = (dateString: string): string => {
-  console.log(dateString);
+ // console.log(dateString);
   const part = dateString.split('T');
   const parts = part[0].split('-');
   return `${parts[2]}/${parts[1]}/${parts[0]}`;

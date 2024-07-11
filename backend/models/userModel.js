@@ -38,18 +38,18 @@ const userSchema = new mongoose.Schema({
     trim: true,
     maxlength: [40, 'Password must have less or equal than 40 characters'],
     minlength: [4, 'Password must have more or equal than 8 characters'],
-    // validate: {
-    //   validator: function(val) {
-    //     const hasUpperCase = /[A-Z]/.test(val);
-    //     const hasLowerCase = /[a-z]/.test(val);
-    //     const hasDigit = /\d/.test(val);
-    //     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+    validate: {
+      validator: function(val) {
+        const hasUpperCase = /[A-Z]/.test(val);
+        const hasLowerCase = /[a-z]/.test(val);
+        const hasDigit = /\d/.test(val);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(val);
 
-    //     return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
-    //   },
-    //   message:
-    //     'Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
-    // }
+        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
+      },
+      message:
+        'Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
+    },
     select: false
   },
   passwordConfirm: {
