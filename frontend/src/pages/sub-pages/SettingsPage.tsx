@@ -5,10 +5,8 @@ const SettingsPage: React.FC = () => {
   return (
     <div className={classes.container}>
       <div className={classes.navigation}>
-        <div className="App">
-          <h1>React Tabs Example</h1>
-          <TabContainer />
-        </div>
+        <h1>Profile Settings</h1>
+        <TabContainer />
       </div>
       <div>asii</div>
       <div>aytein</div>

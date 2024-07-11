@@ -74,7 +74,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
           <input
             placeholder="Appointment Time"
-            value={appointment?.time}
+            value={appointment?.appointmentDateAndTime}
             name="time"
             type="time"
             step="1800"

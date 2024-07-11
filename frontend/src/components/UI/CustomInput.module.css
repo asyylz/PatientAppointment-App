@@ -1,0 +1,18 @@
+.inputWrapper input {
+  width: 100%;
+  padding-left: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+  height: 45px;
+  margin-top: 25px;
+  border-bottom: 3px solid rgba(173, 217, 209, 1)
+}
+
+
+input:focus,
+input:hover {
+  border-bottom: 4px solid rgba(173, 217, 209, 1);
+  transform: scaleX(1);
+  outline: none;
+}

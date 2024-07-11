@@ -56,7 +56,7 @@ select:focus,
     outline: none;
 }
 
-.container button {
+/* .container button {
     text-decoration: none;
     font-size: 18px;
     color: #444;
@@ -72,7 +72,7 @@ select:focus,
     border-radius: 28px;
     cursor: pointer;
     margin: 0 auto;
-}
+} */
 
 .container textarea {
     border: none;

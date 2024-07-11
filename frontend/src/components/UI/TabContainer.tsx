@@ -1,39 +1,43 @@
 import React, { useState } from 'react';
 import Tab from './../UI/Tab';
-import classes from './TabContainer.module.css'
+import classes from './TabContainer.module.css';
+import ProfileForm from './../UI/ProfileForm';
+
+const tabList = [
+  { title: 'Personal Info', component: ProfileForm },
+  //{ title: 'Password Update', component: PasswordUpdate },
+];
+
 const TabContainer: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('Tab 1');
+  const [activeTab, setActiveTab] = useState<string>('Personal Info');
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
+  const ActiveComponent = tabList.find(
+    (tab) => tab.title === activeTab
+  )?.component;
+
   return (
     <div className={classes.tabContainer}>
-      <div className="tab-list">
-        <Tab
-          label="Tab 1"
-          active={activeTab === 'Tab 1'}
-          onClick={() => handleTabClick('Tab 1')}
-        />
-        <Tab
-          label="Tab 2"
-          active={activeTab === 'Tab 2'}
-          onClick={() => handleTabClick('Tab 2')}
-        />
-        <Tab
-          label="Tab 3"
-          active={activeTab === 'Tab 3'}
-          onClick={() => handleTabClick('Tab 3')}
-        />
+      <div className={classes.tabList}>
+        {tabList.map((tab, index) => (
+          <Tab
+            key={index}
+            label={tab.title}
+            active={tab.title === activeTab}
+            onClick={() => handleTabClick(tab.title)}
+          />
+        ))}
       </div>
       <div className={classes.tabContent}>
-        {activeTab === 'Tab 1' && <div>Content for Tab 1</div>}
-        {activeTab === 'Tab 2' && <div>Content for Tab 2</div>}
-        {activeTab === 'Tab 3' && <div>Content for Tab 3</div>}
+        {ActiveComponent && <ActiveComponent />}
       </div>
     </div>
   );
 };
 
 export default TabContainer;
+
+

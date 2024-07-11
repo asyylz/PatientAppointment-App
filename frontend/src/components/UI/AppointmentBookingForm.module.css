@@ -31,7 +31,8 @@
     gap: 1rem;
 }
 
-.container input, .container select {
+.container input,
+.container select {
     width: 100%;
     padding-left: 10px;
     outline: none;
@@ -41,7 +42,8 @@
     margin-top: 25px;
 }
 
-.container input,.container select {
+.container input,
+.container select {
     border-bottom: 3px solid rgba(173, 217, 209, 1)
 }
 
@@ -54,6 +56,15 @@ select:focus,
     border-bottom: 4px solid rgba(173, 217, 209, 1);
     transform: scaleX(1);
     outline: none;
+}
+
+.container textarea {
+    border: none;
+    margin: 25px 0;
+    border-bottom: 3px solid rgba(173, 217, 209, 1);
+    padding: 0.5rem;
+    font-size: 16px;
+    grid-column: span 2;
 }
 
 /* .container button {
@@ -74,17 +85,10 @@ select:focus,
     margin: 0 auto;
 } */
 
-.container textarea {
-    border: none;
-    margin: 25px 0;
-    border-bottom: 3px solid rgba(173, 217, 209, 1);
-    padding: 0.5rem;
-    font-size: 16px;
-    grid-column: span 2;
-}
 
 
-.container button:hover {
+
+/* .container button:hover {
     color: #fff;
     background-color: #444;
-}
+} */

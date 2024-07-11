@@ -130,6 +130,7 @@ interface userData {
   name: string;
   email: string;
   doctorId: ObjectId;
+  DOB: date;
 }
 
 interface CurrentUserPayload {
