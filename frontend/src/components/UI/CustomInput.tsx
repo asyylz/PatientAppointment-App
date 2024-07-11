@@ -2,24 +2,30 @@ import React from 'react';
 import classes from './CustomInput.module.css';
 
 interface CustomInputProps {
-  title: string;
+  name: string;
   type: string;
   placeHolder: string;
-  defaultValue: string | null;
+  defaultValue?: string;
+  value?: string; // Add value prop
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const CustomInput: React.FC<CustomInputProps> = ({
-  title,
+  name,
   type,
   placeHolder,
   defaultValue,
+  value,
+  onChange,
 }) => {
   return (
     <div className={classes.inputWrapper}>
       <input
         type={type}
-        name={title}
+        name={name}
         placeholder={placeHolder}
         defaultValue={defaultValue}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

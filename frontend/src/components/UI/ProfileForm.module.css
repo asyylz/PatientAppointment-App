@@ -2,21 +2,39 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 
+
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
 }
 
 .infoWrapper {}
 
 .imageWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     position: relative;
-    height: 50px;
-    width: 50px;
+    align-items: center;
+    justify-content: center;
+
+
 }
 
+.image {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+}
 
 .buttonWrapper {
+    /* border: 1px solid red; */
     margin-top: 2rem;
     display: flex;
     justify-content: center;
-    grid-column: span 2;
+    /* grid-column: span 2; */
 
 }

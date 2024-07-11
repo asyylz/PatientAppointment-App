@@ -60,7 +60,27 @@ const useHttp = () => {
     }
   };
 
-  return { createAppointment, updateAppointment, deleteAppointment };
+  const updateUserInfo = async (updatedUserData: object) => {
+    console.log(updatedUserData);
+    try {
+      const response = await axiosWithToken.patch(
+        `http://localhost:3000/api/v1/users/updateUser`,
+        updatedUserData
+      );
+      toastSuccessNotify('Your profile successfully updated.');
+      return response;
+    } catch (error: AxiosError) {
+      console.log(error);
+      toastErrorNotify(`${error.response.data.message}`);
+    }
+  };
+
+  return {
+    createAppointment,
+    updateAppointment,
+    deleteAppointment,
+    updateUserInfo,
+  };
 };
 
 export default useHttp;

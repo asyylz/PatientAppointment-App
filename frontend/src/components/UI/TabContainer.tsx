@@ -5,6 +5,7 @@ import ProfileForm from './../UI/ProfileForm';
 
 const tabList = [
   { title: 'Personal Info', component: ProfileForm },
+  { title: 'Adress Info', component: AddressForm },
   //{ title: 'Password Update', component: PasswordUpdate },
 ];
 
@@ -39,5 +40,3 @@ const TabContainer: React.FC = () => {
 };
 
 export default TabContainer;
-
-
