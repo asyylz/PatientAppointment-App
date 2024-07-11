@@ -6,6 +6,7 @@ import { formatDateForInput } from '../../helper/generateDates';
 import { updateUserInfo } from '../../store/currentUser-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
+import ImagePicker from './ImagePicker';
 
 const ProfileForm: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -34,7 +35,7 @@ const ProfileForm: React.FC = () => {
       }));
     }
   };
-  console.log(updatedUserData);
+  //console.log(updatedUserData);
 
   const updateInfo = () => {
     dispatch(updateUserInfo({ updatedUserData, token }));
@@ -51,6 +52,7 @@ const ProfileForm: React.FC = () => {
             <div className={classes.image}>
               <img src={image} alt="" />
             </div>
+            <ImagePicker />
             <button>Upload Avatar</button>
           </div>
         </div>
