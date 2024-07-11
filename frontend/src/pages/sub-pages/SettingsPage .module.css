@@ -1,0 +1,16 @@
+.container {
+    border: 2px solid red;
+    display: grid;
+    width: 98%;
+    margin: 1rem auto;
+    grid-template-columns: 300px 1fr;
+    box-shadow: -4px 15px 59px 0px rgba(0, 0, 0, 0.62);
+    /* border: 2px solid #c4c4c4; */
+
+}
+
+.navigation {
+    border: 2px solid blue;
+    grid-column: span 2;
+    text-align: center;
+}

@@ -1,0 +1,26 @@
+.tabContainer {
+    font-family: Arial, sans-serif;
+}
+
+.tabList {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.tabList button .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.tab.active {
+    border-bottom: 2px solid #007bff;
+    font-weight: bold;
+}
+
+.tabContent {
+    padding: 20px;
+}

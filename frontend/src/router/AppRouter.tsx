@@ -13,6 +13,7 @@ import AuthPage from '../pages/AuthPage';
 import PrivateRoute from './PrivateRoute';
 import PrivateRouteForRoles from './PrivateRouteForRoles';
 import MainLayout from '../pages/layouts/MainLayout';
+import SettingsPage from '../pages/sub-pages/SettingsPage';
 
 const routes: RouteObject[] = [
   {
@@ -55,7 +56,7 @@ const routes: RouteObject[] = [
       },
       { path: 'departments', element: <Departments /> },
       { path: 'payments', element: <Payments /> },
-      { path: 'settings' },
+      { path: 'settings', element: <SettingsPage /> },
     ],
   },
 

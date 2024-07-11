@@ -21,12 +21,22 @@
     background: #444;
 }
 
+/* ------------- to prevent a global styles ------------- */
+.sidebar ul li a {
+    box-shadow: none;
+    border: none;
+    background: none;
+    border-radius: none;
+}
+
 .sidebar ul li a:hover {
     color: #fff;
+    background-color: none;
 }
 
 .sidebar ul li:first-child:hover {
     background: none;
+    color: none;
 
 }
 

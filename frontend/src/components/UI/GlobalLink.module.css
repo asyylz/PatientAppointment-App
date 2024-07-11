@@ -1,5 +1,10 @@
 .wrapper a,
 .wrapper button {
+    margin-left: 1rem;
+}
+
+/* .wrapper a,
+.wrapper button {
     text-decoration: none;
     color: #444;
     width: 200px;
@@ -15,7 +20,8 @@
     outline: none;
     border: none;
     margin-left: 1rem;
-}
+} */
+
 
 .wrapper a:hover,
 .wrapper button:hover {
