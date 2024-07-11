@@ -5,7 +5,7 @@ interface CustomInputProps {
   title: string;
   type: string;
   placeHolder: string;
-  defaultValue: string;
+  defaultValue: string | null;
 }
 const CustomInput: React.FC<CustomInputProps> = ({
   title,

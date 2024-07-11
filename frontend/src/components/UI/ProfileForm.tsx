@@ -5,34 +5,61 @@ import { useSelector } from 'react-redux';
 import { formatDateForInput } from '../../helper/generateDates';
 
 const ProfileForm: React.FC = () => {
-  const { userData, status } = useSelector(
+  const { userData, status, image } = useSelector(
     (state: RootState) => state.currentUser
   );
-  console.log(userData?.DOB);
-  
+
   if (status === 'loading') <p>Loading...</p>;
 
   return (
     userData && (
       <div className={classes.container}>
-        <CustomInput
-          defaultValue={userData?.name}
-          type="text"
-          title="name"
-          placeHolder="Enter your name"
-        />
-        <CustomInput
-          defaultValue={userData.email}
-          type="text"
-          title="email"
-          placeHolder="Enter your email"
-        />
-        <CustomInput
-          defaultValue={formatDateForInput(userData.DOB)}
-          type="date"
-          title="DOB"
-          placeHolder="Enter your DOB"
-        />
+        <div className={classes.imageWrapper}>
+          <img src={image} alt="" />
+        </div>
+        <div className={classes.infoWrapper}>
+          <CustomInput
+            defaultValue={userData?.name}
+            type="text"
+            title="name"
+            placeHolder="Enter your name"
+          />
+          <CustomInput
+            defaultValue={userData.email}
+            type="text"
+            title="email"
+            placeHolder="Enter your email"
+          />
+          <CustomInput
+            defaultValue={formatDateForInput(userData.DOB)}
+            type="date"
+            title="DOB"
+            placeHolder="Enter your DOB"
+          />
+          <CustomInput
+            defaultValue="password"
+            type="password"
+            title="Password"
+            placeHolder="Enter your password"
+          />
+          <CustomInput
+            defaultValue={null}
+            type="password"
+            title="Password"
+            placeHolder="Confirm your new password"
+          />
+          <CustomInput
+            defaultValue={null}
+            type="password"
+            title="Password"
+            placeHolder="Confirm your new password"
+          />
+        </div>
+
+        <div className={classes.buttonWrapper}>
+          <button>Update</button>
+          <button>Cancel</button>
+        </div>
       </div>
     )
   );
