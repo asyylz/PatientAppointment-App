@@ -1,21 +1,16 @@
 .wrapper {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: auto auto;
-    grid-gap: 1rem;
-    margin-top: 1rem;
-    min-height: 100vh;
-}
-
-.leftSectionWrapper {
+    /* border: 2px solid red; */
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 250px auto;
-    grid-gap: 1rem;
-    padding: 1rem;
-    /* Center items vertically */
-    justify-items: center;
-    /* Center items horizontally */
+    grid-template-rows: auto;
+    min-height: 100vh;
+    margin-top: 2rem;
+
+}
+
+.availabilityTable {
+    /* border: 2px solid blue; */
+    margin: 2rem;
 
 }
 
@@ -29,7 +24,7 @@
 
 }
 
-.doctorInfo{
+.doctorInfo {
     margin-top: 2rem;
 }
 
@@ -110,6 +105,7 @@
         display: grid;
         grid-template-columns: 180px 1fr;
     }
+
     .picture {
         height: 150px;
         width: 150px;
@@ -150,10 +146,12 @@
         align-items: center;
         justify-content: center;
     }
-    .wrapper{
+
+    .wrapper {
         grid-template-columns: 1fr;
-        
+
     }
+
     .bottomSection {
         grid-column: span 1;
     }

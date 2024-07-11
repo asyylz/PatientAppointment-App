@@ -16,9 +16,15 @@ const useHttp = () => {
       return response.data;
     } catch (error: AxiosError) {
       const fieldName = Object.keys(error.response.data.message)[0];
-      toastErrorNotify(`${error.response.data.message[fieldName].message}`);
+
+      if (error.response.data.message[fieldName].message) {
+        toastErrorNotify(`${error.response.data.message[fieldName].message}`);
+      } else {
+        toastErrorNotify(error.response.data.message);
+      }
     }
   };
+
   const updateAppointment = async (
     data: object | undefined,
     id: ObjectId | undefined
@@ -47,7 +53,7 @@ const useHttp = () => {
         `http://localhost:3000/api/v1/appointments/${id}`
       );
       toastSuccessNotify('Your appointment successfully deleted.');
-      return response
+      return response;
     } catch (error: AxiosError) {
       console.log(error);
       toastErrorNotify(`${error.response.data.message}`);

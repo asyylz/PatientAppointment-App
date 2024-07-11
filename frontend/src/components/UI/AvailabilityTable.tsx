@@ -29,7 +29,11 @@ const AvailabilityTable: React.FC = () => {
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;
-  console.log(appointmentsForDoctor);
+  //console.log(appointmentsForDoctor);
+
+  /* ---------------------- useSates ---------------------- */
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [slot, setSlot] = useState({ time: '', date: '' });
 
   useEffect(() => {
     if (selectedDoctor) {
@@ -40,11 +44,7 @@ const AvailabilityTable: React.FC = () => {
         })
       );
     }
-  }, [dispatch, token, selectedDoctor]);
-
-  /* ---------------------- useSates ---------------------- */
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [slot, setSlot] = useState({ time: '', date: '' });
+  }, [dispatch, token, selectedDoctor, openModal]);
 
   const handleSlotClick = (time: string, date: string) => {
     setOpenModal(true);
@@ -77,6 +77,7 @@ const AvailabilityTable: React.FC = () => {
               ))}
             </tr>
           </thead>
+          
           <tbody>
             {timeSlots.map((time, timeIndex) => (
               <tr key={timeIndex}>

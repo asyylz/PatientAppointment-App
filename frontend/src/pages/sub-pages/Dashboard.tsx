@@ -21,6 +21,8 @@ const Dashboard: React.FC = () => {
   );
   const { total, appointmentsForPatient, upcomingAppointments } = entities;
 
+console.log(upcomingAppointments)
+console.log(total)
 
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();

@@ -4,3 +4,20 @@
     grid-template-rows: 80px;
     align-items: center;
 }
+
+.wrapper {
+    display: flex;
+    gap:10rem;
+    justify-content:center;
+    align-items: center;
+}
+
+.picture {
+    height: 250px;
+    width: 250px;
+    position: relative;
+    box-shadow: 0px 44px 34px -3px rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    background-color: transparent;
+
+}

@@ -1,5 +1,4 @@
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
 import classes from './ModalCustom.module.css';
 
 interface ModalCustomProps {
@@ -18,7 +17,7 @@ const ModalCustom: React.FC<ModalCustomProps> = ({
     throw new Error('No modal element found with id "modal"');
   }
   return createPortal(
-    <div className={classes.container}>
+    <div className={classes.overlay}>
       <div
         className={classes.wrapper}
         style={{ height: `${height}`, width: `${width}` }}

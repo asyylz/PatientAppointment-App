@@ -14,6 +14,7 @@ const appointmentSchema = new mongoose.Schema({
   },
   appointmentDateAndTime: {
     type: Date,
+    unique: true,
     required: [true, 'An appointment must have a date and time ']
   },
   createdAt: {

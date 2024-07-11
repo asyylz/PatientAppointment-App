@@ -1,15 +1,13 @@
-:root {
-    --font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
 .wrapper {
-    padding: 1rem;
+    /* padding: 1rem; */
     font-family: var(--font-family);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    box-shadow: -4px 15px 59px 0px rgba(0, 0, 0, 0.62);
+    border: 6px solid #c4c4c4;
 }
 
 th,

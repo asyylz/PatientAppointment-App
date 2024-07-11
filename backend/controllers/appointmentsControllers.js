@@ -30,17 +30,16 @@ exports.getPatientAppointments = async (req, res) => {
     });
 
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const upcomingAppointmentsCount = await Appointment.countDocuments({
+    const upcomingAppointments = await Appointment.countDocuments({
       patientId: req.params.id,
-      appointmentDate: { $gte: today }
+      appointmentDateAndTime: { $gte: today }
     });
 
     res.status(200).json({
       status: 'success',
       data: {
         total: totalAppointments,
-        upcomingAppointments: upcomingAppointmentsCount,
+        upcomingAppointments,
         appointmentsForPatient
       }
     });
@@ -139,9 +138,26 @@ exports.getAppointment = async (req, res, next) => {
 };
 
 // POST //
-exports.createAppointment = async (req, res) => {
+exports.createAppointment = async (req, res, next) => {
   console.log('from createAppointment', req.body);
+
+  const { appointmentDateAndTime, doctorId } = req.body;
   try {
+    // Check if an appointment with the same date and time already exists
+    const existingAppointment = await Appointment.findOne({
+      appointmentDateAndTime,
+      doctorId
+    });
+
+    if (existingAppointment) {
+      const error = new Error(
+        'This slot already has been booked, please choose another slot.'
+      );
+      error.statusCode = 409;
+      error.status = 'fail';
+      return next(error);
+    }
+
     const newAppointment = await Appointment.create(req.body);
     res.status(201).json({
       status: 'success',
