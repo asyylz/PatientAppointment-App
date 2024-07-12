@@ -131,6 +131,7 @@ interface userData {
   image: string;
 }
 
+
 interface CurrentUserPayload {
   token: string;
   data: {

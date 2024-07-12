@@ -153,9 +153,10 @@ const currentUserSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(login.fulfilled, (state, action) => {
+        const { token, data } = action.payload;
         state.status = 'success';
-        state.token = action.payload.token;
-        state.userData = action.payload.data.user;
+        state.token = token;
+        state.userData = data.user;
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
