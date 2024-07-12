@@ -44,7 +44,7 @@ const AppointmentCard: React.FC<AppointCardProps> = ({
             ) {
               return <span> {department.departmentMain}</span>;
             }
-            return null; // Ensure a return value is always provided
+            return null; 
           })}
         </p>
         <p>

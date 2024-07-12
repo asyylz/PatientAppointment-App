@@ -10,10 +10,11 @@ import ImagePicker from './ImagePicker';
 
 const ProfileForm: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { userData, status, image, token } = useSelector(
+  const { userData, status, token } = useSelector(
     (state: RootState) => state.currentUser
   );
   const [updatedUserData, setUpdatedUserData] = useState<object>({});
+  console.log(userData?.image);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -23,7 +24,7 @@ const ProfileForm: React.FC = () => {
     const { name, value } = e.target;
     if (name === 'DOB') {
       const formattedDate = new Date(`${value}T00:00:00.000Z`);
-      console.log(formattedDate);
+
       setUpdatedUserData((prevValues) => ({
         ...prevValues,
         DOB: formattedDate,
@@ -35,7 +36,7 @@ const ProfileForm: React.FC = () => {
       }));
     }
   };
-  //console.log(updatedUserData);
+  console.log(updatedUserData);
 
   const updateInfo = () => {
     dispatch(updateUserInfo({ updatedUserData, token }));
@@ -50,10 +51,18 @@ const ProfileForm: React.FC = () => {
         <div className={classes.wrapper}>
           <div className={classes.imageWrapper}>
             <div className={classes.image}>
-              <img src={image} alt="" />
+              <img src={userData.image} alt="" />
+              <img
+                src="backend/public/userProfileImages/1720776386119-asiye-serife-yaliz.jpeg"
+                alt=""
+              />
             </div>
-            <ImagePicker />
-            <button>Upload Avatar</button>
+            <ImagePicker
+              name="image"
+              label="Your image"
+              setUpdatedUserData={setUpdatedUserData}
+            />
+            {/* <button>Upload Avatar</button> */}
           </div>
         </div>
 

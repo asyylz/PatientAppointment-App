@@ -77,7 +77,11 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false
   },
-  DOB: Date
+  DOB: Date,
+  image: {
+    type: String,
+    trim: true
+  }
 });
 
 userSchema.pre('save', async function(next) {
@@ -92,6 +96,42 @@ userSchema.pre(/^find/, function(next) {
   this.find({ active: { $ne: false } });
   next();
 });
+
+/* ------------- saving user profile images ------------- */
+// userSchema.post('update', async function(next) {
+//   const slug = slugify(this.image.split('.')[0], { lower: true });
+//   const extension = this.image.split('.').pop();
+//   const fileName = `${new Date().now}/${slug}.${extension}`;
+
+//   const stream = fs.createWriteStream(`public/userProfileImages/${fileName}`);
+//   const bufferredImage = await this.image.arrayBuffer();
+//   stream.write(Buffer.from(bufferredImage), error => {
+//     if (error) {
+//       throw new Error('Saving profile image failed!');
+//     }
+//   });
+// });
+
+// Use pre-save hook if the image can be modified during updates as well as creation
+// userSchema.pre('save', async function(next) {
+//   if (!this.isModified('image')) return next(); // Proceed only if the image is modified
+
+//   const slug = slugify(this.image.split('.')[0], { lower: true });
+//   const extension = this.image.split('.').pop();
+//   const fileName = `${Date.now()}/${slug}.${extension}`;
+//   const filePath = `/public/userProfileImages/${fileName}`;
+
+//   try {
+//     const bufferredImage = await this.image.arrayBuffer(); // Ensure `this.image` contains the proper data
+//     const buffer = Buffer.from(bufferredImage);
+
+//     await fs.promises.writeFile(filePath, buffer); // Asynchronous write for better performance
+//     this.image = filePath; // Update the image path
+//     next();
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 // userSchema.post('findOne', function(next) {
 //   if (this.role === 'patient') {

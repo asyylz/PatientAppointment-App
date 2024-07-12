@@ -69,22 +69,69 @@ export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
   }
 );
 
+// export const updateUserInfo = createAsyncThunk<
+//   CurrentUserPayload,
+//   { token: string; updatedUserData: Record<string, any> },
+//   { rejectValue: string }
+// >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
+//   const formData = new FormData();
+//   for (const key in tokenAndData.updatedUserData) {
+//     formData.append(key, tokenAndData.updatedUserData[key]);
+//   }
+//   console.log(formData);
+//   try {
+//     const response = await axios.patch(
+//       'http://localhost:3000/api/v1/users/updateUser',
+//       formData,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${tokenAndData.token}`,
+//           'Content-Type': 'multipart/form-data', // Ensuring correct content type
+//         },
+//       }
+//     );
+
+//     toastSuccessNotify('Successfully updated!');
+//     return response.data; // Return the response data
+//   } catch (error) {
+//     if (axios.isAxiosError(error)) {
+//       const axiosError = error as AxiosError;
+//       if (axiosError.response?.status === 401) {
+//         toastErrorNotify(
+//           `${(axiosError.response.data as { message: string }).message}`
+//         );
+//       }
+//       return rejectWithValue(error.message);
+//     }
+//     return rejectWithValue('An unexpected error occurred');
+//   }
+// });
+
 export const updateUserInfo = createAsyncThunk<
   CurrentUserPayload,
-  { token: string; updatedUserData: object },
+  { token: string; updatedUserData: Record<string, any> },
   { rejectValue: string }
 >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
-  //console.log(tokenAndData.token);
-  //console.log(tokenAndData.updatedUserData);
+  let requestData: FormData | Record<string, any> =
+    tokenAndData.updatedUserData;
+  let headers = {
+    Authorization: `Bearer ${tokenAndData.token}`,
+  };
+
+  if (tokenAndData.updatedUserData.image) {
+    const formData = new FormData();
+    for (const key in tokenAndData.updatedUserData) {
+      formData.append(key, tokenAndData.updatedUserData[key]);
+    }
+    requestData = formData;
+    headers['Content-Type'] = 'multipart/form-data';
+  }
+
   try {
     const response = await axios.patch(
       'http://localhost:3000/api/v1/users/updateUser',
-      tokenAndData.updatedUserData,
-      {
-        headers: {
-          Authorization: `Bearer ${tokenAndData.token}`,
-        },
-      }
+      requestData,
+      { headers }
     );
 
     toastSuccessNotify('Successfully updated!');
@@ -99,6 +146,7 @@ export const updateUserInfo = createAsyncThunk<
       }
       return rejectWithValue(error.message);
     }
+    return rejectWithValue('An unexpected error occurred');
   }
 });
 
@@ -141,7 +189,7 @@ const currentUserSlice = createSlice({
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.status = 'update success';
-        console.log(action.payload); 
+        console.log(action.payload);
         //state.userData = action.payload.data.user;
         state.userData = action.payload.data.user as WritableDraft<userData>;
         state.error = null;

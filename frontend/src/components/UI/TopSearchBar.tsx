@@ -12,7 +12,7 @@ const TopSearchBar: React.FC = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { token, userData, image } = useSelector(
+  const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
 
@@ -61,11 +61,14 @@ const TopSearchBar: React.FC = () => {
                     : userData?.name}
                 </h3>
                 <i className="fas fa-bell"></i>
-                <img src={image} alt="User" />
+                <img
+                  src={`http://localhost:3000/static/${userData?.image}`}
+                  alt="User"
+                />
                 <button onClick={handleLogout}>Logout</button>
               </>
             ) : (
-              <img src={image} alt="User" />
+              <img src={userData.image} alt="User" />
             )}
           </div>
         ) : (

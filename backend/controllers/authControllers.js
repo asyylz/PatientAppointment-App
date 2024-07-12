@@ -103,7 +103,7 @@ exports.logout = async (req, res, next) => {
 exports.protect = async (req, res, next) => {
   // 1) Getting token and check of it is there
   let token;
-  console.log('from protect', req.headers);
+  // console.log('from protect', req.headers);
 
   try {
     if (
@@ -138,8 +138,9 @@ exports.protect = async (req, res, next) => {
         )
       );
     }
-
+    
     req.user = currentUser;
+    console.log(req.body);
 
     next();
   } catch (err) {

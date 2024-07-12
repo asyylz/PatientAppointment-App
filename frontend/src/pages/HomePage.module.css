@@ -1,4 +1,4 @@
-.container {
+/* .container {
     display: grid;
     grid-template-columns: 300px 1fr;
     grid-template-rows: 1fr auto;
@@ -30,4 +30,4 @@
         display: grid;
         grid-template-columns: 60px 1fr;
     }
-}
+} */

@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
+const fs = require('node:fs');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -78,6 +79,7 @@ exports.deleteUser = async (req, res, next) => {
 // UPDATE //
 exports.updateUser = async (req, res, next) => {
   // Create error if user posts password data
+  console.log('from req.file', req.file);
 
   console.log('from updateUser', req.body);
 
@@ -89,11 +91,19 @@ exports.updateUser = async (req, res, next) => {
       )
     );
   }
+  // if (!req.body.image) {
+  //   return res.status(400).json({ message: 'No profile image uploaded' });
+  // }
+
   try {
-    const filteredBody = filterObj(req.body, 'name', 'email', 'DOB');
+    const filteredBody = filterObj(req.body, 'name', 'email', 'DOB', 'image');
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
-      filteredBody,
+      {
+        ...filteredBody,
+        image: `/userProfileImages/${req.file.filename}`
+      },
+      //filteredBody,
       {
         new: true,
         runValidators: true

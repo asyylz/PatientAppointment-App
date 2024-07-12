@@ -129,6 +129,7 @@ interface userData {
   doctorId: ObjectId;
   DOB: date;
   __v: number;
+  image: string;
 }
 
 interface CurrentUserPayload {

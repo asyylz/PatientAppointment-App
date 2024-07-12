@@ -19,6 +19,10 @@ const AppError = require('./utils/appError');
 
 const app = express();
 
+// Enable CORS for all routes
+app.use(cors());
+//app.options('*', cors());
+
 // Set security HTTP headers
 app.use(helmet());
 
@@ -30,17 +34,30 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// Enable CORS for all routes
-app.use(cors());
-
 // Boody parser , reading data from  body into req.body
 app.use(express.json({ limit: '10kb' }));
+
+// Accept FormData
+app.use(express.urlencoded({ extended: false }));
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
+
+app.all('/', (req, res) => {
+  res.send({
+    error: false,
+    message: 'Welcome to PIZZA API',
+    docs: {
+      swagger: '/documents/swagger',
+      redoc: '/documents/redoc',
+      json: '/documents/json'
+    },
+    user: req.user
+  });
+});
 
 // Prevent parameter pollution
 app.use(
@@ -57,13 +74,14 @@ app.use(
 );
 
 // Serving static files
-app.use(express.static(`${__dirname}/public`));
+//app.use(express.static(`${__dirname}/public`));
 
-// Test middlewares
+//Test middlewares
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  //res.setHeader('Access-Control-Allow-Origin', '*');
+  //res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  //res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-site');
   next();
 });
 
@@ -75,6 +93,8 @@ app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/reviews', reviewsRouter);
 app.use('/api/v1/appointments', appointmentsRouter);
 app.use('/api/v1/availabilities', availabilitiesRouter);
+
+app.use('/static', express.static('public'));
 
 //Global Errors
 app.all('*', (req, res, next) => {

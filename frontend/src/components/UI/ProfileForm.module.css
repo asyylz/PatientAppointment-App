@@ -5,16 +5,14 @@
 
 }
 
-.wrapper {
-   
-}
+.wrapper {}
 
 .infoWrapper {}
 
 .imageWrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    position: relative;
+
     align-items: center;
     justify-content: center;
 
@@ -26,6 +24,11 @@
     height: 200px;
     width: 200px;
     margin: 0 auto;
+}
+
+.image img {
+    height: 100%;
+    width: 100%;
 }
 
 .buttonWrapper {

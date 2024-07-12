@@ -12,7 +12,7 @@ import ModalCustom from '../../components/UI/ModalCustom';
 import useHttp from '../../hooks/useHttp';
 
 const Dashboard: React.FC = () => {
-  const { userData, image, token } = useSelector(
+  const { userData, token } = useSelector(
     (state: RootState) => state.currentUser
   );
 
@@ -20,9 +20,6 @@ const Dashboard: React.FC = () => {
     (state: RootState) => state.appointmentsForPatient
   );
   const { total, appointmentsForPatient, upcomingAppointments } = entities;
-
-console.log(upcomingAppointments)
-console.log(total)
 
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
@@ -78,7 +75,14 @@ console.log(total)
         <div className={classes.userLeftSection}>
           <div className={classes.wrapper}>
             <div className={classes.image}>
-              <img src={image} alt="" />
+              <img
+                src={`http://localhost:3000/static/${userData?.image}`}
+                alt=""
+              />
+              {/* <img
+                src="/userProfileImages/1720777336851-asiye-serife-yaliz.jpeg"
+                alt=""
+              /> */}
             </div>
             <p>Welcome {userData?.name}</p>
           </div>

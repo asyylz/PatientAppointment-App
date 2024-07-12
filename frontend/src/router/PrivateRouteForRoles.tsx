@@ -12,7 +12,7 @@ const PrivateRouteForRoles: React.FC<PrivateRouteForRolesProps> = ({
   children,
 }) => {
   const { userData } = useSelector((state: RootState) => state.currentUser);
-  console.log(userData?.role);
+  //console.log(userData?.role);
 
   return userData && allowedRole === userData.role ? (
     <>{children}</>

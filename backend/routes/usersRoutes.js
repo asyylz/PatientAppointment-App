@@ -1,6 +1,7 @@
 const express = require('express');
 const usersControllers = require('../controllers/usersControllers');
 const authControllers = require('../controllers/authControllers');
+const upload = require('./../middlewares/multerConfig');
 
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.patch(
 router.patch(
   '/updateUser',
   authControllers.protect,
+  upload.single('image'),
   usersControllers.updateUser
 );
 router.delete(
