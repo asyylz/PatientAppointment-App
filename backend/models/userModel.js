@@ -77,6 +77,10 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false
   },
+  policy: {
+    type: Boolean,
+    required: true
+  },
   DOB: Date,
   image: {
     type: String,

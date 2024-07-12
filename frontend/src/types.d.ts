@@ -142,7 +142,7 @@ interface CurrentUserPayload {
       email: string;
     } | null;
   };
-  image: string;
+  image?: string;
   status:
     | 'idle'
     | 'loading'
@@ -153,6 +153,18 @@ interface CurrentUserPayload {
     | null;
   error?: string | null;
 }
+
+interface Credentials {
+  name?: string;
+  email?: string;
+  password?: string;
+  passwordConfirm?: string;
+  image?: Blob |string;
+  policy?: boolean;
+  DOB?: Date;
+}
+
+type UserData = Credentials | null;
 /* ------------------------ APPOINTMENT ----------------------- */
 interface AppointmentsForPatient {
   appointmentsForPatient: Appointment[];

@@ -16,7 +16,35 @@ const initialState: CurrentUser = {
   userData: null,
   image: '',
 };
-
+// Async thunk for register
+export const register = createAsyncThunk<
+  CurrentUserPayload,
+  UserData,
+  { rejectValue: string }
+>('signup', async (credentials, { rejectWithValue }) => {
+  console.log(credentials);
+  try {
+    const response = await axios.post(
+      'http://localhost:3000/api/v1/users/signup',
+      credentials
+    );
+    toastSuccessNotify('Successfully registered!');
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      console.log(error.response?.data.message);
+      toastErrorNotify(error.response?.data.message);
+      if (axiosError.response?.status === 401) {
+        toastErrorNotify(
+          `${(axiosError.response.data as { message: string }).message}`
+        );
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+});
 // Async thunk for login
 export const login = createAsyncThunk<
   CurrentUserPayload,

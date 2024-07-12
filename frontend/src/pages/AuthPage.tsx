@@ -4,17 +4,16 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../store/index';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../store/currentUser-slice';
+import { login, register } from '../store/currentUser-slice';
 import ImagePicker from '../components/UI/ImagePicker';
 import CustomInput from '../components/UI/CustomInput';
 
-const AuthPage = () => {
-  // const [email, setEmail] = useState<string>('aytekin@test.com');
-  const [email, setEmail] = useState<string>('alice.johnson@example.com');
-  //const [password, setPassword] = useState<string>('newpass12');
-  const [password, setPassword] = useState<string>('Password3!');
+// const [email, setEmail] = useState<string>('aytekin@test.com');
+//const [email, setEmail] = useState<string>('alice.johnson@example.com');
+//const [password, setPassword] = useState<string>('newpass12');
 
-  const [userData, setUserData] = useState<object>({});
+const AuthPage = () => {
+  const [userData, setUserData] = useState<UserData>();
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -23,15 +22,15 @@ const AuthPage = () => {
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
-  // const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   dispatch(login({ email, password }));
-  // };
-
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (userData) {
-      dispatch(login({ email: userData.email, password: userData.password }));
+    if (userData && userData.email && userData.password) {
+      await dispatch(
+        login({ email: userData.email, password: userData.password })
+      );
+      setUserData(null);
+    } else {
+      console.error('Email and password are required for login.');
     }
   };
 
@@ -41,15 +40,16 @@ const AuthPage = () => {
     }
   }, [status, navigate, selectedDoctor]);
 
-  const handleRegisterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userFormData = new FormData();
-    // Iterate over each key-value pair in userData and append it to userFormData
-    Object.entries(userData).forEach(([key, value]) => {
-      userFormData.append(key, value);
-    });
-    // console.log(userFormData);
-    // console.log(userFormData.get('image'));
+    if (userData) {
+      Object.entries(userData).forEach(([key, value]) => {
+        userFormData.append(key, value);
+      });
+    }
+    await dispatch(register({ ...userData }));
+    setUserData(null);
   };
 
   console.log(userData);
@@ -86,15 +86,6 @@ const AuthPage = () => {
       <div className={classes.wrapper}>
         <h2>Login</h2>
         <form action="" onSubmit={handleLogin}>
-          {/* <div className={classes.inputBox}>
-            <input
-              type="text"
-              placeholder="Enter your email"
-              value="alice.johnson@example.com"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div> */}
           <CustomInput
             type="email"
             name="email"
@@ -106,8 +97,8 @@ const AuthPage = () => {
 
           <CustomInput
             type="password"
-            name="pasword"
-           // value="Password3!"
+            name="password"
+            // value="Password3!"
             placeHolder="Enter your password"
             onChange={handleInputChange}
             required
@@ -151,7 +142,7 @@ const AuthPage = () => {
           />
           <CustomInput
             type="password"
-            name="password"
+            name="passwordConfirm"
             placeHolder="Confirm your password"
             onChange={handleInputChange}
             required

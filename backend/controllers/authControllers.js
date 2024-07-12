@@ -37,6 +37,8 @@ const createSendToken = (user, statusCode, res) => {
 
 /* ----------------------- SIGNUP ----------------------- */
 exports.signup = async (req, res, next) => {
+  console.log(req.file);
+  console.log(req.body);
   let imagePath;
   if (req.file) {
     imagePath = `/userProfileImages/${req.file.filename}`;
@@ -48,7 +50,9 @@ exports.signup = async (req, res, next) => {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
-      passwordConfirm: req.body.passwordConfirm
+      passwordConfirm: req.body.passwordConfirm,
+      policy: req.body.policy,
+      DOB: req.body.DOB
     });
 
     createSendToken({ ...newUser, image: imagePath }, 201, res);
