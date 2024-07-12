@@ -145,14 +145,7 @@ interface CurrentUserPayload {
       policy: boolean;
     } | null;
   };
-  status:
-    | 'idle'
-    | 'loading'
-    | 'failed'
-    | 'success'
-    | 'logout success'
-    | 'login success'
-    | null;
+  status: 'idle' | 'loading' | 'failed' | 'success' | null;
   error?: string | null;
 }
 

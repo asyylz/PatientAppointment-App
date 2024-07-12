@@ -1,14 +1,6 @@
-import {
-  createSlice,
-  PayloadAction,
-  createAsyncThunk,
-  createAction,
-  Draft,
-} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
-
-type WritableDraft<T> = Draft<T> & Partial<T>;
 
 const initialState: CurrentUser = {
   status: 'idle',
@@ -16,7 +8,9 @@ const initialState: CurrentUser = {
   userData: null,
 };
 
-// Async thunk for register
+/* ------------------------------------------------------ */
+/*                        REGISTER                        */
+/* ------------------------------------------------------ */
 export const register = createAsyncThunk<
   CurrentUserPayload,
   FormData,
@@ -45,6 +39,10 @@ export const register = createAsyncThunk<
     }
   }
 });
+
+/* ------------------------------------------------------ */
+/*                          LOGIN                         */
+/* ------------------------------------------------------ */
 // Async thunk for login
 export const login = createAsyncThunk<
   CurrentUserPayload,
@@ -52,8 +50,6 @@ export const login = createAsyncThunk<
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
   try {
-    // console.log(credentials);
-
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/login',
       credentials
@@ -76,7 +72,9 @@ export const login = createAsyncThunk<
   }
 });
 
-// Async thunk for logout
+/* ------------------------------------------------------ */
+/*                         LOGOUT                         */
+/* ------------------------------------------------------ */
 export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
   'currentUser/logout',
   async (token: string, { rejectWithValue }) => {
@@ -101,16 +99,14 @@ export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
   }
 );
 
+/* ------------------------------------------------------ */
+/*                         UPDATE                         */
+/* ------------------------------------------------------ */
 export const updateUserInfo = createAsyncThunk<
   CurrentUserPayload,
   { token: string; userUpdatedFormData: FormData },
   { rejectValue: string }
 >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
-  // const formData = new FormData();
-  // for (const key in tokenAndData.updatedUserData) {
-  //   formData.append(key, tokenAndData.updatedUserData[key]);
-  // }
-  // console.log(formData);
   try {
     const response = await axios.patch(
       'http://localhost:3000/api/v1/users/updateUser',
@@ -118,13 +114,13 @@ export const updateUserInfo = createAsyncThunk<
       {
         headers: {
           Authorization: `Bearer ${tokenAndData.token}`,
-          'Content-Type': 'multipart/form-data', // Ensuring correct content type
+          'Content-Type': 'multipart/form-data',
         },
       }
     );
 
     toastSuccessNotify('Successfully updated!');
-    return response.data; // Return the response data
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
@@ -138,7 +134,6 @@ export const updateUserInfo = createAsyncThunk<
     return rejectWithValue('An unexpected error occurred');
   }
 });
-
 
 /* ------------------------------------------------------ */
 /*                          SLICE                         */
@@ -158,7 +153,7 @@ const currentUserSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.status = 'login success';
+        state.status = 'success';
         state.token = action.payload.token;
         state.userData = action.payload.data.user;
         state.error = null;

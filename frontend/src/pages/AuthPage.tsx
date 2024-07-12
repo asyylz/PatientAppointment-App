@@ -25,7 +25,7 @@ const AuthPage = () => {
   const { status, token } = useSelector(
     (state: RootState) => state.currentUser
   );
- // console.log(token);
+  // console.log(token);
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
@@ -42,7 +42,7 @@ const AuthPage = () => {
   };
 
   useEffect(() => {
-    if (status === 'login success') {
+    if (status === 'success') {
       navigate('/user/dashboard');
     }
   }, [status, navigate, selectedDoctor]);
@@ -57,9 +57,6 @@ const AuthPage = () => {
     }
     await dispatch(register(userFormData));
 
-    if (status === 'success' && token) {
-      navigate('/user/dashboard');
-    }
     setUserData(null);
   };
 
