@@ -23,9 +23,16 @@ const AuthPage = () => {
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
+  // const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   dispatch(login({ email, password }));
+  // };
+
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(login({ email, password }));
+    if (userData) {
+      dispatch(login({ email: userData.email, password: userData.password }));
+    }
   };
 
   useEffect(() => {
@@ -91,25 +98,19 @@ const AuthPage = () => {
           <CustomInput
             type="email"
             name="email"
-            value="alice.johnson@example.com"
+            //value="alice.johnson@example.com"
             placeHolder="Enter your email"
             onChange={handleInputChange}
+            required
           />
-          {/* <div className={classes.inputBox}>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              value="Password3!"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div> */}
+
           <CustomInput
             type="password"
             name="pasword"
-            value="Password3!"
+           // value="Password3!"
             placeHolder="Enter your password"
             onChange={handleInputChange}
+            required
           />
           <button type="submit">Login</button>
         </form>
@@ -124,6 +125,7 @@ const AuthPage = () => {
             name="name"
             placeHolder="Enter your name"
             onChange={handleInputChange}
+            required
           />
 
           <CustomInput
@@ -131,12 +133,14 @@ const AuthPage = () => {
             name="email"
             placeHolder="Enter your email"
             onChange={handleInputChange}
+            required
           />
           <CustomInput
             type="date"
             name="DOB"
             placeHolder="Enter your DOB"
             onChange={handleInputChange}
+            required
           />
 
           <CustomInput
@@ -150,6 +154,7 @@ const AuthPage = () => {
             name="password"
             placeHolder="Confirm your password"
             onChange={handleInputChange}
+            required
           />
           <div className={classes.imagePickerWrapper}>
             <ImagePicker
@@ -161,7 +166,12 @@ const AuthPage = () => {
           </div>
 
           <div className={classes.policy}>
-            <input name="policy" type="checkbox" onChange={handleInputChange} />
+            <input
+              name="policy"
+              type="checkbox"
+              onChange={handleInputChange}
+              required
+            />
             <h3>I accept all terms & condition</h3>
           </div>
           <button type="submit">Register</button>

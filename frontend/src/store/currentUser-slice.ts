@@ -24,6 +24,7 @@ export const login = createAsyncThunk<
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
   try {
+    console.log(credentials);
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/login',
       credentials
@@ -34,6 +35,8 @@ export const login = createAsyncThunk<
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
+      console.log(error);
+      toastErrorNotify(error.response?.data.message);
       if (axiosError.response?.status === 401) {
         toastErrorNotify(
           `${(axiosError.response.data as { message: string }).message}`

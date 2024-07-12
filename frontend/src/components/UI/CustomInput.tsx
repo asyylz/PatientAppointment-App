@@ -8,6 +8,7 @@ interface CustomInputProps {
   defaultValue?: string;
   value?: string; // Add value prop
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 }
 const CustomInput: React.FC<CustomInputProps> = ({
   name,
@@ -16,6 +17,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   defaultValue,
   value,
   onChange,
+  required,
 }) => {
   return (
     <div className={classes.inputWrapper}>
@@ -26,6 +28,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         defaultValue={defaultValue}
         value={value}
         onChange={onChange}
+        required={required}
       />
     </div>
   );
