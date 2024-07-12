@@ -49,21 +49,11 @@ const ProfileForm: React.FC = () => {
     userData && (
       <div className={classes.container}>
         <div className={classes.wrapper}>
-          <div className={classes.imageWrapper}>
-            <div className={classes.image}>
-              <img src={userData.image} alt="" />
-              <img
-                src="backend/public/userProfileImages/1720776386119-asiye-serife-yaliz.jpeg"
-                alt=""
-              />
-            </div>
-            <ImagePicker
-              name="image"
-              label="Your image"
-              setUpdatedUserData={setUpdatedUserData}
-            />
-            {/* <button>Upload Avatar</button> */}
-          </div>
+          <ImagePicker
+            name="image"
+            setUpdatedUserData={setUpdatedUserData}
+            defaultImage={`http://localhost:3000/static/${userData?.image}`}
+          />
         </div>
 
         <div className={classes.infoWrapper}>

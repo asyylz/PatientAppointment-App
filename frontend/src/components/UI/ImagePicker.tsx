@@ -1,22 +1,23 @@
 import React, { useRef, useState } from 'react';
 import classes from './ImagePicker.module.css';
 interface ImagePickerProps {
-  label: string;
+  label?: string;
   name: string;
   setUpdatedUserData: (updateUserData: object) => void;
+  defaultImage?: string;
 }
 
 const ImagePicker: React.FC<ImagePickerProps> = ({
   label,
   name,
   setUpdatedUserData,
+  defaultImage,
 }) => {
   const [pickedImage, setPickedImage] = useState<
     File | null | undefined | ArrayBuffer | string
-  >(undefined);
+  >(defaultImage);
 
   const imageInput = useRef<HTMLInputElement>(null);
-  // console.log(pickedImage);
 
   const handlePickClick = () => {
     if (imageInput.current) {
@@ -30,7 +31,6 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
       setPickedImage(null);
       return;
     }
-    //console.log(file.name);
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPickedImage(fileReader.result);
@@ -48,15 +48,6 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
       <label htmlFor={name}>{label}</label>
       <div className={classes.controls}>
         <div className={classes.preview}>
-          {/* {pickedImage ? (
-            <img
-              src={pickedImage as string}
-              alt="The image selected by the user."
-            />
-          ) : (
-            <i className="fas fa-camera"></i>
-          )} */}
-
           {!pickedImage && <p>No image picked yet.</p>}
           {pickedImage && (
             <img
@@ -66,7 +57,6 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           )}
         </div>
         <input
-          // defaultValue={}
           className={classes.input}
           type="file"
           id={name}

@@ -79,10 +79,6 @@ const Dashboard: React.FC = () => {
                 src={`http://localhost:3000/static/${userData?.image}`}
                 alt=""
               />
-              {/* <img
-                src="/userProfileImages/1720777336851-asiye-serife-yaliz.jpeg"
-                alt=""
-              /> */}
             </div>
             <p>Welcome {userData?.name}</p>
           </div>

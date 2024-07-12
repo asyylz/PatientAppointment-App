@@ -9,7 +9,6 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  "proxy": "http://localhost:3000",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react-redux": "^7.1.33",
