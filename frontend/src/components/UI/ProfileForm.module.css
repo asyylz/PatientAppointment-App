@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 1fr;
     margin: 0 auto;
     margin-bottom: 4rem;
+    gap: 1rem;
 
 
 }
@@ -21,16 +22,22 @@
 
 .buttonWrapper {
     /* border: 1px solid red; */
-    margin-top: 2rem;
+    margin-top: 6rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     /* grid-column: span 2; */
 
 }
 
 hr {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 16px;
 }
+
+p {
+    margin-top: 2rem;
+}
+
 
 @media (max-width:990px) {
 

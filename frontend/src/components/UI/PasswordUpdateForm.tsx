@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import classes from './PasswordUpdateForm.module.css';
 import CustomInput from './CustomInput';
+import classes from'./PasswordUpdateForm.module.css'
 
 const PasswordResetForm: React.FC = () => {
   const [updatedUserData, setUpdatedUserData] = useState<object>({});

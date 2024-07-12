@@ -82,36 +82,37 @@ const ProfileForm: React.FC = () => {
               placeHolder="Enter your DOB"
               onChange={handleInputChange}
             />
-            <div className={classes.buttonWrapper}>
-              <button onClick={updateInfo} type="submit">
-                Update
-              </button>
-              <button>Cancel</button>
-            </div>
           </div>
         </div>
-        <p>Password Settings</p>
-        <hr />
+        <br />
+        <br />
+
         <div>
-          <CustomInput
-            placeHolder="Enter your old password"
-            type="password"
-            name="oldPassword"
-          />
-          <CustomInput
-            placeHolder="Enter your new password"
-            type="password"
-            name="newPassword"
-          />
-          <CustomInput
-            placeHolder="Confirm your new password"
-            type="password"
-            name="confirmNewPassword"
-          />
-        </div>
-        <div className={classes.buttonWrapper}>
-          <button>Update</button>
-          <button>Cancel</button>
+          <p>Adsress Settings</p>
+          <hr />
+          <div>
+            <CustomInput
+              placeHolder="Enter your street"
+              type="password"
+              name="oldPassword"
+            />
+            <CustomInput
+              placeHolder="Enter your street"
+              type="password"
+              name="newPassword"
+            />
+            <CustomInput
+              placeHolder="Enter your postcode"
+              type="password"
+              name="confirmNewPassword"
+            />
+          </div>
+          <div className={classes.buttonWrapper}>
+            <button onClick={updateInfo} type="submit">
+              Update
+            </button>
+            <button>Cancel</button>
+          </div>
         </div>
       </>
     )
