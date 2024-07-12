@@ -14,12 +14,12 @@ const initialState: CurrentUser = {
   status: 'idle',
   token: '',
   userData: null,
-  image: '',
 };
+
 // Async thunk for register
 export const register = createAsyncThunk<
   CurrentUserPayload,
-  UserData,
+  FormData,
   { rejectValue: string }
 >('signup', async (credentials, { rejectWithValue }) => {
   console.log(credentials);
@@ -52,7 +52,8 @@ export const login = createAsyncThunk<
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
   try {
-    console.log(credentials);
+    // console.log(credentials);
+
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/login',
       credentials
@@ -100,69 +101,26 @@ export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
   }
 );
 
-// export const updateUserInfo = createAsyncThunk<
-//   CurrentUserPayload,
-//   { token: string; updatedUserData: Record<string, any> },
-//   { rejectValue: string }
-// >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
-//   const formData = new FormData();
-//   for (const key in tokenAndData.updatedUserData) {
-//     formData.append(key, tokenAndData.updatedUserData[key]);
-//   }
-//   console.log(formData);
-//   try {
-//     const response = await axios.patch(
-//       'http://localhost:3000/api/v1/users/updateUser',
-//       formData,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${tokenAndData.token}`,
-//           'Content-Type': 'multipart/form-data', // Ensuring correct content type
-//         },
-//       }
-//     );
-
-//     toastSuccessNotify('Successfully updated!');
-//     return response.data; // Return the response data
-//   } catch (error) {
-//     if (axios.isAxiosError(error)) {
-//       const axiosError = error as AxiosError;
-//       if (axiosError.response?.status === 401) {
-//         toastErrorNotify(
-//           `${(axiosError.response.data as { message: string }).message}`
-//         );
-//       }
-//       return rejectWithValue(error.message);
-//     }
-//     return rejectWithValue('An unexpected error occurred');
-//   }
-// });
-
 export const updateUserInfo = createAsyncThunk<
   CurrentUserPayload,
-  { token: string; updatedUserData: Record<string, any> },
+  { token: string; userUpdatedFormData: FormData },
   { rejectValue: string }
 >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
-  let requestData: FormData | Record<string, any> =
-    tokenAndData.updatedUserData;
-  let headers = {
-    Authorization: `Bearer ${tokenAndData.token}`,
-  };
-
-  if (tokenAndData.updatedUserData.image) {
-    const formData = new FormData();
-    for (const key in tokenAndData.updatedUserData) {
-      formData.append(key, tokenAndData.updatedUserData[key]);
-    }
-    requestData = formData;
-    headers['Content-Type'] = 'multipart/form-data';
-  }
-
+  // const formData = new FormData();
+  // for (const key in tokenAndData.updatedUserData) {
+  //   formData.append(key, tokenAndData.updatedUserData[key]);
+  // }
+  // console.log(formData);
   try {
     const response = await axios.patch(
       'http://localhost:3000/api/v1/users/updateUser',
-      requestData,
-      { headers }
+      tokenAndData.userUpdatedFormData,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenAndData.token}`,
+          'Content-Type': 'multipart/form-data', // Ensuring correct content type
+        },
+      }
     );
 
     toastSuccessNotify('Successfully updated!');
@@ -181,14 +139,18 @@ export const updateUserInfo = createAsyncThunk<
   }
 });
 
+
+/* ------------------------------------------------------ */
+/*                          SLICE                         */
+/* ------------------------------------------------------ */
 // Create the currentUserSlice
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
   reducers: {
-    setImagePath: (state, action: PayloadAction<string>) => {
-      state.image = action.payload;
-    },
+    // setImagePath: (state, action: PayloadAction<string>) => {
+    //   state.image = action.payload;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -198,8 +160,13 @@ const currentUserSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.status = 'login success';
         state.token = action.payload.token;
-        state.userData = action.payload.data.user as WritableDraft<userData>;
-        state.image = action.payload.image;
+        state.userData = action.payload.data.user;
+        state.error = null;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.status = 'success';
+        state.token = action.payload.token;
+        state.userData = action.payload.data.user;
         state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
@@ -211,7 +178,6 @@ const currentUserSlice = createSlice({
         state.status = 'logout success';
         state.token = '';
         state.userData = null;
-        state.image = '';
         state.error = null;
       })
       .addCase(logout.rejected, (state, action) => {
@@ -222,7 +188,7 @@ const currentUserSlice = createSlice({
         state.status = 'update success';
         console.log(action.payload);
         //state.userData = action.payload.data.user;
-        state.userData = action.payload.data.user as WritableDraft<userData>;
+        state.userData = action.payload.data.user;
         state.error = null;
       })
       .addCase(updateUserInfo.rejected, (state, action) => {
@@ -238,5 +204,5 @@ const currentUserSlice = createSlice({
 // Export actions and reducer
 export const logoutSuccess = createAction('currentUser/stateToIdle');
 
-export const { setImagePath } = currentUserSlice.actions;
+//export const { setImagePath } = currentUserSlice.actions;
 export default currentUserSlice.reducer;

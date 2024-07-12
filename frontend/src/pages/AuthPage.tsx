@@ -22,7 +22,10 @@ const AuthPage = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
-  const { status } = useSelector((state: RootState) => state.currentUser);
+  const { status, token } = useSelector(
+    (state: RootState) => state.currentUser
+  );
+ // console.log(token);
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
@@ -52,11 +55,15 @@ const AuthPage = () => {
         userFormData.append(key, value);
       });
     }
-    await dispatch(register({ ...userData }));
+    await dispatch(register(userFormData));
+
+    if (status === 'success' && token) {
+      navigate('/user/dashboard');
+    }
     setUserData(null);
   };
 
-  console.log(userData);
+  //console.log(userData);
 
   const handleInputChange = (
     e: React.ChangeEvent<

@@ -35,8 +35,6 @@ const createSendToken = (user, statusCode, res) => {
 
 /* ----------------------- SIGNUP ----------------------- */
 exports.signup = async (req, res, next) => {
-  console.log(req.file);
-  console.log(req.body);
   let imagePath;
   if (req.file) {
     imagePath = `/userProfileImages/${req.file.filename}`;
@@ -50,10 +48,11 @@ exports.signup = async (req, res, next) => {
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
       policy: req.body.policy,
-      DOB: req.body.DOB
+      DOB: req.body.DOB,
+      image: imagePath
     });
 
-    createSendToken({ ...newUser, image: imagePath }, 201, res);
+    createSendToken(newUser, 201, res);
   } catch (err) {
     next(err);
   }
@@ -237,6 +236,7 @@ exports.resetPassword = async (req, res, next) => {
 exports.updatePassword = async (req, res, next) => {
   const { oldPassword, newPassword, confirmNewPassword } = req.body;
   console.log('from updatePassword', req.user.id);
+
   const user = await User.findById(req.user.id).select('+password');
   if (!(await user.correctPassword(oldPassword))) {
     return next(new AppError('Current password of user is not match', 401));

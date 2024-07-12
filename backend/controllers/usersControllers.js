@@ -78,13 +78,11 @@ exports.deleteUser = async (req, res, next) => {
 
 // UPDATE //
 exports.updateUser = async (req, res, next) => {
-  //console.log('from req.file', req.file);
+  console.log('from req.file', req.file);
 
   let imagePath;
   if (req.file) {
     imagePath = `/userProfileImages/${req.file.filename}`;
-  } else {
-    imagePath = `/userProfileImages/userDefaultAvatar.png`;
   }
 
   if (req.body.password || req.body.passwordConfirm) {

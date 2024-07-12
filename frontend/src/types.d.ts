@@ -109,7 +109,6 @@ interface ReviewProps {
 interface CurrentUser {
   token: string;
   userData: userData | null;
-  image: string;
   status:
     | 'idle'
     | 'loading'
@@ -140,9 +139,12 @@ interface CurrentUserPayload {
       role: string;
       name: string;
       email: string;
+      active: boolean;
+      DOB: Date;
+      image: string;
+      policy: boolean;
     } | null;
   };
-  image?: string;
   status:
     | 'idle'
     | 'loading'
@@ -154,12 +156,18 @@ interface CurrentUserPayload {
   error?: string | null;
 }
 
+interface UpdatedUserPassword {
+  currentPassword?: string;
+  newPassword?: string;
+  confirmNewPassword?: string;
+}
+
 interface Credentials {
   name?: string;
   email?: string;
   password?: string;
   passwordConfirm?: string;
-  image?: Blob |string;
+  image?: Blob | string;
   policy?: boolean;
   DOB?: Date;
 }

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import CustomInput from './CustomInput';
-import classes from'./PasswordUpdateForm.module.css'
+import classes from './PasswordUpdateForm.module.css';
 
 const PasswordResetForm: React.FC = () => {
-  const [updatedUserData, setUpdatedUserData] = useState<object>({});
+  const [updatedUserPassword, setupdatedUserPassword] =
+    useState<UpdatedUserPassword | null>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -11,11 +12,15 @@ const PasswordResetForm: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setUpdatedUserData((prevValues) => ({
+    setupdatedUserPassword((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
+
+  const handleSubmit = () => {};
+
+  console.log(updatedUserPassword);
 
   return (
     <div className={classes.container}>
@@ -41,8 +46,10 @@ const PasswordResetForm: React.FC = () => {
       </div>
       <div className={classes.buttonWrapper}>
         {' '}
-        <button>Update</button>
-        <button>Cancel</button>
+        <button type="submit" onClick={handleSubmit}>
+          Update
+        </button>
+        <button onClick={() => setupdatedUserPassword(null)}>Cancel</button>
       </div>
     </div>
   );

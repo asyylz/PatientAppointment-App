@@ -14,7 +14,6 @@ const ProfileForm: React.FC = () => {
     (state: RootState) => state.currentUser
   );
   const [updatedUserData, setUpdatedUserData] = useState<object>({});
-  console.log(userData?.image);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -36,10 +35,16 @@ const ProfileForm: React.FC = () => {
       }));
     }
   };
-  console.log(updatedUserData);
 
   const updateInfo = () => {
-    dispatch(updateUserInfo({ updatedUserData, token }));
+    const userUpdatedFormData = new FormData();
+    if (updatedUserData) {
+      Object.entries(updatedUserData).forEach(([key, value]) => {
+        userUpdatedFormData.append(key, value);
+      });
+    }
+
+    dispatch(updateUserInfo({ userUpdatedFormData, token }));
     setUpdatedUserData({});
   };
 
