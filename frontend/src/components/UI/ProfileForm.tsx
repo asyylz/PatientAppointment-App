@@ -51,7 +51,7 @@ const ProfileForm: React.FC = () => {
         <div className={classes.wrapper}>
           <ImagePicker
             name="image"
-            setUpdatedUserData={setUpdatedUserData}
+            setter={setUpdatedUserData}
             defaultImage={`http://localhost:3000/static/${userData?.image}`}
           />
         </div>

@@ -37,6 +37,12 @@ const createSendToken = (user, statusCode, res) => {
 
 /* ----------------------- SIGNUP ----------------------- */
 exports.signup = async (req, res, next) => {
+  let imagePath;
+  if (req.file) {
+    imagePath = `/userProfileImages/${req.file.filename}`;
+  } else {
+    imagePath = `/userProfileImages/userDefaultAvatar.png`;
+  }
   try {
     const newUser = await User.create({
       name: req.body.name,
@@ -45,7 +51,7 @@ exports.signup = async (req, res, next) => {
       passwordConfirm: req.body.passwordConfirm
     });
 
-    createSendToken(newUser, 201, res);
+    createSendToken({ ...newUser, image: imagePath }, 201, res);
   } catch (err) {
     next(err);
   }
@@ -138,7 +144,7 @@ exports.protect = async (req, res, next) => {
         )
       );
     }
-    
+
     req.user = currentUser;
     console.log(req.body);
 

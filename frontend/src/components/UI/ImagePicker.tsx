@@ -3,14 +3,14 @@ import classes from './ImagePicker.module.css';
 interface ImagePickerProps {
   label?: string;
   name: string;
-  setUpdatedUserData: (updateUserData: object) => void;
+  setter: (data: object) => void;
   defaultImage?: string;
 }
 
 const ImagePicker: React.FC<ImagePickerProps> = ({
   label,
   name,
-  setUpdatedUserData,
+  setter,
   defaultImage,
 }) => {
   const [pickedImage, setPickedImage] = useState<
@@ -37,7 +37,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
     };
     fileReader.readAsDataURL(file);
 
-    setUpdatedUserData((prevValues: object) => ({
+    setter((prevValues: object) => ({
       ...prevValues,
       image: file,
     }));
@@ -67,7 +67,6 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           required
         />
         <button
-          //className={classes.button}
           type="button"
           onClick={handlePickClick}
         >

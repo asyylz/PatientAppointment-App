@@ -78,10 +78,14 @@ exports.deleteUser = async (req, res, next) => {
 
 // UPDATE //
 exports.updateUser = async (req, res, next) => {
-  // Create error if user posts password data
-  console.log('from req.file', req.file);
+  //console.log('from req.file', req.file);
 
-  console.log('from updateUser', req.body);
+  let imagePath;
+  if (req.file) {
+    imagePath = `/userProfileImages/${req.file.filename}`;
+  } else {
+    imagePath = `/userProfileImages/userDefaultAvatar.png`;
+  }
 
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -91,9 +95,6 @@ exports.updateUser = async (req, res, next) => {
       )
     );
   }
-  // if (!req.body.image) {
-  //   return res.status(400).json({ message: 'No profile image uploaded' });
-  // }
 
   try {
     const filteredBody = filterObj(req.body, 'name', 'email', 'DOB', 'image');
@@ -101,7 +102,7 @@ exports.updateUser = async (req, res, next) => {
       req.user.id,
       {
         ...filteredBody,
-        image: `/userProfileImages/${req.file.filename}`
+        image: imagePath
       },
       //filteredBody,
       {
