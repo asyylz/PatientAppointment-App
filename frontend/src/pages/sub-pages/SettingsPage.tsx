@@ -8,8 +8,6 @@ const SettingsPage: React.FC = () => {
         <h1>Profile Settings</h1>
         <TabContainer />
       </div>
-      <div>asii</div>
-      <div>aytein</div>
     </div>
   );
 };

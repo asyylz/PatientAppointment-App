@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const sendEmail = require('./../utils/email');
-const Appointment = require('./../models/appointmentModel');
-const { log } = require('console');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {

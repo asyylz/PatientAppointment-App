@@ -47,45 +47,73 @@ const ProfileForm: React.FC = () => {
 
   return (
     userData && (
-      <div className={classes.container}>
-        <div className={classes.wrapper}>
+      <>
+        <p>User Info</p>
+        <hr />
+        <div
+          //style={{border:'1px solid red'}}
+          className={classes.container}
+        >
           <ImagePicker
             name="image"
             setter={setUpdatedUserData}
-            defaultImage={`http://localhost:3000/static/${userData?.image}`}
+            defaultImage={`http://localhost:3000/static${userData?.image}`}
           />
-        </div>
 
-        <div className={classes.infoWrapper}>
-          <CustomInput
-            defaultValue={userData?.name}
-            type="text"
-            name="name"
-            placeHolder="Enter your name"
-            onChange={handleInputChange}
-          />
-          <CustomInput
-            defaultValue={userData.email}
-            type="text"
-            name="email"
-            placeHolder="Enter your email"
-            onChange={handleInputChange}
-          />
-          <CustomInput
-            defaultValue={formatDateForInput(userData.DOB)}
-            type="date"
-            name="DOB"
-            placeHolder="Enter your DOB"
-            onChange={handleInputChange}
-          />
-          <div className={classes.buttonWrapper}>
-            <button onClick={updateInfo} type="submit">
-              Update
-            </button>
-            <button>Cancel</button>
+          <div className={classes.infoWrapper}>
+            <CustomInput
+              defaultValue={userData?.name}
+              type="text"
+              name="name"
+              placeHolder="Enter your name"
+              onChange={handleInputChange}
+            />
+            <CustomInput
+              defaultValue={userData.email}
+              type="text"
+              name="email"
+              placeHolder="Enter your email"
+              onChange={handleInputChange}
+            />
+            <CustomInput
+              defaultValue={formatDateForInput(userData.DOB)}
+              type="date"
+              name="DOB"
+              placeHolder="Enter your DOB"
+              onChange={handleInputChange}
+            />
+            <div className={classes.buttonWrapper}>
+              <button onClick={updateInfo} type="submit">
+                Update
+              </button>
+              <button>Cancel</button>
+            </div>
           </div>
         </div>
-      </div>
+        <p>Password Settings</p>
+        <hr />
+        <div>
+          <CustomInput
+            placeHolder="Enter your old password"
+            type="password"
+            name="oldPassword"
+          />
+          <CustomInput
+            placeHolder="Enter your new password"
+            type="password"
+            name="newPassword"
+          />
+          <CustomInput
+            placeHolder="Confirm your new password"
+            type="password"
+            name="confirmNewPassword"
+          />
+        </div>
+        <div className={classes.buttonWrapper}>
+          <button>Update</button>
+          <button>Cancel</button>
+        </div>
+      </>
     )
   );
 };

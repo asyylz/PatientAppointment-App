@@ -1,6 +1,9 @@
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+
 
 }
 
@@ -22,5 +25,54 @@
     display: flex;
     justify-content: center;
     /* grid-column: span 2; */
+
+}
+
+hr {
+    margin-bottom: 1rem;
+}
+
+@media (max-width:990px) {
+
+    .buttonWrapper button {
+        max-width: 160px
+    }
+
+    .picker button {
+        width: 160px;
+    }
+}
+
+@media (max-width:768px) {
+    .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin: 0 auto;
+    }
+
+    .buttonWrapper button {
+        width: 150px
+    }
+
+    .picker button {
+        width: 160px;
+    }
+
+}
+
+@media (max-width:414px) {
+    .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin: 0 auto;
+    }
+
+    .buttonWrapper button {
+        width: 120px
+    }
+
+    .picker button {
+        width: 160px;
+    }
 
 }

@@ -17,8 +17,9 @@ button.tab {
     border-radius: 0%;
     box-shadow: none;
 }
-button.tab:hover{
-   color: #444;
+
+button.tab:hover {
+    color: #444;
 }
 
 .tab.active {
@@ -28,5 +29,5 @@ button.tab:hover{
 
 .tabContent {
     padding: 20px;
-    /* border: 1px solid blue; */
+    border: 1px solid blue;
 }

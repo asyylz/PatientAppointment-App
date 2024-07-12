@@ -11,16 +11,11 @@ const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
 
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+
 
   useEffect(() => {
     const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
@@ -53,23 +48,17 @@ const TopSearchBar: React.FC = () => {
 
         {token && userData ? (
           <div className={classes.user}>
-            {windowWidth > 768 ? (
-              <>
-                <h3>
-                  {userData?.role === 'doctor'
-                    ? `Dr. ${userData?.name}`
-                    : userData?.name}
-                </h3>
-                <i className="fas fa-bell"></i>
-                <img
-                  src={`http://localhost:3000/static/${userData?.image}`}
-                  alt="User"
-                />
-                <button onClick={handleLogout}>Logout</button>
-              </>
-            ) : (
-              <img src={userData.image} alt="User" />
-            )}
+            <h3>
+              {userData?.role === 'doctor'
+                ? `Dr. ${userData?.name}`
+                : userData?.name}
+            </h3>
+            <i className="fas fa-bell"></i>
+            <img
+              src={`http://localhost:3000/static${userData?.image}`}
+              alt="User"
+            />
+            <button onClick={handleLogout}>Logout</button>
           </div>
         ) : (
           <GlobalLink text="Login" to="/auth" />

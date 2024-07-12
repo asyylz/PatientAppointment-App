@@ -6,7 +6,7 @@ import PasswordUpdateForm from './../UI/PasswordUpdateForm';
 
 const tabList = [
   { title: 'Profile Settings', component: ProfileForm },
-  { title: 'Password Settings', component: PasswordUpdateForm }
+  { title: 'Password Settings', component: PasswordUpdateForm },
 ];
 
 const TabContainer: React.FC = () => {

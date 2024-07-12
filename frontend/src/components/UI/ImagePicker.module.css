@@ -52,3 +52,14 @@
   object-fit: cover;
   padding: 6px;
 }
+
+@media (max-width:990px) {
+  .controls {
+    flex-direction: column;
+  }
+
+  .picker button {
+    width: 160px;
+  }
+
+}

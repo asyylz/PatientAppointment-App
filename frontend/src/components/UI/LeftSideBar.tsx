@@ -5,17 +5,16 @@ import { useSelector } from 'react-redux';
 const sideBarSectionList = [
   { title: 'HOSPITAL', icon: 'fas fa-clinic-medical' },
   { title: 'Dashboard', icon: 'fas fa-th-large' },
+  { title: 'Profile Settings', icon: 'fas fa-cog' },
   // { title: 'Appointments', icon: 'fas fa-stethoscope' },
   { title: 'Doctors', icon: 'fas fa-user-md' },
   { title: 'Departments', icon: 'fas fa-puzzle-piece' },
   { title: 'Payments', icon: 'fas fa-hand-holding-usd' },
-  { title: 'Settings', icon: 'fas fa-cog' },
+
   { title: 'Help', icon: 'fas fa-question' },
 ];
 export default function LeftSideBar() {
-  const { token, userData, status, image, error } = useSelector(
-    (state: RootState) => state.currentUser
-  );
+  const { userData } = useSelector((state: RootState) => state.currentUser);
   return (
     <>
       <div className={classes.sidebar}>
@@ -23,7 +22,7 @@ export default function LeftSideBar() {
           {sideBarSectionList.map((section) => {
             return (
               <li key={section.title}>
-                <Link to={`/user/${section.title.toLowerCase()}`}>
+                <Link to={`/user/${section.title.split(' ').join("").toLowerCase()}`}>
                   <div className={classes.iconBox}>
                     <i className={section.icon}></i>
                   </div>

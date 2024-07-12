@@ -70,7 +70,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           type="button"
           onClick={handlePickClick}
         >
-          Pick a image
+          Pick image
         </button>
       </div>
     </div>

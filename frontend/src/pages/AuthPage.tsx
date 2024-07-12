@@ -11,9 +11,13 @@ import CustomInput from '../components/UI/CustomInput';
 // const [email, setEmail] = useState<string>('aytekin@test.com');
 //const [email, setEmail] = useState<string>('alice.johnson@example.com');
 //const [password, setPassword] = useState<string>('newpass12');
+//6946224Asy@
 
 const AuthPage = () => {
-  const [userData, setUserData] = useState<UserData>();
+  const [userData, setUserData] = useState<UserData>({
+    email: 'alice.johnson@example.com',
+    password: 'Password3!',
+  });
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -89,7 +93,7 @@ const AuthPage = () => {
           <CustomInput
             type="email"
             name="email"
-            //value="alice.johnson@example.com"
+            value="alice.johnson@example.com"
             placeHolder="Enter your email"
             onChange={handleInputChange}
             required
@@ -98,7 +102,7 @@ const AuthPage = () => {
           <CustomInput
             type="password"
             name="password"
-            // value="Password3!"
+            value="Password3!"
             placeHolder="Enter your password"
             onChange={handleInputChange}
             required
@@ -151,8 +155,8 @@ const AuthPage = () => {
             <ImagePicker
               name="image"
               setter={setUserData}
-              defaultImage="http://localhost:3000/static/userProfileImages/userDefaultAvatar.png"
-              // defaultImage="/defaultUserAvatar.png"
+              // defaultImage="http://localhost:3000/static/userProfileImages/userDefaultAvatar.png"
+              defaultImage="/defaultUserAvatar.png"
             />
           </div>
 

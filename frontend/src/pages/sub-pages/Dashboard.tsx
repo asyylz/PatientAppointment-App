@@ -76,7 +76,7 @@ const Dashboard: React.FC = () => {
           <div className={classes.wrapper}>
             <div className={classes.image}>
               <img
-                src={`http://localhost:3000/static/${userData?.image}`}
+                src={`http://localhost:3000/static${userData?.image}`}
                 alt=""
               />
             </div>

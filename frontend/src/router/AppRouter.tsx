@@ -56,7 +56,7 @@ const routes: RouteObject[] = [
       },
       { path: 'departments', element: <Departments /> },
       { path: 'payments', element: <Payments /> },
-      { path: 'settings', element: <SettingsPage /> },
+      { path: 'profilesettings', element: <SettingsPage /> },
     ],
   },
 
