@@ -7,6 +7,7 @@ import { updateUserInfo } from '../../store/currentUser-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import ImagePicker from './ImagePicker';
+import MapAndAdressForm from './MapAndAdressForm';
 
 const ProfileForm: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -99,7 +100,6 @@ const ProfileForm: React.FC = () => {
               value={updatedUserData?.email}
             />
             <CustomInput
-              //defaultValue={formatDateForInput(userData.DOB)}
               type="date"
               name="DOB"
               placeHolder="Enter your DOB"
@@ -114,23 +114,10 @@ const ProfileForm: React.FC = () => {
         <div>
           <p>Adsress Settings</p>
           <hr />
-          <div>
-            <CustomInput
-              placeHolder="Enter your street"
-              type="password"
-              name="oldPassword"
-            />
-            <CustomInput
-              placeHolder="Enter your street"
-              type="password"
-              name="newPassword"
-            />
-            <CustomInput
-              placeHolder="Enter your postcode"
-              type="password"
-              name="confirmNewPassword"
-            />
+          <div className={classes.container}>
+            <MapAndAdressForm />
           </div>
+
           <div className={classes.buttonWrapper}>
             <button onClick={updateInfo} type="submit">
               Update

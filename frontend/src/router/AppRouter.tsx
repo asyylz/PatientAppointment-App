@@ -56,7 +56,14 @@ const routes: RouteObject[] = [
       },
       { path: 'departments', element: <Departments /> },
       { path: 'payments', element: <Payments /> },
-      { path: 'profilesettings', element: <SettingsPage /> },
+      {
+        path: 'profilesettings',
+        element: (
+          <PrivateRoute>
+            <SettingsPage />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 

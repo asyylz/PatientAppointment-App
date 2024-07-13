@@ -107,8 +107,6 @@ export const updateUserInfo = createAsyncThunk<
   { token: string; userUpdatedFormData: FormData },
   { rejectValue: string }
 >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
-  console.log(tokenAndData.userUpdatedFormData.get('DOB'));
-  
   try {
     const response = await axios.patch(
       'http://localhost:3000/api/v1/users/updateUser',

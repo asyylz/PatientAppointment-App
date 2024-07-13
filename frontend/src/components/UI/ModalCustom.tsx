@@ -13,6 +13,7 @@ const ModalCustom: React.FC<ModalCustomProps> = ({
   width,
 }) => {
   const modalElement = document.getElementById('modal');
+  
   if (!modalElement) {
     throw new Error('No modal element found with id "modal"');
   }
