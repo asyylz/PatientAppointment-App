@@ -4,7 +4,11 @@ import classes from './PasswordUpdateForm.module.css';
 
 const PasswordResetForm: React.FC = () => {
   const [updatedUserPassword, setupdatedUserPassword] =
-    useState<UpdatedUserPassword | null>(null);
+    useState<UpdatedUserPassword | null>({
+      oldPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+    });
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -18,7 +22,19 @@ const PasswordResetForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Updated Password Data:', updatedUserPassword);
+    // Add logic to handle password update
+  };
+
+  const handleClearInputs = () => {
+    setupdatedUserPassword({
+      oldPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+    });
+  };
 
   console.log(updatedUserPassword);
 
@@ -30,18 +46,21 @@ const PasswordResetForm: React.FC = () => {
           name="oldPassword"
           placeHolder="Enter your old password"
           onChange={handleInputChange}
+          value={updatedUserPassword?.oldPassword}
         />
         <CustomInput
           type="password"
           name="newPassword"
           placeHolder="Your new password"
           onChange={handleInputChange}
+          value={updatedUserPassword?.newPassword}
         />
         <CustomInput
           type="password"
           name="confirmNewPassword"
           placeHolder="Confirm your new password"
           onChange={handleInputChange}
+          value={updatedUserPassword?.confirmNewPassword}
         />
       </div>
       <div className={classes.buttonWrapper}>
@@ -49,7 +68,7 @@ const PasswordResetForm: React.FC = () => {
         <button type="submit" onClick={handleSubmit}>
           Update
         </button>
-        <button onClick={() => setupdatedUserPassword(null)}>Cancel</button>
+        <button onClick={handleClearInputs}>Cancel</button>
       </div>
     </div>
   );

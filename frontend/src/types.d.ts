@@ -151,7 +151,7 @@ interface CurrentUserPayload {
 }
 
 interface UpdatedUserPassword {
-  currentPassword?: string;
+  oldPassword?: string;
   newPassword?: string;
   confirmNewPassword?: string;
 }
