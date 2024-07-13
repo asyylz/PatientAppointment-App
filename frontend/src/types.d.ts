@@ -131,7 +131,6 @@ interface userData {
   image: string;
 }
 
-
 interface CurrentUserPayload {
   token: string;
   data: {
@@ -163,7 +162,7 @@ interface Credentials {
   passwordConfirm?: string;
   image?: Blob | string;
   policy?: boolean;
-  DOB?: Date;
+  DOB?: string;
 }
 
 type UserData = Credentials | null;

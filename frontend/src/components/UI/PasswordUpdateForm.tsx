@@ -36,7 +36,6 @@ const PasswordResetForm: React.FC = () => {
     });
   };
 
-  console.log(updatedUserPassword);
 
   return (
     <div className={classes.container}>

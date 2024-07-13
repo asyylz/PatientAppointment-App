@@ -13,7 +13,12 @@ const ProfileForm: React.FC = () => {
   const { userData, status, token } = useSelector(
     (state: RootState) => state.currentUser
   );
-  const [updatedUserData, setUpdatedUserData] = useState<object>({});
+  const [updatedUserData, setUpdatedUserData] = useState<UserData>({
+    name: userData?.name,
+    DOB: formatDateForInput(userData?.DOB),
+    email: userData?.email,
+    image: userData?.image,
+  });
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -21,19 +26,32 @@ const ProfileForm: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    if (name === 'DOB') {
-      const formattedDate = new Date(`${value}T00:00:00.000Z`);
+    // if (name === 'DOB') {
+    //   const formattedDate = new Date(`${value}T00:00:00.000Z`);
 
-      setUpdatedUserData((prevValues) => ({
-        ...prevValues,
-        DOB: formattedDate,
-      }));
-    } else {
-      setUpdatedUserData((prevValues) => ({
-        ...prevValues,
-        [name]: value,
-      }));
-    }
+    //   setUpdatedUserData((prevValues) => ({
+    //     ...prevValues,
+    //     DOB: formattedDate,
+    //   }));
+    // } else {
+    //   setUpdatedUserData((prevValues) => ({
+    //     ...prevValues,
+    //     [name]: value,
+    //   }));
+    // }
+    setUpdatedUserData((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleClearInputs = () => {
+    setUpdatedUserData({
+      name: userData?.name,
+      DOB: formatDateForInput(userData?.DOB),
+      email: userData?.email,
+      image: userData?.image,
+    });
   };
 
   const updateInfo = () => {
@@ -67,25 +85,26 @@ const ProfileForm: React.FC = () => {
 
           <div className={classes.infoWrapper}>
             <CustomInput
-              defaultValue={userData?.name}
               type="text"
               name="name"
               placeHolder="Enter your name"
               onChange={handleInputChange}
+              value={updatedUserData?.name}
             />
             <CustomInput
-              defaultValue={userData.email}
               type="text"
               name="email"
               placeHolder="Enter your email"
               onChange={handleInputChange}
+              value={updatedUserData?.email}
             />
             <CustomInput
-              defaultValue={formatDateForInput(userData.DOB)}
+              //defaultValue={formatDateForInput(userData.DOB)}
               type="date"
               name="DOB"
               placeHolder="Enter your DOB"
               onChange={handleInputChange}
+              value={updatedUserData?.DOB}
             />
           </div>
         </div>
@@ -116,7 +135,7 @@ const ProfileForm: React.FC = () => {
             <button onClick={updateInfo} type="submit">
               Update
             </button>
-            <button>Cancel</button>
+            <button onClick={handleClearInputs}>Cancel</button>
           </div>
         </div>
       </>
