@@ -9,11 +9,23 @@ import { AppDispatch } from '../../store';
 import ImagePicker from './ImagePicker';
 import MapAndAdressForm from './MapAndAdressForm';
 
+
+
 const ProfileForm: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { userData, status, token } = useSelector(
     (state: RootState) => state.currentUser
   );
+
+  //this state uplifted here
+  const [addressParts, setAddressParts] = useState<Address>({
+    street: '',
+    city: '',
+    country: '',
+    town: '',
+    postalCode: '',
+  });
+
   const [updatedUserData, setUpdatedUserData] = useState<UserData>({
     name: userData?.name,
     DOB: formatDateForInput(userData?.DOB),
@@ -115,7 +127,10 @@ const ProfileForm: React.FC = () => {
           <p>Adsress Settings</p>
           <hr />
           <div className={classes.container}>
-            <MapAndAdressForm />
+            <MapAndAdressForm
+              setAddressParts={setAddressParts}
+              addressParts={addressParts}
+            />
           </div>
 
           <div className={classes.buttonWrapper}>

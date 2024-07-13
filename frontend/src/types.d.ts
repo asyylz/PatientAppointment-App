@@ -56,7 +56,7 @@ interface Doctor {
   image: string;
   availabilities: Availability[];
   phone: string;
-  address: Address;
+  // address: Address;
   reviews: Reviews[];
   __v: number;
   firstName: string;
@@ -68,13 +68,13 @@ interface Doctor {
   };
   doctorDescription: string;
 }
-interface Address {
-  street: string;
-  city: string;
-  prov: string;
-  postal: string;
-  _id: ObjectId;
-}
+// interface Address {
+//   street: string;
+//   city: string;
+//   prov: string;
+//   postal: string;
+//   _id: ObjectId;
+// }
 /* -------------------- AVAILABILITIES -------------------- */
 interface Availability {
   _id: ObjectId;
@@ -166,6 +166,14 @@ interface Credentials {
 }
 
 type UserData = Credentials | null;
+
+interface Address {
+  street: string;
+  city: string;
+  country: string;
+  postalCode: string;
+  town: string;
+}
 /* ------------------------ APPOINTMENT ----------------------- */
 interface AppointmentsForPatient {
   appointmentsForPatient: Appointment[];

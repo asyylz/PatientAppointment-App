@@ -8,7 +8,15 @@ interface Location {
   lng: number;
 }
 
-const MapAndAdressForm: React.FC = () => {
+interface MapAndAdressFormProps {
+  setAddressParts: (addressParts: Address) => void;
+  addressParts: Address;
+}
+
+const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
+  setAddressParts,
+  addressParts,
+}) => {
   const [address, setAddress] = useState<string>('');
   const [map, setMap] = useState<L.Map | null>(null);
   const [location, setLocation] = useState<Location>({
@@ -16,7 +24,6 @@ const MapAndAdressForm: React.FC = () => {
     lng: 0,
   });
 
-  console.log(address)
   const reverseGeocode = async (lat: number, lng: number): Promise<string> => {
     const response = await fetch(
       `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
@@ -63,8 +70,32 @@ const MapAndAdressForm: React.FC = () => {
     }
   }, [location, map]);
 
-  const handleAddressLoad = () => {};
+  const handleAddressLoad = () => {
+    setAddressParts({
+      street: address.split(',')[0],
+      city: address.split(',')[4],
+      country: address.split(',')[8],
+      town: address.split(',')[3],
+      postalCode: address.split(',')[7],
+    });
+  };
 
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setAddressParts((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleAddressLoad();
+  };
   return (
     <>
       <div className={classes.wrapper}>
@@ -72,24 +103,37 @@ const MapAndAdressForm: React.FC = () => {
           placeHolder="Enter your street"
           type="text"
           name="street"
+          value={addressParts.street}
+          onChange={handleInputChange}
+          required
+        />
+        <CustomInput
+          placeHolder="Enter your town"
+          type="text"
+          name="town"
+          value={addressParts.town}
           required
         />
         <CustomInput
           placeHolder="Enter your city"
           type="text"
           name="city"
+          value={addressParts.city}
           required
         />
         <CustomInput
           placeHolder="Enter your postcode"
           type="text"
-          name="postcode"
+          name="postalCode"
+          value={addressParts.postalCode}
           required
         />
         <CustomInput
           placeHolder="Enter your country"
           type="text"
           name="country"
+          onChange={handleInputChange}
+          value={addressParts.country}
           required
         />
 
