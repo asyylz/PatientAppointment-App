@@ -144,21 +144,13 @@ export const forgotPassword = createAsyncThunk<
   CurrentUserPayload,
   { email: string },
   { rejectValue: string }
->('currentUser/forgetPassword', async (email, { rejectWithValue }) => {
-  console.log(email);
+>('currentUser/forgotPassword', async (email, { rejectWithValue }) => {
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/forgotPassword',
       email
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${tokenAndData.token}`,
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      // }
     );
-
-    toastSuccessNotify('Successfully forgot password link sent to your email!');
+    toastSuccessNotify(`Email sent to ${email.email} successfully!`);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

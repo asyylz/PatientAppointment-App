@@ -5,6 +5,7 @@ dotenv.config({ path: './.env.local' });
 const nodemailer = require('nodemailer');
 
 const sendEmail = async options => {
+  //mailtrap
   // const transporter = nodemailer.createTransport({
   //   host: process.env.EMAIL_HOST,
   //   port: process.env.EMAIL_PORT,
@@ -23,7 +24,7 @@ const sendEmail = async options => {
     }
   });
 
-  console.log('from email', options.email);
+  //console.log('from email', options.email);
   const mailOptions = {
     from: process.env.GMAIL_EMAIL_USER,
     to: options.email,

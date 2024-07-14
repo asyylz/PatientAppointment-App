@@ -83,6 +83,7 @@ form h3 {
 .forgetPassword a {
     color: #444;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .forgetPassword a:hover {
