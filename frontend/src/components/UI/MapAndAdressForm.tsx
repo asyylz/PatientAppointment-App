@@ -74,7 +74,8 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
       setMap(initMap);
     }
   }, [location, map]);
-  console.log(addressParts);
+  
+  //console.log(addressParts);
 
   const handleAddressLoad = () => {
     const parts = address.split(',');

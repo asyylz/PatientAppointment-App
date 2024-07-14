@@ -49,6 +49,7 @@ export const login = createAsyncThunk<
   { email: string; password: string },
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
+  console.log(credentials);
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/login',
@@ -121,6 +122,43 @@ export const updateUserInfo = createAsyncThunk<
     );
 
     toastSuccessNotify('Successfully updated!');
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response?.status === 401) {
+        toastErrorNotify(
+          `${(axiosError.response.data as { message: string }).message}`
+        );
+      }
+      return rejectWithValue(error.message);
+    }
+    return rejectWithValue('An unexpected error occurred');
+  }
+});
+
+/* ------------------------------------------------------ */
+/*                         FORGET                         */
+/* ------------------------------------------------------ */
+export const forgotPassword = createAsyncThunk<
+  CurrentUserPayload,
+  { email: string },
+  { rejectValue: string }
+>('currentUser/forgetPassword', async (email, { rejectWithValue }) => {
+  console.log(email);
+  try {
+    const response = await axios.post(
+      'http://localhost:3000/api/v1/users/forgotPassword',
+      email
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${tokenAndData.token}`,
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // }
+    );
+
+    toastSuccessNotify('Successfully forgot password link sent to your email!');
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

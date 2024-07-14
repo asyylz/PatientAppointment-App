@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../store/index';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login, register } from '../store/currentUser-slice';
+import { forgotPassword, login, register } from '../store/currentUser-slice';
 import ImagePicker from '../components/UI/ImagePicker';
 import CustomInput from '../components/UI/CustomInput';
 
@@ -15,7 +15,7 @@ import CustomInput from '../components/UI/CustomInput';
 
 const AuthPage = () => {
   const [userData, setUserData] = useState<UserData>({
-    email: 'aytekin@test.com',
+    email: 'asiyeesen@hotmail.com',
     password: '6946224Asy@',
   });
 
@@ -88,6 +88,13 @@ const AuthPage = () => {
     }
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (userData && userData.email) {
+      dispatch(forgotPassword({ email: userData.email }));
+    }
+  };
+
   return (
     <div className={classes.container}>
       {/*------------------------ Login ----------------------- */}
@@ -97,7 +104,7 @@ const AuthPage = () => {
           <CustomInput
             type="email"
             name="email"
-            value="asiyeyaliz@gmail.com"
+            value="asiyeesen@hotmail.com"
             placeHolder="Enter your email"
             onChange={handleInputChange}
             required
@@ -111,6 +118,10 @@ const AuthPage = () => {
             onChange={handleInputChange}
             required
           />
+          <div className={classes.forgetPassword}>
+            <p>Forgot your password?</p>
+            <a onClick={handleClick}>Click here</a>
+          </div>
           <button type="submit">Login</button>
         </form>
       </div>

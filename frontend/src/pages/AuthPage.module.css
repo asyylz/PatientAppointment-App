@@ -74,6 +74,21 @@ form h3 {
     margin-top: 1rem;
 }
 
+.forgetPassword {
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.forgetPassword a {
+    color: #444;
+    text-decoration: underline;
+}
+
+.forgetPassword a:hover {
+    scale: 1.2;
+}
+
 @media (max-width: 945px) {
     .container {
         grid-template-columns: 1fr;

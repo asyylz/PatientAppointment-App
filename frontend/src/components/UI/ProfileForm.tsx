@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classes from './ProfileForm.module.css';
 import CustomInput from './CustomInput';
 import { useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ const ProfileForm: React.FC = () => {
     (state: RootState) => state.currentUser
   );
 
-  //this state uplifted here
+  //this state uplifted here for MapAndAddressForm
   const [addressParts, setAddressParts] = useState<Address>({
     street: userData?.address?.street,
     city: userData?.address?.city,
@@ -26,9 +26,8 @@ const ProfileForm: React.FC = () => {
 
   const [updatedUserData, setUpdatedUserData] = useState<UserData>({});
 
-  console.log(updatedUserData);
-  console.log(addressParts);
-
+  //console.log(updatedUserData);
+  //console.log(addressParts);
 
   const handleInputChange = (
     e: React.ChangeEvent<
