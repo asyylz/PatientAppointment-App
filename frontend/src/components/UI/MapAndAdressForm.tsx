@@ -87,7 +87,7 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
     });
 
     // Update userUpdatedData immediately after setting addressParts
-    setUpdatedUserData((prevValues: UserData) => ({
+    setUpdatedUserData((prevValues) => ({
       ...prevValues,
       address: {
         street: parts[0],
@@ -106,13 +106,13 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
   ) => {
     const { name, value } = e.target;
 
-    setAddressParts((prevValues) => {
+    setAddressParts((prevValues: Address) => {
       const updatedAddressParts = {
         ...prevValues,
         [name]: value,
       };
 
-      setUpdatedUserData((prevUserData) => ({
+      setUpdatedUserData((prevUserData: UserData) => ({
         ...prevUserData,
         address: updatedAddressParts,
       }));

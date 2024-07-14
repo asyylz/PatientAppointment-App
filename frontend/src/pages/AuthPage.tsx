@@ -15,8 +15,8 @@ import CustomInput from '../components/UI/CustomInput';
 
 const AuthPage = () => {
   const [userData, setUserData] = useState<UserData>({
-    email: 'alice.johnson@example.com',
-    password: 'Password3!',
+    email: 'aytekin@test.com',
+    password: '6946224Asy@',
   });
 
   const dispatch: AppDispatch = useDispatch();
@@ -97,7 +97,7 @@ const AuthPage = () => {
           <CustomInput
             type="email"
             name="email"
-            value="alice.johnson@example.com"
+            value="asiyeyaliz@gmail.com"
             placeHolder="Enter your email"
             onChange={handleInputChange}
             required
@@ -106,7 +106,7 @@ const AuthPage = () => {
           <CustomInput
             type="password"
             name="password"
-            value="Password3!"
+            value="6946224Asy@"
             placeHolder="Enter your password"
             onChange={handleInputChange}
             required

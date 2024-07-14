@@ -1,6 +1,5 @@
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
-const fs = require('node:fs');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
