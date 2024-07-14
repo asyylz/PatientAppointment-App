@@ -3,6 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import CustomInput from './CustomInput';
 import classes from './Map.module.css';
+import { useSelector } from 'react-redux';
 interface Location {
   lat: number;
   lng: number;
@@ -11,12 +12,16 @@ interface Location {
 interface MapAndAdressFormProps {
   setAddressParts: (addressParts: Address) => void;
   addressParts: Address;
+  setUpdatedUserData: (updatedUserData: UserData) => void;
 }
 
 const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
   setAddressParts,
   addressParts,
+  setUpdatedUserData,
 }) => {
+  const { userData } = useSelector((state: RootState) => state.currentUser);
+
   const [address, setAddress] = useState<string>('');
   const [map, setMap] = useState<L.Map | null>(null);
   const [location, setLocation] = useState<Location>({
@@ -69,15 +74,29 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
       setMap(initMap);
     }
   }, [location, map]);
+  console.log(addressParts);
 
   const handleAddressLoad = () => {
+    const parts = address.split(',');
     setAddressParts({
-      street: address.split(',')[0],
-      city: address.split(',')[4],
-      country: address.split(',')[8],
-      town: address.split(',')[3],
-      postalCode: address.split(',')[7],
+      street: parts[0] || '',
+      city: parts[4] || '',
+      country: parts[8] || '',
+      town: parts[3] || '',
+      postalCode: parts[7] || '',
     });
+
+    // Update userUpdatedData immediately after setting addressParts
+    setUpdatedUserData((prevValues: UserData) => ({
+      ...prevValues,
+      address: {
+        street: parts[0],
+        city: parts[4],
+        country: parts[8],
+        town: parts[3],
+        postalCode: parts[7],
+      },
+    }));
   };
 
   const handleInputChange = (
@@ -86,54 +105,68 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
     >
   ) => {
     const { name, value } = e.target;
-    setAddressParts((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+
+    setAddressParts((prevValues) => {
+      const updatedAddressParts = {
+        ...prevValues,
+        [name]: value,
+      };
+
+      setUpdatedUserData((prevUserData) => ({
+        ...prevUserData,
+        address: updatedAddressParts,
+      }));
+
+      return updatedAddressParts;
+    });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleAddressLoad();
-  };
   return (
     <>
       <div className={classes.wrapper}>
         <CustomInput
+          defaultValue={userData?.address?.street}
           placeHolder="Enter your street"
           type="text"
           name="street"
-          value={addressParts.street}
+          value={addressParts?.street}
           onChange={handleInputChange}
           required
         />
         <CustomInput
           placeHolder="Enter your town"
+          defaultValue={userData?.address?.town}
           type="text"
           name="town"
-          value={addressParts.town}
+          value={addressParts?.town}
+          onChange={handleInputChange}
           required
         />
         <CustomInput
           placeHolder="Enter your city"
+          defaultValue={userData?.address?.city}
           type="text"
           name="city"
-          value={addressParts.city}
+          value={addressParts?.city}
+          onChange={handleInputChange}
           required
         />
         <CustomInput
           placeHolder="Enter your postcode"
+          defaultValue={userData?.address?.postalCode}
           type="text"
           name="postalCode"
-          value={addressParts.postalCode}
+          onChange={handleInputChange}
+          value={addressParts?.postalCode}
           required
         />
         <CustomInput
           placeHolder="Enter your country"
+          defaultValue={userData?.address?.country}
           type="text"
           name="country"
           onChange={handleInputChange}
-          value={addressParts.country}
+          value={addressParts?.country}
           required
         />
 

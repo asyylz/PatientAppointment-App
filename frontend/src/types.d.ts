@@ -108,7 +108,7 @@ interface ReviewProps {
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {
   token: string;
-  userData: userData | null;
+  userData: UserData | null;
   status:
     | 'idle'
     | 'loading'
@@ -163,16 +163,17 @@ interface Credentials {
   image?: Blob | string;
   policy?: boolean;
   DOB?: string;
+  address?: Address;
 }
 
 type UserData = Credentials | null;
 
 interface Address {
-  street: string;
-  city: string;
-  country: string;
-  postalCode: string;
-  town: string;
+  street?: string;
+  city?: string;
+  country?: string;
+  postalCode?: string;
+  town?: string;
 }
 /* ------------------------ APPOINTMENT ----------------------- */
 interface AppointmentsForPatient {

@@ -61,7 +61,6 @@ export const convertDateAndTimeStringToDate = (
 };
 
 export const formatDateForInput = (dateString: string): string => {
-  
   if (dateString.includes('T')) {
     const parts = dateString.split('T');
     return parts[0];
@@ -69,11 +68,12 @@ export const formatDateForInput = (dateString: string): string => {
   const parts = dateString.includes('/')
     ? dateString.split('/')
     : dateString.split('-');
+
   return `${parts[2]}-${parts[1]}-${parts[0]}`;
 };
 
 export const getDateFromDateString = (dateString: string): string => {
- // console.log(dateString);
+  // console.log(dateString);
   const part = dateString.split('T');
   const parts = part[0].split('-');
   return `${parts[2]}/${parts[1]}/${parts[0]}`;

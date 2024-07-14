@@ -94,15 +94,26 @@ exports.updateUser = async (req, res, next) => {
     );
   }
 
+  // Add address to updateFields if present
+  if (req.body.address) {
+    req.body.address = JSON.parse(req.body.address);
+  }
+
   try {
-    const filteredBody = filterObj(req.body, 'name', 'email', 'DOB', 'image');
+    const filteredBody = filterObj(
+      req.body,
+      'name',
+      'email',
+      'DOB',
+      'image',
+      'address'
+    );
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
       {
         ...filteredBody,
         image: imagePath
       },
-      //filteredBody,
       {
         new: true,
         runValidators: true

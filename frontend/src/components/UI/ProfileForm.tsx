@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './ProfileForm.module.css';
 import CustomInput from './CustomInput';
 import { useSelector } from 'react-redux';
@@ -9,8 +9,6 @@ import { AppDispatch } from '../../store';
 import ImagePicker from './ImagePicker';
 import MapAndAdressForm from './MapAndAdressForm';
 
-
-
 const ProfileForm: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { userData, status, token } = useSelector(
@@ -19,19 +17,18 @@ const ProfileForm: React.FC = () => {
 
   //this state uplifted here
   const [addressParts, setAddressParts] = useState<Address>({
-    street: '',
-    city: '',
-    country: '',
-    town: '',
-    postalCode: '',
+    street: userData?.address?.street,
+    city: userData?.address?.city,
+    country: userData?.address?.country,
+    town: userData?.address?.town,
+    postalCode: userData?.address?.postalCode,
   });
 
-  const [updatedUserData, setUpdatedUserData] = useState<UserData>({
-    name: userData?.name,
-    DOB: formatDateForInput(userData?.DOB),
-    email: userData?.email,
-    image: userData?.image,
-  });
+  const [updatedUserData, setUpdatedUserData] = useState<UserData>({});
+
+  console.log(updatedUserData);
+  console.log(addressParts);
+
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -39,31 +36,19 @@ const ProfileForm: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    // if (name === 'DOB') {
-    //   const formattedDate = new Date(`${value}T00:00:00.000Z`);
-
-    //   setUpdatedUserData((prevValues) => ({
-    //     ...prevValues,
-    //     DOB: formattedDate,
-    //   }));
-    // } else {
-    //   setUpdatedUserData((prevValues) => ({
-    //     ...prevValues,
-    //     [name]: value,
-    //   }));
-    // }
     setUpdatedUserData((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
 
-  const handleClearInputs = () => {
+  const handleCancelInputs = () => {
     setUpdatedUserData({
       name: userData?.name,
-      DOB: formatDateForInput(userData?.DOB),
+      DOB: formatDateForInput(userData?.DOB ?? ''),
       email: userData?.email,
       image: userData?.image,
+      address: userData?.address,
     });
   };
 
@@ -71,7 +56,12 @@ const ProfileForm: React.FC = () => {
     const userUpdatedFormData = new FormData();
     if (updatedUserData) {
       Object.entries(updatedUserData).forEach(([key, value]) => {
-        userUpdatedFormData.append(key, value);
+        // Stringify address object before appending
+        if (key === 'address' && typeof value === 'object') {
+          userUpdatedFormData.append(key, JSON.stringify(value));
+        } else {
+          userUpdatedFormData.append(key, value);
+        }
       });
     }
 
@@ -98,6 +88,7 @@ const ProfileForm: React.FC = () => {
 
           <div className={classes.infoWrapper}>
             <CustomInput
+              defaultValue={userData.name}
               type="text"
               name="name"
               placeHolder="Enter your name"
@@ -105,6 +96,7 @@ const ProfileForm: React.FC = () => {
               value={updatedUserData?.name}
             />
             <CustomInput
+              defaultValue={userData.email}
               type="text"
               name="email"
               placeHolder="Enter your email"
@@ -112,6 +104,7 @@ const ProfileForm: React.FC = () => {
               value={updatedUserData?.email}
             />
             <CustomInput
+              defaultValue={formatDateForInput(userData?.DOB ?? '')}
               type="date"
               name="DOB"
               placeHolder="Enter your DOB"
@@ -130,6 +123,7 @@ const ProfileForm: React.FC = () => {
             <MapAndAdressForm
               setAddressParts={setAddressParts}
               addressParts={addressParts}
+              setUpdatedUserData={setUpdatedUserData}
             />
           </div>
 
@@ -137,7 +131,7 @@ const ProfileForm: React.FC = () => {
             <button onClick={updateInfo} type="submit">
               Update
             </button>
-            <button onClick={handleClearInputs}>Cancel</button>
+            <button onClick={handleCancelInputs}>Cancel</button>
           </div>
         </div>
       </>

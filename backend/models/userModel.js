@@ -2,6 +2,34 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
+const addressSchema = new mongoose.Schema({
+  street: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  city: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  town: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  country: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  postalCode: {
+    type: String,
+    required: true,
+    trim: true
+  }
+});
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -85,7 +113,8 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
     trim: true
-  }
+  },
+  address: addressSchema
 });
 
 userSchema.pre('save', async function(next) {
@@ -101,59 +130,9 @@ userSchema.pre(/^find/, function(next) {
   next();
 });
 
-/* ------------- saving user profile images ------------- */
-// userSchema.post('update', async function(next) {
-//   const slug = slugify(this.image.split('.')[0], { lower: true });
-//   const extension = this.image.split('.').pop();
-//   const fileName = `${new Date().now}/${slug}.${extension}`;
-
-//   const stream = fs.createWriteStream(`public/userProfileImages/${fileName}`);
-//   const bufferredImage = await this.image.arrayBuffer();
-//   stream.write(Buffer.from(bufferredImage), error => {
-//     if (error) {
-//       throw new Error('Saving profile image failed!');
-//     }
-//   });
-// });
-
-// Use pre-save hook if the image can be modified during updates as well as creation
-// userSchema.pre('save', async function(next) {
-//   if (!this.isModified('image')) return next(); // Proceed only if the image is modified
-
-//   const slug = slugify(this.image.split('.')[0], { lower: true });
-//   const extension = this.image.split('.').pop();
-//   const fileName = `${Date.now()}/${slug}.${extension}`;
-//   const filePath = `/public/userProfileImages/${fileName}`;
-
-//   try {
-//     const bufferredImage = await this.image.arrayBuffer(); // Ensure `this.image` contains the proper data
-//     const buffer = Buffer.from(bufferredImage);
-
-//     await fs.promises.writeFile(filePath, buffer); // Asynchronous write for better performance
-//     this.image = filePath; // Update the image path
-//     next();
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-// userSchema.post('findOne', function(next) {
-//   if (this.role === 'patient') {
-//     this.populate('appointments', { appointments collection patient id should match this .user_id });
-//   }
-//   next();
-// });
-
 userSchema.methods.correctPassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
-
-// userSchema.methods.correctPassword = async function(
-//   candidatePassword,
-//   userPassword
-// ) {
-//   return await bcrypt.compare(candidatePassword, userPassword);
-// };
 
 userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   if (this.passwordChangedAt) {
