@@ -182,7 +182,7 @@ exports.forgotPassword = async (req, res, next) => {
 
   const resetURL = `${req.protocol}://${req.get(
     'host'
-  )}/api/v1/users/resetPassword/${resetToken}`;
+  )}/resetPassword/${resetToken}`;
 
   const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
 
@@ -208,6 +208,8 @@ exports.forgotPassword = async (req, res, next) => {
 };
 /* ------------------- RESET PASSWORD ------------------- */
 exports.resetPassword = async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.params);
   try {
     const hashedToken = crypto
       .createHash('sha256')

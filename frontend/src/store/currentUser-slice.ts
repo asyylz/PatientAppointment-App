@@ -43,7 +43,6 @@ export const register = createAsyncThunk<
 /* ------------------------------------------------------ */
 /*                          LOGIN                         */
 /* ------------------------------------------------------ */
-// Async thunk for login
 export const login = createAsyncThunk<
   CurrentUserPayload,
   { email: string; password: string },
@@ -104,7 +103,7 @@ export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
 /*                         UPDATE                         */
 /* ------------------------------------------------------ */
 export const updateUserInfo = createAsyncThunk<
-  CurrentUserPayload,
+  { Payload: string },
   { token: string; userUpdatedFormData: FormData },
   { rejectValue: string }
 >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
@@ -167,9 +166,41 @@ export const forgotPassword = createAsyncThunk<
 });
 
 /* ------------------------------------------------------ */
+/*                          RESET                         */
+/* ------------------------------------------------------ */
+export const resetPassword = createAsyncThunk<
+  CurrentUserPayload,
+  { password: string; passwordConfirm: string; resetToken: string },
+  { rejectValue: string }
+>(
+  'currentUser/resetPassword',
+  async ({ password, passwordConfirm, resetToken }, { rejectWithValue }) => {
+    console.log(password, passwordConfirm, resetToken);
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/users', {
+        password,
+        passwordConfirm,
+      });
+      toastSuccessNotify(`Successfully password re-set`);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.status === 401) {
+          toastErrorNotify(
+            `${(axiosError.response.data as { message: string }).message}`
+          );
+        }
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue('An unexpected error occurred');
+    }
+  }
+);
+
+/* ------------------------------------------------------ */
 /*                          SLICE                         */
 /* ------------------------------------------------------ */
-// Create the currentUserSlice
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
@@ -191,6 +222,12 @@ const currentUserSlice = createSlice({
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
+        state.status = 'success';
+        state.token = action.payload.token;
+        state.userData = action.payload.data.user;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
         state.status = 'success';
         state.token = action.payload.token;
         state.userData = action.payload.data.user;

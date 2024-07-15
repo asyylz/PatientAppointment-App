@@ -14,6 +14,7 @@ import PrivateRoute from './PrivateRoute';
 import PrivateRouteForRoles from './PrivateRouteForRoles';
 import MainLayout from '../pages/layouts/MainLayout';
 import SettingsPage from '../pages/sub-pages/SettingsPage';
+import ResetPassword from '../pages/sub-pages/ResetPassword';
 
 const routes: RouteObject[] = [
   {
@@ -71,6 +72,7 @@ const routes: RouteObject[] = [
     path: '/auth',
     element: <AuthPage />,
   },
+  { path: 'resetPassword/:resetToken', element: <ResetPassword /> },
 ];
 
 const router = createBrowserRouter(routes);

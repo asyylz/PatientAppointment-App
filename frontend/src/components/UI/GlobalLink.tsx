@@ -4,9 +4,10 @@ import classes from './GlobalLink.module.css';
 interface GlobalButtonProps {
   text: string;
   to: To | number;
+  onclick?: (e: React.MouseEvent) => void;
 }
 
-const GlobalLink: React.FC<GlobalButtonProps> = ({ text, to }) => {
+const GlobalLink: React.FC<GlobalButtonProps> = ({ text, to, onclick }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -19,7 +20,9 @@ const GlobalLink: React.FC<GlobalButtonProps> = ({ text, to }) => {
       {typeof to === 'number' ? (
         <button onClick={handleClick}>{text}</button>
       ) : (
-        <Link to={to}>{text}</Link>
+        <Link onClick={onclick} to={to}>
+          {text}
+        </Link>
       )}
     </div>
   );
