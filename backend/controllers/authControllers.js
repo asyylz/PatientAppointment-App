@@ -222,7 +222,7 @@ exports.resetPassword = async (req, res, next) => {
       passwordResetToken: hashedToken,
       passwordResetExpires: { $gt: Date.now() }
     });
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return next(
         new AppError('Password reset link is invalid or has expired', 400)
@@ -231,8 +231,8 @@ exports.resetPassword = async (req, res, next) => {
 
     user.password = req.body.password;
     user.passwordConfirm = req.body.passwordConfirm;
-    // user.passwordResetToken = undefined;
-    // user.passwordResetExpires = undefined;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
     await user.save();
 
     createSendToken(user, 200, res);

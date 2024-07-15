@@ -108,7 +108,7 @@ interface ReviewProps {
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {
   token: string;
-  userData: UserData | null;
+  userData: userData | null;
   status:
     | 'idle'
     | 'loading'
@@ -125,10 +125,12 @@ interface userData {
   role: string;
   name: string;
   email: string;
-  doctorId: ObjectId;
+  doctorId?: ObjectId;
   DOB: date;
-  __v: number;
+  __v?: number;
   image: string;
+  policy: boolean;
+  address?: Address;
 }
 
 interface CurrentUserPayload {
@@ -139,10 +141,12 @@ interface CurrentUserPayload {
       role: string;
       name: string;
       email: string;
-      active: boolean;
-      DOB: Date;
+      doctorId?: ObjectId;
+      DOB: date;
+      __v?: number;
       image: string;
       policy: boolean;
+      address?: Address;
     } | null;
   };
   status: 'idle' | 'loading' | 'failed' | 'success' | null;

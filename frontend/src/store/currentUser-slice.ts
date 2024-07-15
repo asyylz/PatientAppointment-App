@@ -48,7 +48,7 @@ export const login = createAsyncThunk<
   { email: string; password: string },
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
-  //console.log(credentials);
+  console.log(credentials);
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/login',
@@ -103,7 +103,7 @@ export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
 /*                         UPDATE                         */
 /* ------------------------------------------------------ */
 export const updateUserInfo = createAsyncThunk<
-  { Payload: string },
+  CurrentUserPayload,
   { token: string; userUpdatedFormData: FormData },
   { rejectValue: string }
 >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
@@ -144,6 +144,7 @@ export const forgotPassword = createAsyncThunk<
   { email: string },
   { rejectValue: string }
 >('currentUser/forgotPassword', async (email, { rejectWithValue }) => {
+  console.log(email);
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/forgotPassword',

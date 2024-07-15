@@ -8,7 +8,6 @@ import { forgotPassword, login, register } from '../store/currentUser-slice';
 import ImagePicker from '../components/UI/ImagePicker';
 import CustomInput from '../components/UI/CustomInput';
 
-
 // const [email, setEmail] = useState<string>('aytekin@test.com');
 //const [email, setEmail] = useState<string>('alice.johnson@example.com');
 //const [password, setPassword] = useState<string>('newpass12');
@@ -16,8 +15,8 @@ import CustomInput from '../components/UI/CustomInput';
 
 const AuthPage = () => {
   const [userData, setUserData] = useState<UserData>({
-    email: 'asiyeesen@hotmail.com',
-    password: '6946224Asy!',
+    email: 'alice@test.com',
+    password: '6946224Asy@',
   });
 
   const dispatch: AppDispatch = useDispatch();
@@ -105,7 +104,7 @@ const AuthPage = () => {
           <CustomInput
             type="email"
             name="email"
-            value="asiyeesen@hotmail.com"
+            value="alice@test.com"
             placeHolder="Enter your email"
             onChange={handleInputChange}
             required
