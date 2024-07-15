@@ -204,6 +204,43 @@ export const resetPassword = createAsyncThunk<
     }
   }
 );
+/* ------------------------------------------------------ */
+/*                     UPDATE PASSWORD                    */
+/* ------------------------------------------------------ */
+export const updatePassword = createAsyncThunk<
+  CurrentUserPayload,
+  UpdatedUserPasswordAndToken,
+  { rejectValue: string }
+>('currentUser/updatePassword', async (data, { rejectWithValue }) => {
+  const { oldPassword, newPassword, confirmNewPassword, token } = data;
+  console.log(oldPassword, newPassword, confirmNewPassword, token);
+
+  try {
+    const response = await axios.patch(
+      'http://localhost:3000/api/v1/users/updateMyPassword',
+      { oldPassword, newPassword, confirmNewPassword },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    toastSuccessNotify(`Your password successfully updated`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 400) {
+        toastErrorNotify(
+          `${(error.response.data as { message: string }).message}`
+        );
+
+        return rejectWithValue(error.response?.data?.message);
+      }
+    }
+    return rejectWithValue('An unexpected error occurred');
+  }
+});
 
 /* ------------------------------------------------------ */
 /*                          SLICE                         */
@@ -240,6 +277,12 @@ const currentUserSlice = createSlice({
         state.error = null;
       })
       .addCase(resetPassword.fulfilled, (state, action) => {
+        state.status = 'success';
+        state.token = action.payload.token;
+        state.userData = action.payload.data.user;
+        state.error = null;
+      })
+      .addCase(updatePassword.fulfilled, (state, action) => {
         state.status = 'success';
         state.token = action.payload.token;
         state.userData = action.payload.data.user;

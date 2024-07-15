@@ -1,24 +1,36 @@
 import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
-import { convertDateAndTimeStringToDate } from '../../helper/generateDates';
+import {
+  convertDateAndTimeStringToDate,
+  formatDateForUI,
+} from '../../helper/generateDates';
+import CustomInput from './CustomInput';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
-  appointment: AppointmentsForDoctor | undefined;
+  appointment: SingleAppointmentForDoctor | Appointment | undefined;
+  isPatient: boolean;
 }
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
   setOpenModal,
   appointment,
+  isPatient,
 }) => {
   const { updateAppointment } = useHttp();
-  console.log(appointment);
 
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
     object | undefined
   >();
-
+  const [appointmentDate, setAppointmentDate] = useState(
+    appointment?.appointmentDateAndTime.split('T')[0]
+  );
+  const [appointmentTime, setAppointmentTime] = useState(
+    appointment?.appointmentDateAndTime.split('T')[1]
+  );
+  console.log(updatedAppointmentData);
+  
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -27,11 +39,19 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     const { name, value } = e.target;
 
     if (name === 'appointmentDate') {
-      const formattedDate = convertDateAndTimeStringToDate(value);
-      console.log(formattedDate);
+      setAppointmentDate(value);
+      const formatted = new Date(`${value}T${appointmentTime}`);
+      console.log(formatted);
       setUpdatedAppointmentData((prevValuesAppointment) => ({
         ...prevValuesAppointment,
-        appointmentDate: formattedDate,
+        appointmentDateAndTime: formatted,
+      }));
+    } else if (name === 'appointmentTime') {
+      setAppointmentTime(value);
+      const formatted = new Date(`${appointmentDate}T${value}:00.000Z`);
+      setUpdatedAppointmentData((prevValuesAppointment) => ({
+        ...prevValuesAppointment,
+        appointmentDateAndTime: formatted,
       }));
     } else {
       setUpdatedAppointmentData((prevValuesAppointment) => ({
@@ -59,27 +79,33 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         <div className={classes.leftSection}>
           <input
             type="text"
-            value={appointment?.patientId.name}
-            placeholder="Patient Name"
+            value={
+              isPatient
+                ? `Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId.lastName}`
+                : appointment?.patientId?.name
+            }
+            placeholder={isPatient ? 'Patient Name' : ' Doctor Name'}
             required
             readOnly
           />
           <input
             placeholder="Appointment Date"
-            value={appointment?.appointmentDateAndTime}
+            // value={formatDateForUI(appointment?.appointmentDateAndTime)}
+            defaultValue={appointment?.appointmentDateAndTime.split('T')[0]}
             type="date"
             name="appointmentDate"
-            // onChange={handleChange}
-            readOnly
+            onChange={handleChange}
           />
           <input
             placeholder="Appointment Time"
-            value={appointment?.appointmentDateAndTime}
-            name="time"
+            //value={appointment?.appointmentDateAndTime}
+            defaultValue={appointment?.appointmentDateAndTime
+              .split('T')[1]
+              .slice(0, 5)}
+            name="appointmentTime"
             type="time"
             step="1800"
-            readOnly
-            //onChange={handleChange}
+            onChange={handleChange}
           />
           <textarea
             className={classes.reason}
@@ -91,26 +117,38 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             cols={36}
           ></textarea>
         </div>
+
         <div className={classes.leftSection}>
-          <select
-            name="status"
-            id="status"
-            onChange={handleChange}
-            defaultValue={appointment?.status}
-          >
-            <option>Pelease choose a status</option>
-            <option value="completed">Completed</option>
-          </select>
-          <select
-            name="referral"
-            id="referral"
-            onChange={handleChange}
-            defaultValue={appointment?.referral.toString()}
-          >
-            <option>Pelease choose a referral status</option>
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
+          {!isPatient ? (
+            <select
+              name="status"
+              id="status"
+              onChange={handleChange}
+              defaultValue={appointment?.status}
+            >
+              <option>Pelease choose a status</option>
+              <option value="completed">Completed</option>
+            </select>
+          ) : (
+            <CustomInput value={appointment?.status} />
+          )}
+          {!isPatient ? (
+            <select
+              name="referral"
+              id="referral"
+              onChange={handleChange}
+              defaultValue={appointment?.referral.toString()}
+            >
+              <option>Pelease choose a referral status</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          ) : (
+            <CustomInput
+              value={appointment?.referral ? 'Referral' : 'Not referral'}
+            />
+          )}
+
           <textarea
             className={classes.result}
             defaultValue={appointment?.diagnose}
@@ -121,7 +159,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             cols={36}
           ></textarea>
         </div>
-
         <button type="submit">Update</button>
         <button onClick={() => setOpenModal('')}>Close</button>
       </form>

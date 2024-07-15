@@ -153,10 +153,11 @@ interface CurrentUserPayload {
   error?: string | null;
 }
 
-interface UpdatedUserPassword {
-  oldPassword?: string;
-  newPassword?: string;
-  confirmNewPassword?: string;
+interface UpdatedUserPasswordAndToken {
+  oldPassword: string | undefined;
+  newPassword: string | undefined;
+  confirmNewPassword: string | undefined;
+  token?: string | undefined;
 }
 
 interface Credentials {
@@ -203,6 +204,9 @@ interface Appointment {
   };
   appointmentDateAndTime: date;
   reason: string;
+  diagnose: string;
+  referral: boolean;
+  status:string
 }
 
 interface AppointmentsForDoctor {

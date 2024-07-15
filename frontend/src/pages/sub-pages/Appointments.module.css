@@ -1,9 +1,9 @@
-* {
+/* * {
     --completed-background: rgba(252, 106, 83, 0.6);
     --active-background: rgba(75, 191, 82, 0.5);
     --primary-background: rgba(173, 217, 209, 1);
     --primary-textcolor: #444;
-}
+} */
 
 .gapLine {
     height: 5px;
@@ -76,25 +76,3 @@ td .icons.edit {
     justify-content: space-around;
 
 }
-
-/* button {
-    text-decoration: none;
-    color: #444;
-    width: 200px;
-    background: rgba(173, 217, 209, 1);
-    padding: 5px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-    border-radius: 28px;
-    cursor: pointer;
-    border: none;
-    font-size: 1.1rem;
-
-} */
-/* 
-button:hover {
-    color: #fff;
-    background-color: #444;
-} */

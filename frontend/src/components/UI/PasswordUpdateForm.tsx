@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import CustomInput from './CustomInput';
 import classes from './PasswordUpdateForm.module.css';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { updatePassword } from '../../store/currentUser-slice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const PasswordResetForm: React.FC = () => {
-  const [updatedUserPassword, setupdatedUserPassword] =
-    useState<UpdatedUserPassword | null>({
+  const dispatch = useDispatch();
+  const { token } = useSelector((state: RootState) => state.currentUser);
+
+  const [updatedUserPasswordAndToken, setUpdatedUserPasswordAndToken] =
+    useState<UpdatedUserPasswordAndToken>({
       oldPassword: '',
       newPassword: '',
       confirmNewPassword: '',
     });
+  console.log(updatedUserPasswordAndToken);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -16,26 +24,28 @@ const PasswordResetForm: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setupdatedUserPassword((prevValues) => ({
+    setUpdatedUserPasswordAndToken((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit =  async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Updated Password Data:', updatedUserPassword);
-    // Add logic to handle password update
+    console.log('Updated Password Data:', updatedUserPasswordAndToken);
+    if (updatedUserPasswordAndToken) {
+      dispatch(updatePassword({ ...updatedUserPasswordAndToken, token }));
+    }
+    handleClearInputs();
   };
 
   const handleClearInputs = () => {
-    setupdatedUserPassword({
+    setUpdatedUserPasswordAndToken({
       oldPassword: '',
       newPassword: '',
       confirmNewPassword: '',
     });
   };
-
 
   return (
     <div className={classes.container}>
@@ -45,21 +55,21 @@ const PasswordResetForm: React.FC = () => {
           name="oldPassword"
           placeHolder="Enter your old password"
           onChange={handleInputChange}
-          value={updatedUserPassword?.oldPassword}
+          value={updatedUserPasswordAndToken?.oldPassword}
         />
         <CustomInput
           type="password"
           name="newPassword"
           placeHolder="Your new password"
           onChange={handleInputChange}
-          value={updatedUserPassword?.newPassword}
+          value={updatedUserPasswordAndToken?.newPassword}
         />
         <CustomInput
           type="password"
           name="confirmNewPassword"
           placeHolder="Confirm your new password"
           onChange={handleInputChange}
-          value={updatedUserPassword?.confirmNewPassword}
+          value={updatedUserPasswordAndToken?.confirmNewPassword}
         />
       </div>
       <div className={classes.buttonWrapper}>

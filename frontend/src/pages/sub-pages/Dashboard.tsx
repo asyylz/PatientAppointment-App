@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
 import GlobalLink from '../../components/UI/GlobalLink';
-import AppointmentCard from '../../components/UI/AppointmentCard';
 import { FaStethoscope, FaBriefcaseMedical } from 'react-icons/fa';
 import { FaUserDoctor } from 'react-icons/fa6';
 import { fetchAppointmentsForPatient } from '../../store/appointmentsForPatient-slice';
@@ -10,11 +9,18 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import ModalCustom from '../../components/UI/ModalCustom';
 import useHttp from '../../hooks/useHttp';
+import { formatDateForUI } from '../../helper/generateDates';
+import AppointmentForm from '../../components/UI/AppointmentForm';
+import { FaEdit } from 'react-icons/fa';
 
 const Dashboard: React.FC = () => {
   const { userData, token } = useSelector(
     (state: RootState) => state.currentUser
   );
+  const [selectedAppointment, setSelectedAppointment] = useState<Appointment>();
+  const [openModal, setOpenModal] = useState<string>('');
+  const [appointmentIdToDelete, setAppointmentIdToDelete] =
+    useState<ObjectId | null>(null);
 
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForPatient
@@ -23,10 +29,6 @@ const Dashboard: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
-
-  const [openModal, setOpenModal] = useState<string>('');
-  const [appointmentIdToDelete, setAppointmentIdToDelete] =
-    useState<ObjectId | null>(null);
 
   const confirmDelete = () => {
     if (appointmentIdToDelete) {
@@ -39,6 +41,10 @@ const Dashboard: React.FC = () => {
   const cancelDelete = () => {
     setOpenModal('');
     setAppointmentIdToDelete(null);
+  };
+  const handleClick = (appointment: Appointment) => {
+    setOpenModal('open');
+    setSelectedAppointment(appointment);
   };
 
   useEffect(() => {
@@ -62,6 +68,16 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
+      {openModal === 'open' && selectedAppointment && (
+        <ModalCustom height="700px" width="900px">
+          <AppointmentForm
+            setOpenModal={setOpenModal}
+            appointment={selectedAppointment}
+            isPatient
+          />
+        </ModalCustom>
+      )}
+
       {openModal === 'confirmation' && (
         <ModalCustom height="300px" width="500px">
           <p>Please confirm to cancel the appointment?</p>
@@ -110,9 +126,9 @@ const Dashboard: React.FC = () => {
                 <h2>Latest Appointments</h2>
                 <GlobalLink text="Book Now"></GlobalLink>
               </div>
-              {/* {status === 'loading' && <div>Loading...</div>} */}
+              {status === 'loading' && <div>Loading...</div>}
               <hr />
-              <div className={classes.wrapper2}>
+              {/* <div className={classes.wrapper2}>
                 {appointmentsForPatient?.map((appointment: Appointment) => (
                   <AppointmentCard
                     appointment={appointment}
@@ -120,7 +136,58 @@ const Dashboard: React.FC = () => {
                     setAppointmentIdToDelete={setAppointmentIdToDelete}
                   />
                 ))}
-              </div>
+              </div> */}
+
+              <table className={classes.appointments}>
+                <thead>
+                  <tr>
+                    <th>Doctor Name</th>
+                    <th>Date</th>
+                    <th>Concerns</th>
+                    <th>Time</th>
+                    <th>Diagnose</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className={classes.gapLine}></tr>
+                  {appointmentsForPatient?.map((appointment: Appointment) => (
+                    <React.Fragment key={appointment._id.toString()}>
+                      <tr
+                        className={
+                          new Date(appointment.appointmentDateAndTime) >
+                          new Date()
+                            ? `${classes.row} ${classes.active}`
+                            : `${classes.row}`
+                        }
+                        //onClick={() => handleClick(appointment)}
+                      >
+                        <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
+                        <td>
+                          {formatDateForUI(appointment.appointmentDateAndTime)}
+                        </td>
+                        <td>{appointment.reason}</td>
+                        <td>
+                          {appointment.appointmentDateAndTime
+                            .split('T')[1]
+                            .slice(0, 5)}
+                        </td>
+                        <td>{appointment.diagnose}</td>
+                        <td>
+                          <FaEdit
+                            className={`${classes.icons} ${classes.edit}`}
+                            onClick={() => {
+                              // e.stopPropagation();
+                              handleClick(appointment);
+                            }}
+                          />
+                        </td>
+                      </tr>
+                      <tr className={classes.gapLine}></tr>
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

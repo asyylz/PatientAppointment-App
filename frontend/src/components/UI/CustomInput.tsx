@@ -2,9 +2,9 @@ import React from 'react';
 import classes from './CustomInput.module.css';
 
 interface CustomInputProps {
-  name: string;
-  type: string;
-  placeHolder: string;
+  name?: string;
+  type?: string;
+  placeHolder?: string;
   defaultValue?: string;
   value?: string; // Add value prop
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;

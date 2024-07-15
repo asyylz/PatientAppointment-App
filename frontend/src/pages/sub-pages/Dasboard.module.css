@@ -178,6 +178,79 @@ svg {
     align-items: center;
     justify-content: space-around;
 }
+.gapLine {
+    height: 5px;
+}
+
+table.appointments {
+    width: 95%;
+    table-layout: auto;
+    border-collapse: collapse;
+    margin: 0 auto;
+
+}
+
+thead tr th {
+    font-weight: 600;
+    cursor: default;
+}
+
+.row.active {
+    background: var(--active-background);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.row {
+    background: var(--completed-background);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    text-decoration: line-through;
+}
+
+.appointments tr {
+    background: var(--completed-background);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+}
+
+tbody table tr:last-child {
+    border-bottom: none;
+}
+
+
+td .icons {
+    padding: 7px;
+    color: #fff;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+}
+
+td .icons.tick {
+    background: #32bea6;
+    cursor: pointer;
+}
+
+td .icons.trash {
+    background: #ed5564;
+    cursor: pointer;
+}
+
+td .icons.edit {
+    background: #4BB2F2;
+    cursor: pointer;
+}
+
+
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+
 
 @media (max-width: 930px) {
     .container {
