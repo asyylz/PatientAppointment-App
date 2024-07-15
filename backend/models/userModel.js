@@ -30,92 +30,98 @@ const addressSchema = new mongoose.Schema({
   }
 });
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-    validate: [
-      {
-        validator: function(val) {
-          return val.includes('@');
-        },
-        message: 'Email should contain @ character'
-      },
-      {
-        validator: function(val) {
-          return val.trim().length > 0;
-        },
-        message: 'Email is empty'
-      },
-      {
-        validator: function(val) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          return emailRegex.test(val);
-        },
-        message: 'Invalid email format'
-      }
-    ]
-  },
-  password: {
-    type: String,
-    required: [true, 'Password is required'],
-    trim: true,
-    maxlength: [40, 'Password must have less or equal than 40 characters'],
-    minlength: [4, 'Password must have more or equal than 8 characters'],
-    validate: {
-      validator: function(val) {
-        const hasUpperCase = /[A-Z]/.test(val);
-        const hasLowerCase = /[a-z]/.test(val);
-        const hasDigit = /\d/.test(val);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(val);
-
-        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
-      },
-      message:
-        'Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true
     },
-    select: false
-  },
-  passwordConfirm: {
-    type: String,
-    required: [true, 'Please confirm your password'],
-    validate: {
-      // This only works on CREATE and SAVE!!!
-      validator: function(el) {
-        return el === this.password;
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      validate: [
+        {
+          validator: function(val) {
+            return val.includes('@');
+          },
+          message: 'Email should contain @ character'
+        },
+        {
+          validator: function(val) {
+            return val.trim().length > 0;
+          },
+          message: 'Email is empty'
+        },
+        {
+          validator: function(val) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(val);
+          },
+          message: 'Invalid email format'
+        }
+      ]
+    },
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+      trim: true,
+      maxlength: [40, 'Password must have less or equal than 40 characters'],
+      minlength: [4, 'Password must have more or equal than 8 characters'],
+      validate: {
+        validator: function(val) {
+          const hasUpperCase = /[A-Z]/.test(val);
+          const hasLowerCase = /[a-z]/.test(val);
+          const hasDigit = /\d/.test(val);
+          const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+
+          return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
+        },
+        message:
+          'Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
       },
-      message: 'Passwords are not the same!'
-    }
+      select: false
+    },
+    passwordConfirm: {
+      type: String,
+      required: [true, 'Please confirm your password'],
+      validate: {
+        // This only works on CREATE and SAVE!!!
+        validator: function(el) {
+          return el === this.password;
+        },
+        message: 'Passwords are not the same!'
+      }
+    },
+    role: {
+      type: String,
+      enum: ['doctor', 'systemuser', 'patient', 'admin'],
+      default: 'patient',
+      required: true
+    },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+    active: {
+      type: Boolean,
+      default: true,
+      select: false
+    },
+    policy: {
+      type: Boolean,
+      required: true
+    },
+    DOB: Date,
+    image: {
+      type: String,
+      trim: true
+    },
+    address: addressSchema
   },
-  role: {
-    type: String,
-    enum: ['doctor', 'systemuser', 'patient', 'admin'],
-    default: 'patient',
-    required: true
-  },
-  passwordChangedAt: Date,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
-  active: {
-    type: Boolean,
-    default: true,
-    select: false
-  },
-  policy: {
-    type: Boolean,
-    required: true
-  },
-  DOB: Date,
-  image: {
-    type: String,
-    trim: true
-  },
-  address: addressSchema
-});
+  {
+    collection: 'users',
+    timestamps: true
+  }
+);
 
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();

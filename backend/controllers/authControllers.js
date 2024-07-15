@@ -94,7 +94,7 @@ exports.logout = async (req, res, next) => {
       req.headers.authorization.startsWith('Bearer')
     ) {
       token = req.headers.authorization.split(' ')[1];
-      console.log('logout', token);
+      // console.log('logout', token);
     }
 
     res.cookie('jwt', '', {
@@ -180,9 +180,10 @@ exports.forgotPassword = async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
   //await user.save();
 
-  const resetURL = `${req.protocol}://${req.get(
-    'host'
-  )}/resetPassword/${resetToken}`;
+  // const resetURL = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/resetPassword/${resetToken}`;
+  const resetURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
 
   const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
 
@@ -208,27 +209,30 @@ exports.forgotPassword = async (req, res, next) => {
 };
 /* ------------------- RESET PASSWORD ------------------- */
 exports.resetPassword = async (req, res, next) => {
-  console.log(req.body);
-  console.log(req.params);
+  console.log('from reset password', req.body);
+  console.log('from reset password', req.params);
+
   try {
     const hashedToken = crypto
       .createHash('sha256')
-      .update(req.params.token)
+      .update(req.params.resetToken)
       .digest('hex');
 
     const user = await User.findOne({
       passwordResetToken: hashedToken,
       passwordResetExpires: { $gt: Date.now() }
     });
-
+    console.log(user);
     if (!user) {
-      return next(new AppError('Token is invalid or has expired', 400));
+      return next(
+        new AppError('Password reset link is invalid or has expired', 400)
+      );
     }
 
     user.password = req.body.password;
     user.passwordConfirm = req.body.passwordConfirm;
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
+    // user.passwordResetToken = undefined;
+    // user.passwordResetExpires = undefined;
     await user.save();
 
     createSendToken(user, 200, res);

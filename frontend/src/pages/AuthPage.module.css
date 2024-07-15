@@ -90,6 +90,12 @@ form h3 {
     scale: 1.2;
 }
 
+.forgetPassword button {
+    color: #444;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 @media (max-width: 945px) {
     .container {
         grid-template-columns: 1fr;

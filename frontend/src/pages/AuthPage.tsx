@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { forgotPassword, login, register } from '../store/currentUser-slice';
 import ImagePicker from '../components/UI/ImagePicker';
 import CustomInput from '../components/UI/CustomInput';
-import GlobalLink from '../components/UI/GlobalLink';
+
 
 // const [email, setEmail] = useState<string>('aytekin@test.com');
 //const [email, setEmail] = useState<string>('alice.johnson@example.com');
@@ -17,7 +17,7 @@ import GlobalLink from '../components/UI/GlobalLink';
 const AuthPage = () => {
   const [userData, setUserData] = useState<UserData>({
     email: 'asiyeesen@hotmail.com',
-    password: '6946224Asy@',
+    password: '6946224Asy!',
   });
 
   const dispatch: AppDispatch = useDispatch();
@@ -90,7 +90,7 @@ const AuthPage = () => {
   };
 
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+    //e.preventDefault();
     if (userData && userData.email) {
       dispatch(forgotPassword({ email: userData.email }));
     }
@@ -121,17 +121,14 @@ const AuthPage = () => {
           />
           <div className={classes.forgetPassword}>
             <p>Forgot your password?</p>
-            {/* <a
-              href="/resetPassword"
-              onClick={handleClick}
-            >
-              Click here
-            </a> */}
-            <GlobalLink
+
+            <a onClick={handleClick}>Click here</a>
+
+            {/* <GlobalLink
               to="/resetPassword/791bff54ee5b896ab7b8d0cb515f00301b88b0dcbedb381a1d97b573e0b90825"
               text="Click"
               onclick={handleClick}
-            />
+            /> */}
           </div>
           <button type="submit">Login</button>
         </form>

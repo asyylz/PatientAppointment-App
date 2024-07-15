@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../store/currentUser-slice';
+import { logout, logoutSuccess } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice';
@@ -15,8 +15,6 @@ const TopSearchBar: React.FC = () => {
     (state: RootState) => state.currentUser
   );
 
-
-
   useEffect(() => {
     const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
     return () => {
@@ -27,6 +25,7 @@ const TopSearchBar: React.FC = () => {
   const handleLogout = async () => {
     navigate('/');
     await dispatch(logout(token));
+    dispatch(logoutSuccess());// to set state to idle
   };
 
   return (

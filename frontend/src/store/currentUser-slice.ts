@@ -48,14 +48,14 @@ export const login = createAsyncThunk<
   { email: string; password: string },
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
-  console.log(credentials);
+  //console.log(credentials);
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/login',
       credentials
     );
     toastSuccessNotify('Successfully login!');
-    console.log(response.data);
+    //console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -176,22 +176,28 @@ export const resetPassword = createAsyncThunk<
   'currentUser/resetPassword',
   async ({ password, passwordConfirm, resetToken }, { rejectWithValue }) => {
     console.log(password, passwordConfirm, resetToken);
+    console.log('Asiye');
+
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/users', {
-        password,
-        passwordConfirm,
-      });
-      toastSuccessNotify(`Successfully password re-set`);
+      const response = await axios.patch(
+        `http://localhost:3000/api/v1/users/resetPassword/${resetToken}`,
+        {
+          password,
+          passwordConfirm,
+        }
+      );
+      toastSuccessNotify(`Your password successfully re-set`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        if (axiosError.response?.status === 401) {
+        if (error.response?.status === 400) {
           toastErrorNotify(
-            `${(axiosError.response.data as { message: string }).message}`
+            `${(error.response.data as { message: string }).message}`
           );
+
+          return rejectWithValue(error.response?.data?.message);
         }
-        return rejectWithValue(error.message);
       }
       return rejectWithValue('An unexpected error occurred');
     }
@@ -221,6 +227,11 @@ const currentUserSlice = createSlice({
         state.userData = data.user;
         state.error = null;
       })
+      .addCase(login.rejected, (state, action) => {
+        state.status = 'failed';
+        console.log(action.error.message);
+        state.error = action.error.message || 'Login failed';
+      })
       .addCase(register.fulfilled, (state, action) => {
         state.status = 'success';
         state.token = action.payload.token;
@@ -232,11 +243,6 @@ const currentUserSlice = createSlice({
         state.token = action.payload.token;
         state.userData = action.payload.data.user;
         state.error = null;
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.status = 'failed';
-        console.log(action.error.message);
-        state.error = action.error.message || 'Login failed';
       })
       .addCase(logout.fulfilled, (state) => {
         state.status = 'logout success';

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomInput from '../../components/UI/CustomInput';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../store/currentUser-slice';
+import { useSelector } from 'react-redux';
 
 interface data {
   password: string;
@@ -11,25 +12,42 @@ interface data {
 }
 
 const ResetPassword: React.FC = () => {
-  const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
-  };
+  // const useQuery = () => {
+  //   return new URLSearchParams(useLocation().search);
+  // };
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { resetToken } = useParams();
-  const [passwordData, setPasswordData] = useState<data>({
-    password: '',
-    passwordConfirm: '',
-    resetToken,
-  });
+  const { status, token } = useSelector(
+    (state: RootState) => state.currentUser
+  );
+
+  const [passwordAndResetTokenData, setPasswordAndResetTokenData] =
+    useState<data>({
+      password: '',
+      passwordConfirm: '',
+      resetToken,
+    });
   //const resetToken = params.get('accessToken');
   console.log(resetToken);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (passwordData) {
-      dispatch(resetPassword({ ...passwordData }));
+    if (passwordAndResetTokenData) {
+      await dispatch(resetPassword({ ...passwordAndResetTokenData }));
     }
+    console.log(status);
+
+    // if (status === 'reset success' && token) {
+    //   navigate('/user/dashboard');
+    // }
   };
+
+  useEffect(() => {
+    if (status === 'success') {
+      navigate('/user/dashboard');
+    }
+  }, [status, navigate]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -37,7 +55,7 @@ const ResetPassword: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setPasswordData((prevValues) => ({
+    setPasswordAndResetTokenData((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
