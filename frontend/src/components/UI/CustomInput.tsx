@@ -9,6 +9,7 @@ interface CustomInputProps {
   value?: string; // Add value prop
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  readOnly?: boolean;
 }
 const CustomInput: React.FC<CustomInputProps> = ({
   name,
@@ -18,9 +19,13 @@ const CustomInput: React.FC<CustomInputProps> = ({
   value,
   onChange,
   required,
+  readOnly,
 }) => {
   return (
-    <div className={classes.inputWrapper}>
+    <div
+      className={classes.inputWrapper}
+      style={readOnly ? { opacity: 0.7 } : {}}
+    >
       <input
         type={type}
         name={name}
@@ -29,6 +34,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
         value={value}
         onChange={onChange}
         required={required}
+        readOnly={readOnly}
+        style={readOnly ? { backgroundColor: 'lightgray' } : {}}
       />
     </div>
   );

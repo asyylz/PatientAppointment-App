@@ -178,15 +178,21 @@ svg {
     align-items: center;
     justify-content: space-around;
 }
+
 .gapLine {
     height: 5px;
 }
 
+/* ------------------------------------------------------ */
+/*                          Table                         */
+/* ------------------------------------------------------ */
 table.appointments {
     width: 95%;
     table-layout: auto;
     border-collapse: collapse;
     margin: 0 auto;
+
+
 
 }
 
@@ -194,6 +200,7 @@ thead tr th {
     font-weight: 600;
     cursor: default;
 }
+
 
 .row.active {
     background: var(--active-background);
@@ -205,15 +212,26 @@ thead tr th {
     background: var(--completed-background);
     border-bottom: 3px solid rgba(0, 0, 0, 0.2);
     text-decoration: line-through;
+
 }
 
 .appointments tr {
     background: var(--completed-background);
     border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+
 }
 
 tbody table tr:last-child {
     border-bottom: none;
+}
+
+.appointments td {
+    text-align: left;
+}
+
+.appointments td:last-child,
+.appointments td:nth-child(4) {
+    text-align: center;
 }
 
 

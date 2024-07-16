@@ -86,7 +86,11 @@ interface Availability {
 /* ----------------------- REVIEWS ----------------------- */
 interface Review {
   _id: ObjectId;
-  name: string;
+  userId: {
+    name: string;
+    _id: ObjectId;
+    image: string;
+  };
   rating: number;
   doctorId: string;
   comments: string;
@@ -206,7 +210,7 @@ interface Appointment {
   reason: string;
   diagnose: string;
   referral: boolean;
-  status:string
+  status: string;
 }
 
 interface AppointmentsForDoctor {

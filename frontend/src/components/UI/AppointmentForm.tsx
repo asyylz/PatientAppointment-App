@@ -28,7 +28,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   //console.log(appointmentTime);
   //console.log(updatedAppointmentData);
   //console.log(appointment?._id);
-  
+  console.log(
+    new Date(appointment?.appointmentDateAndTime).toLocaleDateString('en-GB')
+  );
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -39,7 +42,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     if (name === 'appointmentDate') {
       setAppointmentDate(value);
       const formatted = new Date(`${value}T${appointmentTime}`);
-      console.log(formatted);
+      //console.log(formatted);
       setUpdatedAppointmentData((prevValuesAppointment) => ({
         ...prevValuesAppointment,
         appointmentDateAndTime: formatted,
@@ -75,15 +78,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       <h1 className={classes.title}>Appointment Details</h1>
       <form onSubmit={handleSubmit}>
         <div className={classes.leftSection}>
-          <input
-            type="text"
+          <CustomInput
             value={
               isPatient
                 ? `Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId.lastName}`
                 : appointment?.patientId?.name
             }
-            placeholder={isPatient ? 'Patient Name' : ' Doctor Name'}
-            required
             readOnly
           />
           <input
@@ -128,7 +128,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               <option value="completed">Completed</option>
             </select>
           ) : (
-            <CustomInput value={appointment?.status} />
+            <CustomInput value={appointment?.status} readOnly />
           )}
           {!isPatient ? (
             <select
@@ -144,6 +144,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           ) : (
             <CustomInput
               value={appointment?.referral ? 'Referral' : 'Not referral'}
+              readOnly
             />
           )}
 
@@ -155,6 +156,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             onChange={handleChange}
             rows={8}
             cols={36}
+            readOnly={isPatient}
+            style={
+              isPatient ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
+            }
           ></textarea>
         </div>
         <button type="submit">Update</button>
