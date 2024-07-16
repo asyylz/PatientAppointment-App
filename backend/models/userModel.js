@@ -138,44 +138,7 @@ userSchema.pre(/^find/, function(next) {
   next();
 });
 
-// userSchema.post('update', async function(req, res, next) {
-//   console.log('from image');
-//   if (this.image.isModified) {
-//     fs.unlink(`/userProfileImages/${req.file.filename}`);
-//   }
-//   next();
-// });
 
-// let oldImagePath;
-
-// userSchema.pre('findOneAndUpdate', async function(next) {
-//   try {
-//     const user = await this.model.findOne(this.getQuery());
-//     if (user) {
-//       oldImagePath = user.image;
-//     }
-//     next();
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-// userSchema.post('findOneAndUpdate', async function(doc, next) {
-//   if (doc && doc.image !== oldImagePath && oldImagePath) {
-//     const imagePath = path.join(
-//       __dirname,
-//       `/userProfileImages/${oldImagePath}`
-//     );
-//     fs.unlink(imagePath, err => {
-//       if (err) {
-//         console.error(`Failed to delete old image: ${err}`);
-//       } else {
-//         console.log(`Successfully deleted old image: ${oldImagePath}`);
-//       }
-//     });
-//   }
-//   next();
-// });
 
 userSchema.methods.correctPassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);

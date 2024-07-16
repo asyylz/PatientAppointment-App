@@ -79,16 +79,12 @@ exports.deleteUser = async (req, res, next) => {
 // UPDATE //
 exports.updateUser = async (req, res, next) => {
   console.log('from req.file', req.file);
-  
+
   const user = await User.findById(req.user._id);
 
-
   let imagePath;
-  if (req.file) {
-    if (user.image !== '/userProfileImages/userDefaultAvatar.png') {
-      fs.unlink(`./public${user.image}`, err => console.log(err));
-    }
-  } else {
+  if (req.file && user.image !== '/userProfileImages/userDefaultAvatar.png') {
+    fs.unlink(`./public${user.image}`, err => console.log(err));
     imagePath = `/userProfileImages/${req.file.filename}`;
   }
 
