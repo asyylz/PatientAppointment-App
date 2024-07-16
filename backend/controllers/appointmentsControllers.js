@@ -76,6 +76,16 @@ exports.getDoctorAppointments = async (req, res, next) => {
 };
 // UPDATE //
 exports.updateAppointment = async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.body.doctorId);
+
+  const appointment = await Appointment.findById(req.params.id);
+  console.log(appointment);
+  if (!appointment) {
+    return next(new Error('Appointment not found'));
+  } else {
+  }
+
   try {
     const updatedAppointment = await Appointment.findByIdAndUpdate(
       req.params.id,
@@ -188,3 +198,29 @@ exports.deleteAppointment = async (req, res, next) => {
     next(err);
   }
 };
+
+// db.createView('doctorsWithAvailabilities', 'doctors', [
+//   {
+//     $lookup: {
+//       from: 'availabilities',
+//       localField: '_id',
+//       foreignField: 'doctorId',
+//       as: 'availabilities'
+//     }
+//   },
+//   {
+//     $project: {
+//       _id: 1,
+//       firstName: 1,
+//       lastName: 1,
+//       gender: 1,
+//       image: 1,
+//       phone: 1,
+//       address: 1,
+//       reviews: 1,
+//       departmentId: 1,
+//       doctorDescription: 1,
+//       availabilities: 1
+//     }
+//   }
+// ]);

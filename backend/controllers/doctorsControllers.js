@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const Doctor = require('../models/doctorModel');
 const Availability = require('../models/availabilityModel');
-
-const {
-  getDoctorsWithDepartmentNames
-} = require('../utils/aggregationHandler');
 const APIFeatures = require('../utils/apiFeatures');
 const { format } = require('morgan');
+
+const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 
 /* ------------------- ROUTES HANDLERS ------------------ */
 // GET ALL // Doctors:sending back to the client
@@ -17,11 +16,39 @@ exports.getAllDoctors = async (req, res, next) => {
       .collection('doctorsWithAvailabilities')
       .find()
       .toArray();
-      
+
+    const currentWeekDates = {
+      Monday: getCurrentWeekDate('Monday'),
+      Tuesday: getCurrentWeekDate('Tuesday'),
+      Wednesday: getCurrentWeekDate('Wednesday'),
+      Thursday: getCurrentWeekDate('Thursday'),
+      Friday: getCurrentWeekDate('Friday'),
+      Saturday: getCurrentWeekDate('Saturday'),
+      Sunday: getCurrentWeekDate('Sunday')
+    };
+
+    // Map over the results and transform availabilities to include current week dates
+    const transformedDoctors = doctorsWithAvailabilities.map(doctor => {
+      const transformedAvailabilities = doctor.availabilities.map(avail => {
+        const { day } = avail;
+        return {
+          ...avail,
+          currentWeekAvailabilityInDateFormat: new Date(
+            `${currentWeekDates[day]}T${avail.time}:00.000Z`
+          )
+        };
+      });
+
+      return {
+        ...doctor,
+        availabilities: transformedAvailabilities
+      };
+    });
+
     // Populate departmentId field if necessary
     const populatedDoctors = await mongoose
       .model('Doctor')
-      .populate(doctorsWithAvailabilities, { path: 'departmentId' });
+      .populate(transformedDoctors, { path: 'departmentId' });
 
     // SEND RESPONSE //
     res.status(200).json({

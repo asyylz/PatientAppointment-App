@@ -59,6 +59,7 @@ const Doctors: React.FC = () => {
       setFilteredDoctors(doctors);
     }
   }, [searchWord, doctors]);
+  //console.log(filteredDoctors);
 
   return (
     <>

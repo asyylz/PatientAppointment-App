@@ -255,16 +255,3 @@ exports.updatePassword = async (req, res, next) => {
   await user.save();
   createSendToken(user, 200, res);
 };
-
-// exports.isDoctor = async (req, res, next) => {
-//   console.log('from isDoctor', req.user._id);
-//   console.log('from isDoctor', req.user.id);
-//   console.log(req.user.role === 'doctor');
-//   //const user = await User.findById(req.user._id);
-//   if (req.user.role !== 'doctor') {
-//     return next(
-//       new AppError('You are not authorized to perform this action', 403)
-//     );
-//   }
-//   next();
-// };
