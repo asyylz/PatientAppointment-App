@@ -127,7 +127,7 @@ export const convertToDateandDateString = (
 /* ---------------------- separate ---------------------- */
 
 export const formatDateForUI = (isoString: string) => {
-  console.log(isoString);
+  //console.log(isoString);
   // Extract the date part from the ISO string
   const datePart = isoString.split('T')[0];
   const [year, month, day] = datePart.split('-').map(Number);

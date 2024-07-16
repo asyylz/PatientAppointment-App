@@ -17,6 +17,7 @@ exports.getAllDoctors = async (req, res, next) => {
       .collection('doctorsWithAvailabilities')
       .find()
       .toArray();
+      
     // Populate departmentId field if necessary
     const populatedDoctors = await mongoose
       .model('Doctor')

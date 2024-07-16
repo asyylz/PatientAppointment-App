@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
-import {
-  convertDateAndTimeStringToDate,
-  formatDateForUI,
-} from '../../helper/generateDates';
 import CustomInput from './CustomInput';
 
 interface AppointmentFormProps {
@@ -29,7 +25,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [appointmentTime, setAppointmentTime] = useState(
     appointment?.appointmentDateAndTime.split('T')[1]
   );
-  console.log(updatedAppointmentData);
+  //console.log(appointmentTime);
+  //console.log(updatedAppointmentData);
+  //console.log(appointment?._id);
   
   const handleChange = (
     e: React.ChangeEvent<

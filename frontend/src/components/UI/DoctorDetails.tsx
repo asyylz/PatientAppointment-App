@@ -23,6 +23,8 @@ const DoctorDetails: React.FC = () => {
     error: reviewsError,
   } = useSelector((state: RootState) => state.reviews);
 
+  console.log(reviews);
+
   useEffect(() => {
     if (selectedDoctor) {
       dispatch(fetchReviews(selectedDoctor._id.toString()));
@@ -67,9 +69,12 @@ const DoctorDetails: React.FC = () => {
               <div className={classes.commenterInfo}>
                 <div className={classes.imgAndUser}>
                   <div className={classes.image}>
-                    <img src="/../user-avatar.png" alt="" />
+                    <img
+                      src={`http://localhost:3000/static${review.userId?.image}`}
+                      alt=""
+                    />
                   </div>
-                  <h3>{review.name}</h3>
+                  <h3>{review.userId?.name}</h3>
                   <h2>{review.averageRating.toFixed(1)}</h2>
                 </div>
                 <div>{review.comments}</div>

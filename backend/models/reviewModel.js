@@ -10,12 +10,13 @@ const attributesSchema = new Schema({
 });
 
 const reviewSchema = new Schema({
-  name: { type: String, required: true },
+  //name: { type: String, required: true },
   rating: { type: Number, required: true },
   averageRating: Number,
   comments: { type: String }, // Aligning with the JSON data provided earlier
   //doctorId: { type: Schema.Types.ObjectId, ref: 'Doctors' },
   doctorId: { type: String, required: true },
+  userId: { type: String, required: true },
   attributes: attributesSchema // Reference to Attributes model
 });
 

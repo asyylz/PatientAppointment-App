@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Review = require('../models/reviewModel');
 
 // GET ALL //
@@ -22,11 +23,17 @@ exports.getDoctorReviews = async (req, res) => {
         }
       }
     ]);
+
+    //const populatedReviews = await Review.populate('userId')
+    const populatedReviews = await mongoose
+      .model('User')
+      .populate(reviews, { path: 'userId', select: 'name image' });
+
     //const reviews = await Review.find();
     res.status(200).json({
       status: 'success',
       data: {
-        reviews
+        reviews: populatedReviews
       }
     });
   } catch (err) {
