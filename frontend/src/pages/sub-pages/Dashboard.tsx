@@ -63,7 +63,6 @@ const Dashboard: React.FC = () => {
     ),
   ];
 
-  if (status === 'loading') return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -124,61 +123,64 @@ const Dashboard: React.FC = () => {
             <div className={classes.appointments}>
               <div className={classes.wrapper1}>
                 <h2>Latest Appointments</h2>
-                <GlobalLink text="Book Now"></GlobalLink>
               </div>
-              {status === 'loading' && <div>Loading...</div>}
               <hr />
+              {status === 'loading' && <div>Loading...</div>}
 
-              <table className={classes.appointments}>
-                <thead>
-                  <tr>
-                    <th>Doctor Name</th>
-                    <th>Date</th>
-                    <th>Concerns</th>
-                    <th>Time</th>
-                    <th>Diagnose</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className={classes.gapLine}></tr>
-                  {appointmentsForPatient?.map((appointment: Appointment) => (
-                    <React.Fragment key={appointment._id.toString()}>
-                      <tr
-                        className={
-                          new Date(appointment.appointmentDateAndTime) >
-                          new Date()
-                            ? `${classes.row} ${classes.active}`
-                            : `${classes.row}`
-                        }
-                        //onClick={() => handleClick(appointment)}
-                      >
-                        <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
-                        <td>
-                          {formatDateForUI(appointment.appointmentDateAndTime)}
-                        </td>
-                        <td>{appointment.reason}</td>
-                        <td>
-                          {appointment.appointmentDateAndTime
-                            .split('T')[1]
-                            .slice(0, 5)}
-                        </td>
-                        <td>{appointment.diagnose}</td>
-                        <td>
-                          <FaEdit
-                            className={`${classes.icons} ${classes.edit}`}
-                            onClick={() => {
-                              // e.stopPropagation();
-                              handleClick(appointment);
-                            }}
-                          />
-                        </td>
-                      </tr>
-                      <tr className={classes.gapLine}></tr>
-                    </React.Fragment>
-                  ))}
-                </tbody>
-              </table>
+              {status === 'succeeded' && (
+                <table className={classes.appointments}>
+                  <thead>
+                    <tr>
+                      <th>Doctor Name</th>
+                      <th>Date</th>
+                      <th>Concerns</th>
+                      <th>Time</th>
+                      <th>Diagnose</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className={classes.gapLine}></tr>
+                    {appointmentsForPatient?.map((appointment: Appointment) => (
+                      <React.Fragment key={appointment._id.toString()}>
+                        <tr
+                          className={
+                            new Date(appointment.appointmentDateAndTime) >
+                            new Date()
+                              ? `${classes.row} ${classes.active}`
+                              : `${classes.row}`
+                          }
+                          //onClick={() => handleClick(appointment)}
+                        >
+                          <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
+                          <td>
+                            {formatDateForUI(
+                              appointment.appointmentDateAndTime
+                            )}
+                          </td>
+                          <td>{appointment.reason}</td>
+                          <td>
+                            {appointment.appointmentDateAndTime
+                              .split('T')[1]
+                              .slice(0, 5)}
+                          </td>
+                          <td>{appointment.diagnose}</td>
+                          <td>
+                            <FaEdit
+                              className={`${classes.icons} ${classes.edit}`}
+                              onClick={() => {
+                                // e.stopPropagation();
+                                handleClick(appointment);
+                              }}
+                            />
+                          </td>
+                        </tr>
+                        <tr className={classes.gapLine}></tr>
+                      </React.Fragment>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
         </div>

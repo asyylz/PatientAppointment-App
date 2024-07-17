@@ -80,7 +80,7 @@ const Departments: React.FC = () => {
         className={classes.container}
         //style={{ border: '2px solid red' }}
       >
-        {status === 'loading' && <p>Loading...</p>}
+        {status === 'loading' && <p>Departments loading...</p>}
 
         {status === 'succeeded' &&
           filteredDepartments.map((department) => (

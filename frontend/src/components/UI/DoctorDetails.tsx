@@ -10,12 +10,9 @@ import ReviewRead from './ReviewRead';
 const DoctorDetails: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const {
-    entities: doctors,
-    status: doctorsStatus,
-    error: doctorsError,
-    selectedDoctor,
-  } = useSelector((state: RootState) => state.doctors);
+  const { error: doctorsError, selectedDoctor } = useSelector(
+    (state: RootState) => state.doctors
+  );
 
   const {
     entities: reviews,
@@ -25,15 +22,11 @@ const DoctorDetails: React.FC = () => {
 
   //console.log(reviews);
 
-  // useEffect(() => {
-  //   if (selectedDoctor) {
-  //     dispatch(fetchReviews(selectedDoctor._id.toString()));
-  //   }
-  // }, [dispatch, selectedDoctor]);
-
-  // if (doctorsStatus === 'loading') {
-  //   return <div>Loading...</div>;
-  // }
+  useEffect(() => {
+    if (selectedDoctor) {
+      dispatch(fetchReviews(selectedDoctor._id.toString()));
+    }
+  }, [dispatch, selectedDoctor]);
 
   if (doctorsError) {
     return <div>Error: {doctorsError}</div>;
@@ -49,7 +42,6 @@ const DoctorDetails: React.FC = () => {
       className={classes.wrapper}
     >
       <div className={classes.availabilityTable}>
-        {' '}
         <AvailabilityTable />
       </div>
 
@@ -59,40 +51,45 @@ const DoctorDetails: React.FC = () => {
       >
         <h1>Reviews</h1>
         <hr />
-        <p>{reviewsStatus === 'loading' && 'Reviews are loading...'}</p>
-        <ul className={classes.reviewsWrapper}>
-          {selectedDoctor.reviews.map((review, index) => (
-            <div
-              key={index}
-              //style={{ border: '3px solid red' }}
-              className={classes.reviewContainer}
-            >
-              <div className={classes.commenterInfo}>
-                <div className={classes.imgAndUser}>
-                  <div className={classes.image}>
-                    <img
-                      src={`http://localhost:3000/static${review.userId?.image}`}
-                      alt=""
-                    />
-                  </div>
-                  <h3>{review.userId?.name}</h3>
-                  {/* <h2>{review.averageRating.toFixed(1)}</h2> */}
-                </div>
-                <div>{review.comments}</div>
-              </div>
 
-              {Object.entries(review.attributes)
-                .filter(([key]) => key !== '_id')
-                .map(([key, value], attrIndex) => (
-                  <ReviewRead
-                    key={attrIndex}
-                    attributeName={key}
-                    attributeValue={value}
-                  />
-                ))}
-            </div>
-          ))}
-        </ul>
+        {reviewsStatus === 'loading' && <p>Reviews are loading...</p>}
+        {reviewsStatus === 'succeeded' && (
+          <ul className={classes.reviewsWrapper}>
+            {reviews.map((review, index) => (
+              <div
+                key={index}
+                //style={{ border: '3px solid red' }}
+                className={classes.reviewContainer}
+              >
+                <div className={classes.commenterInfo}>
+                  <div className={classes.imgAndUser}>
+                    <div className={classes.image}>
+                      <img
+                        src={`http://localhost:3000/static${review.userId?.image}`}
+                        alt=""
+                      />
+                    </div>
+                    <h3>{review.userId?.name}</h3>
+                    {/* <h2>{review.averageRating.toFixed(1)}</h2> */}
+                  </div>
+                  <div>{review.comments}</div>
+                </div>
+
+                {Object.entries(review.attributes)
+                  .filter(([key]) => key !== '_id')
+                  .map(([key, value], attrIndex) => (
+                    <ReviewRead
+                      key={attrIndex}
+                      attributeName={key}
+                      attributeValue={value}
+                    />
+                  ))}
+              </div>
+            ))}
+          </ul>
+        )}
+        {reviewsError && <p>Could not fetch reviews...</p>}
+        {reviewsStatus === 'failed' && <p>{reviewsError}</p>}
       </div>
     </div>
   );
