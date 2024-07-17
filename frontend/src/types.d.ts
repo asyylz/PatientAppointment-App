@@ -81,6 +81,7 @@ interface Availability {
   doctorId: ObjectId;
   day: string;
   time: string;
+  currentWeekAvailabilityInDateFormat: Date | string;
 }
 
 /* ----------------------- REVIEWS ----------------------- */

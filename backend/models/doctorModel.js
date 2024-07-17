@@ -92,15 +92,14 @@ const doctorSchema = new mongoose.Schema({
     ref: 'Department',
     required: true
   },
-  doctorDescription: String,
-  availability: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Availability'
-    }
-  ]
+  doctorDescription: String
+  // availabilities: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Availability'
+  //   }
+  // ]
 });
-
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
 module.exports = Doctor;

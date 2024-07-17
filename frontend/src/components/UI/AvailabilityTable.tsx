@@ -77,7 +77,7 @@ const AvailabilityTable: React.FC = () => {
               ))}
             </tr>
           </thead>
-          
+
           <tbody>
             {timeSlots.map((time, timeIndex) => (
               <tr key={timeIndex}>
@@ -87,15 +87,16 @@ const AvailabilityTable: React.FC = () => {
                   const availability = selectedDoctor?.availabilities.find(
                     (slot) => slot.day === day.day && slot.time === time
                   );
-
+                  console.log(availability);
                   const slotStatus = availability
                     ? appointmentsForDoctor?.find(
                         (appointment) =>
                           appointment.appointmentDateAndTime ===
-                          convertToDateandDateString(
-                            availability.day,
-                            availability.time
-                          ).availabilityDateTimeString
+                          // convertToDateandDateString(
+                          //   availability.day,
+                          //   availability.time
+                          // ).availabilityDateTimeString
+                          availability.currentWeekAvailabilityInDateFormat
                       )
                       ? 'Booked'
                       : 'Available'

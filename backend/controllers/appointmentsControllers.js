@@ -107,6 +107,7 @@ exports.updateAppointment = async (req, res, next) => {
     doctorId: appointment.doctorId
   });
 
+  // Convert days in availabilities collection recent week dates
   const currentWeekDates = {
     Monday: getCurrentWeekDate('Monday'),
     Tuesday: getCurrentWeekDate('Tuesday'),
@@ -257,29 +258,3 @@ exports.deleteAppointment = async (req, res, next) => {
     next(err);
   }
 };
-
-// db.createView('doctorsWithAvailabilities', 'doctors', [
-//   {
-//     $lookup: {
-//       from: 'availabilities',
-//       localField: '_id',
-//       foreignField: 'doctorId',
-//       as: 'availabilities'
-//     }
-//   },
-//   {
-//     $project: {
-//       _id: 1,
-//       firstName: 1,
-//       lastName: 1,
-//       gender: 1,
-//       image: 1,
-//       phone: 1,
-//       address: 1,
-//       reviews: 1,
-//       departmentId: 1,
-//       doctorDescription: 1,
-//       availabilities: 1
-//     }
-//   }
-// ]);

@@ -7,7 +7,7 @@ const availabilitySchema = new mongoose.Schema({
     required: [true, 'An availability must have a doctorId']
   },
   day: {
-    type: [String],
+    type: String,
     trim: true,
     required: [true, 'Day is required']
   },

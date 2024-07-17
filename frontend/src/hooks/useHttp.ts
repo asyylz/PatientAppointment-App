@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
 
 import useAxios from './useAxios';
@@ -42,7 +42,7 @@ const useHttp = () => {
     } catch (error: AxiosError) {
       console.log(error.response.data);
       const fieldName = Object.keys(error.response.data.message)[0];
-      console.log(fieldName)
+      console.log(fieldName);
       if (fieldName === '0') {
         toastErrorNotify(error.response.data.message);
       } else {
@@ -95,12 +95,27 @@ const useHttp = () => {
     }
   };
 
+  const getDoctorWithAvailabilities = async (id: ObjectId) => {
+    console.log(id);
+    try {
+      const response = await axiosWithToken.get(
+        `http://localhost:3000/api/v1/doctors/${id}`
+      );
+      console.log(response.data);
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+      toastErrorNotify(`${error.response.data.message}`);
+    }
+  };
+
   return {
     createAppointment,
     updateAppointment,
     deleteAppointment,
     updateUserPassWord,
     getDoctorAppointments,
+    getDoctorWithAvailabilities,
   };
 };
 

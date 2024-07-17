@@ -5,9 +5,11 @@ import { fetchDoctors } from './../../store/doctors-slice';
 import DoctorProfilCard from '../../components/UI/DoctorProfilCard';
 import classes from './DoctorsPage.module.css';
 import { doctorActions } from './../../store/doctors-slice';
+import useHttp from './../../hooks/useHttp';
 
 const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const { getDoctorWithAvailabilities } = useHttp();
 
   const {
     entities: doctors,
@@ -17,8 +19,12 @@ const Doctors: React.FC = () => {
 
   const searchWord = useSelector((state: RootState) => state.search);
 
-  const handleSelectDoctor = (doctor: Doctor) => {
-    dispatch(doctorActions.selectDoctor(doctor));
+  // we call doctor with availabilities
+  const handleSelectDoctor = async (doctor: Doctor) => {
+    const doctorWithAvailability = await getDoctorWithAvailabilities(
+      doctor._id
+    );
+    dispatch(doctorActions.selectDoctor(doctorWithAvailability));
   };
 
   const [filteredDoctors, setFilteredDoctors] = useState(doctors);
