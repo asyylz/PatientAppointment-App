@@ -1,5 +1,6 @@
 const express = require('express');
 const doctorsController = require('../controllers/doctorsControllers');
+const authControllers = require('../controllers/authControllers');
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router
 
 router
   .route('/:id')
-  .get(doctorsController.getDoctor)
+  .get(authControllers.protect, doctorsController.getDoctor)
   .patch(doctorsController.updateDoctor)
   .delete(doctorsController.deleteDoctor);
 

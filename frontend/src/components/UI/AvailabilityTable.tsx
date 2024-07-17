@@ -4,6 +4,7 @@ import { generateTimeSlots } from '../../utils/timeSlots';
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
 import AppointmentForm from './AppointmentBookingForm';
+
 import {
   getWeekDatesFromToday,
   convertToDateandDateString,
@@ -11,6 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
+import AppointmentBookingForm from './AppointmentBookingForm';
 
 const timeSlots = generateTimeSlots();
 
@@ -29,7 +31,7 @@ const AvailabilityTable: React.FC = () => {
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;
-  //console.log(appointmentsForDoctor);
+
 
   /* ---------------------- useSates ---------------------- */
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -55,7 +57,7 @@ const AvailabilityTable: React.FC = () => {
     <>
       {openModal && (
         <ModalCustom height="900px" width="700px">
-          <AppointmentForm
+          <AppointmentBookingForm
             slot={slot}
             user={userData as userData}
             doctor={selectedDoctor as Doctor}
@@ -87,7 +89,8 @@ const AvailabilityTable: React.FC = () => {
                   const availability = selectedDoctor?.availabilities.find(
                     (slot) => slot.day === day.day && slot.time === time
                   );
-                  console.log(availability);
+                 // console.log(availability);
+                  
                   const slotStatus = availability
                     ? appointmentsForDoctor?.find(
                         (appointment) =>
@@ -104,17 +107,15 @@ const AvailabilityTable: React.FC = () => {
 
                   const conditionalClassName =
                     availability && slotStatus === 'Booked'
-                      ? convertToDateandDateString(
-                          availability.day,
-                          availability.time
-                        ).availabilityDateTime < new Date()
+                      ? new Date(
+                          availability.currentWeekAvailabilityInDateFormat
+                        ) < new Date()
                         ? `${classes.booked} ${classes.past}`
                         : `${classes.booked}`
                       : availability && slotStatus === 'Available'
-                      ? convertToDateandDateString(
-                          availability.day,
-                          availability.time
-                        ).availabilityDateTime < new Date()
+                      ? new Date(
+                          availability.currentWeekAvailabilityInDateFormat
+                        ) < new Date()
                         ? `${classes.available} ${classes.past}`
                         : `${classes.available}`
                       : '';

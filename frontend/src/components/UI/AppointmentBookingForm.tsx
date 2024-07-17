@@ -36,7 +36,8 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
   });
 
   console.log(appointment);
-
+  console.log(doctor);
+  
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -76,7 +77,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
     e.preventDefault();
 
     const response = await createAppointment(appointment);
-  
+
     if (response.status === 'success') {
       setOpenModal(false);
     }

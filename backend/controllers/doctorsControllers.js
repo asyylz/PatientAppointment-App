@@ -92,7 +92,9 @@ exports.getDoctor = async (req, res, next) => {
 
     // Fetch the doctor document by id and the availabilities concurrently
     const [doctor, availabilities] = await Promise.all([
-      Doctor.findById(doctorId).lean(), // Use .lean() to get plain JavaScript object
+      Doctor.findById(doctorId)
+        .populate('departmentId')
+        .lean(), // Use .lean() to get plain JavaScript object
       Availability.find({ doctorId })
     ]);
 
