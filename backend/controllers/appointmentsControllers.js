@@ -1,5 +1,6 @@
 const Appointment = require('../models/appointmentModel');
 const Availability = require('../models/availabilityModel');
+const APIFeatures = require('../utils/apiFeatures');
 const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 // GET ALL //
 exports.getAllAppointments = async (req, res, next) => {
@@ -18,13 +19,59 @@ exports.getAllAppointments = async (req, res, next) => {
 };
 
 // GET PATIENT APPOINTMENTS //
+// exports.getPatientAppointments = async (req, res) => {
+//   try {
+//     const appointmentsForPatient = await Appointment.find({
+//       patientId: req.params.id
+//     })
+//       .populate('doctorId', { firstName: 1, lastName: 1, departmentId: 1 })
+//       .sort({ appointmentDateAndTime: -1 });
+
+//     const totalAppointments = await Appointment.countDocuments({
+//       patientId: req.params.id
+//     });
+
+//     const today = new Date();
+//     const upcomingAppointments = await Appointment.countDocuments({
+//       patientId: req.params.id,
+//       appointmentDateAndTime: { $gte: today }
+//     });
+
+//     res.status(200).json({
+//       status: 'success',
+//       data: {
+//         total: totalAppointments,
+//         upcomingAppointments,
+//         appointmentsForPatient
+//       }
+//     });
+//   } catch (err) {
+//     res.status(404).json({
+//       status: 'fail',
+//       message: err
+//     });
+//   }
+// };
+
+// GET PATIENT APPOINTMENTS //
 exports.getPatientAppointments = async (req, res) => {
   try {
-    const appointmentsForPatient = await Appointment.find({
-      patientId: req.params.id
-    })
-      .populate('doctorId', { firstName: 1, lastName: 1, departmentId: 1 })
-      .sort({ appointmentDateAndTime: -1 });
+    console.log(req.query);
+    // EXECUTE QUERY
+    const features = new APIFeatures(
+      Appointment.find({
+        patientId: req.params.id
+      })
+        .populate('doctorId', { firstName: 1, lastName: 1, departmentId: 1 })
+        .sort({ appointmentDateAndTime: -1 }),
+      req.query
+    )
+      .filter()
+      //.sort()
+      .limitFields()
+      .paginate();
+
+    const appointmentsForPatient = await features.query;
 
     const totalAppointments = await Appointment.countDocuments({
       patientId: req.params.id
@@ -38,6 +85,7 @@ exports.getPatientAppointments = async (req, res) => {
 
     res.status(200).json({
       status: 'success',
+      total: appointmentsForPatient.length,
       data: {
         total: totalAppointments,
         upcomingAppointments,
@@ -51,7 +99,6 @@ exports.getPatientAppointments = async (req, res) => {
     });
   }
 };
-
 // GET DOCTOR APPOINTMENTS //
 exports.getDoctorAppointments = async (req, res, next) => {
   try {

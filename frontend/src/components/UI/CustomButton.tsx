@@ -1,14 +1,21 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './CustomButton.module.css';
 
 interface CustomButtonProps {
   department: Department;
 }
 const CustomButton: React.FC<CustomButtonProps> = ({ department }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/user/doctors');
+  };
+
   return (
     <div
       className={classes.wrapper}
       // style={{ border: '3px solid green' }}
+      onClick={handleClick}
     >
       <div
         className={classes.card}

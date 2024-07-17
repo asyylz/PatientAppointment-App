@@ -10,6 +10,7 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
   doctor,
   onSelectDoctor,
 }) => {
+  
   return (
     <div
       key={doctor._id.toString()}

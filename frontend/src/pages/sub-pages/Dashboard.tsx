@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
-import GlobalLink from '../../components/UI/GlobalLink';
+import { GrNext, GrPrevious } from 'react-icons/gr';
 import { FaStethoscope, FaBriefcaseMedical } from 'react-icons/fa';
 import { FaUserDoctor } from 'react-icons/fa6';
 import { fetchAppointmentsForPatient } from '../../store/appointmentsForPatient-slice';
@@ -22,6 +22,7 @@ const Dashboard: React.FC = () => {
   const [appointmentIdToDelete, setAppointmentIdToDelete] =
     useState<ObjectId | null>(null);
 
+  const [pagination, setPagination] = useState<number>(1);
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForPatient
   );
@@ -47,13 +48,28 @@ const Dashboard: React.FC = () => {
     setSelectedAppointment(appointment);
   };
 
+  const handlePaginationClick = (direction: string) => {
+    setPagination((prevPagination) => {
+      if (direction === 'next' && appointmentsForPatient?.length >= 10) {
+        return prevPagination + 1;
+      } else if (direction === 'prev') {
+        return Math.max(prevPagination - 1, 1);
+      }
+      return prevPagination; // Default case
+    });
+  };
+
   useEffect(() => {
     if (userData?._id) {
       dispatch(
-        fetchAppointmentsForPatient({ id: userData._id.toString(), token })
+        fetchAppointmentsForPatient({
+          id: userData._id.toString(),
+          token,
+          pagination,
+        })
       );
     }
-  }, [dispatch, token, userData?._id, appointmentIdToDelete]);
+  }, [appointmentIdToDelete, pagination, openModal]);
 
   const totalDoctors = [
     ...new Set(
@@ -131,6 +147,7 @@ const Dashboard: React.FC = () => {
                 <table className={classes.appointments}>
                   <thead>
                     <tr>
+                      <th>No</th>
                       <th>Doctor Name</th>
                       <th>Date</th>
                       <th>Concerns</th>
@@ -141,46 +158,64 @@ const Dashboard: React.FC = () => {
                   </thead>
                   <tbody>
                     <tr className={classes.gapLine}></tr>
-                    {appointmentsForPatient?.map((appointment: Appointment) => (
-                      <React.Fragment key={appointment._id.toString()}>
-                        <tr
-                          className={
-                            new Date(appointment.appointmentDateAndTime) >
-                            new Date()
-                              ? `${classes.row} ${classes.active}`
-                              : `${classes.row}`
-                          }
-                          //onClick={() => handleClick(appointment)}
-                        >
-                          <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
-                          <td>
-                            {formatDateForUI(
-                              appointment.appointmentDateAndTime
-                            )}
-                          </td>
-                          <td>{appointment.reason}</td>
-                          <td>
-                            {appointment.appointmentDateAndTime
-                              .split('T')[1]
-                              .slice(0, 5)}
-                          </td>
-                          <td>{appointment.diagnose}</td>
-                          <td>
-                            <FaEdit
-                              className={`${classes.icons} ${classes.edit}`}
-                              onClick={() => {
-                                // e.stopPropagation();
-                                handleClick(appointment);
-                              }}
-                            />
-                          </td>
-                        </tr>
-                        <tr className={classes.gapLine}></tr>
-                      </React.Fragment>
-                    ))}
+                    {appointmentsForPatient?.map(
+                      (appointment: Appointment, index: number) => (
+                        <React.Fragment key={appointment._id.toString()}>
+                          <tr
+                            className={
+                              new Date(appointment.appointmentDateAndTime) >
+                              new Date()
+                                ? `${classes.row} ${classes.active}`
+                                : `${classes.row}`
+                            }
+                            //onClick={() => handleClick(appointment)}
+                          >
+                            <td>{index + 1}.</td>
+                            <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
+                            <td>
+                              {formatDateForUI(
+                                appointment.appointmentDateAndTime
+                              )}
+                            </td>
+                            <td>{appointment.reason}</td>
+                            <td>
+                              {appointment.appointmentDateAndTime
+                                .split('T')[1]
+                                .slice(0, 5)}
+                            </td>
+                            <td>{appointment.diagnose}</td>
+                            <td>
+                              <FaEdit
+                                className={`${classes.icons} ${classes.edit}`}
+                                onClick={() => {
+                                  // e.stopPropagation();
+                                  handleClick(appointment);
+                                }}
+                              />
+                            </td>
+                          </tr>
+                          <tr className={classes.gapLine}></tr>
+                        </React.Fragment>
+                      )
+                    )}
                   </tbody>
                 </table>
               )}
+            </div>
+            <div className={classes.paginationWrapper}>
+              <div
+                className={classes.iconBox}
+                onClick={() => handlePaginationClick('prev')}
+              >
+                <GrPrevious />
+              </div>
+              <p>Page:{pagination}</p>
+              <div
+                className={classes.iconBox}
+                onClick={() => handlePaginationClick('next')}
+              >
+                <GrNext />
+              </div>
             </div>
           </div>
         </div>

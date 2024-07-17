@@ -67,7 +67,10 @@ const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 // };
 exports.getAllDoctors = async (req, res, next) => {
   try {
-    const doctors = await Doctor.find();
+    const doctors = await Doctor.find().populate(
+      'departmentId',
+      'departmentMain'
+    );
 
     // SEND RESPONSE //
     res.status(200).json({

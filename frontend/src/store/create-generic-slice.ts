@@ -53,12 +53,12 @@ export const fetchEntitiesWithId = <T>(
 /* ------------------------------------------------------ */
 export const fetchEntitiesWithIdAndToken = <T>(
   entity: string,
-  url: (id: string) => string
+  url: (id: string, pagination: number) => string
 ) =>
-  createAsyncThunk<T, { id: string; token: string }>(
+  createAsyncThunk<T, { id: string; token: string; pagination: number }>(
     `${entity}/fetchWithIdAndToken`,
-    async ({ id, token }) => {
-      const response = await axios.get(url(id), {
+    async ({ id, token, pagination }) => {
+      const response = await axios.get(url(id, pagination), {
         headers: { Authorization: `Bearer ${token}` },
       });
       // return response.data.data[entity];
