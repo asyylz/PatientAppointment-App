@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import CustomInput from './CustomInput';
@@ -15,48 +15,18 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   appointment,
   isPatient,
 }) => {
-  const { updateAppointment } = useHttp();
-
-  const {
-    entities: doctors,
-    status,
-    error,
-  } = useSelector((state: RootState) => state.doctors);
+  const { updateAppointment, getDoctorAppointments } = useHttp();
 
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
     object | undefined
   >();
+
   const [appointmentDate, setAppointmentDate] = useState(
     appointment?.appointmentDateAndTime.split('T')[0]
   );
   const [appointmentTime, setAppointmentTime] = useState(
     appointment?.appointmentDateAndTime.split('T')[1]
   );
-  //console.log(appointmentTime);
-  //console.log(updatedAppointmentData);
-  //console.log(appointment?._id);
-  // console.log(
-  //   new Date(appointment?.appointmentDateAndTime).toLocaleDateString('en-GB')
-  // );
-  console.log(doctors);
-  console.log(appointment);
-
-  const selectedDoctor = doctors.filter((doctor) => {
-    return doctor._id === appointment?.doctorId._id;
-  });
-  console.log(updatedAppointmentData?.appointmentDateAndTime);
-
-  console.log(selectedDoctor[0].availabilities);
-  const isBooked = selectedDoctor[0].availabilities.some((avail) => {
-    console.log(
-      avail.currentWeekAvailabilityInDateFormat ===
-        updatedAppointmentData?.appointmentDateAndTime
-    );
-    new Date(avail.currentWeekAvailabilityInDateFormat) ===
-      updatedAppointmentData?.appointmentDateAndTime;
-  });
-
-  console.log(isBooked);
 
   const handleChange = (
     e: React.ChangeEvent<

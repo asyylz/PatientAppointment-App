@@ -16,7 +16,7 @@ const useHttp = () => {
       return response.data;
     } catch (error: AxiosError) {
       const fieldName = Object.keys(error.response.data.message)[0];
-
+      console.log(fieldName);
       if (error.response.data.message[fieldName].message) {
         toastErrorNotify(`${error.response.data.message[fieldName].message}`);
       } else {
@@ -40,8 +40,14 @@ const useHttp = () => {
       toastSuccessNotify('Your appointment successfully updated');
       return response.data;
     } catch (error: AxiosError) {
+      console.log(error.response.data);
       const fieldName = Object.keys(error.response.data.message)[0];
-      toastErrorNotify(`${error.response.data.message[fieldName].message}`);
+      console.log(fieldName)
+      if (fieldName === '0') {
+        toastErrorNotify(error.response.data.message);
+      } else {
+        toastErrorNotify(`${error.response.data.message[fieldName].message}`);
+      }
     }
   };
 
@@ -75,12 +81,26 @@ const useHttp = () => {
     }
   };
 
+  const getDoctorAppointments = async (id: ObjectId) => {
+    console.log(id);
+    try {
+      const response = await axiosWithToken.get(
+        `http://localhost:3000/api/v1/appointments/doctors/${id}`
+      );
+      console.log(response.data.data.appointmentsForDoctor);
+      return response.data.data.appointmentsForDoctor;
+    } catch (error) {
+      console.log(error);
+      toastErrorNotify(`${error.response.data.message}`);
+    }
+  };
 
   return {
     createAppointment,
     updateAppointment,
     deleteAppointment,
     updateUserPassWord,
+    getDoctorAppointments,
   };
 };
 

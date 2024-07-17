@@ -76,14 +76,29 @@ exports.getDoctorAppointments = async (req, res, next) => {
 };
 // UPDATE //
 exports.updateAppointment = async (req, res, next) => {
-  console.log(req.body);
-  console.log(req.body.doctorId);
+  console.log('from update', req.body.appointmentDateAndTime);
 
   const appointment = await Appointment.findById(req.params.id);
-  console.log(appointment);
   if (!appointment) {
-    return next(new Error('Appointment not found'));
-  } else {
+    return res
+      .status(404)
+      .json({ status: 'error', message: 'Appointment not found' });
+  }
+  const { appointmentDateAndTime } = req.body;
+
+  // Check if an appointment with the same doctorId and appointmentDateAndTime exists
+  const existingAppointment = await Appointment.findOne({
+    doctorId: appointment.doctorId,
+    appointmentDateAndTime: appointmentDateAndTime,
+    _id: { $ne: req.params.id } // Exclude current appointment being updated
+  });
+  console.log(existingAppointment);
+
+  if (existingAppointment) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'This slot is already taken, please try another slot'
+    });
   }
 
   try {
