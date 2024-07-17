@@ -24,16 +24,16 @@ const DoctorDetails: React.FC = () => {
   } = useSelector((state: RootState) => state.reviews);
 
   //console.log(reviews);
-   
-  useEffect(() => {
-    if (selectedDoctor) {
-      dispatch(fetchReviews(selectedDoctor._id.toString()));
-    }
-  }, [dispatch, selectedDoctor]);
 
-  if (doctorsStatus === 'loading') {
-    return <div>Loading...</div>;
-  }
+  // useEffect(() => {
+  //   if (selectedDoctor) {
+  //     dispatch(fetchReviews(selectedDoctor._id.toString()));
+  //   }
+  // }, [dispatch, selectedDoctor]);
+
+  // if (doctorsStatus === 'loading') {
+  //   return <div>Loading...</div>;
+  // }
 
   if (doctorsError) {
     return <div>Error: {doctorsError}</div>;
@@ -59,8 +59,9 @@ const DoctorDetails: React.FC = () => {
       >
         <h1>Reviews</h1>
         <hr />
+        <p>{reviewsStatus === 'loading' && 'Reviews are loading...'}</p>
         <ul className={classes.reviewsWrapper}>
-          {reviews.map((review, index) => (
+          {selectedDoctor.reviews.map((review, index) => (
             <div
               key={index}
               //style={{ border: '3px solid red' }}
@@ -75,7 +76,7 @@ const DoctorDetails: React.FC = () => {
                     />
                   </div>
                   <h3>{review.userId?.name}</h3>
-                  <h2>{review.averageRating.toFixed(1)}</h2>
+                  {/* <h2>{review.averageRating.toFixed(1)}</h2> */}
                 </div>
                 <div>{review.comments}</div>
               </div>

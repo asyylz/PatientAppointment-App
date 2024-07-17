@@ -3,7 +3,6 @@ import classes from './AvailabilityTable.module.css';
 import { generateTimeSlots } from '../../utils/timeSlots';
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
-import AppointmentForm from './AppointmentBookingForm';
 
 import {
   getWeekDatesFromToday,
@@ -32,7 +31,6 @@ const AvailabilityTable: React.FC = () => {
   );
   const { appointmentsForDoctor } = entities;
 
-
   /* ---------------------- useSates ---------------------- */
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [slot, setSlot] = useState({ time: '', date: '' });
@@ -46,7 +44,7 @@ const AvailabilityTable: React.FC = () => {
         })
       );
     }
-  }, [dispatch, token, selectedDoctor, openModal]);
+  }, [openModal]);
 
   const handleSlotClick = (time: string, date: string) => {
     setOpenModal(true);
@@ -89,8 +87,8 @@ const AvailabilityTable: React.FC = () => {
                   const availability = selectedDoctor?.availabilities.find(
                     (slot) => slot.day === day.day && slot.time === time
                   );
-                 // console.log(availability);
-                  
+                  // console.log(availability);
+
                   const slotStatus = availability
                     ? appointmentsForDoctor?.find(
                         (appointment) =>

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Doctor = require('../models/doctorModel');
 const Availability = require('../models/availabilityModel');
+const Review = require('./../models/reviewModel');
 
 const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 
@@ -91,11 +92,14 @@ exports.getDoctor = async (req, res, next) => {
     const doctorId = req.params.id;
 
     // Fetch the doctor document by id and the availabilities concurrently
-    const [doctor, availabilities] = await Promise.all([
+    const [doctor, availabilities, reviews] = await Promise.all([
       Doctor.findById(doctorId)
         .populate('departmentId')
         .lean(), // Use .lean() to get plain JavaScript object
-      Availability.find({ doctorId })
+      Availability.find({ doctorId }),
+      Review.find({ doctorId })
+        .populate('userId', 'name image')
+        .lean()
     ]);
 
     // If doctor is not found, handle appropriately
@@ -134,7 +138,8 @@ exports.getDoctor = async (req, res, next) => {
       status: 'success',
       data: {
         ...doctor,
-        availabilities: availbilitiesInDateFormat
+        availabilities: availbilitiesInDateFormat,
+        reviews
       }
     });
   } catch (err) {

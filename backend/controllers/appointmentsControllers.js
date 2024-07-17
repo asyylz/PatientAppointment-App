@@ -85,6 +85,15 @@ exports.updateAppointment = async (req, res, next) => {
       .status(404)
       .json({ status: 'error', message: 'Appointment not found' });
   }
+
+  // Check if appointment date is in  past
+  const today = new Date();
+  if (new Date(appointment.appointmentDateAndTime) < today) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'You can not change appointments in past!'
+    });
+  }
   const { appointmentDateAndTime } = req.body;
 
   // Check if  new appointment date is booked already by other patient

@@ -5,6 +5,7 @@ import {
   formatDateForInput,
   convertDateAndTimeStringToDate,
 } from '../../helper/generateDates';
+import CustomInput from './CustomInput';
 
 interface AppointmentBookingFormProps {
   user: userData;
@@ -35,9 +36,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
     reason: '',
   });
 
-  console.log(appointment);
-  console.log(doctor);
-  
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -88,17 +87,16 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
       <h1 className={classes.title}>Booking Form</h1>
       <form onSubmit={handleSubmit}>
         <div className={classes.leftSection}>
-          {' '}
-          <input
-            type="text"
+          <CustomInput
             name="doctor"
-            placeholder="Choose Doctor"
             value={`Dr.${doctor?.firstName} ${doctor?.lastName}`}
+            type="text"
             readOnly
           />
-          <select name="mainDepartment" aria-readonly>
+          {/* <select name="mainDepartment" aria-readonly>
             <option value={0}>{doctor?.departmentId.departmentMain}</option>
-          </select>
+          </select> */}
+          <CustomInput value={doctor?.departmentId.departmentMain} readOnly />
           <select name="subDepartmentName" onChange={handleChange} required>
             <option>Choose Sub Department</option>
             {doctor?.departmentId.departmentSub.map((el, index) => (
@@ -109,12 +107,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
           </select>
         </div>
         <div className={classes.rightSection}>
-          <input
-            type="text"
-            value={user.name}
-            placeholder="Patient Name"
-            readOnly
-          />
+          <CustomInput type="text" value={user.name} readOnly />
           <input
             placeholder="Appointment Date"
             defaultValue={formatDateForInput(slot.date)}
