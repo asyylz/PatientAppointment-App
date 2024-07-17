@@ -27,6 +27,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     appointment?.appointmentDateAndTime.split('T')[1]
   );
 
+  console.log('Doctorid', appointment?.doctorId);
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement

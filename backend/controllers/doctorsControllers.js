@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
 const Doctor = require('../models/doctorModel');
 const Availability = require('../models/availabilityModel');
 const APIFeatures = require('../utils/apiFeatures');
@@ -27,7 +26,8 @@ exports.getAllDoctors = async (req, res, next) => {
       Sunday: getCurrentWeekDate('Sunday')
     };
 
-    // Map over the results and transform availabilities to include current week dates
+    //Map over the results and transform availabilities to include current week dates
+
     const transformedDoctors = doctorsWithAvailabilities.map(doctor => {
       const transformedAvailabilities = doctor.availabilities.map(avail => {
         const { day } = avail;
@@ -82,6 +82,44 @@ exports.getDoctor = async (req, res, next) => {
         message: 'Doctor not found'
       });
     }
+    const doctorWithAvailabilities = await Doctor.findById(doctorId).aggregate([
+      {
+        $lookup: {
+          from: 'availabilities',
+          localField: '_id',
+          foreignField: 'doctorId',
+          as: 'availabilities'
+        }
+      }
+    ]);
+
+    // db.doctors
+    //   .aggregate([
+    //     {
+    //       $lookup: {
+    //         from: 'availabilities',
+    //         localField: '_id',
+    //         foreignField: 'doctorId',
+    //         as: 'availabilities'
+    //       }
+    //     },
+    //     {
+    //       $project: {
+    //         _id: 1,
+    //         firstName: 1,
+    //         lastName: 1,
+    //         gender: 1,
+    //         image: 1,
+    //         phone: 1,
+    //         address: 1,
+    //         reviews: 1,
+    //         departmentId: 1,
+    //         doctorDescription: 1,
+    //         availabilities: 1
+    //       }
+    //     }
+    //   ])
+    //   .pretty();
 
     // Fetch availability data for the doctor
     const availability = await Availability.find({ doctorId });

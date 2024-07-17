@@ -1,5 +1,6 @@
 const Appointment = require('../models/appointmentModel');
-
+const Availability = require('../models/availabilityModel');
+const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 // GET ALL //
 exports.getAllAppointments = async (req, res, next) => {
   try {
@@ -74,10 +75,10 @@ exports.getDoctorAppointments = async (req, res, next) => {
     next(err);
   }
 };
+
 // UPDATE //
 exports.updateAppointment = async (req, res, next) => {
-  console.log('from update', req.body.appointmentDateAndTime);
-
+  // First check appointment is in DB
   const appointment = await Appointment.findById(req.params.id);
   if (!appointment) {
     return res
@@ -86,14 +87,14 @@ exports.updateAppointment = async (req, res, next) => {
   }
   const { appointmentDateAndTime } = req.body;
 
-  // Check if an appointment with the same doctorId and appointmentDateAndTime exists
+  // Check if  new appointment date is booked already by other patient
   const existingAppointment = await Appointment.findOne({
     doctorId: appointment.doctorId,
     appointmentDateAndTime: appointmentDateAndTime,
-    _id: { $ne: req.params.id } // Exclude current appointment being updated
+    _id: { $ne: req.params.id }
   });
-  //console.log(existingAppointment);
 
+  // if exists  throw error
   if (existingAppointment) {
     return res.status(400).json({
       status: 'error',
@@ -101,6 +102,49 @@ exports.updateAppointment = async (req, res, next) => {
     });
   }
 
+  // Find doctor's availabilities
+  const availabilities = await Availability.find({
+    doctorId: appointment.doctorId
+  });
+
+  const currentWeekDates = {
+    Monday: getCurrentWeekDate('Monday'),
+    Tuesday: getCurrentWeekDate('Tuesday'),
+    Wednesday: getCurrentWeekDate('Wednesday'),
+    Thursday: getCurrentWeekDate('Thursday'),
+    Friday: getCurrentWeekDate('Friday'),
+    Saturday: getCurrentWeekDate('Saturday'),
+    Sunday: getCurrentWeekDate('Sunday')
+  };
+
+  // Convert doctor's availability dates to Date object and format it to ISO string for comparison
+  const availbilitiesInDateFormat = availabilities.map(avail => {
+    const { day } = avail;
+    return {
+      ...avail,
+      currentWeekAvailabilityInDateFormat: new Date(
+        `${currentWeekDates[day]}T${avail.time}:00.000Z`
+      )
+    };
+  });
+
+  // Check if doctor is available on the selected appointment date and time
+  const isDoctorAvailable = availbilitiesInDateFormat.some(avail => {
+    return (
+      avail.currentWeekAvailabilityInDateFormat.toISOString() ===
+      new Date(req.body.appointmentDateAndTime).toISOString()
+    );
+  });
+
+  // If doctor is not available throw error
+  if (!isDoctorAvailable) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Doctor is not available on this date!'
+    });
+  }
+
+  // Update appointment
   try {
     const updatedAppointment = await Appointment.findByIdAndUpdate(
       req.params.id,
