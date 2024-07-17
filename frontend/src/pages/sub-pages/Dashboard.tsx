@@ -128,15 +128,6 @@ const Dashboard: React.FC = () => {
               </div>
               {status === 'loading' && <div>Loading...</div>}
               <hr />
-              {/* <div className={classes.wrapper2}>
-                {appointmentsForPatient?.map((appointment: Appointment) => (
-                  <AppointmentCard
-                    appointment={appointment}
-                    setOpenModal={setOpenModal}
-                    setAppointmentIdToDelete={setAppointmentIdToDelete}
-                  />
-                ))}
-              </div> */}
 
               <table className={classes.appointments}>
                 <thead>

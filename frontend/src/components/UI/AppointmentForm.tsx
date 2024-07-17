@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import CustomInput from './CustomInput';
-import { useSelector } from 'react-redux';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
@@ -15,7 +14,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   appointment,
   isPatient,
 }) => {
-  const { updateAppointment, getDoctorAppointments } = useHttp();
+  const { updateAppointment } = useHttp();
 
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
     object | undefined

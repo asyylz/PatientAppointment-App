@@ -92,7 +92,7 @@ exports.updateAppointment = async (req, res, next) => {
     appointmentDateAndTime: appointmentDateAndTime,
     _id: { $ne: req.params.id } // Exclude current appointment being updated
   });
-  console.log(existingAppointment);
+  //console.log(existingAppointment);
 
   if (existingAppointment) {
     return res.status(400).json({

@@ -4,8 +4,6 @@
     --color_3: #FFCB9A;
     --color_4: #F0788C;
     --color_5: #45C4B0;
-
-
 }
 
 .container {
@@ -115,15 +113,15 @@ svg {
     justify-content: space-between;
 }
 
-.appointments .wrapper2 {
+/* .appointments .wrapper2 {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 1rem;
-}
+} */
 
-.appointments .wrapper2 .appointmentBox {
+/* .appointments .wrapper2 .appointmentBox {
     margin-top: 2rem;
     height: 180px;
     min-width: 430px;
@@ -140,7 +138,7 @@ svg {
     font-size: 1.2rem;
     position: relative;
 
-}
+} */
 
 .close {
     border: 3px solid var(--color_4);
