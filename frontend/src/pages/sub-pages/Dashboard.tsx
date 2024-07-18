@@ -206,16 +206,16 @@ const Dashboard: React.FC = () => {
               <div
                 className={classes.iconBox}
                 onClick={() => handlePaginationClick('prev')}
-              >
-                <small style={{ left: '30px' }}>Prev</small>
-                <GrPrevious />
+              > <GrPrevious />
+                <p>Prev</p>
+               
               </div>
               <p>Page:{pagination}</p>
               <div
                 className={classes.iconBox}
                 onClick={() => handlePaginationClick('next')}
               >
-                <small>Next</small>
+                <p>Next</p>
                 <GrNext />
               </div>
             </div>

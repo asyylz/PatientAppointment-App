@@ -250,24 +250,42 @@ td .icons.edit {
 
 .paginationWrapper p {
     font-size: 16px;
+
+}
+
+.paginationWrapper .iconBox{
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .paginationWrapper .iconBox svg {
     margin: 0 1rem;
-    cursor: pointer;
+    
     color: #444;
     height: 30px;
     width: 30px;
+ 
+
+
 
 }
 
 @media (max-width: 930px) {
     .container {
+        border: 2px solid red;
         min-height: 100vh;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 300px 300px 1fr;
+        overflow: scroll;
         gap: 1rem;
+    }
+
+    .rightBottom {
+        margin-bottom: 2rem;
     }
 
     .userRightSection {
