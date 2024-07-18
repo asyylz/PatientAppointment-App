@@ -95,7 +95,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               style={{ color: 'blue' }}
               onClick={() => setOpenModalConfirm('')}
             >
-              Cancel
+              Close
             </button>
           </div>
         </ModalCustom>
@@ -198,7 +198,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 setOpenModalConfirm('open');
               }}
             >
-              Cancel
+              Delete
             </button>
             <button onClick={() => setOpenModal('')}>Close</button>
           </div>
