@@ -16,7 +16,7 @@
 }
 
 body {
-    overflow-x: hidden;
+    background-color: #f3f0ef;
 }
 
 h1,
@@ -60,4 +60,3 @@ button:hover {
     opacity: 0;
     z-index: 10;
 }
-

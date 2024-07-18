@@ -7,6 +7,7 @@
 }
 
 .container {
+    /* border: 1px solid yellow; */
     min-height: 100vh;
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -253,7 +254,7 @@ td .icons.edit {
 
 }
 
-.paginationWrapper .iconBox{
+.paginationWrapper .iconBox {
     position: relative;
     cursor: pointer;
     display: flex;
@@ -263,26 +264,12 @@ td .icons.edit {
 
 .paginationWrapper .iconBox svg {
     margin: 0 1rem;
-    
     color: #444;
     height: 30px;
     width: 30px;
- 
-
-
-
 }
 
 @media (max-width: 930px) {
-    .container {
-        border: 2px solid red;
-        min-height: 100vh;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 300px 300px 1fr;
-        overflow: scroll;
-        gap: 1rem;
-    }
 
     .rightBottom {
         margin-bottom: 2rem;
@@ -291,7 +278,7 @@ td .icons.edit {
     .userRightSection {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 300px 1fr;
+        grid-template-rows: 200px flex;
     }
 
     .userRightSection .rightTop {
@@ -302,6 +289,19 @@ td .icons.edit {
     }
 
 }
+
+@media (max-width: 1380px) {
+    .container {
+        grid-template-columns: 1fr;
+        /* grid-template-rows: 150px 300px flex; */
+    }
+
+    .userLeftSection {
+        grid-template-rows: 300px 1fr;
+    }
+}
+
+
 
 @media (max-width: 1610px) {
     .appointments .wrapper2 {

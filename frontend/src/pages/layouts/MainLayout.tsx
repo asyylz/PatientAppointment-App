@@ -11,7 +11,7 @@ const MainLayout: React.FC = () => {
         //border: '5px solid purple',
         //marginTop: '5rem',
         minHeight: '100%',
-        backgroundColor: '#f3f0ef',
+         backgroundColor: '#f3f0ef',
       }}
     >
       <div
