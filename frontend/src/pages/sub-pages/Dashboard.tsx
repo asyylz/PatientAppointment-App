@@ -207,6 +207,7 @@ const Dashboard: React.FC = () => {
                 className={classes.iconBox}
                 onClick={() => handlePaginationClick('prev')}
               >
+                <small style={{ left: '30px' }}>Prev</small>
                 <GrPrevious />
               </div>
               <p>Page:{pagination}</p>
@@ -214,6 +215,7 @@ const Dashboard: React.FC = () => {
                 className={classes.iconBox}
                 onClick={() => handlePaginationClick('next')}
               >
+                <small>Next</small>
                 <GrNext />
               </div>
             </div>
