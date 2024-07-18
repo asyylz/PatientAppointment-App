@@ -84,14 +84,24 @@ img {
     }
 }
 
+@media (max-width:600px) {
+    .topBar {
+        grid-template-columns: 300px;
+        height: 160px;
+
+    }
+
+    .search {
+        width: 300px;
+    }
+
+
+}
+
 @media (max-width:420px) {
 
     .search input {
         padding: 0 10px;
     }
 
-    .user {
-        width: 40px;
-        height: 40px;
-    }
 }
