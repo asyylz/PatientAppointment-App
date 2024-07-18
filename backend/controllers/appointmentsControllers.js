@@ -310,6 +310,7 @@ exports.deleteAppointment = async (req, res, next) => {
       data: null
     });
   } catch (err) {
+    console.log('err from delete Appointment', err);
     next(err);
   }
 };

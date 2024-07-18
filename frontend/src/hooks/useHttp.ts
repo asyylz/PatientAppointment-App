@@ -29,8 +29,7 @@ const useHttp = () => {
     data: object | undefined,
     id: ObjectId | undefined
   ) => {
-    //console.log(data);
-    //console.log(id);
+
 
     try {
       const response = await axiosWithToken.patch(

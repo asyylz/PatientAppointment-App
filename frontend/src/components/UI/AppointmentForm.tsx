@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import CustomInput from './CustomInput';
-import { toastErrorNotify } from '../../helper/ToastNotify';
+import ModalCustom from './ModalCustom';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
@@ -20,6 +20,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
     object | undefined
   >();
+  const [openModalConfirm, setOpenModalConfirm] = useState<string>('');
 
   const [appointmentDate, setAppointmentDate] = useState(
     appointment?.appointmentDateAndTime.split('T')[0]
@@ -69,112 +70,141 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       setOpenModal('');
     }
   };
+
   const handleDeleteAppointment = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
     const response = await deleteAppointment(appointment?._id);
-    if (response?.status === 204) setOpenModal('');
-    else toastErrorNotify('Appointment could not deleted');
+    if (response?.status === 204) {
+      setOpenModalConfirm('');
+      setOpenModal('');
+    }
   };
 
   return (
-    <div className={classes.container}>
-      <h1 className={classes.title}>Appointment Details</h1>
-      <form onSubmit={handleSubmit}>
-        <div className={classes.leftSection}>
-          <CustomInput
-            value={
-              isPatient
-                ? `Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId.lastName}`
-                : appointment?.patientId?.name
-            }
-            readOnly
-          />
-          <input
-            placeholder="Appointment Date"
-            // value={formatDateForUI(appointment?.appointmentDateAndTime)}
-            defaultValue={appointment?.appointmentDateAndTime.split('T')[0]}
-            type="date"
-            name="appointmentDate"
-            onChange={handleChange}
-          />
-          <input
-            placeholder="Appointment Time"
-            //value={appointment?.appointmentDateAndTime}
-            defaultValue={appointment?.appointmentDateAndTime
-              .split('T')[1]
-              .slice(0, 5)}
-            name="appointmentTime"
-            type="time"
-            step="1800"
-            onChange={handleChange}
-          />
-          <textarea
-            className={classes.reason}
-            placeholder="Please write your concerns..."
-            name="reason"
-            defaultValue={appointment?.reason}
-            onChange={handleChange}
-            rows={8}
-            cols={36}
-          ></textarea>
-        </div>
+    <>
+      {openModalConfirm === 'open' && (
+        <ModalCustom height="200px" width="600px">
+          <p>You are about to cancel your recent appointment ?</p>
+          <div className={classes.buttonContainer}>
+            <button style={{ color: 'red' }} onClick={handleDeleteAppointment}>
+              Confirm
+            </button>
+            <button
+              style={{ color: 'blue' }}
+              onClick={() => setOpenModalConfirm('')}
+            >
+              Cancel
+            </button>
+          </div>
+        </ModalCustom>
+      )}
 
-        <div className={classes.leftSection}>
-          {!isPatient ? (
-            <select
-              name="status"
-              id="status"
-              onChange={handleChange}
-              defaultValue={appointment?.status}
-            >
-              <option>Pelease choose a status</option>
-              <option value="completed">Completed</option>
-            </select>
-          ) : (
-            <CustomInput value={appointment?.status} readOnly />
-          )}
-          {!isPatient ? (
-            <select
-              name="referral"
-              id="referral"
-              onChange={handleChange}
-              defaultValue={appointment?.referral.toString()}
-            >
-              <option>Pelease choose a referral status</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
-          ) : (
+      <div className={classes.container}>
+        <h1 className={classes.title}>Appointment Details</h1>
+        <form onSubmit={handleSubmit}>
+          <div className={classes.leftSection}>
             <CustomInput
-              value={appointment?.referral ? 'Referral' : 'Not referral'}
+              value={
+                isPatient
+                  ? `Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId.lastName}`
+                  : appointment?.patientId?.name
+              }
               readOnly
             />
-          )}
+            <input
+              placeholder="Appointment Date"
+              // value={formatDateForUI(appointment?.appointmentDateAndTime)}
+              defaultValue={appointment?.appointmentDateAndTime.split('T')[0]}
+              type="date"
+              name="appointmentDate"
+              onChange={handleChange}
+            />
+            <input
+              placeholder="Appointment Time"
+              //value={appointment?.appointmentDateAndTime}
+              defaultValue={appointment?.appointmentDateAndTime
+                .split('T')[1]
+                .slice(0, 5)}
+              name="appointmentTime"
+              type="time"
+              step="1800"
+              onChange={handleChange}
+            />
+            <textarea
+              className={classes.reason}
+              placeholder="Please write your concerns..."
+              name="reason"
+              defaultValue={appointment?.reason}
+              onChange={handleChange}
+              rows={8}
+              cols={36}
+            ></textarea>
+          </div>
 
-          <textarea
-            className={classes.result}
-            defaultValue={appointment?.diagnose}
-            placeholder="Please write diagnoses..."
-            name="diagnose"
-            onChange={handleChange}
-            rows={8}
-            cols={36}
-            readOnly={isPatient}
-            style={
-              isPatient ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
-            }
-          ></textarea>
-        </div>
-        <div className={classes.buttonContainer}>
-          {' '}
-          <button type="submit">Update</button>
-          <button onClick={handleDeleteAppointment}>Cancel</button>
-          <button onClick={() => setOpenModal('')}>Close</button>
-        </div>
-      </form>
-    </div>
+          <div className={classes.leftSection}>
+            {!isPatient ? (
+              <select
+                name="status"
+                id="status"
+                onChange={handleChange}
+                defaultValue={appointment?.status}
+              >
+                <option>Pelease choose a status</option>
+                <option value="completed">Completed</option>
+              </select>
+            ) : (
+              <CustomInput value={appointment?.status} readOnly />
+            )}
+            {!isPatient ? (
+              <select
+                name="referral"
+                id="referral"
+                onChange={handleChange}
+                defaultValue={appointment?.referral.toString()}
+              >
+                <option>Pelease choose a referral status</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            ) : (
+              <CustomInput
+                value={appointment?.referral ? 'Referral' : 'Not referral'}
+                readOnly
+              />
+            )}
+
+            <textarea
+              className={classes.result}
+              defaultValue={appointment?.diagnose}
+              placeholder="Please write diagnoses..."
+              name="diagnose"
+              onChange={handleChange}
+              rows={8}
+              cols={36}
+              readOnly={isPatient}
+              style={
+                isPatient ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
+              }
+            ></textarea>
+          </div>
+          <div className={classes.buttonContainer}>
+            {' '}
+            <button type="submit">Update</button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setOpenModalConfirm('open');
+              }}
+            >
+              Cancel
+            </button>
+            <button onClick={() => setOpenModal('')}>Close</button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 
