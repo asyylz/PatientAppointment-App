@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import CustomInput from './CustomInput';
 import ModalCustom from './ModalCustom';
+import ReviewInput from './../UI/ReviewInput';
+const reviewCriterias = ['Staff', 'Punctual', 'Helpful', 'Knowledge'];
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
@@ -29,7 +31,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     appointment?.appointmentDateAndTime.split('T')[1]
   );
 
-  console.log('Doctorid', appointment?.doctorId);
+  //console.log('Doctorid', appointment?.doctorId);
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -84,6 +86,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
   return (
     <>
+      {/* /* -------------- Appointment Delete Notification Modal ------------- */}
       {openModalConfirm === 'open' && (
         <ModalCustom height="200px" width="600px">
           <p>You are about to cancel your recent appointment ?</p>
@@ -100,7 +103,31 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </div>
         </ModalCustom>
       )}
-
+      {/* /* -------------------- Comment Form -------------------- */}
+      {openModalConfirm === 'comment' && (
+        <ModalCustom height="600px" width="600px">
+          <div className={`${classes.container} ${classes.comment}`}>
+            {' '}
+            <CustomInput
+              readOnly
+              value={`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId.lastName}`}
+            />
+            <div>
+              {reviewCriterias.map((criteria: string) => {
+                return (
+                  <ReviewInput attributeName={criteria} />
+                );
+              })}
+            </div>
+            <textarea name="comment" rows={8} cols={36}></textarea>
+            <div className={classes.buttonContainer}>
+              <button>Comment</button>
+              <button onClick={() => setOpenModalConfirm('')}>Cancel</button>
+            </div>
+          </div>
+        </ModalCustom>
+      )}
+      {/* /* ------------------ Appointment Form ------------------ */}
       <div className={classes.container}>
         <h1 className={classes.title}>Appointment Details</h1>
         <form onSubmit={handleSubmit}>
@@ -188,6 +215,14 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 isPatient ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
               }
             ></textarea>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setOpenModalConfirm('comment');
+              }}
+            >
+              Leave comment
+            </button>
           </div>
           <div className={classes.buttonContainer}>
             {' '}

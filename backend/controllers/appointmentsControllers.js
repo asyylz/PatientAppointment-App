@@ -264,7 +264,7 @@ exports.getAppointment = async (req, res, next) => {
 
 // POST //
 exports.createAppointment = async (req, res, next) => {
-  console.log('from createAppointment', req.body);
+ // console.log('from createAppointment', req.body);
 
   const { appointmentDateAndTime, doctorId } = req.body;
   try {
@@ -302,8 +302,6 @@ exports.createAppointment = async (req, res, next) => {
 
 // DELETE //
 exports.deleteAppointment = async (req, res, next) => {
-  console.log('from deleteAppointment', req.params.id);
-
   try {
     // First check appointment is in DB
     const appointment = await Appointment.findById(req.params.id);

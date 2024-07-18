@@ -278,6 +278,42 @@
         "wholeMatch": false
       },
       "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": " /* -------------------- COMMENT FORM -------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* -------------- Appointment Delete Notification Modal ------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* -------------------- Comment Form -------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------ Appointment Form ------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
     }
   ]
 }
