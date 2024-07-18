@@ -137,7 +137,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div className={classes.rightBottom}>
             <div className={classes.appointments}>
-              <div className={classes.wrapper1}>
+              <div className={classes.wrapper}>
                 <h2>Latest Appointments</h2>
               </div>
               <hr />
