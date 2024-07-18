@@ -9,23 +9,25 @@ type HttpMethod = 'get' | 'post' | 'patch' | 'delete';
 
 export const fetchEntities = <T>(
   entity: string,
-  url: string,
+  url: string | ((pagination: number) => string),
   method: HttpMethod = 'get'
 ) =>
-  createAsyncThunk<T | object, object | void>(
+  createAsyncThunk<T | object, { pagination?: number }>(
     `${entity}/fetch`,
-    async (arg) => {
+    async ({ pagination } = {}) => {
+      console.log(pagination);
       try {
         const axiosMethods: Record<
           HttpMethod,
           (url: string, config?: AxiosRequestConfig) => Promise<AxiosResponse>
         > = {
           get: axios.get,
-          post: (url, config) => axios.post(url, arg, config),
-          patch: (url, config) => axios.patch(url, arg, config),
+          post: (url, config) => axios.post(url, {}, config),
+          patch: (url, config) => axios.patch(url, {}, config),
           delete: axios.delete,
         };
-        const response = await axiosMethods[method](url);
+        const requestUrl = typeof url === 'function' ? url(pagination) : url;
+        const response = await axiosMethods[method](requestUrl);
         console.log(`${entity} data:`, response.data.data);
         return response.data.data[entity];
       } catch (err) {

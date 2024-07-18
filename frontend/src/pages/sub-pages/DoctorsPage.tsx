@@ -6,6 +6,7 @@ import DoctorProfilCard from '../../components/UI/DoctorProfilCard';
 import classes from './DoctorsPage.module.css';
 import { doctorActions } from './../../store/doctors-slice';
 import useHttp from './../../hooks/useHttp';
+import PaginationButtons from '../../components/UI/PaginationButtons';
 
 const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -26,14 +27,14 @@ const Doctors: React.FC = () => {
     );
     dispatch(doctorActions.selectDoctor(doctorWithAvailability));
   };
-
+  const [pagination, setPagination] = useState<number>(1);
   const [filteredDoctors, setFilteredDoctors] = useState(doctors);
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchDoctors());
-    }
-  }, [status, dispatch]);
+    dispatch(fetchDoctors({ pagination }));
+  }, [dispatch, pagination]);
+
+ 
 
   useEffect(() => {
     if (searchWord) {
@@ -78,7 +79,7 @@ const Doctors: React.FC = () => {
         {status === 'loading' && <p>Loading...</p>}
 
         {status === 'succeeded' &&
-          filteredDoctors.map((doctor: Doctor, index) => (
+          filteredDoctors?.map((doctor: Doctor, index) => (
             <DoctorProfilCard
               key={index}
               doctor={doctor as Doctor}
@@ -87,6 +88,12 @@ const Doctors: React.FC = () => {
           ))}
         {status === 'failed' && <p>{error}</p>}
       </div>
+      <PaginationButtons
+        pagination={pagination}
+        setPagination={setPagination}
+        length={doctors?.length}
+        limit={2}
+      />
     </>
   );
 };

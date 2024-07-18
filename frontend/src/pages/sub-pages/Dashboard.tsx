@@ -195,7 +195,8 @@ const Dashboard: React.FC = () => {
             <PaginationButtons
               setPagination={setPagination}
               pagination={pagination}
-              length={appointmentsForPatient.length}
+              length={appointmentsForPatient?.length}
+              limit={10}
             />
           </div>
         </div>

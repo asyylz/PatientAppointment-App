@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const APIFeatures = require('../utils/apiFeatures');
 const Doctor = require('../models/doctorModel');
 const Availability = require('../models/availabilityModel');
 const Review = require('./../models/reviewModel');
@@ -67,10 +68,21 @@ const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 // };
 exports.getAllDoctors = async (req, res, next) => {
   try {
-    const doctors = await Doctor.find().populate(
-      'departmentId',
-      'departmentMain'
-    );
+    // const doctors = await Doctor.find().populate(
+    //   'departmentId',
+    //   'departmentMain'
+    // );
+
+    const features = new APIFeatures(
+      Doctor.find().populate('departmentId', 'departmentMain'),
+      req.query
+    )
+      .filter()
+      .limitFields()
+      .paginate()
+      .sort();
+
+    const doctors = await features.query;
 
     // SEND RESPONSE //
     res.status(200).json({

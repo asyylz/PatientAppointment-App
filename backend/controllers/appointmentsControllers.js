@@ -56,7 +56,6 @@ exports.getAllAppointments = async (req, res, next) => {
 // GET PATIENT APPOINTMENTS //
 exports.getPatientAppointments = async (req, res) => {
   try {
-    console.log(req.query);
     // EXECUTE QUERY
     const features = new APIFeatures(
       Appointment.find({
