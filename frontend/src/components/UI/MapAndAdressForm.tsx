@@ -74,7 +74,7 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
       setMap(initMap);
     }
   }, [location, map]);
-  
+
   //console.log(addressParts);
 
   const handleAddressLoad = () => {
@@ -174,12 +174,8 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
         <button onClick={handleAddressLoad}>Load Adress</button>
       </div>
       <div>
-        <div
-          id="map"
-          // className={classes.map}
-          style={{ height: '400px', width: '500px' }}
-        ></div>
-        <div>Address: {address}</div>
+        <div id="map" style={{ height: '300px', width: 'auto' }}></div>
+        <p>Address: {address}</p>
       </div>
     </>
   );
