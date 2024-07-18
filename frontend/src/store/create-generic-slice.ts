@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { createAxiosInstance } from '../helper/axiosInstance';
 
 /* ------------------------------------------------------ */
 /*                        ENTITIES                        */
@@ -9,13 +8,12 @@ type HttpMethod = 'get' | 'post' | 'patch' | 'delete';
 
 export const fetchEntities = <T>(
   entity: string,
-  url: string | ((pagination: number) => string),
+  url: string | ((pagination?: number) => string), // we catch optional pagination argument
   method: HttpMethod = 'get'
 ) =>
   createAsyncThunk<T | object, { pagination?: number }>(
     `${entity}/fetch`,
     async ({ pagination } = {}) => {
-      console.log(pagination);
       try {
         const axiosMethods: Record<
           HttpMethod,
@@ -32,6 +30,7 @@ export const fetchEntities = <T>(
         return response.data.data[entity];
       } catch (err) {
         console.log(err);
+        throw err;
       }
     }
   );

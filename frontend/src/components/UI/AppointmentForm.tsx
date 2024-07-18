@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classes from './AppointmentForm.module.css';
 import useHttp from '../../hooks/useHttp';
 import CustomInput from './CustomInput';
+import { toastErrorNotify } from '../../helper/ToastNotify';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
@@ -14,7 +15,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   appointment,
   isPatient,
 }) => {
-  const { updateAppointment } = useHttp();
+  const { updateAppointment, deleteAppointment } = useHttp();
 
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
     object | undefined
@@ -67,6 +68,14 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     if (response.status === 'success') {
       setOpenModal('');
     }
+  };
+  const handleDeleteAppointment = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const response = await deleteAppointment(appointment?._id);
+    if (response?.status === 204) setOpenModal('');
+    else toastErrorNotify('Appointment could not deleted');
   };
 
   return (
@@ -158,8 +167,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             }
           ></textarea>
         </div>
-        <button type="submit">Update</button>
-        <button onClick={() => setOpenModal('')}>Close</button>
+        <div className={classes.buttonContainer}>
+          {' '}
+          <button type="submit">Update</button>
+          <button onClick={handleDeleteAppointment}>Cancel</button>
+          <button onClick={() => setOpenModal('')}>Close</button>
+        </div>
       </form>
     </div>
   );

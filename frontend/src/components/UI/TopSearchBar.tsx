@@ -5,7 +5,6 @@ import { logout, logoutSuccess } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice';
-import GlobalLink from './GlobalLink';
 
 const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -25,7 +24,7 @@ const TopSearchBar: React.FC = () => {
   const handleLogout = async () => {
     navigate('/');
     await dispatch(logout(token));
-    dispatch(logoutSuccess());// to set state to idle
+    dispatch(logoutSuccess()); // to set state to idle
   };
 
   return (
@@ -60,7 +59,8 @@ const TopSearchBar: React.FC = () => {
             <button onClick={handleLogout}>Logout</button>
           </div>
         ) : (
-          <GlobalLink text="Login" to="/auth" />
+          // <GlobalLink text="Login" to="/auth" />
+          <button onClick={() => navigate('/auth')}>Login</button>
         )}
       </div>
     </>

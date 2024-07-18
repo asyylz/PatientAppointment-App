@@ -59,6 +59,7 @@ const useHttp = () => {
         `http://localhost:3000/api/v1/appointments/${id}`
       );
       toastSuccessNotify('Your appointment successfully deleted.');
+      console.log(response);
       return response;
     } catch (error: AxiosError) {
       console.log(error);

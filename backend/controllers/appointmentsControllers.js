@@ -129,7 +129,7 @@ exports.updateAppointment = async (req, res, next) => {
   if (!appointment) {
     return res
       .status(404)
-      .json({ status: 'error', message: 'Appointment not found' });
+      .json({ status: 'error', message: 'Appointment not found for updated' });
   }
 
   // Check if appointment date is in  past

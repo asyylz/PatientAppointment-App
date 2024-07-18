@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
-import { GrNext, GrPrevious } from 'react-icons/gr';
 import { FaStethoscope, FaBriefcaseMedical } from 'react-icons/fa';
 import { FaUserDoctor } from 'react-icons/fa6';
 import { fetchAppointmentsForPatient } from '../../store/appointmentsForPatient-slice';

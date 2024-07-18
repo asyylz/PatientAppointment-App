@@ -31,7 +31,8 @@
     gap: 1rem;
 }
 
-.container input, .container select {
+.container input,
+.container select {
     width: 100%;
     padding-left: 10px;
     outline: none;
@@ -41,7 +42,8 @@
     margin-top: 25px;
 }
 
-.container input,.container select {
+.container input,
+.container select {
     border-bottom: 3px solid rgba(173, 217, 209, 1)
 }
 
@@ -56,23 +58,6 @@ select:focus,
     outline: none;
 }
 
-/* .container button {
-    text-decoration: none;
-    font-size: 18px;
-    color: #444;
-    width: 200px;
-    height: 40px;
-    background: rgba(173, 217, 209, 1);
-    padding: 5px 30px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-    border-radius: 28px;
-    cursor: pointer;
-    margin: 0 auto;
-} */
 
 .container textarea {
     border: none;
@@ -80,9 +65,17 @@ select:focus,
     border-bottom: 3px solid rgba(173, 217, 209, 1);
     padding: 0.5rem;
     font-size: 16px;
-    
+
 }
 
+
+.buttonContainer {
+    display: flex;
+    gap: 1rem;
+    grid-column: span 2;
+
+
+}
 
 .container button:hover {
     color: #fff;
