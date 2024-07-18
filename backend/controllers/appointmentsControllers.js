@@ -303,7 +303,25 @@ exports.createAppointment = async (req, res, next) => {
 // DELETE //
 exports.deleteAppointment = async (req, res, next) => {
   console.log('from deleteAppointment', req.params.id);
+
   try {
+    // First check appointment is in DB
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Appointment not found for updated'
+      });
+    }
+
+    // Check if appointment date is in  past
+    const today = new Date();
+    if (new Date(appointment.appointmentDateAndTime) < today) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'You can not delete appointments in past!'
+      });
+    }
     await Appointment.deleteOne({ _id: req.params.id });
     res.status(204).json({
       status: 'success',
