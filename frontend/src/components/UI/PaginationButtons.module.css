@@ -1,0 +1,26 @@
+.paginationWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+}
+
+.paginationWrapper p {
+    font-size: 16px;
+
+}
+
+.paginationWrapper .iconBox {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.paginationWrapper .iconBox svg {
+    margin: 0 1rem;
+    color: #444;
+    height: 30px;
+    width: 30px;
+}

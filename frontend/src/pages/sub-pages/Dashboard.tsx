@@ -12,6 +12,7 @@ import useHttp from '../../hooks/useHttp';
 import { formatDateForUI } from '../../helper/generateDates';
 import AppointmentForm from '../../components/UI/AppointmentForm';
 import { FaEdit } from 'react-icons/fa';
+import PaginationButtons from '../../components/UI/PaginationButtons';
 
 const Dashboard: React.FC = () => {
   const { userData, token } = useSelector(
@@ -46,17 +47,6 @@ const Dashboard: React.FC = () => {
   const handleClick = (appointment: Appointment) => {
     setOpenModal('open');
     setSelectedAppointment(appointment);
-  };
-
-  const handlePaginationClick = (direction: string) => {
-    setPagination((prevPagination) => {
-      if (direction === 'next' && appointmentsForPatient?.length >= 10) {
-        return prevPagination + 1;
-      } else if (direction === 'prev') {
-        return Math.max(prevPagination - 1, 1);
-      }
-      return prevPagination; // Default case
-    });
   };
 
   useEffect(() => {
@@ -202,23 +192,11 @@ const Dashboard: React.FC = () => {
                 </table>
               )}
             </div>
-            <div className={classes.paginationWrapper}>
-              <div
-                className={classes.iconBox}
-                onClick={() => handlePaginationClick('prev')}
-              > <GrPrevious />
-                <p>Prev</p>
-               
-              </div>
-              <p>Page:{pagination}</p>
-              <div
-                className={classes.iconBox}
-                onClick={() => handlePaginationClick('next')}
-              >
-                <p>Next</p>
-                <GrNext />
-              </div>
-            </div>
+            <PaginationButtons
+              setPagination={setPagination}
+              pagination={pagination}
+              length={appointmentsForPatient.length}
+            />
           </div>
         </div>
       </div>
