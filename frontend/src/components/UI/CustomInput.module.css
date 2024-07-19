@@ -1,12 +1,17 @@
+.inputWrapper {
+  /* border:1px solid red; */
+}
+
 .inputWrapper input {
-  width: 100%;
-  max-width: 400px;
+
+  /* max-width: 400px; */
   padding-left: 10px;
   border: none;
   font-size: 16px;
   outline: none;
   height: 45px;
-  margin-top: 25px;
+  /* margin-top: 25px; */
+
   border-bottom: 3px solid rgba(173, 217, 209, 1)
 }
 
@@ -20,7 +25,7 @@ input:hover {
 
 @media (max-width:890px) {
   .inputWrapper input {
-    max-width: 280px;
+    /* max-width: 280px; */
 
   }
 

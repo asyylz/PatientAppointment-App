@@ -29,8 +29,6 @@ const useHttp = () => {
     data: object | undefined,
     id: ObjectId | undefined
   ) => {
-
-
     try {
       const response = await axiosWithToken.patch(
         `http://localhost:3000/api/v1/appointments/${id}`,
@@ -108,7 +106,19 @@ const useHttp = () => {
       toastErrorNotify(`${error.response.data.message}`);
     }
   };
-
+  const postReview = async (review: Review) => {
+    try {
+      const response = await axiosWithToken.post(
+        `http://localhost:3000/api/v1/reviews`,
+        review
+      );
+      console.log(response.data);
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+      toastErrorNotify(`${error.response.data.message}`);
+    }
+  };
   return {
     createAppointment,
     updateAppointment,
@@ -116,6 +126,7 @@ const useHttp = () => {
     updateUserPassWord,
     getDoctorAppointments,
     getDoctorWithAvailabilities,
+    postReview,
   };
 };
 

@@ -10,6 +10,7 @@ interface CustomInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   readOnly?: boolean;
+  step?: number;
 }
 const CustomInput: React.FC<CustomInputProps> = ({
   name,
@@ -20,6 +21,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   onChange,
   required,
   readOnly,
+  step,
 }) => {
   return (
     <div
@@ -28,6 +30,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
     >
       <input
         type={type}
+        step={step}
         name={name}
         placeholder={placeHolder}
         defaultValue={defaultValue}

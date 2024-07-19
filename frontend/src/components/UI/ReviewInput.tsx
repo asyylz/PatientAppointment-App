@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import classes from './ReviewInput.module.css';
 
+interface ReviewProps {
+  attributeName: string;
+  attributeValue: number;
+}
 const Review: React.FC<ReviewProps> = ({ attributeName, attributeValue }) => {
   const [rating, setRating] = useState<number | null>(null);
 

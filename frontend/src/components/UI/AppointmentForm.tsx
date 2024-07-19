@@ -105,18 +105,15 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       )}
       {/* /* -------------------- Comment Form -------------------- */}
       {openModalConfirm === 'comment' && (
-        <ModalCustom height="600px" width="600px">
+        <ModalCustom height="auto" width="auto">
           <div className={`${classes.container} ${classes.comment}`}>
-            {' '}
             <CustomInput
               readOnly
               value={`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId.lastName}`}
             />
-            <div>
+            <div className={classes.reviewWrapper}>
               {reviewCriterias.map((criteria: string) => {
-                return (
-                  <ReviewInput attributeName={criteria} />
-                );
+                return <ReviewInput attributeName={criteria} />;
               })}
             </div>
             <textarea name="comment" rows={8} cols={36}></textarea>
@@ -140,16 +137,17 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               }
               readOnly
             />
-            <input
-              placeholder="Appointment Date"
-              // value={formatDateForUI(appointment?.appointmentDateAndTime)}
+            <CustomInput
+              placeHolder="Appointment Date"
               defaultValue={appointment?.appointmentDateAndTime.split('T')[0]}
+              // value={formatDateForUI(appointment?.appointmentDateAndTime)}
               type="date"
               name="appointmentDate"
               onChange={handleChange}
             />
-            <input
-              placeholder="Appointment Time"
+
+            <CustomInput
+              placeHolder="Appointment Time"
               //value={appointment?.appointmentDateAndTime}
               defaultValue={appointment?.appointmentDateAndTime
                 .split('T')[1]
@@ -170,7 +168,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             ></textarea>
           </div>
 
-          <div className={classes.leftSection}>
+          <div className={classes.rightSection}>
             {!isPatient ? (
               <select
                 name="status"
@@ -225,7 +223,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             </button>
           </div>
           <div className={classes.buttonContainer}>
-            {' '}
             <button type="submit">Update</button>
             <button
               onClick={(e) => {

@@ -73,7 +73,7 @@ const Dashboard: React.FC = () => {
   return (
     <>
       {openModal === 'open' && selectedAppointment && (
-        <ModalCustom height="700px" width="900px">
+        <ModalCustom height="auto" width="auto">
           <AppointmentForm
             setOpenModal={setOpenModal}
             appointment={selectedAppointment}
@@ -83,7 +83,7 @@ const Dashboard: React.FC = () => {
       )}
 
       {openModal === 'confirmation' && (
-        <ModalCustom height="300px" width="500px">
+        <ModalCustom height="auto" width="auto">
           <p>Please confirm to cancel the appointment?</p>
           <div className={classes.buttonContainer}>
             <button onClick={confirmDelete}>Confirm</button>
