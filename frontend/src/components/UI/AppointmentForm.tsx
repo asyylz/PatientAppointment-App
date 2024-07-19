@@ -30,6 +30,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [appointmentTime, setAppointmentTime] = useState(
     appointment?.appointmentDateAndTime.split('T')[1]
   );
+  const [ratings, setRatings] = useState<Attributes>({
+    staff: 0,
+    punctual: 0,
+    helpful: 0,
+    knowledge: 0,
+  });
 
   //console.log('Doctorid', appointment?.doctorId);
   const handleChange = (
@@ -113,13 +119,32 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             />
             <div className={classes.reviewWrapper}>
               {reviewCriterias.map((criteria: string) => {
-                return <ReviewInput attributeName={criteria} />;
+                return (
+                  <ReviewInput
+                    attributeName={criteria}
+                    ratings={ratings}
+                    setRatings={setRatings}
+                  />
+                );
               })}
+          
             </div>
             <textarea name="comment" rows={8} cols={36}></textarea>
             <div className={classes.buttonContainer}>
               <button>Comment</button>
-              <button onClick={() => setOpenModalConfirm('')}>Cancel</button>
+              <button
+                onClick={() => {
+                  setOpenModalConfirm('');
+                  setRatings({
+                    staff: 0,
+                    punctual: 0,
+                    helpful: 0,
+                    knowledge: 0,
+                  });
+                }}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </ModalCustom>

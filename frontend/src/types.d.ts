@@ -99,11 +99,11 @@ interface Review {
   averageRating: number;
 }
 interface Attributes {
-  _id: ObjectId;
-  staff: number;
-  punctual: number;
-  helpful: number;
-  knowledge: number;
+  _id?: ObjectId;
+  staff?: number;
+  punctual?: number;
+  helpful?: number;
+  knowledge?: number;
 }
 
 

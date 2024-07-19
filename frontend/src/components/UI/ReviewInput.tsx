@@ -1,31 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './ReviewInput.module.css';
 
 interface ReviewProps {
   attributeName: string;
-  attributeValue: number;
+  setRatings: (ratings: Attributes) => void;
+  ratings: Attributes;
 }
-const Review: React.FC<ReviewProps> = ({ attributeName, attributeValue }) => {
-  const [rating, setRating] = useState<number | null>(null);
+
+const Review: React.FC<ReviewProps> = ({
+  attributeName,
+  ratings,
+  setRatings,
+}) => {
+  console.log(ratings);
+  console.log(attributeName);
 
   const handleRatingChange = (value: number) => {
-    setRating(value);
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [attributeName.toLowerCase()]: value,
+    }));
+    // console.log(ratings);
   };
 
+  // console.log(rating)
+
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} key={attributeName}>
       <p>{attributeName}</p>
       <fieldset className={classes.ratingContainer}>
         {[5, 4, 3, 2, 1].map((value) => (
           <React.Fragment key={value}>
             <input
               type="radio"
-              name="rating"
-              id={`rate${value}`}
-              checked={rating === value}
+              name={attributeName}
+              id={`${attributeName}-rate${value}`} // id and label must be same
+              //id={`rate${value}`} // id and label must be same
+              checked={ratings[attributeName.toLowerCase()] === value}
               onChange={() => handleRatingChange(value)}
             />
-            <label htmlFor={`rate${value}`}>
+            {/* <label htmlFor={`rate${value}`}> */}
+            <label htmlFor={`${attributeName}-rate${value}`}>
               <svg
                 id="Object"
                 xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +63,7 @@ const Review: React.FC<ReviewProps> = ({ attributeName, attributeValue }) => {
           </React.Fragment>
         ))}
         <div className={classes.ratingValue}>
-          <p>{rating}</p>
-          {/* {rating !== null ? `You rated: ${rating}`:''} */}
+          <p>{ratings?.[attributeName.toLowerCase()]}</p>
         </div>
       </fieldset>
     </div>

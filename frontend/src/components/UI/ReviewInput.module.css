@@ -111,27 +111,27 @@
     opacity: 1;
 }
 
-.ratingContainer label[for="rate1"]:hover~.ratingValue:before {
+.ratingContainer label[for*="-rate1"]:hover~.ratingValue:before {
     content: "1" !important;
     font-size: 20px !important;
 }
 
-.ratingContainer label[for="rate2"]:hover~.ratingValue:before {
+.ratingContainer label[for*="-rate2"]:hover~.ratingValue:before {
     content: "2" !important;
     font-size: 20px !important;
 }
 
-.ratingContainer label[for="rate3"]:hover~.ratingValue:before {
+.ratingContainer label[for*="-rate3"]:hover~.ratingValue:before {
     content: "3" !important;
     font-size: 20px !important;
 }
 
-.ratingContainer label[for="rate4"]:hover~.ratingValue:before {
+.ratingContainer label[for*="-rate4"]:hover~.ratingValue:before {
     content: "4" !important;
     font-size: 20px !important;
 }
 
-.ratingContainer label[for="rate5"]:hover~.ratingValue:before {
+.ratingContainer label[for*="-rate5"]:hover~.ratingValue:before {
     content: "5" !important;
     font-size: 20px !important;
 }
