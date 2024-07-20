@@ -20,7 +20,7 @@ const DoctorDetails: React.FC = () => {
     error: reviewsError,
   } = useSelector((state: RootState) => state.reviews);
 
-  console.log(reviews);
+  //console.log(reviews);
 
   useEffect(() => {
     if (selectedDoctor) {

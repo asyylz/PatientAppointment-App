@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    min-height: 100vh;
+
     margin-top: 2rem;
 
 }

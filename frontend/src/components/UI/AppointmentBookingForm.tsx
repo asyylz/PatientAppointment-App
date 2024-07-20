@@ -28,14 +28,13 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
 
   const [appointment, setAppointment] = useState<AppointmentForBooking>({
     doctorId: doctor?._id,
-    patientId: user?._id,
+    patientId: user._id,
     appointmentDateAndTime: convertDateAndTimeStringToDate(
       slot.date,
       slot.time
     ),
     reason: '',
   });
-
 
   const handleChange = (
     e: React.ChangeEvent<

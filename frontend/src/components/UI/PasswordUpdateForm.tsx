@@ -4,7 +4,6 @@ import classes from './PasswordUpdateForm.module.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { updatePassword } from '../../store/currentUser-slice';
-import { unwrapResult } from '@reduxjs/toolkit';
 
 const PasswordResetForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ const PasswordResetForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit =  async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Updated Password Data:', updatedUserPasswordAndToken);
     if (updatedUserPasswordAndToken) {
@@ -72,8 +71,8 @@ const PasswordResetForm: React.FC = () => {
           value={updatedUserPasswordAndToken?.confirmNewPassword}
         />
       </div>
-      <div className={classes.buttonWrapper}>
-        {' '}
+      {/* buttonContainer takes styles from global */}
+      <div className="buttonContainer">
         <button type="submit" onClick={handleSubmit}>
           Update
         </button>

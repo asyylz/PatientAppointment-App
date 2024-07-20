@@ -50,7 +50,7 @@ interface DepartmentState {
 
 /* ----------------------- DOCTOR ----------------------- */
 interface Doctor {
-  _id: ObjectId;
+  _id: string;
   id: number;
   gender: string;
   image: string;
@@ -173,8 +173,18 @@ interface Credentials {
   address?: Address;
 }
 
-type UserData = Credentials | null;
+type UpdateUserData = Credentials | null;
+// interface UserData extends Credentials{
 
+// }
+
+// interface UpdateUserData extends Credentials {
+//   address?: Address;
+// }
+
+// interface PrevValues {
+//   prevValues: (value?: any) => string | string;
+// }
 interface Address {
   street?: string;
   city?: string;
@@ -189,17 +199,18 @@ interface AppointmentsForPatient {
   total: number;
 }
 interface AppointmentForBooking {
-  patientId: ObjectId | undefined;
-  doctorId: ObjectId | undefined;
+  patientId: string;
+  doctorId: string | undefined;
   appointmentDateAndTime: date;
   reason: string;
 }
 
 interface Appointment {
   _id: ObjectId;
-  patientId: ObjectId | undefined;
+  patientId: { _id: string; name: string };
+  // patientId: string | { _id: string; name: string };
   doctorId: {
-    _id: ObjectId | undefined;
+    _id: string;
     firstName: string;
     lastName: string;
     departmentId: ObjectId;

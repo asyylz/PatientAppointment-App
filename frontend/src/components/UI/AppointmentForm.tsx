@@ -8,7 +8,7 @@ const reviewCriterias = ['Staff', 'Punctual', 'Helpful', 'Knowledge'];
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
-  appointment: SingleAppointmentForDoctor | Appointment | undefined;
+  appointment: Appointment;
   isPatient: boolean;
   userId?: string;
 }
@@ -112,7 +112,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         helpful: ratingsAndComment.helpful,
       },
     });
-    console.log(response);
     if (response.status === 'success') {
       setRatingsAndComment({
         staff: 0,
@@ -125,16 +124,16 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     }
   };
 
-/* ------------------------------------------------------ */
-/*                           DOM                          */
-/* ------------------------------------------------------ */
+  /* ------------------------------------------------------ */
+  /*                           DOM                          */
+  /* ------------------------------------------------------ */
   return (
     <>
       {/* /* -------------- Appointment Delete Notification Modal ------------- */}
       {openModalDeleteAndComment === 'open' && (
         <ModalCustom height="200px" width="600px">
           <p>You are about to cancel your recent appointment ?</p>
-          <div className={classes.buttonContainer}>
+          <div className="buttonContainer" style={{ flexDirection: 'row' }}>
             <button style={{ color: 'red' }} onClick={handleDeleteAppointment}>
               Confirm
             </button>
@@ -221,7 +220,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 .slice(0, 5)}
               name="appointmentTime"
               type="time"
-              step="1800"
+              step={1800}
               onChange={handleChange}
             />
             <textarea

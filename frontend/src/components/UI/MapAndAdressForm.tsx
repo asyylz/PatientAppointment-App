@@ -10,9 +10,10 @@ interface Location {
 }
 
 interface MapAndAdressFormProps {
-  setAddressParts: (addressParts: Address) => void;
+  setAddressParts: (prevValues: any) => string | void;
   addressParts: Address;
-  setUpdatedUserData: (updatedUserData: UserData) => void;
+  //setUpdatedUserData: (updatedUserData: UpdateUserData) => void;
+  setUpdatedUserData: (prevValues: any) => string | void;
 }
 
 const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
@@ -88,7 +89,7 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
     });
 
     // Update userUpdatedData immediately after setting addressParts
-    setUpdatedUserData((prevValues) => ({
+    setUpdatedUserData((prevValues: UpdateUserData) => ({
       ...prevValues,
       address: {
         street: parts[0],
@@ -113,7 +114,7 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
         [name]: value,
       };
 
-      setUpdatedUserData((prevUserData: UserData) => ({
+      setUpdatedUserData((prevUserData: UpdateUserData) => ({
         ...prevUserData,
         address: updatedAddressParts,
       }));

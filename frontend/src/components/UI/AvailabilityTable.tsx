@@ -4,10 +4,7 @@ import { generateTimeSlots } from '../../utils/timeSlots';
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
 
-import {
-  getWeekDatesFromToday,
-  convertToDateandDateString,
-} from '../../helper/generateDates';
+import { getWeekDatesFromToday } from '../../helper/generateDates';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
@@ -26,7 +23,8 @@ const AvailabilityTable: React.FC = () => {
     (state: RootState) => state.currentUser
   );
 
-  const { entities, status, error } = useSelector(
+  // status and error should be reflected to dom
+  const { entities } = useSelector(
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;

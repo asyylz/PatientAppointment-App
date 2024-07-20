@@ -24,11 +24,11 @@ const ProfileForm: React.FC = () => {
     postalCode: userData?.address?.postalCode,
   });
 
-  const [updatedUserData, setUpdatedUserData] = useState<UserData>({});
+  const [updatedUserData, setUpdatedUserData] = useState<
+    UpdateUserData
+  >({});
 
   //console.log(updatedUserData);
-  //console.log(addressParts);
-
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
