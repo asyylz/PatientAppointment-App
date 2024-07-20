@@ -10,14 +10,16 @@ interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
   appointment: SingleAppointmentForDoctor | Appointment | undefined;
   isPatient: boolean;
+  userId: string;
 }
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
   setOpenModal,
   appointment,
   isPatient,
+  userId,
 }) => {
-  const { updateAppointment, deleteAppointment } = useHttp();
+  const { updateAppointment, deleteAppointment, postReview } = useHttp();
 
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
     object | undefined
@@ -30,14 +32,17 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [appointmentTime, setAppointmentTime] = useState(
     appointment?.appointmentDateAndTime.split('T')[1]
   );
-  const [ratings, setRatings] = useState<Attributes>({
-    staff: 0,
-    punctual: 0,
-    helpful: 0,
-    knowledge: 0,
-  });
+  const [ratingsAndComment, setRatingsAndComment] =
+    useState<AttributesAndComment>({
+      staff: 0,
+      punctual: 0,
+      helpful: 0,
+      knowledge: 0,
+      comments: '',
+    });
 
-  //console.log('Doctorid', appointment?.doctorId);
+  console.log(ratingsAndComment);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -59,6 +64,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       setUpdatedAppointmentData((prevValuesAppointment) => ({
         ...prevValuesAppointment,
         appointmentDateAndTime: formatted,
+      }));
+    } else if (name === 'comments') {
+      setRatingsAndComment((prevValues) => ({
+        ...prevValues,
+        [name]: value,
       }));
     } else {
       setUpdatedAppointmentData((prevValuesAppointment) => ({
@@ -87,6 +97,30 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     if (response?.status === 204) {
       setOpenModalConfirm('');
       setOpenModal('');
+    }
+  };
+
+  const handlePostReview = async () => {
+    const response = await postReview({
+      doctorId: appointment?.doctorId._id,
+      userId,
+      comments: ratingsAndComment.comments,
+      attributes: {
+        staff: ratingsAndComment.staff,
+        punctual: ratingsAndComment.punctual,
+        knowledge: ratingsAndComment.knowledge,
+        helpful: ratingsAndComment.helpful,
+      },
+    });
+    if (response.status === 'success') {
+      console.log('success');
+      setRatingsAndComment({
+        staff: 0,
+        punctual: 0,
+        helpful: 0,
+        knowledge: 0,
+        comments: '',
+      });
     }
   };
 
@@ -122,20 +156,24 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 return (
                   <ReviewInput
                     attributeName={criteria}
-                    ratings={ratings}
-                    setRatings={setRatings}
+                    ratingsAndComment={ratingsAndComment}
+                    setRatingsAndComment={setRatingsAndComment}
                   />
                 );
               })}
-          
             </div>
-            <textarea name="comment" rows={8} cols={36}></textarea>
+            <textarea
+              name="comments"
+              rows={8}
+              cols={36}
+              onChange={handleChange}
+            ></textarea>
             <div className={classes.buttonContainer}>
-              <button>Comment</button>
+              <button onClick={handlePostReview}>Comment</button>
               <button
                 onClick={() => {
                   setOpenModalConfirm('');
-                  setRatings({
+                  setRatingsAndComment({
                     staff: 0,
                     punctual: 0,
                     helpful: 0,

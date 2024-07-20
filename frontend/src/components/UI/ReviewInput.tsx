@@ -3,20 +3,20 @@ import classes from './ReviewInput.module.css';
 
 interface ReviewProps {
   attributeName: string;
-  setRatings: (ratings: Attributes) => void;
-  ratings: Attributes;
+  setRatingsAndComment: (ratings: AttributesAndComment) => void;
+  ratingsAndComment: AttributesAndComment;
 }
 
 const Review: React.FC<ReviewProps> = ({
   attributeName,
-  ratings,
-  setRatings,
+  ratingsAndComment,
+  setRatingsAndComment,
 }) => {
-  console.log(ratings);
+  console.log(ratingsAndComment);
   console.log(attributeName);
 
   const handleRatingChange = (value: number) => {
-    setRatings((prevRatings) => ({
+    setRatingsAndComment((prevRatings) => ({
       ...prevRatings,
       [attributeName.toLowerCase()]: value,
     }));
@@ -36,7 +36,7 @@ const Review: React.FC<ReviewProps> = ({
               name={attributeName}
               id={`${attributeName}-rate${value}`} // id and label must be same
               //id={`rate${value}`} // id and label must be same
-              checked={ratings[attributeName.toLowerCase()] === value}
+              checked={ratingsAndComment[attributeName.toLowerCase()] === value}
               onChange={() => handleRatingChange(value)}
             />
             {/* <label htmlFor={`rate${value}`}> */}
@@ -63,7 +63,7 @@ const Review: React.FC<ReviewProps> = ({
           </React.Fragment>
         ))}
         <div className={classes.ratingValue}>
-          <p>{ratings?.[attributeName.toLowerCase()]}</p>
+          <p>{ratingsAndComment?.[attributeName.toLowerCase()]}</p>
         </div>
       </fieldset>
     </div>

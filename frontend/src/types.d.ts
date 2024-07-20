@@ -98,14 +98,14 @@ interface Review {
   attributes: Attributes;
   averageRating: number;
 }
-interface Attributes {
+interface AttributesAndComment {
   _id?: ObjectId;
-  staff?: number;
-  punctual?: number;
-  helpful?: number;
-  knowledge?: number;
+  staff: number;
+  punctual: number;
+  helpful: number;
+  knowledge: number;
+  comments?: string |undefined;
 }
-
 
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {

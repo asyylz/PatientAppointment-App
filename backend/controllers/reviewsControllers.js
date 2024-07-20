@@ -4,13 +4,16 @@ const Review = require('../models/reviewModel');
 // GET ALL //
 exports.getDoctorReviews = async (req, res) => {
   const { doctorId } = req.params;
+  console.log(doctorId);
+  console.log(typeof doctorId);
+  const objectIdDoctorId = new mongoose.Types.ObjectId(doctorId);
+  console.log(objectIdDoctorId);
 
   try {
-    //await Review.updateMany({ doctorId: doctorId }, { $unset: { rating: '' } });
-
+    //const reviews = await Review.find({ doctorId });
+    //console.log('from reviews', reviews);
     const reviews = await Review.aggregate([
-      { $match: { doctorId: doctorId } },
-      { $unset: 'rating' },
+      { $match: { doctorId: new mongoose.Types.ObjectId(doctorId) } },
       {
         $addFields: {
           averageRating: {
@@ -45,6 +48,7 @@ exports.getDoctorReviews = async (req, res) => {
 };
 
 exports.createReview = async (req, res) => {
+  console.log('from review contorls', req.body);
   try {
     const newReview = await Review.create(req.body);
     res.status(201).json({

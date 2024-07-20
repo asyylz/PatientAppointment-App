@@ -9,16 +9,19 @@ const attributesSchema = new Schema({
   knowledge: { type: Number, required: true }
 });
 
-const reviewSchema = new Schema({
-  //name: { type: String, required: true },
-  rating: { type: Number, required: true },
-  averageRating: Number,
-  comments: { type: String }, // Aligning with the JSON data provided earlier
-  //doctorId: { type: Schema.Types.ObjectId, ref: 'Doctors' },
-  doctorId: { type: String, required: true },
-  userId: { type: String, required: true, ref: 'User' },
-  attributes: attributesSchema // Reference to Attributes model
-});
+const reviewSchema = new Schema(
+  {
+    comments: { type: String },
+    //doctorId: { type: Schema.Types.ObjectId, ref: 'Doctors' },
+    doctorId: { type: mongoose.Types.ObjectId, required: true },
+    userId: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
+    attributes: attributesSchema // Reference to Attributes model
+  },
+  {
+    collection: 'reviews',
+    timestamps: true
+  }
+);
 
 const Review = mongoose.model('Review', reviewSchema);
 module.exports = Review;

@@ -20,7 +20,7 @@ const DoctorDetails: React.FC = () => {
     error: reviewsError,
   } = useSelector((state: RootState) => state.reviews);
 
-  //console.log(reviews);
+  console.log(reviews);
 
   useEffect(() => {
     if (selectedDoctor) {
@@ -70,7 +70,7 @@ const DoctorDetails: React.FC = () => {
                       />
                     </div>
                     <h3>{review.userId?.name}</h3>
-                    {/* <h2>{review.averageRating.toFixed(1)}</h2> */}
+                    <h2>{review.averageRating.toFixed(1)}</h2>
                   </div>
                   <div>{review.comments}</div>
                 </div>

@@ -77,6 +77,7 @@ const Dashboard: React.FC = () => {
           <AppointmentForm
             setOpenModal={setOpenModal}
             appointment={selectedAppointment}
+            userId={userData._id}
             isPatient
           />
         </ModalCustom>

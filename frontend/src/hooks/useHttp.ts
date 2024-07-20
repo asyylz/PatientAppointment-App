@@ -1,7 +1,13 @@
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
-
 import useAxios from './useAxios';
+
+interface ReviewData {
+  doctorId: string;
+  userId: string;
+  attributes: AttributesAndComment;
+  comments: string | undefined;
+}
 
 const useHttp = () => {
   const axiosWithToken = useAxios();
@@ -106,13 +112,15 @@ const useHttp = () => {
       toastErrorNotify(`${error.response.data.message}`);
     }
   };
-  const postReview = async (review: Review) => {
+  const postReview = async (data: ReviewData) => {
+    console.log(data);
     try {
       const response = await axiosWithToken.post(
         `http://localhost:3000/api/v1/reviews`,
-        review
+        data
       );
       console.log(response.data);
+      toastSuccessNotify('Your review successfully posted');
       return response.data.data;
     } catch (error) {
       console.log(error);

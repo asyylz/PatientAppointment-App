@@ -43,10 +43,15 @@ export const fetchEntitiesWithId = <T>(
   url: (id: string) => string
 ) =>
   createAsyncThunk<T, string>(`${entity}/fetchWithId`, async (id: string) => {
-    //console.log(id)
-    const response = await axios.get(url(id));
-    //console.log(response.data.data)
-    return response.data.data[entity]; // Assuming the data is under the entity property
+    try {
+      const response = await axios.get(url(id));
+      //console.log(id)
+      console.log(response.data.data)
+      return response.data.data[entity]; // Assuming the data is under the entity property
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   });
 
 /* ------------------------------------------------------ */
