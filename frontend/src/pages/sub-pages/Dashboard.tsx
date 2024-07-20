@@ -17,6 +17,7 @@ const Dashboard: React.FC = () => {
   const { userData, token } = useSelector(
     (state: RootState) => state.currentUser
   );
+
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment>();
   const [openModal, setOpenModal] = useState<string>('');
   const [appointmentIdToDelete, setAppointmentIdToDelete] =
@@ -77,7 +78,7 @@ const Dashboard: React.FC = () => {
           <AppointmentForm
             setOpenModal={setOpenModal}
             appointment={selectedAppointment}
-            userId={userData._id}
+            userId={userData?._id}
             isPatient
           />
         </ModalCustom>

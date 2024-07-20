@@ -4,7 +4,7 @@ import useAxios from './useAxios';
 
 interface ReviewData {
   doctorId: string;
-  userId: string;
+  userId?: string;
   attributes: AttributesAndComment;
   comments: string | undefined;
 }
@@ -121,7 +121,7 @@ const useHttp = () => {
       );
       console.log(response.data);
       toastSuccessNotify('Your review successfully posted');
-      return response.data.data;
+      return response.data;
     } catch (error) {
       console.log(error);
       toastErrorNotify(`${error.response.data.message}`);

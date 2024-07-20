@@ -104,7 +104,7 @@ interface AttributesAndComment {
   punctual: number;
   helpful: number;
   knowledge: number;
-  comments?: string |undefined;
+  comments?: string | undefined;
 }
 
 /* -------------------- CURRENT USER -------------------- */
@@ -123,7 +123,7 @@ interface CurrentUser {
   error?: string | null;
 }
 interface userData {
-  _id: ObjectId;
+  _id: string;
   role: string;
   name: string;
   email: string;

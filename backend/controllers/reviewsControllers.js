@@ -4,14 +4,8 @@ const Review = require('../models/reviewModel');
 // GET ALL //
 exports.getDoctorReviews = async (req, res) => {
   const { doctorId } = req.params;
-  console.log(doctorId);
-  console.log(typeof doctorId);
-  const objectIdDoctorId = new mongoose.Types.ObjectId(doctorId);
-  console.log(objectIdDoctorId);
 
   try {
-    //const reviews = await Review.find({ doctorId });
-    //console.log('from reviews', reviews);
     const reviews = await Review.aggregate([
       { $match: { doctorId: new mongoose.Types.ObjectId(doctorId) } },
       {
@@ -27,7 +21,6 @@ exports.getDoctorReviews = async (req, res) => {
       }
     ]);
 
-    //const populatedReviews = await Review.populate('userId')
     const populatedReviews = await mongoose
       .model('User')
       .populate(reviews, { path: 'userId', select: 'name image' });
@@ -49,6 +42,19 @@ exports.getDoctorReviews = async (req, res) => {
 
 exports.createReview = async (req, res) => {
   console.log('from review contorls', req.body);
+  const { userId, doctorId } = req.body;
+  const isUserAlreadyCommented = await Review.find({
+    userId: userId,
+    doctorId: doctorId
+  });
+  //console.log('userId from post review', isUserAlreadyCommented);
+  //console.log('length',isUserAlreadyCommented.length);
+  if (isUserAlreadyCommented.length > 0) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'You have already commented on this doctor!'
+    });
+  }
   try {
     const newReview = await Review.create(req.body);
     res.status(201).json({
