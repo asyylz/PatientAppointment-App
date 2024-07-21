@@ -25,6 +25,15 @@ h2 {
     color: #444;
 }
 
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+  
+}
+
 /* applies all buttons,textaraes,selectboxes */
 button {
     text-decoration: none;

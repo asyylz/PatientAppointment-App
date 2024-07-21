@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createAction,
+} from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
 
@@ -176,8 +180,8 @@ export const resetPassword = createAsyncThunk<
 >(
   'currentUser/resetPassword',
   async ({ password, passwordConfirm, resetToken }, { rejectWithValue }) => {
-    console.log(password, passwordConfirm, resetToken);
-    console.log('Asiye');
+    //console.log(password, passwordConfirm, resetToken);
+    // console.log('Asiye');
 
     try {
       const response = await axios.patch(

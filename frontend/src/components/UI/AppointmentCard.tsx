@@ -28,8 +28,7 @@ const AppointmentCard: React.FC<AppointCardProps> = ({
     <>
       <div
         className={
-          new Date(appointment.appointmentDateAndTime) <=
-          new Date()
+          new Date(appointment.appointmentDateAndTime) <= new Date()
             ? `${classes.appointmentBox} ${classes.close}`
             : `${classes.appointmentBox} ${classes.open}`
         }
@@ -37,14 +36,14 @@ const AppointmentCard: React.FC<AppointCardProps> = ({
         <p>{`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId?.lastName}`}</p>
         <p>
           Department:
-          {departments.map((department) => {
+          {departments.map((department: Department) => {
             if (
               department._id.toString() ===
               appointment.doctorId.departmentId.toString()
             ) {
               return <span> {department.departmentMain}</span>;
             }
-            return null; 
+            return null;
           })}
         </p>
         <p>

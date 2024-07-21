@@ -17,9 +17,11 @@ const AuthPage = () => {
   const [userData, setUserData] = useState<Credentials | null>({
     email: 'alice@test.com',
     password: '6946224Asy!',
+    // email: '',
+    // password: '',
   });
 
-  console.log(userData);
+  //console.log(userData);
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -103,7 +105,7 @@ const AuthPage = () => {
           <CustomInput
             type="email"
             name="email"
-            value="alice@test.com"
+            value={userData?.email}
             placeHolder="Enter your email"
             onChange={handleInputChange}
             required
@@ -112,7 +114,7 @@ const AuthPage = () => {
           <CustomInput
             type="password"
             name="password"
-            value="6946224Asy!"
+            value={userData?.password}
             placeHolder="Enter your password"
             onChange={handleInputChange}
             required
@@ -121,12 +123,6 @@ const AuthPage = () => {
             <p>Forgot your password?</p>
 
             <a onClick={handleClick}>Click here</a>
-
-            {/* <GlobalLink
-              to="/resetPassword/791bff54ee5b896ab7b8d0cb515f00301b88b0dcbedb381a1d97b573e0b90825"
-              text="Click"
-              onclick={handleClick}
-            /> */}
           </div>
           <button type="submit">Login</button>
         </form>

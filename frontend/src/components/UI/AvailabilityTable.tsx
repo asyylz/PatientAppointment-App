@@ -89,7 +89,7 @@ const AvailabilityTable: React.FC = () => {
 
                   const slotStatus = availability
                     ? appointmentsForDoctor?.find(
-                        (appointment) =>
+                        (appointment:Appointment) =>
                           appointment.appointmentDateAndTime ===
                           // convertToDateandDateString(
                           //   availability.day,

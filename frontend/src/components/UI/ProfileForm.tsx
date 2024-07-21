@@ -77,7 +77,8 @@ const ProfileForm: React.FC = () => {
         <hr />
         <div
           //style={{border:'1px solid red'}}
-          className={classes.container}
+         // className={classes.container}
+          className="container"
         >
           <ImagePicker
             name="image"

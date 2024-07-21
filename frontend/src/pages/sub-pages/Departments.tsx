@@ -28,7 +28,7 @@ const Departments: React.FC = () => {
     if (searchWord) {
       const filtered = departments
         .filter(
-          (department) =>
+          (department: Department) =>
             department.departmentMain
               .toLowerCase()
               .includes(searchWord.toLowerCase()) ||
@@ -36,7 +36,7 @@ const Departments: React.FC = () => {
               sub.toLowerCase().includes(searchWord.toLowerCase())
             )
         )
-        .sort((a, b) => {
+        .sort((a: Department, b: Department) => {
           const aMainIncludes = a.departmentMain
             .toLowerCase()
             .includes(searchWord.toLowerCase());
@@ -83,7 +83,7 @@ const Departments: React.FC = () => {
         {status === 'loading' && <p>Departments loading...</p>}
 
         {status === 'succeeded' &&
-          filteredDepartments.map((department) => (
+          filteredDepartments.map((department: Department) => (
             <CustomButton key={department._id} department={department} />
           ))}
         {status === 'failed' && <p>{error}</p>}

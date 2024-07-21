@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
 import useAxios from './useAxios';
 
@@ -20,9 +19,8 @@ const useHttp = () => {
       );
       toastSuccessNotify('Your appointment successfully placed');
       return response.data;
-    } catch (error: AxiosError) {
+    } catch (error: any) {
       const fieldName = Object.keys(error.response.data.message)[0];
-      console.log(fieldName);
       if (error.response.data.message[fieldName].message) {
         toastErrorNotify(`${error.response.data.message[fieldName].message}`);
       } else {
@@ -42,7 +40,7 @@ const useHttp = () => {
       );
       toastSuccessNotify('Your appointment successfully updated');
       return response.data;
-    } catch (error: AxiosError) {
+    } catch (error: any) {
       console.log(error.response.data);
       const fieldName = Object.keys(error.response.data.message)[0];
       console.log(fieldName);
@@ -64,14 +62,16 @@ const useHttp = () => {
       toastSuccessNotify('Your appointment successfully deleted.');
       console.log(response);
       return response;
-    } catch (error: AxiosError) {
+    } catch (error: any) {
       console.log(error);
       toastErrorNotify(`${error.response.data.message}`);
     }
   };
 
-  const updateUserPassWord = async (updatedUserData: object) => {
-    console.log(updatedUserData);
+  const updateUserPassWord = async (
+    updatedUserData: UpdatedUserPasswordAndToken
+  ) => {
+    // console.log(updatedUserData);
     try {
       const response = await axiosWithToken.patch(
         `http://localhost:3000/api/v1/users/updateMyPassword`,
@@ -79,7 +79,7 @@ const useHttp = () => {
       );
       toastSuccessNotify('Your password successfully updated.');
       return response;
-    } catch (error: AxiosError) {
+    } catch (error: any) {
       console.log(error);
       toastErrorNotify(`${error.response.data.message}`);
     }
@@ -93,7 +93,7 @@ const useHttp = () => {
       );
       console.log(response.data.data.appointmentsForDoctor);
       return response.data.data.appointmentsForDoctor;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       toastErrorNotify(`${error.response.data.message}`);
     }
@@ -107,7 +107,7 @@ const useHttp = () => {
       );
       console.log(response.data);
       return response.data.data;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       toastErrorNotify(`${error.response.data.message}`);
     }
@@ -122,7 +122,7 @@ const useHttp = () => {
       console.log(response.data);
       toastSuccessNotify('Your review successfully posted');
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       toastErrorNotify(`${error.response.data.message}`);
     }

@@ -4,18 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../store/currentUser-slice';
 import { useSelector } from 'react-redux';
+import { AppDispatch } from '../../store';
 
 interface data {
   password: string;
   passwordConfirm: string;
-  resetToken?: string;
+  resetToken: string;
 }
 
 const ResetPassword: React.FC = () => {
   // const useQuery = () => {
   //   return new URLSearchParams(useLocation().search);
   // };
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
   const { resetToken } = useParams();
   const { status } = useSelector(
@@ -26,7 +27,7 @@ const ResetPassword: React.FC = () => {
     useState<data>({
       password: '',
       passwordConfirm: '',
-      resetToken,
+      resetToken:'',
     });
   //const resetToken = params.get('accessToken');
   console.log(resetToken);
@@ -34,7 +35,7 @@ const ResetPassword: React.FC = () => {
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (passwordAndResetTokenData) {
-      await dispatch(resetPassword({ ...passwordAndResetTokenData }));
+      dispatch(resetPassword({ ...passwordAndResetTokenData }));
     }
     console.log(status);
 

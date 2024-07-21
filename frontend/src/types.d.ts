@@ -4,22 +4,40 @@ interface ObjectId {
 
 /* ------------------- ENTITIES STATES ------------------ */
 interface EntityState<T> {
-  entities: T[];
+  entities: Draft<T[]>;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 interface EntityStateForUser<T> {
-  image?: string;
-  entities: T;
+  //image?: string;
+  entities: Draft<T>;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
 interface EntityStateForAppointments<T> {
-  entities: T;
+  entities: Draft<T>;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
+
+// interface EntityState<T> {
+//   entities: T[];
+//   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+//   error: string | null;
+// }
+// interface EntityStateForUser<T> {
+//   //image?: string;
+//   entities: T;
+//   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+//   error: string | null;
+// }
+
+// interface EntityStateForAppointments<T> {
+//   entities: T;
+//   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+//   error: string | null;
+// }
 
 interface ExtendedEntityState<T> extends EntityState<T> {
   selectedDoctor?: T;
@@ -140,7 +158,7 @@ interface CurrentUserPayload {
   token: string;
   data: {
     user: {
-      _id: ObjectId;
+      _id: string;
       role: string;
       name: string;
       email: string;

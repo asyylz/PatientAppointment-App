@@ -55,7 +55,7 @@ const DoctorDetails: React.FC = () => {
         {reviewsStatus === 'loading' && <p>Reviews are loading...</p>}
         {reviewsStatus === 'succeeded' && (
           <ul className={classes.reviewsWrapper}>
-            {reviews.map((review, index) => (
+            {reviews.map((review:Review, index:number) => (
               <div
                 key={index}
                 //style={{ border: '3px solid red' }}

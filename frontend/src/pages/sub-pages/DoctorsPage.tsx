@@ -34,12 +34,10 @@ const Doctors: React.FC = () => {
     dispatch(fetchDoctors({ pagination }));
   }, [dispatch, pagination]);
 
- 
-
   useEffect(() => {
     if (searchWord) {
       const filtered = doctors.filter(
-        (doctor) =>
+        (doctor: Doctor) =>
           doctor.firstName.toLowerCase().startsWith(searchWord.toLowerCase()) ||
           doctor.lastName.toLowerCase().startsWith(searchWord.toLowerCase())
       );
@@ -79,7 +77,7 @@ const Doctors: React.FC = () => {
         {status === 'loading' && <p>Loading...</p>}
 
         {status === 'succeeded' &&
-          filteredDoctors?.map((doctor: Doctor, index) => (
+          filteredDoctors?.map((doctor: Doctor, index: number) => (
             <DoctorProfilCard
               key={index}
               doctor={doctor as Doctor}
