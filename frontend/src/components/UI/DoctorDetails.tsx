@@ -81,7 +81,7 @@ const DoctorDetails: React.FC = () => {
                     <ReviewRead
                       key={attrIndex}
                       attributeName={key}
-                      attributeValue={value}
+                      attributeValue={value as number} // Use type assertion here
                     />
                   ))}
               </div>

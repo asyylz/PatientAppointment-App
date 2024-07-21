@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
 import useAxios from './useAxios';
 

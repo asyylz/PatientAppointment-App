@@ -1,6 +1,11 @@
 import React from 'react';
 import classes from './ReviewRead.module.css';
 
+interface ReviewProps {
+  attributeName: string;
+  attributeValue: number;
+}
+
 const ReviewRead: React.FC<ReviewProps> = ({
   attributeName,
   attributeValue,
@@ -9,19 +14,20 @@ const ReviewRead: React.FC<ReviewProps> = ({
     <div className={classes.wrapper}>
       <div>
         <p className={classes.attributeName} style={{ marginRight: '10rem' }}>
-        {attributeName.charAt(0).toUpperCase() + attributeName.slice(1)}
+          {attributeName.charAt(0).toUpperCase() + attributeName.slice(1)}
         </p>
       </div>
       <fieldset className={classes.ratingContainer}>
-        {[5, 4, 3, 2, 1].map((value,index) => (
+        {[5, 4, 3, 2, 1].map((value, index) => (
           <label
-          key={index}
-            className={value <= attributeValue ? `${classes.rated}` : `${classes.unrated}`}
+            key={index}
+            className={
+              value <= attributeValue
+                ? `${classes.rated}`
+                : `${classes.unrated}`
+            }
           >
-            <svg
-              id="Object"
-              viewBox="0 0 1122 1122"
-            >
+            <svg id="Object" viewBox="0 0 1122 1122">
               <path
                 className={classes.color1}
                 d="m570.497,252.536l93.771,190c1.543,3.126,4.525,5.292,7.974,5.794l209.678,30.468c8.687,1.262,12.156,11.938,5.87,18.065l-151.724,147.895c-2.496,2.433-3.635,5.939-3.046,9.374l35.817,208.831c1.484,8.652-7.597,15.25-15.367,11.165l-187.542-98.596c-3.085-1.622-6.771-1.622-9.857,0l-187.542,98.596c-7.77,4.085-16.851-2.513-15.367-11.165l35.817-208.831c.589-3.436-.55-6.941-3.046-9.374l-151.724-147.895c-6.286-6.127-2.817-16.803,5.87-18.065l209.678-30.468c3.45-.501,6.432-2.668,7.974-5.794l93.771-190c3.885-7.872,15.11-7.872,18.995,0Z"

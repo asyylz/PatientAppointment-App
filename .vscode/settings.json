@@ -314,6 +314,24 @@
         "wholeMatch": false
       },
       "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                           DOM                          */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                     UPDATE PASSWORD                    */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
     }
   ]
 }

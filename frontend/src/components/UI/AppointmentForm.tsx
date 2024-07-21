@@ -8,8 +8,8 @@ const reviewCriterias = ['Staff', 'Punctual', 'Helpful', 'Knowledge'];
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
-  appointment: Appointment;
-  isPatient: boolean;
+  appointment: Appointment | SingleAppointmentForDoctor;
+  isPatient?: boolean;
   userId?: string;
 }
 

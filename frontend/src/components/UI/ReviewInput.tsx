@@ -3,7 +3,10 @@ import classes from './ReviewInput.module.css';
 
 interface ReviewProps {
   attributeName: string;
-  setRatingsAndComment: (ratings: AttributesAndComment) => void;
+  //setRatingsAndComment: (prevRatings: any) => string | void;
+  setRatingsAndComment: React.Dispatch<
+    React.SetStateAction<AttributesAndComment>
+  >;
   ratingsAndComment: AttributesAndComment;
 }
 
@@ -20,10 +23,7 @@ const Review: React.FC<ReviewProps> = ({
       ...prevRatings,
       [attributeName.toLowerCase()]: value,
     }));
-    // console.log(ratings);
   };
-
-  // console.log(rating)
 
   return (
     <div className={classes.wrapper} key={attributeName}>

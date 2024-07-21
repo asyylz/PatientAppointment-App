@@ -13,7 +13,7 @@ import useHttp from './../../hooks/useHttp';
 /* ---------------------- COMPONENT --------------------- */
 const Appointments: React.FC = () => {
   const [selectedAppointment, setSelectedAppointment] =
-    useState<SingleAppointmentForDoctor>();
+    useState<SingleAppointmentForDoctor | undefined>();
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
 
@@ -31,7 +31,7 @@ const Appointments: React.FC = () => {
   const { appointmentsForDoctor } = entities;
 
   useEffect(() => {
-    if (userData?._id) {
+    if (userData?.doctorId) {
       dispatch(
         fetchAppointmentsForDoctor({ id: userData.doctorId.toString(), token })
       );
@@ -43,7 +43,7 @@ const Appointments: React.FC = () => {
     setSelectedAppointment(appointment);
   };
 
-  const handleDelete = (id: ObjectId) => {
+  const handleDelete = (id: ObjectId ) => {
     setOpenModal('confirmation');
     setAppointmentIdToDelete(id);
   };

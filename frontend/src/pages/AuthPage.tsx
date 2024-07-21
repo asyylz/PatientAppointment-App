@@ -14,19 +14,16 @@ import CustomInput from '../components/UI/CustomInput';
 //6946224Asy@
 
 const AuthPage = () => {
-  const [userData, setUserData] = useState<UserData>({
+  const [userData, setUserData] = useState<Credentials | null>({
     email: 'alice@test.com',
     password: '6946224Asy!',
   });
 
-  console.log(userData)
+  console.log(userData);
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
-  const { status, token } = useSelector(
-    (state: RootState) => state.currentUser
-  );
-  // console.log(token);
+  const { status } = useSelector((state: RootState) => state.currentUser);
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
@@ -89,7 +86,8 @@ const AuthPage = () => {
     }
   };
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = () => {
+    //e: React.MouseEvent
     //e.preventDefault();
     if (userData && userData.email) {
       dispatch(forgotPassword({ email: userData.email }));

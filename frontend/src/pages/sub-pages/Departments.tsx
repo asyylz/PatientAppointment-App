@@ -20,7 +20,7 @@ const Departments: React.FC = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchDepartments());
+      dispatch(fetchDepartments({})); // sending empty argument since it is optional
     }
   }, [status, dispatch]);
 

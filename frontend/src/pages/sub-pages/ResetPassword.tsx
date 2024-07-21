@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CustomInput from '../../components/UI/CustomInput';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../store/currentUser-slice';
 import { useSelector } from 'react-redux';

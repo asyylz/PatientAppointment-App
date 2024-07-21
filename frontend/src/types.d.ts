@@ -99,12 +99,13 @@ interface Review {
   averageRating: number;
 }
 interface AttributesAndComment {
-  _id?: ObjectId;
+  // _id?: ObjectId; // optional does not work
   staff: number;
   punctual: number;
   helpful: number;
   knowledge: number;
   comments?: string | undefined;
+  [key: string]: number | string | undefined; // Allow indexing by string
 }
 
 /* -------------------- CURRENT USER -------------------- */
@@ -159,7 +160,7 @@ interface UpdatedUserPasswordAndToken {
   oldPassword: string | undefined;
   newPassword: string | undefined;
   confirmNewPassword: string | undefined;
-  token?: string | undefined;
+  token: string | undefined;
 }
 
 interface Credentials {
@@ -169,7 +170,7 @@ interface Credentials {
   passwordConfirm?: string;
   image?: Blob | string;
   policy?: boolean;
-  DOB?: string;
+  DOB?: string | date;
   address?: Address;
 }
 

@@ -10,7 +10,7 @@ const PasswordResetForm: React.FC = () => {
   const { token } = useSelector((state: RootState) => state.currentUser);
 
   const [updatedUserPasswordAndToken, setUpdatedUserPasswordAndToken] =
-    useState<UpdatedUserPasswordAndToken>({
+    useState({
       oldPassword: '',
       newPassword: '',
       confirmNewPassword: '',
@@ -29,11 +29,11 @@ const PasswordResetForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Updated Password Data:', updatedUserPasswordAndToken);
     if (updatedUserPasswordAndToken) {
-      dispatch(updatePassword({ ...updatedUserPasswordAndToken, token }));
+      dispatch(updatePassword({ updatedUserPasswordAndToken, token }));
     }
     handleClearInputs();
   };

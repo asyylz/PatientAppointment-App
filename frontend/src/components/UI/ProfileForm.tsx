@@ -108,7 +108,7 @@ const ProfileForm: React.FC = () => {
               name="DOB"
               placeHolder="Enter your DOB"
               onChange={handleInputChange}
-              value={updatedUserData?.DOB}
+              value={updatedUserData?.DOB }
             />
           </div>
         </div>

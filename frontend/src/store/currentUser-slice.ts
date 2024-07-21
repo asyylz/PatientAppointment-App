@@ -15,15 +15,15 @@ export const register = createAsyncThunk<
   CurrentUserPayload,
   FormData,
   { rejectValue: string }
->('signup', async (credentials, { rejectWithValue }) => {
-  console.log(credentials);
+>('currentUser/signup', async (credentials, { rejectWithValue }) => {
+  //console.log(credentials);
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/signup',
       credentials
     );
     toastSuccessNotify('Successfully registered!');
-    console.log(response.data);
+    //console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -209,11 +209,16 @@ export const resetPassword = createAsyncThunk<
 /* ------------------------------------------------------ */
 export const updatePassword = createAsyncThunk<
   CurrentUserPayload,
-  UpdatedUserPasswordAndToken,
+  {
+    oldPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+    token: string;
+  },
   { rejectValue: string }
 >('currentUser/updatePassword', async (data, { rejectWithValue }) => {
   const { oldPassword, newPassword, confirmNewPassword, token } = data;
-  console.log(oldPassword, newPassword, confirmNewPassword, token);
+  //console.log(oldPassword, newPassword, confirmNewPassword, token);
 
   try {
     const response = await axios.patch(

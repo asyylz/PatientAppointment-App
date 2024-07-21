@@ -118,7 +118,7 @@ export const convertToDateandDateString = (
 
   //console.log(availabilityDateTimeString);
   // Create a Date object for the current date and time
-  const currentDateTime = new Date();
+  //const currentDateTime = new Date();
 
   // Compare the availability date and time with the current date and time
   return { availabilityDateTime, availabilityDateTimeString };
@@ -135,8 +135,8 @@ export const formatDateForUI = (isoString: string) => {
   // Create a date object using the extracted date components
   const date = new Date(Date.UTC(year, month - 1, day)); // Date.UTC to avoid time zone conversion
 
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-  const formattedDate = date.toLocaleDateString('en-GB', options); // Format as DD/MM/YYYY
+  //const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  const formattedDate = date.toLocaleDateString('en-GB'); // Format as DD/MM/YYYY
 
   const daysOfWeek = [
     'Sunday',
