@@ -30,6 +30,7 @@ router.patch(
   '/updateUser',
   authControllers.protect,
   upload.single('image'),
+  uploadToS3,
   usersControllers.updateUser
 );
 router.delete(

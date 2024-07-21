@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createAction,
-} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
 
@@ -111,7 +107,8 @@ export const updateUserInfo = createAsyncThunk<
   { token: string; userUpdatedFormData: FormData },
   { rejectValue: string }
 >('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
-  console.log(tokenAndData.userUpdatedFormData.get('address'));
+  console.log(FormData);
+  //console.log(tokenAndData.userUpdatedFormData.get('address'));
   try {
     const response = await axios.patch(
       'http://localhost:3000/api/v1/users/updateUser',

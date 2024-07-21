@@ -24,9 +24,7 @@ const ProfileForm: React.FC = () => {
     postalCode: userData?.address?.postalCode,
   });
 
-  const [updatedUserData, setUpdatedUserData] = useState<
-    UpdateUserData
-  >({});
+  const [updatedUserData, setUpdatedUserData] = useState<UpdateUserData>({});
 
   //console.log(updatedUserData);
   const handleInputChange = (
@@ -77,13 +75,14 @@ const ProfileForm: React.FC = () => {
         <hr />
         <div
           //style={{border:'1px solid red'}}
-         className={classes.container}
+          className={classes.container}
           //className="container"
         >
           <ImagePicker
             name="image"
             setter={setUpdatedUserData}
-            defaultImage={`http://localhost:3000/static${userData?.image}`}
+            // defaultImage={`http://localhost:3000/static${userData?.image}`}
+            defaultImage={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData.image}`}
           />
 
           <div className={classes.infoWrapper}>
@@ -109,7 +108,7 @@ const ProfileForm: React.FC = () => {
               name="DOB"
               placeHolder="Enter your DOB"
               onChange={handleInputChange}
-              value={updatedUserData?.DOB }
+              value={updatedUserData?.DOB}
             />
           </div>
         </div>

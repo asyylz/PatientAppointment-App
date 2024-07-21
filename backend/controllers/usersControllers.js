@@ -83,9 +83,19 @@ exports.updateUser = async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
   let imagePath;
-  if (req.file && user.image !== '/userProfileImages/userDefaultAvatar.png') {
-    fs.unlink(`./public${user.image}`, err => console.log(err));
-    imagePath = `/userProfileImages/${req.file.filename}`;
+  // if (req.file && user.image !== '/userProfileImages/userDefaultAvatar.png') {
+  //   fs.unlink(`./public${user.image}`, err => console.log(err));
+  //   imagePath = `/userProfileImages/${req.file.filename}`;
+  // }
+  //console.log('from user update for aws', req.body);
+  //console.log('from user update for filename', req.fileName);
+
+  if (
+    req.fileLocation &&
+    user.image !== '/userProfileImages/userDefaultAvatar.png'
+  ) {
+    //fs.unlink(`./public${user.image}`, err => console.log(err));
+    imagePath = req.fileLocation;
   }
 
   if (req.body.password || req.body.passwordConfirm) {

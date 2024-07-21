@@ -43,11 +43,11 @@ exports.signup = async (req, res, next) => {
   //   imagePath = `/userProfileImages/userDefaultAvatar.png`;
   // }
   console.log(req.fileLocation);
-  
+
   if (req.fileLocation) {
     imagePath = req.fileLocation;
   } else {
-    imagePath = `/userProfileImages/userDefaultAvatar.png`;
+    imagePath = `userDefaultAvatar.png`;
   }
 
   try {

@@ -19,23 +19,18 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const uploadToS3 = (req, res, next) => {
-  console.log('fromaws config', req.file);
-  console.log('AWS Region:', process.env.AWS_REGION);
-  console.log('Bucket Name:', process.env.AWS_S3_BUCKET_NAME);
-
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
-  //const fileName = file.originalname;
-  //   const slug = slugify(fileName.split('.')[0], { lower: true });
-
-  const { email } = req.body;
-  const parts = email.split('@');
-  const emailForFileName = `${parts[0]}%40${parts[1]}`;
+  //   const fileName = req.file.originalname;
+  //   const slug = slugify(fileName, {
+  //     replacement: '+', // replace spaces with + instead of -
+  //     lower: true // convert to lower case
+  //   });
 
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Key: `${Date.now()}-${email}-${req.file.originalname}`,
+    Key: `${Date.now()}-${req.file.originalname}`,
     Body: req.file.buffer,
     ContentType: req.file.mimetype
     // ACL: 'public-read'
@@ -43,12 +38,10 @@ const uploadToS3 = (req, res, next) => {
 
   s3.upload(params, (err, data) => {
     if (err) {
-      //console.error('Error uploading file to S3:', err);
       return res.status(500).send('Failed to upload file.');
     }
-    //console.log('data', data.Location);
     req.fileLocation = data.Location;
-    //console.log('file location', req.fileLocation);
+    // req.fileName = data.Key;
     next();
   });
 };

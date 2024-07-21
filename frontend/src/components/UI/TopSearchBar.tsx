@@ -54,7 +54,8 @@ const TopSearchBar: React.FC = () => {
             <i className="fas fa-bell"></i>
             <img
               //src={`http://localhost:3000/static${userData?.image}`}
-              src={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData.image}`}
+              // src={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData.image}`}
+              src={userData.image}
               alt="User"
             />
             <button onClick={handleLogout}>Logout</button>
