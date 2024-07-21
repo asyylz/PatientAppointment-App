@@ -183,7 +183,7 @@ const AuthPage = () => {
               name="image"
               setter={setUserData}
               // defaultImage="http://localhost:3000/static/userProfileImages/userDefaultAvatar.png"
-              defaultImage="/defaultUserAvatar.png"
+              defaultImage="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/defaultUserAvatar.png"
             />
           </div>
 

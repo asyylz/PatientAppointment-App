@@ -42,8 +42,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       comments: '',
     });
 
-  //console.log(ratingsAndComment);
-
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -128,7 +126,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       setOpenModalDeleteAndComment('');
     }
   };
-  
+  const isPast = new Date(appointment.appointmentDateAndTime) < new Date();
+
   /* ------------------------------------------------------ */
   /*                           DOM                          */
   /* ------------------------------------------------------ */
@@ -219,6 +218,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               type="date"
               name="appointmentDate"
               onChange={handleChange}
+              readOnly={isPast}
             />
 
             <CustomInput
@@ -231,6 +231,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               type="time"
               step={1800}
               onChange={handleChange}
+              readOnly={isPast}
             />
             <textarea
               className={classes.reason}
@@ -240,6 +241,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               onChange={handleChange}
               rows={8}
               cols={36}
+              style={
+                isPast ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
+              }
+              readOnly={isPast}
             ></textarea>
           </div>
 
@@ -288,17 +293,16 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 isPatient ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
               }
             ></textarea>
-            {appointment.status === 'completed' &&
-              new Date(appointment.appointmentDateAndTime) < new Date() && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenModalDeleteAndComment('comment');
-                  }}
-                >
-                  Leave comment
-                </button>
-              )}
+            {appointment.status === 'completed' && isPast && (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenModalDeleteAndComment('comment');
+                }}
+              >
+                Leave comment
+              </button>
+            )}
           </div>
           <div className={classes.buttonContainer}>
             <button type="submit">Update</button>
