@@ -33,7 +33,14 @@ const PasswordResetForm: React.FC = () => {
     e.preventDefault();
     console.log('Updated Password Data:', updatedUserPasswordAndToken);
     if (updatedUserPasswordAndToken) {
-      dispatch(updatePassword({ updatedUserPasswordAndToken, token }));
+      dispatch(
+        updatePassword({
+          oldPassword: updatedUserPasswordAndToken.oldPassword,
+          newPassword: updatedUserPasswordAndToken.newPassword,
+          confirmNewPassword: updatedUserPasswordAndToken.confirmNewPassword,
+          token,
+        })
+      );
     }
     handleClearInputs();
   };

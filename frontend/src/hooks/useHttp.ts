@@ -99,7 +99,7 @@ const useHttp = () => {
     }
   };
 
-  const getDoctorWithAvailabilities = async (id: ObjectId) => {
+  const getDoctorWithAvailabilities = async (id: string) => {
     console.log(id);
     try {
       const response = await axiosWithToken.get(
