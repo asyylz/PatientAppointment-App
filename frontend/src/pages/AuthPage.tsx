@@ -15,8 +15,8 @@ import CustomInput from '../components/UI/CustomInput';
 
 const AuthPage = () => {
   const [userData, setUserData] = useState<Credentials | null>({
-    email: 'alice@test.com',
-    password: '6946224Asy!',
+    // email: 'esme@test.com',
+    // password: '6946224Asy!',
     // email: '',
     // password: '',
   });
@@ -97,6 +97,7 @@ const AuthPage = () => {
   };
 
   return (
+    //container takes styles local
     <div className={classes.container}>
       {/*------------------------ Login ----------------------- */}
       <div className={classes.wrapper}>
@@ -168,15 +169,6 @@ const AuthPage = () => {
             onChange={handleInputChange}
             required
           />
-          <div className={classes.imagePickerWrapper}>
-            <ImagePicker
-              name="image"
-              setter={setUserData}
-              // defaultImage="http://localhost:3000/static/userProfileImages/userDefaultAvatar.png"
-              defaultImage="/defaultUserAvatar.png"
-            />
-          </div>
-
           <div className={classes.policy}>
             <input
               name="policy"
@@ -186,6 +178,15 @@ const AuthPage = () => {
             />
             <h3>I accept all terms & condition</h3>
           </div>
+          <div className={classes.imagePickerWrapper}>
+            <ImagePicker
+              name="image"
+              setter={setUserData}
+              // defaultImage="http://localhost:3000/static/userProfileImages/userDefaultAvatar.png"
+              defaultImage="/defaultUserAvatar.png"
+            />
+          </div>
+
           <button type="submit">Register</button>
         </form>
       </div>

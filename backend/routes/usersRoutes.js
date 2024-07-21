@@ -1,12 +1,19 @@
 const express = require('express');
 const usersControllers = require('../controllers/usersControllers');
 const authControllers = require('../controllers/authControllers');
-const upload = require('./../middlewares/multerConfig');
+//const upload = require('./../middlewares/multerConfig');
+const { upload, uploadToS3 } = require('./../middlewares/awsConfig');
 
 const router = express.Router();
 
 router.route('/').delete(usersControllers.deleteUser);
-router.post('/signup', upload.single('image'), authControllers.signup);
+router.post(
+  '/signup',
+  upload.single('image'),
+  uploadToS3,
+  authControllers.signup
+);
+
 router.post('/login', authControllers.login);
 router.get('/logout', authControllers.logout);
 

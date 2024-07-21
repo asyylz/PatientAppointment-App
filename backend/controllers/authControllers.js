@@ -36,11 +36,20 @@ const createSendToken = (user, statusCode, res) => {
 /* ----------------------- SIGNUP ----------------------- */
 exports.signup = async (req, res, next) => {
   let imagePath;
-  if (req.file) {
-    imagePath = `/userProfileImages/${req.file.filename}`;
+  console.log('from signup controller', req.file);
+  // if (req.file) {
+  //   imagePath = `/userProfileImages/${req.file.filename}`;
+  // } else {
+  //   imagePath = `/userProfileImages/userDefaultAvatar.png`;
+  // }
+  console.log(req.fileLocation);
+  
+  if (req.fileLocation) {
+    imagePath = req.fileLocation;
   } else {
     imagePath = `/userProfileImages/userDefaultAvatar.png`;
   }
+
   try {
     const newUser = await User.create({
       name: req.body.name,

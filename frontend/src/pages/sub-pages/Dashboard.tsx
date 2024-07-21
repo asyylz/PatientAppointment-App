@@ -97,9 +97,11 @@ const Dashboard: React.FC = () => {
         <div className={classes.userLeftSection}>
           <div className={classes.wrapper}>
             <div className={classes.image}>
+              {/* <img
+                src={`http://localhost:3000/static${userData?.image}`}/> */}
               <img
-                src={`http://localhost:3000/static${userData?.image}`}
-                alt=""
+                src={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData?.image}`}
+                alt="User"
               />
             </div>
             <p>Welcome {userData?.name}</p>

@@ -20,7 +20,7 @@ export const register = createAsyncThunk<
   FormData,
   { rejectValue: string }
 >('currentUser/signup', async (credentials, { rejectWithValue }) => {
-  //console.log(credentials);
+  console.log(credentials);
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/signup',
