@@ -15,8 +15,7 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   length,
   limit,
 }) => {
-  console.log(limit);
-  console.log(length);
+
   const handlePaginationClick = (direction: string) => {
     setPagination((prevPagination) => {
       if (direction === 'next' && length >= limit) {
@@ -40,7 +39,11 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
       </div>
       <p>Page:{pagination}</p>
       <div
-        className={classes.iconBox}
+        className={
+          length < limit
+            ? `${classes.iconBox} ${classes.passive}`
+            : `${classes.iconBox}`
+        }
         onClick={() => handlePaginationClick('next')}
       >
         <p>Next</p>

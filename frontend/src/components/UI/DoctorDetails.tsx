@@ -55,7 +55,7 @@ const DoctorDetails: React.FC = () => {
         {reviewsStatus === 'loading' && <p>Reviews are loading...</p>}
         {reviewsStatus === 'succeeded' && (
           <ul className={classes.reviewsWrapper}>
-            {reviews.map((review:Review, index:number) => (
+            {reviews.map((review: Review, index: number) => (
               <div
                 key={index}
                 //style={{ border: '3px solid red' }}
@@ -65,7 +65,8 @@ const DoctorDetails: React.FC = () => {
                   <div className={classes.imgAndUser}>
                     <div className={classes.image}>
                       <img
-                        src={`http://localhost:3000/static${review.userId?.image}`}
+                        //src={`http://localhost:3000/static${review.userId?.image}`}
+                        src={review.userId?.image}
                         alt=""
                       />
                     </div>

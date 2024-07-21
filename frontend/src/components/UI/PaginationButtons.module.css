@@ -17,6 +17,9 @@
     align-items: center;
     margin: 0 auto;
 }
+.iconBox.passive{
+    opacity: 0.4;
+}
 
 .paginationWrapper .iconBox svg {
     margin: 0 1rem;

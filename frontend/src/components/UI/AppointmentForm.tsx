@@ -19,7 +19,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   isPatient,
   userId,
 }) => {
-
   const { updateAppointment, deleteAppointment, postReview } = useHttp();
 
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
@@ -129,7 +128,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       setOpenModalDeleteAndComment('');
     }
   };
-
+  
   /* ------------------------------------------------------ */
   /*                           DOM                          */
   /* ------------------------------------------------------ */
@@ -289,14 +288,17 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 isPatient ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
               }
             ></textarea>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setOpenModalDeleteAndComment('comment');
-              }}
-            >
-              Leave comment
-            </button>
+            {appointment.status === 'completed' &&
+              new Date(appointment.appointmentDateAndTime) < new Date() && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenModalDeleteAndComment('comment');
+                  }}
+                >
+                  Leave comment
+                </button>
+              )}
           </div>
           <div className={classes.buttonContainer}>
             <button type="submit">Update</button>

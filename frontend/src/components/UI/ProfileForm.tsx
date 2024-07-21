@@ -82,7 +82,8 @@ const ProfileForm: React.FC = () => {
             name="image"
             setter={setUpdatedUserData}
             // defaultImage={`http://localhost:3000/static${userData?.image}`}
-            defaultImage={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData.image}`}
+            //defaultImage={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData.image}`}
+            defaultImage={userData.image}
           />
 
           <div className={classes.infoWrapper}>
