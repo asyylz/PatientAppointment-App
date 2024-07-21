@@ -228,7 +228,7 @@ interface AppointmentsForDoctor {
 }
 interface SingleAppointmentForDoctor {
   _id: ObjectId;
-  doctorId: ObjectId;
+  doctorId: string;
   patientId: {
     _id: ObjectId;
     name: string;
@@ -242,3 +242,4 @@ interface SingleAppointmentForDoctor {
   diagnose: string;
   _v: number;
 }
+type combinedAppointmentType = SingleAppointmentForDoctor | Appointment;

@@ -19,6 +19,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   isPatient,
   userId,
 }) => {
+
   const { updateAppointment, deleteAppointment, postReview } = useHttp();
 
   const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
@@ -101,8 +102,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   };
 
   const handlePostReview = async () => {
+    const doctorId = isPatient
+      ? (appointment as Appointment).doctorId._id
+      : (appointment as SingleAppointmentForDoctor).doctorId;
+
     const response = await postReview({
-      doctorId: appointment?.doctorId._id,
+      doctorId,
       userId,
       comments: ratingsAndComment.comments,
       attributes: {
@@ -112,6 +117,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         helpful: ratingsAndComment.helpful,
       },
     });
+
     if (response.status === 'success') {
       setRatingsAndComment({
         staff: 0,
@@ -152,7 +158,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           <div className={`${classes.container} ${classes.comment}`}>
             <CustomInput
               readOnly
-              value={`Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId.lastName}`}
+              value={`Dr. ${(appointment as Appointment).doctorId.firstName} ${
+                (appointment as Appointment)?.doctorId.lastName
+              }`}
             />
             <div className={classes.reviewWrapper}>
               {reviewCriterias.map((criteria: string) => {
@@ -198,8 +206,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <CustomInput
               value={
                 isPatient
-                  ? `Dr. ${appointment?.doctorId?.firstName} ${appointment?.doctorId.lastName}`
-                  : appointment?.patientId?.name
+                  ? `Dr. ${(appointment as Appointment)?.doctorId?.firstName} ${
+                      (appointment as Appointment)?.doctorId.lastName
+                    }`
+                  : (appointment as SingleAppointmentForDoctor)?.patientId?.name
               }
               readOnly
             />

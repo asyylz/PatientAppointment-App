@@ -18,7 +18,7 @@ const ResetPassword: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { resetToken } = useParams();
-  const { status, token } = useSelector(
+  const { status } = useSelector(
     (state: RootState) => state.currentUser
   );
 

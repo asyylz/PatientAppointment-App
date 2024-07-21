@@ -5,7 +5,8 @@ interface TimeRange {
 
 const parseTimeRange = (range: string): TimeRange => {
   const [start, end] = range.split(' - ').map((time) => {
-    const [hour, period] = time.split(/am|pm/).map((t) => t.trim());
+    const [hour] = time.split(/am|pm/).map((t) => t.trim());
+    //const [hour, period] = time.split(/am|pm/).map((t) => t.trim());
     const h = parseInt(hour, 10);
     const isPM = time.includes('pm') && h !== 12;
     const isAM = time.includes('am') && h === 12;
