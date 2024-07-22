@@ -28,9 +28,10 @@ const routes: RouteObject[] = [
       {
         path: 'dashboard',
         element: (
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
+          // <PrivateRoute>
+          //   <Dashboard />
+          // </PrivateRoute>
+          <Dashboard />
         ),
       },
       {

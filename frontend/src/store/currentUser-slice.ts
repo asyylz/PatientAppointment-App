@@ -43,6 +43,7 @@ export const register = createAsyncThunk<
 /* ------------------------------------------------------ */
 /*                          LOGIN                         */
 /* ------------------------------------------------------ */
+
 export const login = createAsyncThunk<
   CurrentUserPayload,
   { email: string; password: string },

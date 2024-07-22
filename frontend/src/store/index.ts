@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import departmentsReducer from './departments-slice';
 import doctorsReducer from './doctors-slice';
 import reviewsReducer from './reviews-slice';
@@ -18,6 +19,7 @@ const store = configureStore({
     appointmentsForDoctor: appointmentsForDoctorReducer,
     appointmentsForPatient: appointmentsForPatientReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), // Ensure thunk is included
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -17,24 +17,23 @@ const AuthPage = () => {
   const [userData, setUserData] = useState<Credentials | null>({
     // email: 'esme@test.com',
     // password: '6946224Asy!',
-    // email: '',
-    // password: '',
+    email: '',
+    password: '',
   });
 
   //console.log(userData);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
   const { status } = useSelector((state: RootState) => state.currentUser);
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  // async yapinca test pass etmedi
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (userData && userData.email && userData.password) {
-      await dispatch(
-        login({ email: userData.email, password: userData.password })
-      );
+      dispatch(login({ email: userData.email, password: userData.password }));
       setUserData(null);
     } else {
       console.error('Email and password are required for login.');
@@ -59,8 +58,6 @@ const AuthPage = () => {
 
     setUserData(null);
   };
-
-  //console.log(userData);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -102,7 +99,7 @@ const AuthPage = () => {
       {/*------------------------ Login ----------------------- */}
       <div className={classes.wrapper}>
         <h2>Login</h2>
-        <form action="" onSubmit={handleLogin}>
+        <form onSubmit={handleLogin}>
           <CustomInput
             type="email"
             name="email"

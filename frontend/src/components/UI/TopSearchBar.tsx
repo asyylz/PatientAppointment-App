@@ -13,7 +13,7 @@ const TopSearchBar: React.FC = () => {
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
-
+ // console.log(userData?.image);
   useEffect(() => {
     const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
     return () => {

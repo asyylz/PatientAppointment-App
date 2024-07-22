@@ -33,8 +33,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         step={step}
         name={name}
         placeholder={placeHolder}
-        defaultValue={defaultValue}
-        value={value}
+        value={value !== undefined ? value : defaultValue}
         onChange={onChange}
         required={required}
         readOnly={readOnly}
