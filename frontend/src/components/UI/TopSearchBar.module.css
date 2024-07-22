@@ -2,7 +2,7 @@
     position: fixed;
     height: 80px;
     background: rgba(173, 217, 209, 1);
-    width: calc(100% - 300px);
+    width: calc(100% - 190px);
     display: grid;
     grid-template-columns: 10fr auto;
     grid-gap: 5px;
@@ -25,7 +25,7 @@
     min-width: 128px;
     height: 40px;
     padding: 0 40px;
-    font-size: 16px;
+    font-size: 12px;
     outline: none;
     border: none;
     background: #f5f5f5;
@@ -48,16 +48,7 @@
     gap: 1.5rem;
     color: #444;
     margin-left: 20px;
-}
-
-.user button {
-    text-decoration: none;
-    color: #444;
-    font-weight: 700;
-    font-size: 1.2rem;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+    /* border:1px solid red; */
 }
 
 .user img {
@@ -67,7 +58,8 @@
 }
 
 .user button {
-    width: 100px;
+    width: 30%;
+    height: 30px;
 }
 
 img {
@@ -87,12 +79,14 @@ img {
 
 @media (max-width:600px) {
     .topBar {
+        /* border:1px solid red; */
         grid-template-columns: 300px;
-        height: 160px;
+        height: 120px;
 
     }
 
     .search {
+        margin-top: 1rem;
         width: 300px;
     }
 

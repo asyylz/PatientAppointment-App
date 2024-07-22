@@ -46,11 +46,11 @@ const TopSearchBar: React.FC = () => {
 
         {token && userData ? (
           <div className={classes.user}>
-            <h3>
+            <h5>
               {userData?.role === 'doctor'
                 ? `Dr. ${userData?.name}`
                 : userData?.name}
-            </h3>
+            </h5>
             <i className="fas fa-bell"></i>
             <img
               //src={`http://localhost:3000/static${userData?.image}`}

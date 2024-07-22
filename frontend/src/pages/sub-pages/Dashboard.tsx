@@ -132,13 +132,13 @@ const Dashboard: React.FC = () => {
           <div className={classes.rightBottom}>
             <div className={classes.appointments}>
               <div className={classes.wrapper}>
-                <h2>Latest Appointments</h2>
+                <h5>Latest Appointments</h5>
               </div>
               <hr />
               {status === 'loading' && <div>Loading...</div>}
 
               {status === 'succeeded' && (
-                <table className={classes.appointments}>
+                <table>
                   <thead>
                     <tr>
                       <th>No</th>

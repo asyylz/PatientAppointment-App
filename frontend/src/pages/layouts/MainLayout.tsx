@@ -16,7 +16,8 @@ const MainLayout: React.FC = () => {
     >
       <div
         //style={{ border: '2px solid red' }}
-        className={`${classes.container} ${classes.active}`}
+       // className={`${classes.container} ${classes.active}`}
+        className={`${classes.container}`}
       >
         <div
           //style={{ border: '2px solid green' }}

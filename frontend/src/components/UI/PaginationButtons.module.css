@@ -17,7 +17,8 @@
     align-items: center;
     margin: 0 auto;
 }
-.iconBox.passive{
+
+.iconBox.passive {
     opacity: 0.4;
 }
 
@@ -26,4 +27,15 @@
     color: #444;
     height: 30px;
     width: 30px;
+}
+
+@media (max-width:450px) {
+    .paginationWrapper p {
+        font-size: 10px;
+    }
+
+    .paginationWrapper svg {
+        height: 15px !important;
+        width: 15px !important;
+    }
 }

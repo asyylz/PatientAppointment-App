@@ -1,6 +1,6 @@
 .sidebar {
     position: fixed;
-    width: 300px;
+    width: 190px;
     min-height: 100%;
     background: rgba(173, 217, 209, 1);
     overflow-x: hidden;
@@ -46,19 +46,22 @@
 
 .sidebar ul li:first-child {
     height: 80px;
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 600;
     border-bottom: 4px solid #c4c4c4;
+
 }
 
 .sidebar ul li a {
     width: 100%;
     text-decoration: none;
-    height: 60px;
+    height: 35px;
     display: flex;
     align-items: center;
     text-align: center;
-    font-size: 38px;
+    font-size: 20px;
     color: #444;
     /* border: 1px solid red; */
 }
@@ -69,12 +72,13 @@ ul li a i {
 }
 
 .iconBox {
-    width: 60px;
+    min-width: 35px;
+    /* border: 1px solid red;  */
 }
 
 .sidebar .title {
     padding: 0 10px;
-    font-size: 22px;
+    font-size: 14px;
     flex: 2;
     text-align: start;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
