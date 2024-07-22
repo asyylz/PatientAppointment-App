@@ -1,4 +1,5 @@
-const fs = require('fs');
+//const fs = require('fs');
+const { S3Client, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 
@@ -90,10 +91,26 @@ exports.updateUser = async (req, res, next) => {
   //console.log('from user update for aws', req.body);
   //console.log('from user update for filename', req.fileName);
 
-  if (
-    req.fileLocation &&
-    user.image !== '/userProfileImages/userDefaultAvatar.png'
-  ) {
+  if (req.fileLocation && user.image !== 'userDefaultAvatar.png') {
+    const client = new S3Client();
+    const input = {
+      // DeleteObjectRequest
+      Bucket: 'patient-appointment-system', // required
+      Key: 'STRING_VALUE', // required
+      MFA: 'STRING_VALUE',
+      VersionId: 'STRING_VALUE',
+      RequestPayer: 'requester',
+      BypassGovernanceRetention: true || false,
+      ExpectedBucketOwner: 'STRING_VALUE'
+    };
+    const command = new DeleteObjectCommand(input);
+    const response = await client.send(command);
+    // { // DeleteObjectOutput
+    //   DeleteMarker: true || false,
+    //   VersionId: "STRING_VALUE",
+    //   RequestCharged: "requester",
+    // };
+
     //fs.unlink(`./public${user.image}`, err => console.log(err));
     imagePath = req.fileLocation;
   }

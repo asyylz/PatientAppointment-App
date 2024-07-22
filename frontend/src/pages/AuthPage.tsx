@@ -15,10 +15,10 @@ import CustomInput from '../components/UI/CustomInput';
 
 const AuthPage = () => {
   const [userData, setUserData] = useState<Credentials | null>({
-    // email: 'esme@test.com',
-    // password: '6946224Asy!',
-    email: '',
-    password: '',
+    email: 'alice@test.com',
+    password: '6946224Asy!',
+    // email: '',
+    // password: '',
   });
 
   //console.log(userData);
@@ -30,10 +30,12 @@ const AuthPage = () => {
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
   // async yapinca test pass etmedi
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (userData && userData.email && userData.password) {
-      dispatch(login({ email: userData.email, password: userData.password }));
+      await dispatch(
+        login({ email: userData.email, password: userData.password })
+      );
       setUserData(null);
     } else {
       console.error('Email and password are required for login.');
@@ -48,13 +50,21 @@ const AuthPage = () => {
 
   const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const userFormData = new FormData();
     if (userData) {
       Object.entries(userData).forEach(([key, value]) => {
-        userFormData.append(key, value);
+        if (value !== undefined) {
+          userFormData.append(key, value.toString()); // Ensure value is a string
+        }
       });
     }
-    await dispatch(register(userFormData));
+
+    try {
+      await dispatch(register(userFormData)); // Handle async action
+    } catch (error) {
+      console.error('Registration failed:', error); // Handle errors
+    }
 
     setUserData(null);
   };

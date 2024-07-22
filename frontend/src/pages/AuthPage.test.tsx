@@ -9,11 +9,21 @@ import { login, register } from '../store/currentUser-slice';
 import '@testing-library/jest-dom';
 
 const mockStore = configureStore([]);
+
+// jest.mock('../store/currentUser-slice', () => ({
+//   login: jest.fn().mockResolvedValue({
+//     type: 'currentUser/login/fulfilled',
+//     payload: { email: 'test@example.com' },
+//   }),
+//   register: jest.fn().mockResolvedValue({
+//     type: 'currentUser/register/fulfilled',
+//     payload: { user: { email: 'test@example.com' } },
+//   }),
+// }));
+
 jest.mock('../store/currentUser-slice', () => ({
   login: jest.fn(),
-  register: jest
-    .fn()
-    .mockResolvedValue({ type: 'currentUser/register/fulfilled' }),
+  register: jest.fn(),
 }));
 
 describe('AuthPage', () => {
@@ -136,10 +146,21 @@ describe('AuthPage', () => {
     formData.append('name', 'John Doe');
     formData.append('email', 'test@example.com');
     formData.append('DOB', new Date('1990-01-01T00:00:00.000Z').toISOString());
-    formData.append('password', 'password123');
-    formData.append('passwordConfirm', 'password123');
+    formData.append('password', 'Password123!');
+    formData.append('passwordConfirm', 'Password123!');
     formData.append('policy', 'true');
 
+    // expect(store.dispatch).toHaveBeenCalledWith(
+    //   register({
+    //     name: 'John Doe',
+    //     email: 'test@example.com',
+    //     DOB: new Date('1990-01-01T00:00:00.000Z'),
+    //     password: 'password123!',
+    //     passwordConfirm: 'password123!',
+    //     policy: true,
+    //   })
+    // );
+    
     expect(store.dispatch).toHaveBeenCalledWith(register(formData));
   });
 });
