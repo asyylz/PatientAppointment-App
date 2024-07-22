@@ -19,7 +19,7 @@ const store = configureStore({
     appointmentsForDoctor: appointmentsForDoctorReducer,
     appointmentsForPatient: appointmentsForPatientReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), // Ensure thunk is included
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), // Ensure thunk is included
 });
 
 export type AppDispatch = typeof store.dispatch;

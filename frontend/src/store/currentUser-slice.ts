@@ -17,6 +17,7 @@ export const register = createAsyncThunk<
   { rejectValue: string }
 >('currentUser/signup', async (credentials, { rejectWithValue }) => {
   console.log(credentials);
+  
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/signup',
@@ -47,6 +48,7 @@ export const register = createAsyncThunk<
 export const login = createAsyncThunk<
   CurrentUserPayload,
   { email: string; password: string },
+
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
   console.log(credentials);

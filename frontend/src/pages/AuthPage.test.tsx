@@ -9,6 +9,12 @@ import { login, register } from '../store/currentUser-slice';
 import '@testing-library/jest-dom';
 
 const mockStore = configureStore([]);
+jest.mock('../store/currentUser-slice', () => ({
+  login: jest.fn(),
+  register: jest
+    .fn()
+    .mockResolvedValue({ type: 'currentUser/register/fulfilled' }),
+}));
 
 describe('AuthPage', () => {
   let store: any;
@@ -22,6 +28,7 @@ describe('AuthPage', () => {
         selectedDoctor: null,
       },
     });
+    store.dispatch = jest.fn();
   });
 
   it('should render login form', () => {
@@ -80,7 +87,9 @@ describe('AuthPage', () => {
     );
 
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[0];
-    const passwordInput = screen.getAllByPlaceholderText('Enter your password')[0];
+    const passwordInput = screen.getAllByPlaceholderText(
+      'Enter your password'
+    )[0];
     const loginButton = screen.getByRole('button', { name: 'Login' });
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
@@ -102,9 +111,11 @@ describe('AuthPage', () => {
     );
 
     const nameInput = screen.getByPlaceholderText('Enter your name');
-    const emailInput = screen.getByPlaceholderText('Enter your email');
+    const emailInput = screen.getAllByPlaceholderText('Enter your email')[1];
     const dobInput = screen.getByPlaceholderText('Enter your DOB');
-    const passwordInput = screen.getByPlaceholderText('Enter your password');
+    const passwordInput = screen.getAllByPlaceholderText(
+      'Enter your password'
+    )[1];
     const confirmPasswordInput = screen.getByPlaceholderText(
       'Confirm your password'
     );
