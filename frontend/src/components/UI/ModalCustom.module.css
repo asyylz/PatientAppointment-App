@@ -37,19 +37,16 @@
     text-align: center;
 }
 
-/* this style given for ipad mini screen size */
-@media (min-width:768px) and (max-width:800px) {
-    .overlay .wrapper {
-        margin-top: 25rem;
-    }
-}
 
-
-@media (min-width:375px) and (max-width:413px) {
+@media (min-width:375px) and (max-width:767px) {
     .overlay .wrapper {
         margin-top: 18rem;
 
     }
+}
+
+@media (min-width:768px) and (max-width:834px) {
+    .overlay .wrapper {}
 }
 
 @keyframes fadeIn {

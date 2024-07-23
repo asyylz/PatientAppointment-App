@@ -46,17 +46,21 @@
 }
 
 
-@media (min-width:375px) and (max-width:413px) {
+@media (min-width:375px) and (max-width:834px) {
     .container {
         padding: 15px;
-        border: 1px solid red;
+        /* border: 1px solid red; */
 
     }
-    .buttonContainer{
+
+    .buttonContainer {
         flex-direction: row;
         margin-top: 10px;
     }
+
     .buttonContainer button {
         width: 80px;
+        font-size: 12px;
+        height: 30px;
     }
 }

@@ -5,13 +5,11 @@ interface ModalCustomProps {
   children: React.ReactNode;
   height?: string;
   width: string;
-  minHeight?: string;
 }
 
 const ModalCustom: React.FC<ModalCustomProps> = ({
   children,
   height,
-  minHeight,
   width,
 }) => {
   const modalElement = document.getElementById('modal');
@@ -23,7 +21,7 @@ const ModalCustom: React.FC<ModalCustomProps> = ({
     <div className={classes.overlay}>
       <div
         className={classes.wrapper}
-        style={{ height: `${height}`, width: `${width}`, minHeight:`${minHeight}` }}
+        style={{ height: `${height}`, width: `${width}` }}
       >
         {children}
       </div>

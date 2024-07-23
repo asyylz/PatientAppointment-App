@@ -296,6 +296,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                   e.preventDefault();
                   setOpenModalDeleteAndComment('comment');
                 }}
+                style={{
+                  fontSize: '12px',
+                  height: '30px',
+                  marginBottom: '5px',
+                }}
               >
                 Leave comment
               </button>
