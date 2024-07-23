@@ -84,7 +84,7 @@ ul li a i {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-@media (max-width:1230px) {
+@media (max-width:834px) {
     .sidebar {
         width: 60px !important;
     }

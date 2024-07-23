@@ -32,6 +32,17 @@
     z-index: 100;
 }
 
+@media (min-width:835px) {
+    .container {
+
+    }
+
+    .outletContainer {
+        margin-top: 80px;
+        /* border:1px solid red */
+    }
+}
+
 @media (min-width:768px) and (max-width:834px) {
     .container {
         display: grid;
@@ -70,29 +81,3 @@
         max-width: calc(100vw - 30px);
     }
 }
-
-
-
-
-/* @media (max-width:1230px) {
-    .container {
-        display: grid;
-        grid-template-columns: 60px 1fr;
-    }
-}
-
-
-
-@media (max-width:600px) {
-    .outletContainer {
-        margin-top: 120px;
-
-    }
-
-    .outletContainer {
-        margin-top: 5rem;
-        min-height: 100vh;
-        max-width: calc(100vw - 60px);
-    }
-
-} */

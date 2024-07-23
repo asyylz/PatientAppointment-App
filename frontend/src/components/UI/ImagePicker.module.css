@@ -29,8 +29,8 @@
 }
 
 .preview {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: 6px solid #a4abb9;
 
@@ -62,4 +62,17 @@
     width: 160px;
   }
 
+}
+
+@media (min-width:320px) and (max-width:767px) {
+  .preview {
+    width: 70px;
+    height: 70px;
+  }
+
+  .controls button {
+    font-size: 10px;
+    width: 120px;
+    height: 30px;
+  }
 }

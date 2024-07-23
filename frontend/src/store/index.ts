@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
 import departmentsReducer from './departments-slice';
 import doctorsReducer from './doctors-slice';
 import reviewsReducer from './reviews-slice';
