@@ -61,7 +61,7 @@ const AvailabilityTable: React.FC = () => {
           />
         </ModalCustom>
       )}
-      <div className={classes.wrapper1111}>
+      <div className={classes.wrapper}>
         <table className={classes.table}>
           <thead>
             <tr>

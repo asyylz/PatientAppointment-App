@@ -53,13 +53,15 @@
 }
 
 
+
+
 .imgAndUser {
     display: grid;
-    grid-template-columns: 50px 150px 1fr;
+    grid-template-columns: 50px 50px;
+    gap: 1rem;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    margin-bottom: 20px;
+
 
 }
 
@@ -96,6 +98,11 @@
     width: 100%;
 }
 
+.commenterInfo h3 {
+    text-decoration: underline;
+    margin-bottom: 2px;
+}
+
 @media (min-width:768px) and (max-width:834px) {}
 
 @media (min-width:414px) and (max-width:767px) {
@@ -108,30 +115,32 @@
     }
 }
 
-@media (min-width:375px) and (max-width:413px) {
-    .wrapper {
+@media (min-width:375px) and (max-width:834px) {
+    .bottomSection {
+        display: grid;
         grid-template-columns: calc(100vw - 30px);
+        grid-template-rows: auto auto 1fr;
     }
 
     .bottomSection h1 {
         font-size: 14px;
     }
+
+    .imgAndUser h2 {
+        height: 30px;
+        width: 30px;
+        font-size: 12px;
+    }
+
+    .commenterInfo p {
+        font-size: 12px;
+    }
+
+
 }
 
 
 
-/* @media (max-width:1360px) {
-    .wrapper {
-        display: grid;
-        grid-template-columns: 180px 1fr;
-    }
-
-    .picture {
-        height: 150px;
-        width: 150px;
-    }
-
-} */
 
 /* Media query for medium screens (e.g., tablets) */
 @media (max-width: 1695px) {
@@ -140,38 +149,3 @@
         /* 2 columns on medium screens */
     }
 }
-
-/* @media (min-width:1235px) and (max-width: 1360px) {
-    .reviewsWrapper {
-        grid-template-columns: repeat(2, 460px);
-       
-    }
-} */
-
-
-
-/* @media (max-width:1234px) {
-    .reviewsWrapper {
-        grid-template-columns: repeat(2, 450px);
-      
-    }
-} */
-
-
-
-/* @media (max-width:1000px) {
-    .reviewsWrapper {
-        grid-template-columns: 600px;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .wrapper {
-        grid-template-columns: 1fr;
-
-    }
-
-    .bottomSection {
-        grid-column: span 1;
-    }
-} */

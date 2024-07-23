@@ -68,10 +68,11 @@ const DoctorDetails: React.FC = () => {
                         alt=""
                       />
                     </div>
-                    <h3>{review.userId?.name}</h3>
+
                     <h2>{review.averageRating.toFixed(1)}</h2>
                   </div>
-                  <div>{review.comments}</div>
+                  <h3>{review.userId?.name}</h3>
+                  <p>{review.comments}</p>
                 </div>
 
                 {Object.entries(review.attributes)

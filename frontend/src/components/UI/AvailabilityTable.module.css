@@ -1,4 +1,4 @@
-.wrapper1111 {
+.wrapper {
     /* padding: 1rem; */
     font-family: var(--font-family);
     margin: 0 auto;
@@ -40,7 +40,7 @@ td {
 }
 
 .booked {
-    font-size: 1.3rem;
+    font-size: 14px;
     background-color: var(--completed-background);
     cursor: default;
 }
@@ -50,9 +50,15 @@ th {
     background-color: #f2f2f2;
 }
 
+th,
+td,
+.available {
+    font-size: 12px;
+    padding: 6px;
+}
+
 
 @media (min-width:414px) and (max-width:767px) {
-    .wrapper {}
 
     .available,
     th,
@@ -64,7 +70,7 @@ th {
 }
 
 @media (min-width:375px) and (max-width:413px) {
-    .wrapper {}
+
 
     .available,
     th,
