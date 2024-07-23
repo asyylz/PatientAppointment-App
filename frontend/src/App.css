@@ -28,22 +28,28 @@ h2 {
 .Toastify__toast {
     width: 200px;
     display: grid;
-    grid-template-columns: 3fr 1fr; /* 3:1 ratio for body and close button */
+    grid-template-columns: 3fr 1fr;
+    /* 3:1 ratio for body and close button */
 }
 
 .Toastify__toast-body {
-    font-size: 12px; /* Adjust font size */
+    font-size: 12px;
+    /* Adjust font size */
 }
 
 button.Toastify__close-button {
-    box-shadow: none; /* Remove box-shadow */
-    max-width: initial; /* Reset max-width */
-    width: initial; /* Reset width */
+    box-shadow: none;
+    /* Remove box-shadow */
+    max-width: initial;
+    /* Reset max-width */
+    width: initial;
+    /* Reset width */
 }
 
 button.Toastify__close-button:hover {
     /* Add hover styles if needed */
-    background-color: #f0f0f0; /* Example: change background color on hover */
+    background-color: #f0f0f0;
+    /* Example: change background color on hover */
 }
 
 
@@ -82,13 +88,11 @@ button:hover {
 
 textarea {
     border: none;
-    margin: 25px 0;
+    margin: 10px 0;
     border-bottom: 3px solid rgba(173, 217, 209, 1);
-    padding: 0.5rem;
-    font-size: 16px;
+    padding: 6px;
+    font-size: 12px;
     width: 100%;
-
-
 }
 
 input:focus,
@@ -134,7 +138,6 @@ select {
     display: flex;
     gap: 2rem;
     grid-column: span 2;
-    margin-top: 2rem;
 }
 
 @media (min-width:320px) and (max-width:767px) {

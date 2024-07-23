@@ -32,7 +32,6 @@ h3 {
         grid-template-columns: 1fr;
         grid-template-rows: 80px;
         align-items: center;
-        border: 3px solid red;
     }
 
     .container button {

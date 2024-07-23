@@ -74,7 +74,7 @@ const Dashboard: React.FC = () => {
   return (
     <>
       {openModal === 'open' && selectedAppointment && (
-        <ModalCustom height="auto" width="auto">
+        <ModalCustom minHeight="100vh" width="auto" >
           <AppointmentForm
             setOpenModal={setOpenModal}
             appointment={selectedAppointment}

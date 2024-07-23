@@ -3,17 +3,19 @@ import classes from './ModalCustom.module.css';
 
 interface ModalCustomProps {
   children: React.ReactNode;
-  height: string;
+  height?: string;
   width: string;
+  minHeight?: string;
 }
 
 const ModalCustom: React.FC<ModalCustomProps> = ({
   children,
   height,
+  minHeight,
   width,
 }) => {
   const modalElement = document.getElementById('modal');
-  
+
   if (!modalElement) {
     throw new Error('No modal element found with id "modal"');
   }
@@ -21,7 +23,7 @@ const ModalCustom: React.FC<ModalCustomProps> = ({
     <div className={classes.overlay}>
       <div
         className={classes.wrapper}
-        style={{ height: `${height}`, width: `${width}` }}
+        style={{ height: `${height}`, width: `${width}`, minHeight:`${minHeight}` }}
       >
         {children}
       </div>

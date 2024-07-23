@@ -1,7 +1,4 @@
 .container {
-    /* border: 1px solid red; */
-    /* height: 95%;
-    width: 95%; */
     background: #F0F1F2;
     padding: 25px;
     border-radius: 20px;
@@ -9,15 +6,8 @@
     margin: 1rem;
 }
 
-/* 5 review criterias wrapper */
-.reviewWrapper {
-    margin-top: 1rem;
-    /* border: 3px solid blue; */
-
-}
 
 .title {
-    font-size: 30px;
     font-weight: 600;
     margin: 20px 0 10px 0;
     position: relative;
@@ -38,7 +28,6 @@
     /* border: 1px solid blue; */
     display: flex;
     flex-direction: column;
-    padding: 3rem;
     /* justify-content: center; */
 
 }
@@ -56,48 +45,18 @@
     }
 }
 
-/* .container input,
-.container select {
-    width: 100%;
-    padding-left: 10px;
-    outline: none;
-    font-size: 16px;
-    border: none;
-    height: 45px;
-    margin-top: 25px;
+
+@media (min-width:375px) and (max-width:413px) {
+    .container {
+        padding: 15px;
+        border: 1px solid red;
+
+    }
+    .buttonContainer{
+        flex-direction: row;
+        margin-top: 10px;
+    }
+    .buttonContainer button {
+        width: 80px;
+    }
 }
-
-.container input,
-.container select {
-    border-bottom: 3px solid rgba(173, 217, 209, 1)
-} */
-
-/* input:focus,
-input:hover,
-select:hover,
-select:focus,
-.container textarea:hover,
-.container textarea:focus {
-    border-bottom: 4px solid rgba(173, 217, 209, 1);
-    transform: scaleX(1);
-    outline: none;
-} */
-
-
-/* .container textarea {
-    border: none;
-    margin: 25px 0;
-    border-bottom: 3px solid rgba(173, 217, 209, 1);
-    padding: 0.5rem;
-    font-size: 16px;
-
-} */
-
-
-
-
-/* 
-.container button:hover {
-    color: #fff;
-    background-color: #444;
-} */

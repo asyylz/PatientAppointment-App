@@ -128,14 +128,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   };
   const isPast = new Date(appointment.appointmentDateAndTime) < new Date();
 
-  /* ------------------------------------------------------ */
-  /*                           DOM                          */
-  /* ------------------------------------------------------ */
   return (
     <>
       {/* /* -------------- Appointment Delete Notification Modal ------------- */}
       {openModalDeleteAndComment === 'open' && (
-        <ModalCustom height="200px" width="600px">
+        <ModalCustom height="150px" width="300px">
           <p>You are about to cancel your recent appointment ?</p>
           <div className="buttonContainer" style={{ flexDirection: 'row' }}>
             <button style={{ color: 'red' }} onClick={handleDeleteAppointment}>
@@ -198,7 +195,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       )}
       {/* /* ------------------ Appointment Form ------------------ */}
       <div className={classes.container}>
-        <h1 className={classes.title}>Appointment Details</h1>
+        <p className={classes.title}>Appointment Details</p>
         <form onSubmit={handleSubmit}>
           <div className={classes.leftSection}>
             <CustomInput
