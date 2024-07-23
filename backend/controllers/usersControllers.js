@@ -90,43 +90,17 @@ exports.deleteUser = async (req, res, next) => {
 
 // UPDATE //
 exports.updateUser = async (req, res, next) => {
-  console.log('from req.file', req.file);
+  //console.log('from req.file', req.file);
 
   const user = await User.findById(req.user._id);
 
   let imagePath;
-  // if (req.file && user.image !== '/userProfileImages/userDefaultAvatar.png') {
-  //   fs.unlink(`./public${user.image}`, err => console.log(err));
-  //   imagePath = `/userProfileImages/${req.file.filename}`;
-  // }
-  //console.log('from user update for aws', req.body);
-  //console.log('from user update for filename', req.fileName);
   const identifierForImage = extractDateNumber(user.image);
-  console.log(identifierForImage);
-  //1721592559810
+  // console.log('updateUser',identifierForImage);
 
   if (req.fileLocation && user.image !== 'userDefaultAvatar.png') {
     await deleteObjectByDateKeyNumber(identifierForImage);
     imagePath = req.fileLocation;
-
-    // const input = {
-    //   // DeleteObjectRequest
-    //   Bucket: 'patient-appointment-system', // required
-    //   Key: 'STRING_VALUE' // required
-    //   // MFA: 'STRING_VALUE',
-    //   // VersionId: 'STRING_VALUE',
-    //   // RequestPayer: 'requester',
-    //   // BypassGovernanceRetention: true || false,
-    //   // ExpectedBucketOwner: 'STRING_VALUE'
-    // };
-    // const command = new DeleteObjectCommand(input);
-    // const response = await client.send(command);
-    // { // DeleteObjectOutput
-    //   DeleteMarker: true || false,
-    //   VersionId: "STRING_VALUE",
-    //   RequestCharged: "requester",
-    // };
-
     //fs.unlink(`./public${user.image}`, err => console.log(err));
   }
 

@@ -103,6 +103,7 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 30px;
     margin: 0 10px;
+    height: max-content;
 }
 
 .userRightSection .rightBottom .appointments {
@@ -111,6 +112,7 @@
 
 .appointments h5 {
     margin-top: 1rem;
+    padding-left: 20px;
 
 }
 
@@ -263,7 +265,6 @@ td .icons.edit {
     .appointments table {
         min-width: calc(100vw - 400px);
     }
-
 }
 
 
@@ -429,7 +430,10 @@ td .icons.edit {
     .userLeftSection .wrapper .image {
         display: none;
     }
-
+    .userRightSection {
+        grid-template-rows: 150px 1fr;
+    
+    }
     .userRightSection .rightTop {
         /* border: 3px solid red; */
         grid-template-columns: calc(100vw - 40px);

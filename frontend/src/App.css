@@ -25,6 +25,27 @@ h2 {
     color: #444;
 }
 
+.Toastify__toast {
+    width: 200px;
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* 3:1 ratio for body and close button */
+}
+
+.Toastify__toast-body {
+    font-size: 12px; /* Adjust font size */
+}
+
+button.Toastify__close-button {
+    box-shadow: none; /* Remove box-shadow */
+    max-width: initial; /* Reset max-width */
+    width: initial; /* Reset width */
+}
+
+button.Toastify__close-button:hover {
+    /* Add hover styles if needed */
+    background-color: #f0f0f0; /* Example: change background color on hover */
+}
+
 
 .container {
     display: grid;
@@ -117,10 +138,10 @@ select {
 }
 
 @media (min-width:320px) and (max-width:767px) {
-   button {
-     width: 80%;
-   }
-  }
+    button {
+        width: 80%;
+    }
+}
 
 @media (max-width:768px) {
     .buttonContainer {
