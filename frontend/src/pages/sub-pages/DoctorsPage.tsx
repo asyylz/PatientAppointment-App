@@ -68,7 +68,7 @@ const Doctors: React.FC = () => {
 
   return (
     <>
-      <h1 className={classes.header}>OUR DOCTORS</h1>
+      <p className={classes.header}>OUR DOCTORS</p>
       <hr />
       <div
         //style={{border:'1px solid red'}}

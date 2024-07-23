@@ -4,7 +4,7 @@
     --border-color: #D9D9D9;
 }
 
-.cardContainer{
+.cardContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -123,4 +123,22 @@ img {
 .action a:hover {
     color: #fff;
     background-color: #444;
+}
+
+@media (min-width:375px) and (max-width:767px) {
+    .picture {
+        height: 80px;
+        width: 80px;
+        margin-bottom: 20px;
+    }
+
+    .ourTeam {
+        padding: 30px 0 40px;
+        border-radius: 20px;
+        width: 250px;
+    }
+
+    .ourTeam a {
+        width: 150px;
+    }
 }

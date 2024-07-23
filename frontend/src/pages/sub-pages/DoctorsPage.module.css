@@ -2,10 +2,10 @@
     display: grid;
     padding: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(300px, auto));
-    gap: 5rem;
+    gap: 1rem;
     width: 100%;
     /* Optional: max width for the container */
-    margin: 5rem auto;
+    margin: 0 auto;
     /* Center the container */
     justify-content: center;
     align-items: center;
@@ -13,9 +13,8 @@
         /* This allows items to fill gaps */
 }
 
-.header {
+p.header {
     text-align: center;
-    margin: 1rem auto;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: #444;
+    font-size: 15px;
+    ;
 }
