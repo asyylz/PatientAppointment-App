@@ -38,12 +38,10 @@ const DoctorDetails: React.FC = () => {
 
   return (
     <div
-      // style={{ border: '6px solid red' }}
+      //style={{ border: '1px solid red' }}
       className={classes.wrapper}
     >
-      <div className={classes.availabilityTable}>
-        <AvailabilityTable />
-      </div>
+      <AvailabilityTable />
 
       <div
         //style={{ border: '2px solid blue' }}

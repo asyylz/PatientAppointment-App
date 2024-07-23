@@ -1,12 +1,10 @@
 .container {
-    min-height: 100vh;
     border-radius: 20px;
     /* border: 2px solid red; */
     display: grid;
-    width: 96%;
-    margin: 8rem auto;
+    margin: 10px 10px;
     grid-template-columns: 300px 1fr;
-    box-shadow: 1px -4px 68px -5px rgba(0,0,0,0.55);
+    box-shadow: 1px -4px 68px -5px rgba(0, 0, 0, 0.55);
     /* border: 2px solid #c4c4c4; */
 
 }
@@ -15,4 +13,8 @@
     /* border: 2px solid blue; */
     grid-column: span 2;
     text-align: center;
+}
+
+@media (min-width:414px) and (max-width:767px) {
+
 }

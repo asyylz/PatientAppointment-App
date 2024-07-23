@@ -37,8 +37,8 @@ const DoctorDetailsPage: React.FC = () => {
           <img src="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*" />
         </div>
         <div>
-          <h1>{`Dr ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</h1>
-          <h1>{selectedDoctor.departmentId.departmentMain}</h1>
+          <h3>{`Dr ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</h3>
+          <h3>{selectedDoctor.departmentId.departmentMain}</h3>
         </div>
       </div>
       <DoctorDetails />

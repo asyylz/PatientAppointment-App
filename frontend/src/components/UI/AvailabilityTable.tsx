@@ -61,7 +61,7 @@ const AvailabilityTable: React.FC = () => {
           />
         </ModalCustom>
       )}
-      <div className={classes.wrapper}>
+      <div className={classes.wrapper1111}>
         <table className={classes.table}>
           <thead>
             <tr>
@@ -89,7 +89,7 @@ const AvailabilityTable: React.FC = () => {
 
                   const slotStatus = availability
                     ? appointmentsForDoctor?.find(
-                        (appointment:Appointment) =>
+                        (appointment: Appointment) =>
                           appointment.appointmentDateAndTime ===
                           // convertToDateandDateString(
                           //   availability.day,

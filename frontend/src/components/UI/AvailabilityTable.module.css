@@ -1,10 +1,11 @@
-.wrapper {
+.wrapper1111 {
     /* padding: 1rem; */
     font-family: var(--font-family);
+    margin: 0 auto;
 }
 
 table {
-    width: 100%;
+
     border-collapse: collapse;
     box-shadow: -4px 15px 59px 0px rgba(0, 0, 0, 0.62);
     border: 6px solid #c4c4c4;
@@ -13,14 +14,14 @@ table {
 th,
 td {
     border: 1px solid #ddd;
-    padding: 8px;
+    /* padding: 8px; */
     text-align: center;
     cursor: pointer;
 }
 
 .available {
     background-color: #45C4B0;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
 }
 
 .available:hover {
@@ -47,4 +48,29 @@ td {
 
 th {
     background-color: #f2f2f2;
+}
+
+
+@media (min-width:414px) and (max-width:767px) {
+    .wrapper {}
+
+    .available,
+    th,
+    td {
+        font-size: 6px;
+        padding: 2px;
+    }
+
+}
+
+@media (min-width:375px) and (max-width:413px) {
+    .wrapper {}
+
+    .available,
+    th,
+    td {
+        font-size: 6px;
+        padding: 2px;
+    }
+
 }
