@@ -77,6 +77,12 @@ img {
     }
 }
 
+@media (max-width:390px) {
+    .topBar {
+        width: calc(100% - 30px);
+    }
+}
+
 @media (max-width:600px) {
     .topBar {
         /* border:1px solid red; */

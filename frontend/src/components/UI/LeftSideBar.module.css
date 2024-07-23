@@ -100,3 +100,28 @@ ul li a i {
     }
 
 }
+
+@media (max-width:390px) {
+    .sidebar {
+        width: 30px !important;
+    }
+
+    .sidebar ul li a i {
+        max-width: 15px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .iconBox {
+        min-width: 10px !important;
+        display: flex;
+        margin-left: 3px;
+
+    }
+
+    .sidebar ul li {
+        padding: 0;
+
+    }
+
+}

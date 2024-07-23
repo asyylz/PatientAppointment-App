@@ -58,6 +58,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
     align-items: center;
+    height: 90px;
     /* gap: 3rem; */
     /* border: 6px solid purple; */
 }
@@ -235,7 +236,26 @@ td .icons.edit {
 
 }
 
-@media (max-width:450px) {
+@media (max-width:768px) {
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .userLeftSection {
+        grid-template-columns: calc(100vw - 60px);
+        grid-template-rows: 170px 1fr;
+        align-items: center;
+    }
+
+    .userRightSection .rightTop {
+        height: 90px;
+    }
+
+
+}
+
+@media (max-width:414px) {
     .container {
         grid-template-columns: 1fr;
     }
@@ -297,7 +317,7 @@ td .icons.edit {
         padding: 3px;
         color: #fff;
         border-radius: 50%;
-        height: 22px;
+        height: 20px;
         width: 20px;
         margin-left: 5px;
     }
@@ -314,19 +334,41 @@ td .icons.edit {
 
 }
 
-@media (max-width:768px) {
+@media (max-width:390px) {
+    .userLeftSection {
+        grid-template-columns: calc(100vw - 30px);
+        grid-template-rows: 150px 1fr;
+        align-items: center;
+        gap: 0;
+    }
 
-    /* .userRightSection .rightTop {
-        grid-template-columns: 1fr;
+    .userRightSection .rightTop {
+        grid-template-columns: calc(100vw - 30px);
+        grid-template-rows: 40px 40px 40px;
 
+    }
 
-    } */
+    .userRightSection .rightTop .box {
+        height: 70%;
+        width: 40%;
+        font-size: 8px;
+        text-align: center;
 
-    /* .userRightSection {
-        grid-template-rows: 400px 1fr;
-    } */
+    }
 
+    .rightTop .icons svg {
+        height: 15px;
+        width: 15px;
+        margin-top: 5px;
+    }
+
+    .rightBottom {
+        /* border: 1px solid green; */
+        width: calc(100vw - 52px);
+    }
 }
+
+
 
 @media (max-width: 930px) {
 
