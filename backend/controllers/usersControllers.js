@@ -1,7 +1,9 @@
 //const fs = require('fs');
-const { S3Client, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
+const {
+  deleteObjectByDateKeyNumber
+} = require('../utils/deleteObjectByKeyNumberS3Bucket');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -10,6 +12,15 @@ const filterObj = (obj, ...allowedFields) => {
   });
   return newObj;
 };
+
+function extractDateNumber(url) {
+  const regex = /\/(\d+)-/; // Regex to find numbers between '/' and '-'
+  const match = url.match(regex); // Match the regex with the given URL
+  if (match) {
+    return match[1]; // Return the first captured group
+  }
+  return null; // Return null if no match is found
+}
 
 // GET ALL //
 exports.getAllUsers = async (req, res, next) => {
@@ -90,21 +101,26 @@ exports.updateUser = async (req, res, next) => {
   // }
   //console.log('from user update for aws', req.body);
   //console.log('from user update for filename', req.fileName);
+  const identifierForImage = extractDateNumber(user.image);
+  console.log(identifierForImage);
+  //1721592559810
 
   if (req.fileLocation && user.image !== 'userDefaultAvatar.png') {
-    const client = new S3Client();
-    const input = {
-      // DeleteObjectRequest
-      Bucket: 'patient-appointment-system', // required
-      Key: 'STRING_VALUE', // required
-      MFA: 'STRING_VALUE',
-      VersionId: 'STRING_VALUE',
-      RequestPayer: 'requester',
-      BypassGovernanceRetention: true || false,
-      ExpectedBucketOwner: 'STRING_VALUE'
-    };
-    const command = new DeleteObjectCommand(input);
-    const response = await client.send(command);
+    await deleteObjectByDateKeyNumber(identifierForImage);
+    imagePath = req.fileLocation;
+
+    // const input = {
+    //   // DeleteObjectRequest
+    //   Bucket: 'patient-appointment-system', // required
+    //   Key: 'STRING_VALUE' // required
+    //   // MFA: 'STRING_VALUE',
+    //   // VersionId: 'STRING_VALUE',
+    //   // RequestPayer: 'requester',
+    //   // BypassGovernanceRetention: true || false,
+    //   // ExpectedBucketOwner: 'STRING_VALUE'
+    // };
+    // const command = new DeleteObjectCommand(input);
+    // const response = await client.send(command);
     // { // DeleteObjectOutput
     //   DeleteMarker: true || false,
     //   VersionId: "STRING_VALUE",
@@ -112,7 +128,6 @@ exports.updateUser = async (req, res, next) => {
     // };
 
     //fs.unlink(`./public${user.image}`, err => console.log(err));
-    imagePath = req.fileLocation;
   }
 
   if (req.body.password || req.body.passwordConfirm) {
