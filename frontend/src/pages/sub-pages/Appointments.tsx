@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { formatDateForUI } from '../../helper/generateDates';
 import classes from './Appointments.module.css';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import ModalCustom from '../../components/UI/ModalCustom';
@@ -12,7 +11,6 @@ import useHttp from './../../hooks/useHttp';
 
 /* ---------------------- COMPONENT --------------------- */
 const Appointments: React.FC = () => {
-  
   const [selectedAppointment, setSelectedAppointment] = useState<
     SingleAppointmentForDoctor | undefined
   >();
@@ -80,10 +78,12 @@ const Appointments: React.FC = () => {
         </ModalCustom>
       )}
       {openModal === 'confirmation' && (
-        <ModalCustom height="auto" width="auto">
+        <ModalCustom height="200px" width="250px">
           <p>Please confirm to delete the appointment?</p>
-          <div className={classes.buttonContainer}>
-            <button onClick={confirmDelete}>Confirm</button>
+          <div className="buttonContainer">
+            <button onClick={confirmDelete} style={{ color: 'red' }}>
+              Confirm
+            </button>
             <button onClick={cancelDelete}>Cancel</button>
           </div>
         </ModalCustom>
