@@ -40,19 +40,23 @@ export const fetchEntities = <T>(
 /* ------------------------------------------------------ */
 export const fetchEntitiesWithId = <T>(
   entity: string,
-  url: (id: string) => string
+  url: (id: string, pagination?: number) => string
 ) =>
-  createAsyncThunk<T, string>(`${entity}/fetchWithId`, async (id: string) => {
-    try {
-      const response = await axios.get(url(id));
-      //console.log(id)
-      console.log(response.data.data);
-      return response.data.data[entity]; // Assuming the data is under the entity property
-    } catch (err) {
-      console.log(err);
-      throw err;
+  createAsyncThunk<T, { id: string; pagination?: number }>(
+    `${entity}/fetchWithId`,
+    async ({ id, pagination }) => {
+      try {
+        const requestUrl = url(id, pagination);
+        const response = await axios.get(requestUrl);
+        //console.log(id)
+        console.log(response.data.data);
+        return response.data.data[entity]; // Assuming the data is under the entity property
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
     }
-  });
+  );
 
 /* ------------------------------------------------------ */
 /*            ENTITIES WITH TOKEN AND ID                  */

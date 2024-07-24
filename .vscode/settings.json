@@ -332,6 +332,15 @@
         "wholeMatch": false
       },
       "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "border",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "red"
     }
   ]
 }

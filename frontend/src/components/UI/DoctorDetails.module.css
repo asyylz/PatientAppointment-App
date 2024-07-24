@@ -33,18 +33,16 @@
     grid-column: span 2;
 }
 
-.reviewsWrapper {
+.wrapper.reviews {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
     grid-auto-columns: auto;
     gap: 1rem;
     align-items: center;
-    
-   
 }
 
-.reviewContainer {
-   
+.container.review {
+
     width: 280px;
     margin: 0 auto;
     gap: 10px;
@@ -110,6 +108,10 @@
     margin-top: 2rem;
 }
 
+.bottomSection button {
+    margin-top: 2rem;
+    width: 130px;
+}
 
 @media (min-width:414px) and (max-width:767px) {
     .wrapper {

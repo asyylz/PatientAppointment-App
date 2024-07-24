@@ -1,12 +1,24 @@
 const mongoose = require('mongoose');
 const Review = require('../models/reviewModel');
-
+const APIFeatures = require('../utils/apiFeatures');
 // GET ALL //
 exports.getDoctorReviews = async (req, res) => {
   const { doctorId } = req.params;
 
   try {
-    const reviews = await Review.aggregate([
+    const features = new APIFeatures(
+      Review.find({ doctorId }).populate('userId', 'name image'),
+      req.query
+    )
+      .filter()
+      .limitFields()
+      .paginate()
+      .sort();
+
+    const reviews = await features.query;
+
+    // Step 1: Aggregate reviews to calculate average rating and populate userId
+    const aggregatedReviews = await Review.aggregate([
       { $match: { doctorId: new mongoose.Types.ObjectId(doctorId) } },
       {
         $addFields: {
@@ -18,18 +30,36 @@ exports.getDoctorReviews = async (req, res) => {
             ]
           }
         }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'user'
+        }
+      },
+      {
+        $unwind: '$user'
+      },
+      {
+        $project: {
+          _id: 1,
+          doctorId: 1,
+          attributes: 1,
+          averageRating: 1,
+          'user.name': 1,
+          'user.image': 1,
+          'user._id': 1
+        }
       }
     ]);
 
-    const populatedReviews = await mongoose
-      .model('User')
-      .populate(reviews, { path: 'userId', select: 'name image' });
-
-    //const reviews = await Review.find();
     res.status(200).json({
       status: 'success',
+      length: reviews.length,
       data: {
-        reviews: populatedReviews
+        reviews: reviews
       }
     });
   } catch (err) {

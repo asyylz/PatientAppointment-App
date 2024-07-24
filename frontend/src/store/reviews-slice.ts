@@ -1,7 +1,7 @@
 import { fetchEntitiesWithId, createEntitySlice } from './create-generic-slice';
 
-export const doctorReviewsUrl = (id: string) => {
-  return `http://localhost:3000/api/v1/reviews/${id}`;
+export const doctorReviewsUrl = (id: string, pagination?: number) => {
+  return `http://localhost:3000/api/v1/reviews/${id}?limit=2&page=${pagination}`;
 };
 
 export const fetchReviews = fetchEntitiesWithId<Review>(

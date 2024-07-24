@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './DoctorDetails.module.css';
 import AvailabilityTable from './AvailabilityTable';
 import { useSelector } from 'react-redux';
@@ -6,9 +6,12 @@ import { fetchReviews } from '../../store/reviews-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import ReviewRead from './ReviewRead';
+import PaginationButtons from './PaginationButtons';
 
 const DoctorDetails: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+
+  const [pagination, setPagination] = useState<number>(1);
 
   const { error: doctorsError, selectedDoctor } = useSelector(
     (state: RootState) => state.doctors
@@ -20,13 +23,13 @@ const DoctorDetails: React.FC = () => {
     error: reviewsError,
   } = useSelector((state: RootState) => state.reviews);
 
-  //console.log(reviews);
+  const handleMoreReview = () => {};
 
   useEffect(() => {
     if (selectedDoctor) {
-      dispatch(fetchReviews(selectedDoctor._id.toString()));
+      dispatch(fetchReviews({ id: selectedDoctor._id.toString(), pagination }));
     }
-  }, [dispatch, selectedDoctor]);
+  }, [dispatch, selectedDoctor, pagination]);
 
   if (doctorsError) {
     return <div>Error: {doctorsError}</div>;
@@ -44,7 +47,7 @@ const DoctorDetails: React.FC = () => {
       <AvailabilityTable />
 
       <div
-        //style={{ border: '2px solid blue' }}
+        style={{ border: '2px solid blue' }}
         className={classes.bottomSection}
       >
         <h3>Reviews</h3>
@@ -52,12 +55,12 @@ const DoctorDetails: React.FC = () => {
 
         {reviewsStatus === 'loading' && <p>Reviews are loading...</p>}
         {reviewsStatus === 'succeeded' && (
-          <ul className={classes.reviewsWrapper}>
+          <ul className={`${classes.wrapper} ${classes.reviews}`}>
             {reviews.map((review: Review, index: number) => (
               <div
                 key={index}
                 //style={{ border: '3px solid red' }}
-                className={classes.reviewContainer}
+                className={`${classes.container} ${classes.review}`}
               >
                 <div className={classes.commenterInfo}>
                   <div className={classes.imgAndUser}>
@@ -69,7 +72,15 @@ const DoctorDetails: React.FC = () => {
                       />
                     </div>
 
-                    <h2>{review.averageRating.toFixed(1)}</h2>
+                    {/* <h2>{review.averageRating?.toFixed(1)}</h2> */}
+                    <h2>
+                      {' '}
+                      {(
+                        Object.entries(review.attributes)
+                          .filter(([key]) => key !== '_id')
+                          .reduce((acc, [key, value]) => acc + value, 0) / 4
+                      ).toFixed(1)}
+                    </h2>
                   </div>
                   <h5>{review.userId?.name}</h5>
                   <p>{review.comments}</p>
@@ -90,6 +101,13 @@ const DoctorDetails: React.FC = () => {
         )}
         {reviewsError && <p>Could not fetch reviews...</p>}
         {reviewsStatus === 'failed' && <p>{reviewsError}</p>}
+        {/* <button onClick={handleMoreReview}>Load More</button> */}
+        <PaginationButtons
+          pagination={pagination}
+          setPagination={setPagination}
+          length={reviews?.length}
+          limit={2}
+        />
       </div>
     </div>
   );
