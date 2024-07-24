@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* border: 1px solid red; */
 }
 
 .container.picker .preview {
@@ -9,7 +10,8 @@
 }
 
 .container.picker button {
-  margin: 0
+  width: 150px;
+  margin-left: 20px;
 }
 
 .container.picker .input {
@@ -40,18 +42,12 @@
   padding: 6px;
 }
 
-@media (max-width:834px) {
+
+@media (min-width:320px) and (max-width:834px) {
   .container {
     flex-direction: column;
   }
 
-  .picker button {
-    width: 160px;
-  }
-
-}
-
-@media (min-width:320px) and (max-width:834px) {
   .preview {
     width: 80px;
     height: 80px;
@@ -62,5 +58,6 @@
     font-size: 10px;
     width: 120px;
     height: 30px;
+    margin: 0 auto;
   }
 }

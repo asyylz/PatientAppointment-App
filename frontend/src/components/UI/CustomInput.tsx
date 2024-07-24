@@ -25,7 +25,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
 }) => {
   return (
     <div
-      className={classes.inputWrapper}
+    className={`${classes.wrapper} ${classes.input}`}
       style={readOnly ? { opacity: 0.7 } : {}}
     >
       <input

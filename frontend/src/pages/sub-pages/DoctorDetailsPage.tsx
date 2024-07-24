@@ -28,7 +28,7 @@ const DoctorDetailsPage: React.FC = () => {
       //style={{ border: '4px solid purple' }}
     >
       <GlobalLink text="Back" to={-1} />{' '}
-      <div className={classes.wrapper}>
+      <div className={`${classes.wrapper} ${classes.doctorInfo}`}>
         <div
           //style={{ border: '1px solid green' }}
           className={classes.picture}

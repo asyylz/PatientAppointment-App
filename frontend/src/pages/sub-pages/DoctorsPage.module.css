@@ -1,9 +1,9 @@
 .container {
     display: grid;
     padding: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, auto));
-    gap: 1rem;
-    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+    gap: 2rem;
+    /* width: 100%; */
     /* Optional: max width for the container */
     margin: 0 auto;
     /* Center the container */
@@ -16,5 +16,4 @@
 p.header {
     text-align: center;
     font-size: 15px;
-    ;
 }

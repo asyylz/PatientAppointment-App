@@ -113,14 +113,12 @@ select {
     outline: none;
     font-size: 16px;
     border: none;
-    height: 45px;
-    margin-top: 25px;
+    margin-top: 10px;
+    border-bottom: 3px solid rgba(173, 217, 209, 1);
 }
 
 input,
-select {
-    border-bottom: 3px solid rgba(173, 217, 209, 1)
-}
+select {}
 
 .active {
     transform: translate3d(0, 0, 0);
@@ -143,7 +141,9 @@ select {
 
 @media (min-width:320px) and (max-width:767px) {
     button {
-        width: 80%;
+        max-width: 120px;
+        height: 35px;
+        font-size: 12px;
     }
 }
 

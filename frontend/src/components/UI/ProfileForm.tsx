@@ -73,9 +73,8 @@ const ProfileForm: React.FC = () => {
         <p>User Info</p>
         <hr />
         <div
-          style={{border:'1px solid red'}}
+          // style={{border:'1px solid red'}}
           className={`${classes.container} ${classes.info}`}
-          //className="container"
         >
           <ImagePicker
             name="image"
@@ -85,7 +84,7 @@ const ProfileForm: React.FC = () => {
             defaultImage={userData.image}
           />
 
-          <div className={classes.infoWrapper}>
+          <div className={`${classes.wrapper} ${classes.info}`}>
             <CustomInput
               defaultValue={userData.name}
               type="text"
@@ -126,7 +125,7 @@ const ProfileForm: React.FC = () => {
             />
           </div>
 
-          <div className={classes.buttonWrapper}>
+          <div className={`${classes.container} ${classes.button}`}>
             <button onClick={updateInfo} type="submit">
               Update
             </button>

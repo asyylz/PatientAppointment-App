@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: 0 auto;
-    margin-bottom: 4rem;
     gap: 1rem;
 
 
@@ -20,13 +19,11 @@
     width: 100%;
 }
 
-.buttonWrapper {
+.container.button {
     /* border: 1px solid red; */
-    margin-top: 6rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: space-between;
-    /* grid-column: span 2; */
-
 }
 
 
@@ -36,52 +33,18 @@ hr {
     margin-top: 16px;
 }
 
-.container p {
-    margin-top: 2rem;
+.container.address p {
+    margin-top: 1rem;
+    font-size: 12px;
 }
 
 
-@media (max-width:990px) {
-
-    .buttonWrapper button {
-        max-width: 160px
-    }
-
-    .picker button {
-        width: 160px;
-    }
-}
-
-@media (max-width:768px) {
+@media (min-width:375px) and (max-width:767px) {
     .container {
         display: grid;
         grid-template-columns: 1fr;
         margin: 0 auto;
-    }
-
-    .buttonWrapper button {
-        width: 150px
-    }
-
-    .picker button {
-        width: 160px;
-    }
-
-}
-
-@media (max-width:414px) {
-    .container {
-        display: grid;
-        grid-template-columns: 1fr;
-        margin: 0 auto;
-    }
-
-    .buttonWrapper button {
-        width: 120px
-    }
-
-    .picker button {
-        width: 160px;
+        font-size: 10px;
     }
 
 }
