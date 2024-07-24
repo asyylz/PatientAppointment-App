@@ -47,7 +47,7 @@ const DoctorDetails: React.FC = () => {
         //style={{ border: '2px solid blue' }}
         className={classes.bottomSection}
       >
-        <h1>Reviews</h1>
+        <h3>Reviews</h3>
         <hr />
 
         {reviewsStatus === 'loading' && <p>Reviews are loading...</p>}
@@ -71,7 +71,7 @@ const DoctorDetails: React.FC = () => {
 
                     <h2>{review.averageRating.toFixed(1)}</h2>
                   </div>
-                  <h3>{review.userId?.name}</h3>
+                  <h5>{review.userId?.name}</h5>
                   <p>{review.comments}</p>
                 </div>
 

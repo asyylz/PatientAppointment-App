@@ -3,17 +3,26 @@
     padding: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(200px, auto));
     gap: 2rem;
-    /* width: 100%; */
-    /* Optional: max width for the container */
     margin: 0 auto;
-    /* Center the container */
     justify-content: center;
     align-items: center;
     grid-auto-columns: auto
-        /* This allows items to fill gaps */
 }
 
 p.header {
     text-align: center;
-    font-size: 15px;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+@media (min-width:601px) and (max-width:767px) {
+    p.header {
+        padding-top: 0;
+    }
+}
+
+@media (min-width:375px) and (max-width:600px) {
+    p.header {
+        padding-top: 20px;
+    }
 }

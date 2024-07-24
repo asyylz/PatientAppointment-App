@@ -1,12 +1,15 @@
 .wrapper {
     display: grid;
-    grid-template-columns: 100px 300px;
+    grid-template-columns: 80px 200px;
+    grid-template-rows: 35px;
     align-items: center;
+    
+
 
 }
 
-.ratingContainer {
-    width: 230px;
+.container.rating {
+    width: 130px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,10 +29,10 @@
 .ratingValue {
     position: absolute;
     top: -5;
-    left: -25px;
+    left: -18px;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
-    height: 50px;
-    width: 50px;
     background: rgba(173, 217, 209, 1);
     box-shadow: 0 1px 1px hsl(0deg 0% 0%/0.075), 0 2px 2px hsl(0deg 0% 0%/0.075),
         0 4px 4px hsl(0deg 0% 0%/0.075), 0 8px 8px hsl(0deg 0% 0%/0.075),
@@ -43,19 +46,22 @@
     transform: translateY(50%);
     margin: auto;
     text-align: center;
-    line-height: 24px;
-    font-size: 20px;
+    line-height: 16px;
+    font-size: 12px;
     color: #2b2b2b;
 
 }
 
-.ratingContainer label {
-    height: 35px;
-    width: 35px;
+.container.rating label {
+    height: 20px;
+    width: 20px;
     cursor: pointer;
     transform-origin: "center center";
 }
 
+.attributeName {
+    font-size: 12px;
+}
 
 .color2 {
     fill: #f7db5e;
@@ -84,12 +90,12 @@
 }
 
 
-@media (min-width:375px) and (max-width:834px) {
+/* @media (min-width:375px) and (max-width:834px) {
     .attributeName {
         font-size: 12px;
     }
 
-    .ratingContainer {
+    .container.rating {
         width: 130px;
         margin-left: 2rem;
 
@@ -113,10 +119,10 @@
 
     }
 
-    .ratingContainer label {
+    .container.rating label {
         height: 20px;
         width: 20px;
     }
 
 
-}
+} */

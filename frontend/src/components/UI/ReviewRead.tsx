@@ -17,7 +17,7 @@ const ReviewRead: React.FC<ReviewProps> = ({
           {attributeName.charAt(0).toUpperCase() + attributeName.slice(1)}
         </p>
       </div>
-      <fieldset className={classes.ratingContainer}>
+      <fieldset className={`${classes.container} ${classes.rating}`}>
         {[5, 4, 3, 2, 1].map((value, index) => (
           <label
             key={index}
