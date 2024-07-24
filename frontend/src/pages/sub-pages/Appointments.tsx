@@ -12,8 +12,10 @@ import useHttp from './../../hooks/useHttp';
 
 /* ---------------------- COMPONENT --------------------- */
 const Appointments: React.FC = () => {
-  const [selectedAppointment, setSelectedAppointment] =
-    useState<SingleAppointmentForDoctor | undefined>();
+  
+  const [selectedAppointment, setSelectedAppointment] = useState<
+    SingleAppointmentForDoctor | undefined
+  >();
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
 
@@ -29,6 +31,7 @@ const Appointments: React.FC = () => {
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;
+  console.log(appointmentsForDoctor);
 
   useEffect(() => {
     if (userData?.doctorId) {
@@ -43,7 +46,7 @@ const Appointments: React.FC = () => {
     setSelectedAppointment(appointment);
   };
 
-  const handleDelete = (id: ObjectId ) => {
+  const handleDelete = (id: ObjectId) => {
     setOpenModal('confirmation');
     setAppointmentIdToDelete(id);
   };
@@ -69,7 +72,7 @@ const Appointments: React.FC = () => {
   return (
     <>
       {openModal === 'open' && selectedAppointment && (
-        <ModalCustom height="700px" width="900px">
+        <ModalCustom height="auto" width="auto">
           <AppointmentForm
             setOpenModal={setOpenModal}
             appointment={selectedAppointment}
@@ -77,7 +80,7 @@ const Appointments: React.FC = () => {
         </ModalCustom>
       )}
       {openModal === 'confirmation' && (
-        <ModalCustom height="300px" width="500px">
+        <ModalCustom height="auto" width="auto">
           <p>Please confirm to delete the appointment?</p>
           <div className={classes.buttonContainer}>
             <button onClick={confirmDelete}>Confirm</button>
@@ -91,8 +94,8 @@ const Appointments: React.FC = () => {
             <th>Patient Name</th>
             <th>DOB</th>
             <th>Date</th>
-            <th>Concerns</th>
             <th>Time</th>
+            <th>Concerns</th>
             <th>Diagnose</th>
             <th>Referrals</th>
             <th>Actions</th>
@@ -112,19 +115,14 @@ const Appointments: React.FC = () => {
                   onClick={() => handleClick(appointment)}
                 >
                   <td>{appointment.patientId?.name}</td>
-                  <td>{appointment.patientId?.DOB}</td>
-                  <td>{formatDateForUI(appointment.appointmentDateAndTime)}</td>
-                  <td>{appointment.reason}</td>
+                  <td>{appointment.patientId?.DOB.split('T')[0]}</td>
+                  <td>{appointment.appointmentDateAndTime.split('T')[0]}</td>
                   <td>
-                    {`${new Date(appointment.appointmentDateAndTime)
-                      .getHours()
-                      .toString()}:${new Date(
-                      appointment.appointmentDateAndTime
-                    )
-                      .getMinutes()
-                      .toString()
-                      .padStart(2, '0')}`}
+                    {appointment?.appointmentDateAndTime
+                      .split('T')[1]
+                      .slice(0, 5)}
                   </td>
+                  <td>{appointment.reason}</td>
                   <td>{appointment.diagnose}</td>
                   <td>{appointment.referral ? 'Yes' : 'No'}</td>
                   <td>

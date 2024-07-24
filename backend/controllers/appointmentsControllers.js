@@ -131,13 +131,21 @@ exports.updateAppointment = async (req, res, next) => {
       .status(404)
       .json({ status: 'error', message: 'Appointment not found for updated' });
   }
+  //console.log('user', req.user);
 
   // Check if appointment date is in  past
   const today = new Date();
-  if (new Date(appointment.appointmentDateAndTime) < today) {
+  const isPastAppointment =
+    new Date(appointment.appointmentDateAndTime) < today;
+
+  //console.log(req.user.role);
+  //console.log(req.user.doctorId);
+
+  if (isPastAppointment && req.user.role !== 'doctor') {
+    // If the appointment is in the past and the user is not a doctor, throw an error
     return res.status(400).json({
       status: 'error',
-      message: 'You can not change appointments in past!'
+      message: 'You cannot change appointments in the past!'
     });
   }
   const { appointmentDateAndTime } = req.body;
@@ -183,21 +191,24 @@ exports.updateAppointment = async (req, res, next) => {
       )
     };
   });
+  console.log('asiye', req.body.appointmentDateAndTime);
 
   // Check if doctor is available on the selected appointment date and time
-  const isDoctorAvailable = availbilitiesInDateFormat.some(avail => {
-    return (
-      avail.currentWeekAvailabilityInDateFormat.toISOString() ===
-      new Date(req.body.appointmentDateAndTime).toISOString()
-    );
-  });
-
-  // If doctor is not available throw error
-  if (!isDoctorAvailable) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Doctor is not available on this date!'
+  if (req.body.appointmentDateAndTime) {
+    const isDoctorAvailable = availbilitiesInDateFormat.some(avail => {
+      return (
+        avail.currentWeekAvailabilityInDateFormat.toISOString() ===
+        new Date(req.body.appointmentDateAndTime).toISOString()
+      );
     });
+
+    // If doctor is not available throw error
+    if (!isDoctorAvailable) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Doctor is not available on this date!'
+      });
+    }
   }
 
   // Update appointment
@@ -264,7 +275,7 @@ exports.getAppointment = async (req, res, next) => {
 
 // POST //
 exports.createAppointment = async (req, res, next) => {
- // console.log('from createAppointment', req.body);
+  // console.log('from createAppointment', req.body);
 
   const { appointmentDateAndTime, doctorId } = req.body;
   try {

@@ -127,6 +127,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     }
   };
   const isPast = new Date(appointment.appointmentDateAndTime) < new Date();
+  console.log(updatedAppointmentData);
 
   return (
     <>
@@ -197,115 +198,110 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       <div className={classes.container}>
         <p className={classes.title}>Appointment Details</p>
         <form onSubmit={handleSubmit}>
-          <div className={classes.leftSection}>
+          <CustomInput
+            value={
+              isPatient
+                ? `Dr. ${(appointment as Appointment)?.doctorId?.firstName} ${
+                    (appointment as Appointment)?.doctorId.lastName
+                  }`
+                : (appointment as SingleAppointmentForDoctor)?.patientId?.name
+            }
+            readOnly
+          />
+          <CustomInput
+            placeHolder="Appointment Date"
+            defaultValue={appointment?.appointmentDateAndTime.split('T')[0]}
+            // value={formatDateForUI(appointment?.appointmentDateAndTime)}
+            type="date"
+            name="appointmentDate"
+            onChange={handleChange}
+            readOnly={isPast}
+          />
+
+          <CustomInput
+            placeHolder="Appointment Time"
+            //value={appointment?.appointmentDateAndTime}
+            defaultValue={appointment?.appointmentDateAndTime
+              .split('T')[1]
+              .slice(0, 5)}
+            name="appointmentTime"
+            type="time"
+            step={1800}
+            onChange={handleChange}
+            readOnly={isPast}
+          />
+          <textarea
+            className={classes.reason}
+            placeholder="Please write your concerns..."
+            name="reason"
+            defaultValue={appointment?.reason}
+            onChange={handleChange}
+            rows={8}
+            cols={36}
+            style={isPast ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}}
+            readOnly={isPast}
+          ></textarea>
+
+          {!isPatient ? (
+            <select
+              name="status"
+              id="status"
+              onChange={handleChange}
+              defaultValue={appointment?.status}
+            >
+              <option>Pelease choose a status</option>
+              <option value="completed">Completed</option>
+            </select>
+          ) : (
+            <CustomInput value={appointment?.status} readOnly />
+          )}
+          {!isPatient ? (
+            <select
+              name="referral"
+              id="referral"
+              onChange={handleChange}
+              defaultValue={appointment?.referral.toString()}
+            >
+              <option>Pelease choose a referral status</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          ) : (
             <CustomInput
-              value={
-                isPatient
-                  ? `Dr. ${(appointment as Appointment)?.doctorId?.firstName} ${
-                      (appointment as Appointment)?.doctorId.lastName
-                    }`
-                  : (appointment as SingleAppointmentForDoctor)?.patientId?.name
-              }
+              value={appointment?.referral ? 'Referral' : 'Not referral'}
               readOnly
             />
-            <CustomInput
-              placeHolder="Appointment Date"
-              defaultValue={appointment?.appointmentDateAndTime.split('T')[0]}
-              // value={formatDateForUI(appointment?.appointmentDateAndTime)}
-              type="date"
-              name="appointmentDate"
-              onChange={handleChange}
-              readOnly={isPast}
-            />
+          )}
 
-            <CustomInput
-              placeHolder="Appointment Time"
-              //value={appointment?.appointmentDateAndTime}
-              defaultValue={appointment?.appointmentDateAndTime
-                .split('T')[1]
-                .slice(0, 5)}
-              name="appointmentTime"
-              type="time"
-              step={1800}
-              onChange={handleChange}
-              readOnly={isPast}
-            />
-            <textarea
-              className={classes.reason}
-              placeholder="Please write your concerns..."
-              name="reason"
-              defaultValue={appointment?.reason}
-              onChange={handleChange}
-              rows={8}
-              cols={36}
-              style={
-                isPast ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
-              }
-              readOnly={isPast}
-            ></textarea>
-          </div>
+          <textarea
+            className={classes.result}
+            defaultValue={appointment?.diagnose}
+            placeholder="Please write diagnoses..."
+            name="diagnose"
+            onChange={handleChange}
+            rows={8}
+            cols={36}
+            readOnly={isPatient}
+            style={
+              isPatient ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
+            }
+          ></textarea>
+          {appointment.status === 'completed' && isPast && isPatient && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setOpenModalDeleteAndComment('comment');
+              }}
+              style={{
+                fontSize: '12px',
+                height: '30px',
+                marginBottom: '5px',
+              }}
+            >
+              Leave comment
+            </button>
+          )}
 
-          <div className={classes.rightSection}>
-            {!isPatient ? (
-              <select
-                name="status"
-                id="status"
-                onChange={handleChange}
-                defaultValue={appointment?.status}
-              >
-                <option>Pelease choose a status</option>
-                <option value="completed">Completed</option>
-              </select>
-            ) : (
-              <CustomInput value={appointment?.status} readOnly />
-            )}
-            {!isPatient ? (
-              <select
-                name="referral"
-                id="referral"
-                onChange={handleChange}
-                defaultValue={appointment?.referral.toString()}
-              >
-                <option>Pelease choose a referral status</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-              </select>
-            ) : (
-              <CustomInput
-                value={appointment?.referral ? 'Referral' : 'Not referral'}
-                readOnly
-              />
-            )}
-
-            <textarea
-              className={classes.result}
-              defaultValue={appointment?.diagnose}
-              placeholder="Please write diagnoses..."
-              name="diagnose"
-              onChange={handleChange}
-              rows={8}
-              cols={36}
-              readOnly={isPatient}
-              style={
-                isPatient ? { opacity: 0.7, backgroundColor: 'lightgray' } : {}
-              }
-            ></textarea>
-            {appointment.status === 'completed' && isPast && (
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpenModalDeleteAndComment('comment');
-                }}
-                style={{
-                  fontSize: '12px',
-                  height: '30px',
-                  marginBottom: '5px',
-                }}
-              >
-                Leave comment
-              </button>
-            )}
-          </div>
           <div className={classes.buttonContainer}>
             <button type="submit">Update</button>
             <button
