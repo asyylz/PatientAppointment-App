@@ -16,7 +16,7 @@ const PasswordResetForm: React.FC = () => {
       newPassword: '',
       confirmNewPassword: '',
     });
-  //console.log(updatedUserPasswordAndToken);
+
 
   const handleInputChange = (
     e: React.ChangeEvent<

@@ -1,0 +1,23 @@
+.wrapper.address button {
+    margin: 1rem;
+    height: 30px;
+    width: 150px;
+    font-size: 12px;
+
+}
+
+
+@media (min-width:375px) and (max-width:767px) {
+    .wrapper.address button {
+        margin: 1rem;
+        height: 30px;
+        width: 140px;
+        font-size: 12px;
+
+    }
+
+    .wrapper.map p {
+        font-size: 12px;
+    }
+
+}

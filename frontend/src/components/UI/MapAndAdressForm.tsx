@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import CustomInput from './CustomInput';
-import classes from './Map.module.css';
+import classes from './MapAndAddress.module.css';
 import { useSelector } from 'react-redux';
 interface Location {
   lat: number;
@@ -125,7 +125,7 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
 
   return (
     <>
-      <div className={classes.wrapper}>
+      <div className={`${classes.wrapper} ${classes.address}`}>
         <CustomInput
           defaultValue={userData?.address?.street}
           placeHolder="Enter your street"
@@ -174,7 +174,7 @@ const MapAndAdressForm: React.FC<MapAndAdressFormProps> = ({
 
         <button onClick={handleAddressLoad}>Load Adress</button>
       </div>
-      <div>
+      <div className={`${classes.wrapper} ${classes.map}`}>
         <div id="map" style={{ height: '300px', width: 'auto' }}></div>
         <p>Address: {address}</p>
       </div>

@@ -26,7 +26,6 @@ const ProfileForm: React.FC = () => {
 
   const [updatedUserData, setUpdatedUserData] = useState<UpdateUserData>({});
 
-  //console.log(updatedUserData);
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -74,8 +73,8 @@ const ProfileForm: React.FC = () => {
         <p>User Info</p>
         <hr />
         <div
-          //style={{border:'1px solid red'}}
-          className={classes.container}
+          style={{border:'1px solid red'}}
+          className={`${classes.container} ${classes.info}`}
           //className="container"
         >
           <ImagePicker
@@ -119,7 +118,7 @@ const ProfileForm: React.FC = () => {
         <div>
           <p>Adsress Settings</p>
           <hr />
-          <div className={classes.container}>
+          <div className={`${classes.container} ${classes.address}`}>
             <MapAndAdressForm
               setAddressParts={setAddressParts}
               addressParts={addressParts}

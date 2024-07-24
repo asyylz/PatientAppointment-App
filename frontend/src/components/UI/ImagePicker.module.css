@@ -1,39 +1,26 @@
-.controls {
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
 }
 
-.controls button {
+.container.picker .preview {
+  margin-bottom: 10px;
+}
+
+.container.picker button {
   margin: 0
 }
 
-.picker .input {
+.container.picker .input {
   display: none;
-}
-
-.picker .button {
-  border: 0;
-  padding: 0.5rem 1.5rem;
-  background: #a4abb9;
-  border-radius: 2px;
-  cursor: pointer;
-  font: inherit;
-}
-
-.picker .button:hover,
-.picker .button:focus {
-  background: #b3b9c6;
 }
 
 .preview {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 6px solid #a4abb9;
-
+  border: 5px solid #a4abb9;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,8 +40,8 @@
   padding: 6px;
 }
 
-@media (max-width:990px) {
-  .controls {
+@media (max-width:834px) {
+  .container {
     flex-direction: column;
   }
 
@@ -64,13 +51,14 @@
 
 }
 
-@media (min-width:320px) and (max-width:767px) {
+@media (min-width:320px) and (max-width:834px) {
   .preview {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #a4abb9;
   }
 
-  .controls button {
+  .container.picker button {
     font-size: 10px;
     width: 120px;
     height: 30px;

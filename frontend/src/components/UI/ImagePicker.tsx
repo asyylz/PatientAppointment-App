@@ -44,9 +44,9 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
   };
 
   return (
-    <div className={classes.picker}>
+    <div className={classes.container}>
       <label htmlFor={name}>{label}</label>
-      <div className={classes.controls}>
+      <div className={`${classes.container} ${classes.picker}`}>
         <div className={classes.preview}>
           {!pickedImage && <p>No image picked yet.</p>}
           {pickedImage && (
@@ -66,10 +66,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           onChange={handleImageChange}
           required
         />
-        <button
-          type="button"
-          onClick={handlePickClick}
-        >
+        <button type="button" onClick={handlePickClick}>
           Pick image
         </button>
       </div>
