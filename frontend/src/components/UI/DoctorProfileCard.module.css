@@ -1,5 +1,5 @@
 :root {
-    --surface-color: rgba(173, 217, 209, 1);
+    --surface-color: #D2E8E3;
     --card-background-color: #F0F1F2;
     --border-color: #D9D9D9;
 }
@@ -87,7 +87,7 @@
     text-decoration: none;
     color: #444;
     width: 150px;
-    background: rgba(173, 217, 209, 1);
+    background: var(--surface-color);
     padding: 5px 30px;
     display: flex;
     font-size: 12px;

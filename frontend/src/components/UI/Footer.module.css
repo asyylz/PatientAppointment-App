@@ -1,16 +1,9 @@
-:root {
-    --surface-color: rgba(173, 217, 209, 1);
-    --card-background-color: #F0F1F2;
-    --border-color: #D9D9D9;
-}
-
-
 .footer {
     /* border: 1px solid red; */
     height: 200px;
     border-top: 4px solid #c4c4c4;
     width: 100%;
-    background-color: var(--surface-color);
+    background-color: var(--primary-background);
     text-align: center;
     grid-column: 1 / span 2;
     z-index: 10;

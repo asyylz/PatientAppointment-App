@@ -1,7 +1,7 @@
 .topBar {
     position: fixed;
     height: 80px;
-    background: rgba(173, 217, 209, 1);
+    background: var(--primary-background);
     width: calc(100% - 190px);
     display: grid;
     grid-template-columns: 10fr auto;
@@ -10,7 +10,7 @@
     color: #444;
     padding: 0 20px;
     border-bottom: 4px solid #c4c4c4;
-    z-index: 100;
+    z-index: 10;
 }
 
 .search {

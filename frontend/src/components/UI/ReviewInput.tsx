@@ -28,7 +28,7 @@ const Review: React.FC<ReviewProps> = ({
   return (
     <div className={classes.wrapper} key={attributeName}>
       <p>{attributeName}</p>
-      <fieldset className={classes.ratingContainer}>
+      <fieldset className={`${classes.container} ${classes.rating}`}>
         {[5, 4, 3, 2, 1].map((value) => (
           <React.Fragment key={value}>
             <input

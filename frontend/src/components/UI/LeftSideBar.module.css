@@ -2,7 +2,7 @@
     position: fixed;
     width: 190px;
     min-height: 100%;
-    background: rgba(173, 217, 209, 1);
+    background: var(--primary-background);
     overflow-x: hidden;
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
     border-right: 4px solid #c4c4c4;

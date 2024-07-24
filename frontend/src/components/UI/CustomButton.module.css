@@ -2,8 +2,9 @@
     /* border:1px solid red; */
     max-width: 300px;
 }
+
 .card {
-    background: rgba(173, 217, 209, 1);
+    background: var(--primary-background);
     padding-bottom: 5px;
     display: flex;
     align-items: center;

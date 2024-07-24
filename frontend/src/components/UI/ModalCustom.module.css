@@ -40,14 +40,12 @@
 
 @media (min-width:375px) and (max-width:767px) {
     .overlay .wrapper {
-        margin-top: 18rem;
-
+        margin-top: 1rem;
+        width: 90%;
     }
 }
 
-@media (min-width:768px) and (max-width:834px) {
-    .overlay .wrapper {}
-}
+@media (min-width:768px) and (max-width:834px) {}
 
 @keyframes fadeIn {
     from {
