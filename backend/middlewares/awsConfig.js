@@ -2,48 +2,41 @@ const AWS = require('aws-sdk');
 const multer = require('multer');
 const dotenv = require('dotenv');
 const slugify = require('slugify');
+const AppError = require('./../utils/appError');
 
 dotenv.config();
+// Configure multer for memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-// Configure AWS with your access and secret key.
-AWS.config.update({
+// Configure AWS S3
+const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION
 });
 
-// Create an S3 instance
-const s3 = new AWS.S3();
-//const myBucket = process.env.AWS_S3_BUCKET_NAME;
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-const uploadToS3 = (req, res, next) => {
+// Middleware function to upload file to S3
+const uploadToS3 = async (req, res, next) => {
   if (!req.file) {
-    return res.status(400).send('No file uploaded.');
+    return next();
   }
-  //   const fileName = req.file.originalname;
-  //   const slug = slugify(fileName, {
-  //     replacement: '+', // replace spaces with + instead of -
-  //     lower: true // convert to lower case
-  //   });
 
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key: `${Date.now()}-${req.file.originalname}`,
     Body: req.file.buffer,
     ContentType: req.file.mimetype
-    // ACL: 'public-read'
+    // ACL: 'public-read' // Uncomment if you want the file to be publicly readable
   };
 
-  s3.upload(params, (err, data) => {
-    if (err) {
-      return res.status(500).send('Failed to upload file.');
-    }
+  try {
+    const data = await s3.upload(params).promise();
     req.fileLocation = data.Location;
-    // req.fileName = data.Key;
     next();
-  });
+  } catch (err) {
+    next(new AppError('Failed to upload file.', 500));
+  }
 };
 
 module.exports = {

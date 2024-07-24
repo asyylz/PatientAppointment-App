@@ -70,6 +70,7 @@ interface DepartmentState {
 interface Doctor {
   _id: string;
   id: number;
+  userId: { _id: string; image: string };
   gender: string;
   image: string;
   availabilities: Availability[];

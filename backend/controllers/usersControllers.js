@@ -91,18 +91,27 @@ exports.deleteUser = async (req, res, next) => {
 // UPDATE //
 exports.updateUser = async (req, res, next) => {
   //console.log('from req.file', req.file);
-
-  const user = await User.findById(req.user._id);
-
   let imagePath;
-  const identifierForImage = extractDateNumber(user.image);
-  // console.log('updateUser',identifierForImage);
-
-  if (req.fileLocation && user.image !== 'userDefaultAvatar.png') {
-    await deleteObjectByDateKeyNumber(identifierForImage);
-    imagePath = req.fileLocation;
-    //fs.unlink(`./public${user.image}`, err => console.log(err));
+  try {
+    const user = await User.findById(req.user._id);
+    let identifierForImage;
+    if (
+      user.image &&
+      req.fileLocation &&
+      user.image !== 'userDefaultAvatar.png'
+    ) {
+      identifierForImage = extractDateNumber(user.image);
+      await deleteObjectByDateKeyNumber(identifierForImage);
+      imagePath = req.fileLocation;
+    } else if (req.fileLocation && !user.image) {
+      imagePath = req.fileLocation;
+    }
+  } catch (err) {
+    console.log(err);
   }
+
+  // console.log('updateUser',identifierForImage);
+  //fs.unlink(`./public${user.image}`, err => console.log(err));
 
   if (req.body.password || req.body.passwordConfirm) {
     return next(

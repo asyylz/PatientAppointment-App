@@ -68,13 +68,10 @@ const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 // };
 exports.getAllDoctors = async (req, res, next) => {
   try {
-    // const doctors = await Doctor.find().populate(
-    //   'departmentId',
-    //   'departmentMain'
-    // );
-
     const features = new APIFeatures(
-      Doctor.find().populate('departmentId', 'departmentMain'),
+      Doctor.find()
+        .populate('departmentId', 'departmentMain')
+        .populate('userId', 'image'),
       req.query
     )
       .filter()
@@ -83,6 +80,7 @@ exports.getAllDoctors = async (req, res, next) => {
       .sort();
 
     const doctors = await features.query;
+    console.log(doctors);
 
     // SEND RESPONSE //
     res.status(200).json({
@@ -110,6 +108,7 @@ exports.getDoctor = async (req, res, next) => {
     const [doctor, availabilities, reviews] = await Promise.all([
       Doctor.findById(doctorId)
         .populate('departmentId')
+        .populate('userId', 'image')
         .lean(), // Use .lean() to get plain JavaScript object
       Availability.find({ doctorId }),
       Review.find({ doctorId })

@@ -64,6 +64,11 @@ const reviewSchema = new mongoose.Schema({
 
 // Define the main doctor schema
 const doctorSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'A doctor must be a user']
+  },
   firstName: {
     type: String,
     required: true

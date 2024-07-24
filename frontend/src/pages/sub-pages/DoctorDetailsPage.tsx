@@ -22,6 +22,8 @@ const DoctorDetailsPage: React.FC = () => {
   if (!selectedDoctor) {
     return <div>Doctor not found</div>;
   }
+
+  console.log(selectedDoctor)
   return (
     <div
       className={classes.container}
@@ -34,7 +36,13 @@ const DoctorDetailsPage: React.FC = () => {
           className={classes.picture}
         >
           {/* <img src={doctor.image} /> */}
-          <img src="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*" />
+          <img
+            src={
+              selectedDoctor.userId?.image
+                ? selectedDoctor.userId?.image
+                : 'https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*'
+            }
+          />
         </div>
         <div>
           <h3>{`Dr ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</h3>

@@ -10,6 +10,7 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
   doctor,
   onSelectDoctor,
 }) => {
+ 
   return (
     <div
       key={doctor._id.toString()}
@@ -23,7 +24,13 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
         >
           <div className={classes.picture}>
             {/* <img src={doctor.image} /> */}
-            <img src="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*" />
+            <img
+              src={
+                doctor.userId?.image
+                  ? doctor.userId?.image
+                  : 'https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*'
+              }
+            />
           </div>
 
           <div>

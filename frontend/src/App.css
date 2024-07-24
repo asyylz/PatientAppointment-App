@@ -28,7 +28,6 @@ h2 {
 }
 
 .Toastify__toast {
-    width: 200px;
     display: grid;
     grid-template-columns: 3fr 1fr;
     /* 3:1 ratio for body and close button */

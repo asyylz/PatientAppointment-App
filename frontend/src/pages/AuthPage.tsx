@@ -15,8 +15,8 @@ import CustomInput from '../components/UI/CustomInput';
 
 const AuthPage = () => {
   const [userData, setUserData] = useState<Credentials | null>({
-    email: 'alice@test.com',
-    password: '6946224Asy!',
+    email: 'aytekin@test.com',
+    password: 'newpass12',
     // email: '',
     // password: '',
   });
