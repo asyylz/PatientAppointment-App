@@ -7,10 +7,12 @@ import classes from './DoctorsPage.module.css';
 import { doctorActions } from './../../store/doctors-slice';
 import useHttp from './../../hooks/useHttp';
 import PaginationButtons from '../../components/UI/PaginationButtons';
+import { useLocation } from 'react-router-dom';
 
 const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { getDoctorWithAvailabilities } = useHttp();
+  const location = useLocation();
 
   const {
     entities: doctors,
@@ -30,9 +32,24 @@ const Doctors: React.FC = () => {
   const [pagination, setPagination] = useState<number>(1);
   const [filteredDoctors, setFilteredDoctors] = useState(doctors);
 
+  // Extract departmentId from query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const departmentId = queryParams.get('departmentId');
+  //const pagination2 = queryParams.get('page');
+  //console.log(departmentId);
+  // console.log(location);
+
   useEffect(() => {
-    dispatch(fetchDoctors({ pagination }));
-  }, [dispatch, pagination]);
+    // if (departmentId) dispatch(fetchDoctors({ pagination, departmentId }));
+    // else dispatch(fetchDoctors({ pagination }));
+    dispatch(
+      fetchDoctors(
+        `http://localhost:3000/api/v1/doctors?limit=2&page=${pagination}&sort=firstName${
+          departmentId ? `&departmentId=${departmentId}` : ''
+        }`
+      )
+    );
+  }, [dispatch, pagination, departmentId]);
 
   useEffect(() => {
     if (searchWord) {
@@ -85,13 +102,16 @@ const Doctors: React.FC = () => {
             />
           ))}
         {status === 'failed' && <p>{error}</p>}
+        {doctors.length === 0 && <p>No available doctor in this department.</p>}
       </div>
-      <PaginationButtons
-        pagination={pagination}
-        setPagination={setPagination}
-        length={doctors?.length}
-        limit={2}
-      />
+      <div className={`${classes.container} ${classes.pagination}`}>
+        <PaginationButtons
+          pagination={pagination}
+          setPagination={setPagination}
+          length={doctors?.length}
+          limit={2}
+        />
+      </div>
     </>
   );
 };

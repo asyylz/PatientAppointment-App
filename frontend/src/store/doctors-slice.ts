@@ -1,16 +1,17 @@
 import { fetchEntities, createEntitySlice } from './create-generic-slice';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export const doctorsUrl = (pagination?: number) => {
-  return `http://localhost:3000/api/v1/doctors?limit=2&page=${pagination}&sort=firstName`;
+// export const doctorsUrl = (pagination?: number, departmentId?: string) => {
+//   return `http://localhost:3000/api/v1/doctors?limit=2&page=${pagination}&sort=firstName${
+//     departmentId ? `&departmentId=${departmentId}` : ''
+//   }`;
+// };
+export const doctorsUrl = (url: string) => {
+  return url || '';
 };
 
 // Fetch doctors thunk
-export const fetchDoctors = fetchEntities<Doctor>(
-  'doctors',
-  doctorsUrl
-  // 'http://localhost:3000/api/v1/doctors/?limit=2&page=1'
-);
+export const fetchDoctors = fetchEntities<Doctor>('doctors', 'get');
 
 // Create doctors slice
 const doctorsSlice = createEntitySlice<Doctor>(

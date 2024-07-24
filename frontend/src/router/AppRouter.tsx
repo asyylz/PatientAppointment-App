@@ -28,10 +28,9 @@ const routes: RouteObject[] = [
       {
         path: 'dashboard',
         element: (
-          // <PrivateRoute>
-          //   <Dashboard />
-          // </PrivateRoute>
-          <Dashboard />
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
         ),
       },
       {
@@ -45,7 +44,11 @@ const routes: RouteObject[] = [
       {
         element: <DoctorsLayout />,
         children: [
-          { path: 'doctors', element: <DoctorsPage />, index: true },
+          {
+            path: 'doctors',
+            element: <DoctorsPage />,
+            index: true,
+          },
           {
             path: 'doctors/:doctorId',
             element: (
@@ -58,6 +61,7 @@ const routes: RouteObject[] = [
       },
       { path: 'departments', element: <Departments /> },
       { path: 'payments', element: <Payments /> },
+      { path: 'help', element: <Payments /> },
       {
         path: 'profilesettings',
         element: (

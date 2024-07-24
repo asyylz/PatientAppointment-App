@@ -8,20 +8,24 @@ const CustomButton: React.FC<CustomButtonProps> = ({ department }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/user/doctors');
+    //navigate(`/user/doctors?departmentId=${department._id}`);
+    navigate(
+      `/user/doctors?limit=2&page=1&sort=firstName&departmentId=${department._id}`
+    );
   };
 
   return (
     <div
       className={classes.wrapper}
       // style={{ border: '3px solid green' }}
-      onClick={handleClick}
     >
       <div
         className={classes.card}
         //style={{ border: '1px solid red', marginTop: '2rem' }}
       >
-        <div className={classes.cardName}>{department?.departmentMain}</div>
+        <div className={classes.cardName} onClick={handleClick}>
+          {department?.departmentMain}
+        </div>
       </div>
 
       <div

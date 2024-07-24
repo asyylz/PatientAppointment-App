@@ -21,22 +21,21 @@
     grid-template-rows: 300px 1fr;
     gap: 1rem;
     align-items: center;
+    position: relative;
 
 }
 
-.userLeftSection .image {
+.userLeftSection img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    position: relative;
-    margin: 0 auto;
-
+    margin: 20px
 }
 
-.userLeftSection .image img {
+/* .userLeftSection .image img {
     height: 100%;
     width: 100%;
-}
+} */
 
 .userLeftSection .wrapper p {
     font-size: 14px;
@@ -424,10 +423,12 @@ td .icons.edit {
     .userLeftSection .wrapper .image {
         display: none;
     }
+
     .userRightSection {
         grid-template-rows: 150px 1fr;
-    
+
     }
+
     .userRightSection .rightTop {
         /* border: 3px solid red; */
         grid-template-columns: calc(100vw - 40px);

@@ -7,8 +7,16 @@ const sideBarSectionList = [
   { title: 'Dashboard', icon: 'fas fa-th-large' },
   { title: 'Profile Settings', icon: 'fas fa-cog' },
   // { title: 'Appointments', icon: 'fas fa-stethoscope' },
-  { title: 'Doctors', icon: 'fas fa-user-md' },
-  { title: 'Departments', icon: 'fas fa-puzzle-piece' },
+  {
+    title: 'Doctors',
+    url: '?limit=2&page=1&sort=firstName',
+    icon: 'fas fa-user-md',
+  },
+  {
+    title: 'Departments',
+    url: '?limit=24&page=1&sort=departmentMain',
+    icon: 'fas fa-puzzle-piece',
+  },
   { title: 'Payments', icon: 'fas fa-hand-holding-usd' },
 
   { title: 'Help', icon: 'fas fa-question' },
@@ -22,7 +30,12 @@ export default function LeftSideBar() {
           {sideBarSectionList.map((section) => {
             return (
               <li key={section.title}>
-                <Link to={`/user/${section.title.split(' ').join("").toLowerCase()}`}>
+                <Link
+                  to={`/user/${section.title
+                    .split(' ')
+                    .join('')
+                    .toLowerCase()}${section.url ? `${section.url}` : ''}`}
+                >
                   <div className={classes.iconBox}>
                     <i className={section.icon}></i>
                   </div>

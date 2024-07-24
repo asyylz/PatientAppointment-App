@@ -62,7 +62,7 @@
     z-index: -1;
 }
 
-img {
+.picture img {
     width: 100%;
     height: auto;
     border-radius: 50%;

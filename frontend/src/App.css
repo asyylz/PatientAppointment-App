@@ -117,9 +117,6 @@ select {
     border-bottom: 3px solid rgba(173, 217, 209, 1);
 }
 
-input,
-select {}
-
 .active {
     transform: translate3d(0, 0, 0);
     opacity: 1;
@@ -137,6 +134,10 @@ select {}
     gap: 2rem;
     grid-column: span 2;
     margin-top: 20px;
+}
+
+p {
+    font-size: 12px;
 }
 
 @media (min-width:320px) and (max-width:767px) {

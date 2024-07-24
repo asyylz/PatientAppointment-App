@@ -51,6 +51,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           {!pickedImage && <p>No image picked yet.</p>}
           {pickedImage && (
             <img
+            className={classes.pickedImage}
               src={pickedImage as string}
               alt="The image selected by the user."
             />

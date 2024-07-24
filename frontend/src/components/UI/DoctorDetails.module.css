@@ -44,7 +44,6 @@
 }
 
 .container.review {
-
     width: 280px;
     margin: 0 auto;
     gap: 10px;
@@ -67,6 +66,7 @@
     height: 40px;
     width: 40px;
     position: relative;
+    border-radius: 50%;
 
 }
 

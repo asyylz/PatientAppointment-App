@@ -15,7 +15,6 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   length,
   limit,
 }) => {
-
   const handlePaginationClick = (direction: string) => {
     setPagination((prevPagination) => {
       if (direction === 'next' && length >= limit) {
@@ -28,7 +27,7 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   };
 
   return (
-    <div className={classes.paginationWrapper}>
+    <div className={`${classes.wrapper} ${classes.pagination}`}>
       <div
         className={classes.iconBox}
         onClick={() => handlePaginationClick('prev')}

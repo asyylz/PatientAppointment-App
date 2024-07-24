@@ -20,7 +20,11 @@ const Departments: React.FC = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchDepartments({})); // sending empty argument since it is optional
+      dispatch(
+        fetchDepartments(
+          `http://localhost:3000/api/v1/departments?limit=24&page=1&sort=departmentMain`
+        )
+      ); // sending empty argument since it is optional
     }
   }, [status, dispatch]);
 
@@ -68,11 +72,11 @@ const Departments: React.FC = () => {
         //style={{border:'3px solid green'}}
         className={classes.headerWrapper}
       >
-        <h1
+        <h2
         //style={{border:'1px solid red'}}
         >
           DEPARTMENTS
-        </h1>
+        </h2>
         <hr />
       </div>
 

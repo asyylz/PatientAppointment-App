@@ -6,14 +6,14 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 /* ------------------------------------------------------ */
 type HttpMethod = 'get' | 'post' | 'patch' | 'delete';
 
-export const fetchEntities = <T>(
+export const fetchEntities1 = <T>(
   entity: string,
-  url: string | ((pagination?: number) => string), // we catch optional pagination argument
+  url: string | ((pagination?: number, departmentId?: string) => string), // we catch optional pagination argument
   method: HttpMethod = 'get'
 ) =>
-  createAsyncThunk<T | object, { pagination?: number }>(
+  createAsyncThunk<T | object, { pagination?: number; departmentId?: string }>(
     `${entity}/fetch`,
-    async ({ pagination } = {}) => {
+    async ({ pagination, departmentId } = {}) => {
       try {
         const axiosMethods: Record<
           HttpMethod,
@@ -24,13 +24,39 @@ export const fetchEntities = <T>(
           patch: (url, config) => axios.patch(url, {}, config),
           delete: axios.delete,
         };
-        const requestUrl = typeof url === 'function' ? url(pagination) : url;
+        const requestUrl =
+          typeof url === 'function' ? url(pagination, departmentId) : url;
         const response = await axiosMethods[method](requestUrl);
         console.log(`${entity} data:`, response.data.data);
         return response.data.data[entity];
       } catch (err) {
         console.log(err);
         throw err;
+      }
+    }
+  );
+
+export const fetchEntities = <T>(entity: string, method: HttpMethod = 'get') =>
+  createAsyncThunk<T | object, string>(
+    `${entity}/fetch`,
+    async (url, { rejectWithValue }) => {
+      console.log(url);
+      try {
+        const axiosMethods: Record<
+          HttpMethod,
+          (url: string, config?: AxiosRequestConfig) => Promise<AxiosResponse>
+        > = {
+          get: axios.get,
+          post: (url, config) => axios.post(url, {}, config),
+          patch: (url, config) => axios.patch(url, {}, config),
+          delete: axios.delete,
+        };
+        const response = await axiosMethods[method](url);
+        console.log(`${entity} data:`, response.data.data);
+        return response.data.data[entity];
+      } catch (err) {
+        console.error(err);
+        return rejectWithValue(err); // Adjust error handling as needed
       }
     }
   );

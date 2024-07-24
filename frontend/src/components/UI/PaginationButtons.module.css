@@ -1,40 +1,37 @@
-.paginationWrapper {
+.wrapper.pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 2rem auto;
 }
 
-.paginationWrapper p {
-    font-size: 16px;
 
-}
-
-.paginationWrapper .iconBox {
+.wrapper.pagination .iconBox {
     position: relative;
     cursor: pointer;
     display: flex;
     align-items: center;
-    margin: 0 auto;
+    margin: 0 40px;
 }
 
 .iconBox.passive {
     opacity: 0.4;
 }
 
-.paginationWrapper .iconBox svg {
+.wrapper.pagination .iconBox svg {
     margin: 0 1rem;
     color: #444;
     height: 30px;
     width: 30px;
 }
 
-@media (max-width:450px) {
-    .paginationWrapper p {
+@media (min-width:375px) and (max-width:414px) {
+    .wrapper.pagination p {
         font-size: 10px;
+        margin: 0 10px;
     }
 
-    .paginationWrapper svg {
+    .wrapper.pagination svg {
         height: 15px !important;
         width: 15px !important;
     }
