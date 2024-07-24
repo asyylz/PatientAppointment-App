@@ -47,7 +47,7 @@ const DoctorDetails: React.FC = () => {
       <AvailabilityTable />
 
       <div
-        style={{ border: '2px solid blue' }}
+       // style={{ border: '2px solid blue' }}
         className={classes.bottomSection}
       >
         <h3>Reviews</h3>
@@ -77,8 +77,8 @@ const DoctorDetails: React.FC = () => {
                       {' '}
                       {(
                         Object.entries(review.attributes)
-                          .filter(([key]) => key !== '_id')
-                          .reduce((acc, [key, value]) => acc + value, 0) / 4
+                          .filter(([_key]) => _key !== '_id')
+                          .reduce((acc, [_key, value]) => acc + (value as number), 0) / 4
                       ).toFixed(1)}
                     </h2>
                   </div>

@@ -8,10 +8,8 @@
 
 .container {
     /* border: 3px solid yellow; */
-    /* min-height: 100vh; */
     display: grid;
     grid-template-columns: 150px 1fr;
-    /* gap: 3rem; */
     color: #444;
 
 }
@@ -161,9 +159,6 @@
 /*                          Table                         */
 /* ------------------------------------------------------ */
 table {
-    /* width: 95%; */
-    /* table-layout: auto;
-    border-collapse: collapse; */
     margin: 0 auto;
 }
 
@@ -197,7 +192,6 @@ tbody table tr:last-child {
 
 .appointments td {
     text-align: left;
-    /* font-size: 14px; */
 }
 
 .appointments td:last-child,

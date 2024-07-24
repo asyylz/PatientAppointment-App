@@ -57,6 +57,22 @@ td,
     padding: 6px;
 }
 
+.wrapper table {
+    min-width: 75vw;
+}
+
+
+
+@media (min-width:768px) and (max-width:910px) {
+
+    .available,
+    th,
+    td {
+        font-size: 10px;
+        padding: 2px;
+    }
+
+}
 
 @media (min-width:414px) and (max-width:767px) {
 

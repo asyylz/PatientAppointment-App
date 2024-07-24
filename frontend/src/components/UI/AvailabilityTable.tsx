@@ -3,7 +3,6 @@ import classes from './AvailabilityTable.module.css';
 import { generateTimeSlots } from '../../utils/timeSlots';
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
-
 import { getWeekDatesFromToday } from '../../helper/generateDates';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
@@ -16,6 +15,7 @@ const daysMappedToDates = getWeekDatesFromToday();
 
 /* ---------------------- COMPONENT --------------------- */
 const AvailabilityTable: React.FC = () => {
+
   /* -------------------- Redux States -------------------- */
   const dispatch: AppDispatch = useDispatch();
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
