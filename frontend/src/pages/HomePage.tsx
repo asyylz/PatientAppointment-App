@@ -4,6 +4,10 @@ export default function HomePage() {
     <div className={`${classes.container} ${classes.body}`}>
       <div className={`${classes.wrapper} ${classes.navbar}`}>
         <a>LOGO</a>
+        <a>DOCTORS</a>
+        <a>DEPARTMENTS</a>
+        <a>GALERIA</a>
+        <a>CONTACT</a>
         <a className={classes.login} href="/auth">
           LOG IN
         </a>
@@ -36,7 +40,16 @@ export default function HomePage() {
             alt=""
           />
         </div>
-    
+        <div className={classes.text}>
+          <h2>HOSPITAL AT HOME</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
+            distinctio vitae doloremque fugit, temporibus quod? Quisquam libero
+            vero, error rem debitis modi suscipit et perspiciatis, repellendus
+            deleniti ipsa, a accusantium.
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim accusamus modi voluptatibus ex sequi nostrum ad praesentium dolores quaerat ratione, excepturi laboriosam exercitationem. Rerum illum doloribus autem tempore, cumque quasi.
+          </p>
+        </div>
       </div>
 
       <div></div>

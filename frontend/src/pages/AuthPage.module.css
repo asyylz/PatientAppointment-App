@@ -58,19 +58,21 @@ form .policy {
     display: flex;
     align-items: center;
     margin-top: 1.5rem;
+    justify-content: start;
 }
 
 form .policy h3 {
     font-size: 10px;
     margin: auto 0;
     margin-left: 6px;
+    
 }
 
 .policy input {
-
     height: 15px;
     width: 15px;
     margin: auto 0;
+    min-width: 30px; /*to override global*/
 }
 
 .policy h3 {
