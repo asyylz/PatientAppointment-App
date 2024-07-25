@@ -4,7 +4,7 @@ import classes from './ModalCustom.module.css';
 interface ModalCustomProps {
   children: React.ReactNode;
   height?: string;
-  width: string;
+  width?: string;
 }
 
 const ModalCustom: React.FC<ModalCustomProps> = ({

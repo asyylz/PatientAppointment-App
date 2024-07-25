@@ -31,38 +31,10 @@
     gap: 1rem;
 }
 
-.container input,
-.container select {
-    width: 100%;
-    padding-left: 10px;
-    outline: none;
-    font-size: 16px;
-    border: none;
-    height: 45px;
-    margin-top: 25px;
-}
-
-.container input,
-.container select {
-    border-bottom: 3px solid rgba(173, 217, 209, 1)
-}
-
-input:focus,
-input:hover,
-select:hover,
-select:focus,
-.container textarea:hover,
-.container textarea:focus {
-    border-bottom: 4px solid rgba(173, 217, 209, 1);
-    transform: scaleX(1);
-    outline: none;
-}
-
 .container textarea {
-    border: none;
-    margin: 25px 0;
-    border-bottom: 3px solid rgba(173, 217, 209, 1);
-    padding: 0.5rem;
-    font-size: 16px;
     grid-column: span 2;
+}
+
+.container select {
+    font-size: 12px;
 }

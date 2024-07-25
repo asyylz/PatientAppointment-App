@@ -15,7 +15,6 @@ const daysMappedToDates = getWeekDatesFromToday();
 
 /* ---------------------- COMPONENT --------------------- */
 const AvailabilityTable: React.FC = () => {
-
   /* -------------------- Redux States -------------------- */
   const dispatch: AppDispatch = useDispatch();
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
@@ -52,7 +51,7 @@ const AvailabilityTable: React.FC = () => {
   return (
     <>
       {openModal && (
-        <ModalCustom height="900px" width="700px">
+        <ModalCustom>
           <AppointmentBookingForm
             slot={slot}
             user={userData as userData}

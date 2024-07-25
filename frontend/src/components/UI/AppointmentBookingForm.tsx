@@ -107,16 +107,14 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
         </div>
         <div className={classes.rightSection}>
           <CustomInput type="text" value={user.name} readOnly />
-          <input
-            placeholder="Appointment Date"
-            defaultValue={formatDateForInput(slot.date)}
+          <CustomInput
             type="date"
+            defaultValue={formatDateForInput(slot.date)}
             name="appointmentDate"
             onChange={handleChange}
-            required
           />
-          <input
-            placeholder="Appointment Time"
+          <CustomInput
+            placeHolder="Appointment Time"
             defaultValue={slot.time}
             name="appointmentTime"
             type="time"

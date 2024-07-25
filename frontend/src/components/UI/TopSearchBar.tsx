@@ -37,11 +37,11 @@ const TopSearchBar: React.FC = () => {
             placeholder="search here"
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <label htmlFor="search">
+         
             <div className={classes.searchIcon}>
               <i className="fas fa-search"></i>
             </div>
-          </label>
+         
         </div>
 
         {token && userData ? (

@@ -23,7 +23,6 @@ const DoctorDetailsPage: React.FC = () => {
     return <div>Doctor not found</div>;
   }
 
-  console.log(selectedDoctor)
   return (
     <div
       className={classes.container}
