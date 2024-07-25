@@ -1,11 +1,21 @@
-/* Base styles */
 .container {
     background-color: rgba(255, 253, 253, 0.3);
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 150px 5fr 4fr 1fr;
     min-height: 100vh;
     width: 100%;
+}
+
+.body {
+    grid-template-rows: 100px max(600px) 4fr 1fr;
+    border: 2px solid purple;
+}
+
+.main {
+    align-self: start;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    min-height: auto;
 }
 
 .wrapper {
@@ -53,21 +63,6 @@
 
 }
 
-.blob {
-    background: #444;
-    border-radius: 50%;
-    margin: 10px;
-    height: 20px;
-    width: 20px;
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
-    transform: scale(1);
-    animation: pulse 2s infinite;
-    cursor: pointer;
-}
-
-.blob:hover {
-    scale: 1.2
-}
 
 .images {
     grid-row: 2;
@@ -78,50 +73,46 @@
         " two two three three four four"
         " two two three three five five";
 
-    grid-template-rows: repeat(3, 300px);
+    grid-template-rows: repeat(3, 150px);
     grid-template-columns: repeat(6, 1fr);
     width: 100%;
-    align-items: center;
-    justify-content: center;
-    overflow: auto;
     position: relative;
 }
 
+.images img {
+    margin: 20px;
 
+}
 
 .one {
     grid-area: one;
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    height: 100px;
+    margin: auto 0;
 }
 
 .two {
     grid-area: two;
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    height: 80%;
 }
 
 .three {
     grid-area: three;
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    height: 90%;
 }
 
 .four {
     grid-area: four;
     object-fit: cover;
-    width: 80%;
-    height: 80%;
+    height: 95%;
 }
 
 .five {
     grid-area: five;
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    height: 75%;
 }
 
 @keyframes pulse {
@@ -143,51 +134,77 @@
 
 
 /* Mobile view */
-@media (max-width: 600px) {
+@media (min-width: 768px) and (max-width:834px) {
+    .body {
+        grid-template-rows: 40px max(600px) 4fr 1fr;
+    }
+
     .images {
-        grid-template-areas:
-            "one"
-            "two"
-            "three"
-            "four"
-            "five";
-        grid-template-rows: repeat(5, auto);
-        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        grid-template-rows: repeat(3, 55px);
+    }
+
+    .images img {
+        margin: 5px;
     }
 
     .one,
     .two,
-    .three,
-    .four,
-    .five {
-        width: 100%;
-        height: auto;
+    .three {
+        height: 70%;
+    }
+
+    .five,
+    .four {
+        height: 95%;
+    }
+
+    .three {
+        padding-top: 20px;
     }
 }
 
-/* Tablet view */
-@media (min-width: 601px) and (max-width: 1024px) {
+@media (min-width: 414px) and (max-width:767px) {
+    .body {
+        grid-template-rows: 30px max(600px) 4fr 1fr;
+    }
+
     .images {
-        grid-template-areas:
-            "one one three three"
-            "two two three three"
-            "four four five five";
-        grid-template-rows: repeat(3, auto);
-        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+        grid-template-rows: repeat(3, 55px);
+    }
+
+    .images img {
+        margin: 5px;
     }
 
     .one,
     .two,
-    .three,
-    .four,
-    .five {
-        width: 100%;
-        height: auto;
+    .three {
+        height: 70%;
+    }
+
+    .five,
+    .four {
+        height: 95%;
+    }
+
+    .three {
+        padding-top: 20px;
+    }
+    .login:after {
+        left: -30px;
+        top: -8px;
+        margin: 10px;
+        height: 10px;
+        width: 10px;
     }
 }
 
-/* Desktop view */
-@media (min-width: 1025px) {
+@media(min-width: 375px)and (max-width: 413px) {
+    .body {
+        grid-template-rows: 30px max(600px) 4fr 1fr;
+    }
 
     .one,
     .two,
@@ -195,5 +212,27 @@
     .four,
     .five {
         width: 100%;
+        height: 90%;
+    }
+
+    .images img {
+        margin: 5px;
+    }
+
+    .three {
+        padding-top: 10px;
+    }
+
+    .images {
+        grid-template-rows: repeat(3, 30px);
+        gap: 0.5rem;
+    }
+
+    .login:after {
+        left: -30px;
+        top: -8px;
+        margin: 10px;
+        height: 10px;
+        width: 10px;
     }
 }

@@ -1,38 +1,18 @@
-.wrapper a,
-.wrapper button {
-    margin-left: 1rem;
+.globalLink a,
+.globalLink button {
+    margin: 1rem;
 }
 
-/* .wrapper a,
-.wrapper button {
-    text-decoration: none;
-    color: #444;
-    width: 200px;
-    height: 40px;
-    background: rgba(173, 217, 209, 1);
-    padding: 5px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-    border-radius: 28px;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    margin-left: 1rem;
-} */
-
-
-.wrapper a:hover,
-.wrapper button:hover {
+globalLink a:hover,
+.globalLink button:hover {
     color: #fff;
     background-color: #444;
 }
 
 @media (max-width: 930px) {
 
-    .wrapper a,
-    .wrapper button {
+    .globalLink a,
+    .globalLink button {
         width: 150px;
     }
 }

@@ -16,7 +16,7 @@ const GlobalLink: React.FC<GlobalButtonProps> = ({ text, to, onclick }) => {
     }
   };
   return (
-    <div className={classes.wrapper}>
+    <div className={`${classes.wrapper} ${classes.globalLink}`}>
       {typeof to === 'number' ? (
         <button onClick={handleClick}>{text}</button>
       ) : (
