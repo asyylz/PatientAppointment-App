@@ -60,6 +60,7 @@ describe('AuthPage', () => {
     expect(screen.getByRole('button', { name: 'Login' })).toBeInTheDocument();
   });
 
+  
   it('should render registration form', () => {
     render(
       <Provider store={store}>

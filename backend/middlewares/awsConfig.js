@@ -22,6 +22,8 @@ const uploadToS3 = async (req, res, next) => {
     return next();
   }
 
+  console.log('file', req.file);
+
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key: `${Date.now()}-${req.file.originalname}`,
@@ -29,10 +31,12 @@ const uploadToS3 = async (req, res, next) => {
     ContentType: req.file.mimetype
     // ACL: 'public-read' // Uncomment if you want the file to be publicly readable
   };
-
+  console.log('params', params);
   try {
     const data = await s3.upload(params).promise();
+    console.log('data', data);
     req.fileLocation = data.Location;
+    console.log(req.fileLocation);
     next();
   } catch (err) {
     next(new AppError('Failed to upload file.', 500));

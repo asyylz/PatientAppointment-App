@@ -8,6 +8,7 @@ import { doctorActions } from './../../store/doctors-slice';
 import useHttp from './../../hooks/useHttp';
 import PaginationButtons from '../../components/UI/PaginationButtons';
 import { useLocation } from 'react-router-dom';
+import Loader from '../../components/UI/Loader';
 
 const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -91,7 +92,7 @@ const Doctors: React.FC = () => {
         //style={{border:'1px solid red'}}
         className={classes.container}
       >
-        {status === 'loading' && <p>Loading...</p>}
+        {status === 'loading' && <Loader />}
 
         {status === 'succeeded' &&
           filteredDoctors?.map((doctor: Doctor, index: number) => (

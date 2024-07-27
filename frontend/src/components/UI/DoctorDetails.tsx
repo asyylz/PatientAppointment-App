@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import ReviewRead from './ReviewRead';
 import PaginationButtons from './PaginationButtons';
+import Loader from './Loader';
 
 const DoctorDetails: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -22,8 +23,6 @@ const DoctorDetails: React.FC = () => {
     status: reviewsStatus,
     error: reviewsError,
   } = useSelector((state: RootState) => state.reviews);
-
-
 
   useEffect(() => {
     if (selectedDoctor) {
@@ -47,13 +46,13 @@ const DoctorDetails: React.FC = () => {
       <AvailabilityTable />
 
       <div
-       // style={{ border: '2px solid blue' }}
+        // style={{ border: '2px solid blue' }}
         className={classes.bottomSection}
       >
         <h3>Reviews</h3>
         <hr />
 
-        {reviewsStatus === 'loading' && <p>Reviews are loading...</p>}
+        {reviewsStatus === 'loading' && <Loader />}
         {reviewsStatus === 'succeeded' && (
           <ul className={`${classes.wrapper} ${classes.reviews}`}>
             {reviews.map((review: Review, index: number) => (
@@ -78,7 +77,10 @@ const DoctorDetails: React.FC = () => {
                       {(
                         Object.entries(review.attributes)
                           .filter(([_key]) => _key !== '_id')
-                          .reduce((acc, [_key, value]) => acc + (value as number), 0) / 4
+                          .reduce(
+                            (acc, [_key, value]) => acc + (value as number),
+                            0
+                          ) / 4
                       ).toFixed(1)}
                     </h2>
                   </div>

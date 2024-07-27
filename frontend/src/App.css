@@ -1,6 +1,10 @@
 :root {
-    --font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* --font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
     --sub-pages-backgroundColour: #f3f0ef;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: #444;
 }
 
 
@@ -14,7 +18,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-family);
+
 }
 
 body {
@@ -60,7 +64,7 @@ button.Toastify__close-button:hover {
     align-items: center;
     justify-content: center;
 
-}
+} 
 
 /* applies all buttons,textaraes,selectboxes */
 button {

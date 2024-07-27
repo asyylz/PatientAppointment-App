@@ -19,6 +19,8 @@ const AuthPage = () => {
     password: '6946224Asy!',
     // email: '',
     // password: '',
+    // email: 'aytekin@test.com',
+    // password: 'newpass12',
   });
 
   //console.log(userData);

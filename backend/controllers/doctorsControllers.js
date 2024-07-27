@@ -11,10 +11,10 @@ const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 // exports.getAllDoctors = async (req, res, next) => {
 //   try {
 //     // EXECUTE QUERY //
-//     const doctorsWithAvailabilities = await mongoose.connection
-//       .collection('doctorsWithAvailabilities')
-//       .find()
-//       .toArray();
+//  const doctorsWithAvailabilities = await mongoose.connection
+//   .collection('doctorsWithAvailabilities')
+//   .find()
+//   .toArray();
 
 //     const currentWeekDates = {
 //       Monday: getCurrentWeekDate('Monday'),
