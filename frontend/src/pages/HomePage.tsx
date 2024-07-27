@@ -127,10 +127,7 @@ export default function HomePage() {
             <div>
               <h1>Discover</h1>
               <p>
-                Read week of the blog post...{' '}
-                <span>
-                  <a href="">here</a>
-                </span>
+                Read week of the blog post... <a href="">here</a>
               </p>
             </div>
             <div className={classes.box}>
@@ -159,6 +156,20 @@ export default function HomePage() {
                 <li>GooglePlus</li>
               </ul>
             </div>
+          </div>
+          <div className={classes.partners}>
+            <div>
+            
+              <p>Our Partners:</p>
+              <ul>
+                <li>Company 1</li>
+                <li>Company 2</li>
+                <li>Company 3</li>
+                <li>Company 4</li>
+              </ul>
+            </div>
+
+            <a href="">See all</a>
           </div>
         </div>
       </div>
