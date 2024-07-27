@@ -16,18 +16,15 @@ export default function HomePage() {
   const dispatch: AppDispatch = useDispatch();
   const {
     entities: doctors,
-    status,
-    error,
+    // status,
+    // error,
   } = useSelector((state: RootState) => state.doctors);
 
-  console.log(doctors);
+  //console.log(doctors);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   useEffect(() => {
-    // if (departmentId) dispatch(fetchDoctors({ pagination, departmentId }));
-    // else dispatch(fetchDoctors({ pagination }));
     dispatch(
       fetchDoctors(
         'http://localhost:3000/api/v1/doctors?limit=4&page=1&sort=firstName'
@@ -93,17 +90,13 @@ export default function HomePage() {
           </div>
         </section>
         <section className={`${classes.container} ${classes.section2}`}>
-          <h1>
-            MEET OUR DOCTORS
-          </h1>
+          <h1>MEET OUR DOCTORS</h1>
         </section>
         <section className={classes.section4}>
           <div className={classes.carousel}>
             {doctors.map((doctor: Doctor) => (
               <div className={classes.card}>
-                <div
-                  className={classes.picture}
-                >
+                <div className={classes.picture}>
                   <img
                     src={
                       doctor.userId?.image

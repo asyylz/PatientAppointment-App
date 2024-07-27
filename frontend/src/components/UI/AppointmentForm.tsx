@@ -5,6 +5,10 @@ import CustomInput from './CustomInput';
 import ModalCustom from './ModalCustom';
 import ReviewInput from './../UI/ReviewInput';
 const reviewCriterias = ['Staff', 'Punctual', 'Helpful', 'Knowledge'];
+import {
+  formatDateForInput,
+  dateForCustomInput,
+} from './../../helper/generateDates';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
@@ -50,6 +54,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     const { name, value } = e.target;
 
     if (name === 'appointmentDate') {
+      console.log(name);
       setAppointmentDate(value);
       const formatted = new Date(`${value}T${appointmentTime}`);
       setUpdatedAppointmentData((prevValuesAppointment) => ({
@@ -128,6 +133,13 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   };
   const isPast = new Date(appointment.appointmentDateAndTime) < new Date();
   console.log(updatedAppointmentData);
+  console.log(
+    updatedAppointmentData?.appointmentDateAndTime &&
+      updatedAppointmentData?.appointmentDateAndTime
+        .toISOString()
+        .split('T')[1]
+        .slice(0, 5)
+  );
 
   return (
     <>
@@ -211,7 +223,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           <CustomInput
             placeHolder="Appointment Date"
             defaultValue={appointment?.appointmentDateAndTime.split('T')[0]}
-            // value={formatDateForUI(appointment?.appointmentDateAndTime)}
+            value={
+              updatedAppointmentData?.appointmentDateAndTime &&
+              dateForCustomInput(updatedAppointmentData?.appointmentDateAndTime)
+            }
             type="date"
             name="appointmentDate"
             onChange={handleChange}
@@ -224,6 +239,13 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             defaultValue={appointment?.appointmentDateAndTime
               .split('T')[1]
               .slice(0, 5)}
+            value={
+              updatedAppointmentData?.appointmentDateAndTime &&
+              updatedAppointmentData?.appointmentDateAndTime
+                .toISOString()
+                .split('T')[1]
+                .slice(0, 5)
+            }
             name="appointmentTime"
             type="time"
             step={1800}

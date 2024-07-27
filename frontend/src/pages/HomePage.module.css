@@ -20,7 +20,6 @@
     grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: center;
-    /* border: 1px solid red; */
     max-height: 62.5vw;
     position: relative;
 }
@@ -55,14 +54,12 @@
     flex-wrap: nowrap;
     width: 100%;
     margin-bottom: 1rem;
-    /* border: 1px solid blue; */
 }
 
 .carousel .card {
     width: 25vw;
     height: 40vw;
     padding: 1rem;
-    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
 }
@@ -92,25 +89,21 @@
 .galeria {
     display: flex;
     align-items: center;
-    /* background-color: red; */
     height: 100%;
 }
 
 .images {
     background-color: #E3D8DC;
-    /* background-color: aqua; */
     display: grid;
     grid-template-areas:
         "  one one three three four four"
         " two two three three four four"
         " two two three three five five";
-
     grid-template-rows: repeat(3, 15vw);
     grid-template-columns: repeat(6, 1fr);
     width: 100%;
     gap: 0.5rem;
     position: relative;
-    /* border: 2px solid purple; */
     margin: auto 0;
 }
 
@@ -218,7 +211,7 @@
     position: relative;
 }
 
-.navbar a::after {
+.navbar :last-child::after {
     content: '';
     background: #444;
     border-radius: 50%;
@@ -324,7 +317,8 @@
 }
 
 .links ul li:hover,
-.partners ul li:hover ,.partners a:hover{
+.partners ul li:hover,
+.partners a:hover {
     scale: 1.1;
     text-decoration: underline;
 }
@@ -403,7 +397,7 @@
     }
 
     .description> :nth-child(2) h1 {
-        font-size: 1.6vw;
+        font-size: 1.4vw;
     }
 
     .description> :nth-child(2) p {
@@ -422,7 +416,7 @@
     }
 
     .subscribe input {
-        font-size: 8px;
+        font-size: 6px;
     }
 
     .partners {
@@ -454,7 +448,7 @@
     }
 
     .subscribe input {
-        font-size: 8px;
+        font-size: 6px;
 
     }
 
@@ -470,7 +464,7 @@
         padding-top: 20px;
     }
 
-    .navbar a::after {
+    .navbar :last-child::after {
         left: 3px;
         top: 10px;
         margin: 5px;
@@ -495,7 +489,7 @@
     }
 
     .subscribe input {
-        font-size: 8px;
+        font-size: 6px;
     }
 
     .links {
@@ -531,7 +525,7 @@
         padding: 0.5rem;
     }
 
-    .navbar a::after {
+    .navbar :last-child::after {
         left: 3px;
         top: 10px;
         margin: 5px;
@@ -540,7 +534,7 @@
     }
 
     .description> :nth-child(2) h1 {
-        font-size: 1.6vw;
+        font-size: 1.5vw;
     }
 
     .description> :nth-child(2) p {
@@ -577,7 +571,6 @@
     }
 }
 
-@media (max-width:375px) {}
 
 @keyframes pulse {
     0% {
