@@ -120,11 +120,45 @@ export default function HomePage() {
         </section>
         <div className={classes.footer}>
           <div className={classes.subscribe}>
-            <div className={classes.inputWrapper}>
-              <input type="text" placeholder="Enter you email address..." />
-            </div>
-
+            <input type="text" placeholder="Enter your email address..." />
             <button>SUBCRIBE</button>
+          </div>
+          <div className={classes.links}>
+            <div>
+              <h1>Discover</h1>
+              <p>
+                Read week of the blog post...{' '}
+                <span>
+                  <a href="">here</a>
+                </span>
+              </p>
+            </div>
+            <div className={classes.box}>
+              <h1>About</h1>
+              <ul>
+                <li>Staff</li>
+                <li>Team</li>
+                <li>Careers</li>
+                <li>Blog</li>
+              </ul>
+            </div>
+            <div className={classes.box}>
+              <h1>Resources</h1>
+              <ul>
+                <li>Security</li>
+                <li>Global</li>
+                <li>Privacy</li>
+              </ul>
+            </div>
+            <div className={classes.box}>
+              <h1>Social</h1>
+              <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>Twitter</li>
+                <li>GooglePlus</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
