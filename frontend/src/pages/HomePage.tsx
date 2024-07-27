@@ -92,16 +92,18 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+        <section className={`${classes.container} ${classes.section2}`}>
+          <h1>
+            MEET OUR DOCTORS
+          </h1>
+        </section>
         <section className={classes.section4}>
-          <h1>MEET DOCTORS...</h1>
           <div className={classes.carousel}>
             {doctors.map((doctor: Doctor) => (
               <div className={classes.card}>
                 <div
-                  //style={{ border: '1px solid green' }}
                   className={classes.picture}
                 >
-                  {/* <img src={doctor.image} /> */}
                   <img
                     src={
                       doctor.userId?.image
@@ -124,7 +126,7 @@ export default function HomePage() {
             <button>SUBCRIBE</button>
           </div>
           <div className={classes.links}>
-            <div>
+            <div className={classes.box}>
               <h1>Discover</h1>
               <p>
                 Read week of the blog post... <a href="">here</a>
@@ -159,7 +161,6 @@ export default function HomePage() {
           </div>
           <div className={classes.partners}>
             <div>
-            
               <p>Our Partners:</p>
               <ul>
                 <li>Company 1</li>

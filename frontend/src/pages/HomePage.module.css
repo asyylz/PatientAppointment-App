@@ -11,7 +11,7 @@
 }
 
 .body {
-    grid-template-rows: 70px max(62.5vw) max(7vw) 1fr 1fr min(350px);
+    grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(350px);
 }
 
 .section1 {
@@ -27,23 +27,16 @@
 
 .section2 {
     display: flex;
-    align-items: last baseline;
+    align-items: center;
     justify-content: center;
     text-align: center;
     padding: 1rem auto;
     cursor: pointer;
+
 }
 
 .section2 span {
     text-decoration: underline;
-}
-
-.section2 h1 {
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    transform-origin: bottom;
-    animation-name: bounce;
-    animation-timing-function: ease;
 }
 
 .section4 {
@@ -54,17 +47,9 @@
 .section4 h1 {
     height: 30px;
     width: 100%;
-    display: block;
     text-align: center;
-    margin: 1rem auto;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    transform-origin: bottom;
-    animation-name: bounce;
-    animation-timing-function: ease;
 }
 
-/* transform: translate3d(-2816px, 0px, 0px); */
 .carousel {
     display: flex;
     flex-wrap: nowrap;
@@ -157,7 +142,8 @@
 }
 
 .description> :nth-child(2) h1,
-.section2 h1 {
+.section2 h1,
+.section4 h1 {
     font-size: 2vw;
 }
 
@@ -314,8 +300,6 @@
     right: 6px;
     top: 5px;
     background-color: #E2D8D7;
-
-
 }
 
 .links {
@@ -340,7 +324,7 @@
 }
 
 .links ul li:hover,
-.partners ul li:hover {
+.partners ul li:hover ,.partners a:hover{
     scale: 1.1;
     text-decoration: underline;
 }
@@ -414,6 +398,9 @@
 }
 
 @media (min-width: 414px) and (max-width:767px) {
+    .body {
+        grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(450px);
+    }
 
     .description> :nth-child(2) h1 {
         font-size: 1.6vw;
@@ -427,6 +414,38 @@
     .card h2,
     .card h3 {
         font-size: 10px;
+    }
+
+    .subscribe button {
+        width: 8vw;
+        font-size: 8px;
+    }
+
+    .subscribe input {
+        font-size: 8px;
+    }
+
+    .partners {
+        margin-top: 2rem;
+        height: 100px;
+        padding-left: 2rem;
+        font-size: 12px
+    }
+
+    .partners div {
+        justify-content: start;
+    }
+
+    .partners ul {
+        flex-direction: column;
+    }
+
+    .links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        font-size: 12px;
+        padding-left: 10vw;
+        gap: 1rem;
     }
 
     .carousel .card {
@@ -462,9 +481,44 @@
 }
 
 @media(min-width: 375px)and (max-width: 413px) {
+    .body {
+        grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(450px);
+    }
+
     .navbar {
         padding: 0 0.5rem;
+    }
 
+    .subscribe button {
+        width: 8vw;
+        font-size: 8px;
+    }
+
+    .subscribe input {
+        font-size: 8px;
+    }
+
+    .links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        font-size: 12px;
+        padding-left: 10vw;
+        gap: 1rem;
+    }
+
+    .partners {
+        margin-top: 2rem;
+        height: 100px;
+        padding-left: 2rem;
+        font-size: 12px
+    }
+
+    .partners div {
+        justify-content: start;
+    }
+
+    .partners ul {
+        flex-direction: column;
     }
 
     .card h2,
