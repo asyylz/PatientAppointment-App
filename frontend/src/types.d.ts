@@ -242,6 +242,11 @@ interface Appointment {
   status: string;
 }
 
+interface AppointmentForUpdate {
+  appointmentDateAndTime: string;
+  reason: string;
+}
+
 interface AppointmentsForDoctor {
   appointmentsForDoctor: SingleAppointmentForDoctor[];
 }

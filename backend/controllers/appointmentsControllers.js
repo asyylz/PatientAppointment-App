@@ -131,7 +131,7 @@ exports.updateAppointment = async (req, res, next) => {
       .status(404)
       .json({ status: 'error', message: 'Appointment not found for updated' });
   }
-  //console.log('user', req.user);
+  console.log('user', req.body);
 
   // Check if appointment date is in  past
   const today = new Date();

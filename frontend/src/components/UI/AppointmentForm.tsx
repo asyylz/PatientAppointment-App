@@ -5,10 +5,7 @@ import CustomInput from './CustomInput';
 import ModalCustom from './ModalCustom';
 import ReviewInput from './../UI/ReviewInput';
 const reviewCriterias = ['Staff', 'Punctual', 'Helpful', 'Knowledge'];
-import {
-  formatDateForInput,
-  dateForCustomInput,
-} from './../../helper/generateDates';
+import { dateForCustomInput } from './../../helper/generateDates';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
@@ -25,9 +22,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 }) => {
   const { updateAppointment, deleteAppointment, postReview } = useHttp();
 
-  const [updatedAppointmentData, setUpdatedAppointmentData] = useState<
-    object | undefined
-  >();
+  const [updatedAppointmentData, setUpdatedAppointmentData] =
+    useState<AppointmentForUpdate>({
+      appointmentDateAndTime: appointment.appointmentDateAndTime,
+      reason: appointment.reason,
+    });
+
   const [openModalDeleteAndComment, setOpenModalDeleteAndComment] =
     useState<string>('');
 
@@ -54,16 +54,15 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     const { name, value } = e.target;
 
     if (name === 'appointmentDate') {
-      console.log(name);
       setAppointmentDate(value);
-      const formatted = new Date(`${value}T${appointmentTime}`);
+      const formatted = `${value}T${appointmentTime}`;
       setUpdatedAppointmentData((prevValuesAppointment) => ({
         ...prevValuesAppointment,
         appointmentDateAndTime: formatted,
       }));
     } else if (name === 'appointmentTime') {
       setAppointmentTime(value);
-      const formatted = new Date(`${appointmentDate}T${value}:00.000Z`);
+      const formatted = `${appointmentDate}T${value}:00.000Z`;
       setUpdatedAppointmentData((prevValuesAppointment) => ({
         ...prevValuesAppointment,
         appointmentDateAndTime: formatted,
@@ -132,14 +131,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     }
   };
   const isPast = new Date(appointment.appointmentDateAndTime) < new Date();
-  console.log(updatedAppointmentData);
-  console.log(
-    updatedAppointmentData?.appointmentDateAndTime &&
-      updatedAppointmentData?.appointmentDateAndTime
-        .toISOString()
-        .split('T')[1]
-        .slice(0, 5)
-  );
 
   return (
     <>
@@ -222,7 +213,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
           <CustomInput
             placeHolder="Appointment Date"
-            defaultValue={appointment?.appointmentDateAndTime.split('T')[0]}
             value={
               updatedAppointmentData?.appointmentDateAndTime &&
               dateForCustomInput(updatedAppointmentData?.appointmentDateAndTime)
@@ -235,14 +225,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
           <CustomInput
             placeHolder="Appointment Time"
-            //value={appointment?.appointmentDateAndTime}
-            defaultValue={appointment?.appointmentDateAndTime
-              .split('T')[1]
-              .slice(0, 5)}
             value={
               updatedAppointmentData?.appointmentDateAndTime &&
               updatedAppointmentData?.appointmentDateAndTime
-                .toISOString()
                 .split('T')[1]
                 .slice(0, 5)
             }
@@ -255,8 +240,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           <textarea
             className={classes.reason}
             placeholder="Please write your concerns..."
+            value={updatedAppointmentData?.reason}
             name="reason"
-            defaultValue={appointment?.reason}
             onChange={handleChange}
             rows={8}
             cols={36}

@@ -15,8 +15,7 @@ const Review: React.FC<ReviewProps> = ({
   ratingsAndComment,
   setRatingsAndComment,
 }) => {
-  console.log(ratingsAndComment);
-  console.log(attributeName);
+
 
   const handleRatingChange = (value: number) => {
     setRatingsAndComment((prevRatings) => ({
