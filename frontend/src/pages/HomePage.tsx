@@ -20,8 +20,6 @@ export default function HomePage() {
     // error,
   } = useSelector((state: RootState) => state.doctors);
 
-  //console.log(doctors);
-
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -43,24 +41,31 @@ export default function HomePage() {
 
   return (
     <div className={classes.wrapper}>
-      <div className={`${classes.container} ${classes.body}`}>
+      <div className={`${classes.container} ${classes['container--body']}`}>
         <nav className={classes.navbar}>
-          <a>LOGO</a>
-          <a>DISCOVER MORE</a>
-          <a>DOCTORS</a>
-          <a>DEPARTMENTS</a>
-          <a>GALERIA</a>
-          <a>CONTACT</a>
-          <a className={classes.login} href="/auth">
+          <a className={classes['navbar__logo']}>LOGO</a>
+          <a className={classes['navbar__link']}>DISCOVER MORE</a>
+          <a className={classes['navbar__link']}>DOCTORS</a>
+          <a className={classes['navbar__link']}>DEPARTMENTS</a>
+          <a className={classes['navbar__link']}>GALERIA</a>
+          <a className={classes['navbar__link']}>CONTACT</a>
+          <a
+            className={`${classes['navbar__link']} ${classes['navbar__link--login']}`}
+            href="/auth"
+          >
             LOG IN
           </a>
         </nav>
-        <section className={`${classes.container} ${classes.section1}`}>
+        <section
+          className={`${classes.container} ${classes['container--section1']}`}
+        >
           <div className={classes.description}>
-            <div></div>
-            <div>
-              <h1>THE LEADER IN CARING YOU...</h1>
-              <p>
+            <div className={classes['description__item--one']}></div>
+            <div className={classes['description__item--two']}>
+              <h1 className={classes['description__title']}>
+                THE LEADER IN CARING YOU...
+              </h1>
+              <p className={classes['description__text']}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
                 maiores possimus rerum delectus magni cupiditate nostrum, ipsa,
                 quasi odio facere fuga ea dicta cum debitis in ducimus
@@ -69,103 +74,124 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        <section className={`${classes.container} ${classes.section2}`}>
-          <h1>
-            DISCOVER <span>MORE</span>
-          </h1>
+        <section
+          className={`${classes.container} ${classes['container--section2']}`}
+        >
+          <h1 className={classes['section2__title']}>DISCOVER </h1>
+          <a className={classes['section2__title--underline']}>MORE</a>
         </section>
         <section className={classes.galeria}>
-          <div className={`${classes.images}`}>
+          <div className={classes['galeria__images']}>
             {Object.entries(images).map(([key, value], index) => (
               <img
-                className={`${classes.image} ${classes[key]} ${
-                  index === currentImageIndex ? classes['fade'] : ''
+                className={`${classes['galeria__image']} ${
+                  classes[`galeria__image--${key}`]
+                } ${
+                  index === currentImageIndex
+                    ? classes['galeria__image--fade']
+                    : ''
                 }`}
                 key={key}
-                // src={images[imageKeys[(index + currentIndex) % imageKeys.length]]}
                 src={value}
                 alt={key}
               />
             ))}
           </div>
         </section>
-        <section className={`${classes.container} ${classes.section2}`}>
-          <h1>MEET OUR DOCTORS</h1>
+        <section
+          className={`${classes.container} ${classes['container--section3']}`}
+        >
+          <h1 className={classes['section3__title']}>MEET OUR DOCTORS</h1>
         </section>
-        <section className={classes.section4}>
-          <div className={classes.carousel}>
+        <section
+          className={`${classes.container} ${classes['container--section4']}`}
+        >
+          <div className={classes['section4--carousel']}>
             {doctors.map((doctor: Doctor) => (
-              <div className={classes.card}>
-                <div className={classes.picture}>
+              <div className={classes['carousel__card']} key={doctor.id}>
+                <div className={classes['carousel__picture']}>
                   <img
                     src={
                       doctor.userId?.image
                         ? doctor.userId?.image
                         : 'https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*'
                     }
+                    alt={`Dr ${doctor.firstName} ${doctor.lastName}`}
                   />
                 </div>
-                <div>
-                  <h1>{`Dr ${doctor.firstName} ${doctor.lastName}`}</h1>
-                  <h1>{doctor.departmentId.departmentMain}</h1>
+                <div className={classes['carousel__info']}>
+                  <h1
+                    className={classes['carousel__doctorName']}
+                  >{`Dr ${doctor.firstName} ${doctor.lastName}`}</h1>
+                  <h1 className={classes['carousel__doctorDepartment']}>
+                    {doctor.departmentId.departmentMain}
+                  </h1>
                 </div>
               </div>
             ))}
           </div>
         </section>
-        <div className={classes.footer}>
-          <div className={classes.subscribe}>
-            <input type="text" placeholder="Enter your email address..." />
-            <button>SUBCRIBE</button>
+        <section className={classes['container--footer']}>
+          <div className={classes['footer__subscribe']}>
+            <input
+              className={classes['footer__input']}
+              type="text"
+              placeholder="Enter your email address..."
+            />
+            <button className={classes['footer__button']}>SUBSCRIBE</button>
           </div>
-          <div className={classes.links}>
-            <div className={classes.box}>
-              <h1>Discover</h1>
-              <p>
-                Read week of the blog post... <a href="">here</a>
+          <div className={classes['footer__links']}>
+            <div className={classes['footer__box']}>
+              <h1 className={classes['footer__title']}>Discover</h1>
+              <p className={classes['footer__text']}>
+                Read week of the blog post...{' '}
+                <a href="" className={classes['footer__link']}>
+                  here
+                </a>
               </p>
             </div>
-            <div className={classes.box}>
-              <h1>About</h1>
-              <ul>
-                <li>Staff</li>
-                <li>Team</li>
-                <li>Careers</li>
-                <li>Blog</li>
+            <div className={classes['footer__box']}>
+              <h1 className={classes['footer__title']}>About</h1>
+              <ul className={classes['footer__list']}>
+                <li className={classes['footer__item']}>Staff</li>
+                <li className={classes['footer__item']}>Team</li>
+                <li className={classes['footer__item']}>Careers</li>
+                <li className={classes['footer__item']}>Blog</li>
               </ul>
             </div>
-            <div className={classes.box}>
-              <h1>Resources</h1>
-              <ul>
-                <li>Security</li>
-                <li>Global</li>
-                <li>Privacy</li>
+            <div className={classes['footer__box']}>
+              <h1 className={classes['footer__title']}>Resources</h1>
+              <ul className={classes['footer__list']}>
+                <li className={classes['footer__item']}>Security</li>
+                <li className={classes['footer__item']}>Global</li>
+                <li className={classes['footer__item']}>Privacy</li>
               </ul>
             </div>
-            <div className={classes.box}>
-              <h1>Social</h1>
-              <ul>
-                <li>Facebook</li>
-                <li>Instagram</li>
-                <li>Twitter</li>
-                <li>GooglePlus</li>
+            <div className={classes['footer__box']}>
+              <h1 className={classes['footer__title']}>Social</h1>
+              <ul className={classes['footer__list']}>
+                <li className={classes['footer__item']}>Facebook</li>
+                <li className={classes['footer__item']}>Instagram</li>
+                <li className={classes['footer__item']}>Twitter</li>
+                <li className={classes['footer__item']}>GooglePlus</li>
               </ul>
             </div>
           </div>
-          <div className={classes.partners}>
-            <div>
-              <p>Our Partners:</p>
-              <ul>
-                <li>Company 1</li>
-                <li>Company 2</li>
-                <li>Company 3</li>
-                <li>Company 4</li>
+          <div className={classes['footer__partners']}>
+            <div className={classes['footer__partnersList']}>
+              <p className={classes['footer__partnersTitle']}>Our Partners:</p>
+              <ul className={classes['footer__partnersItems']}>
+                <li className={classes['footer__partner']}>Company 1</li>
+                <li className={classes['footer__partner']}>Company 2</li>
+                <li className={classes['footer__partner']}>Company 3</li>
+                <li className={classes['footer__partner']}>Company 4</li>
               </ul>
             </div>
-
-            <a href="">See all</a>
+            <a href="" className={classes['footer__link']}>
+              See all
+            </a>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
