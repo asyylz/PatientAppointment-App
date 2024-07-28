@@ -106,8 +106,8 @@ export default function HomePage() {
                   />
                 </div>
                 <div>
-                  <h2>{`Dr ${doctor.firstName} ${doctor.lastName}`}</h2>
-                  <h3>{doctor.departmentId.departmentMain}</h3>
+                  <h1>{`Dr ${doctor.firstName} ${doctor.lastName}`}</h1>
+                  <h1>{doctor.departmentId.departmentMain}</h1>
                 </div>
               </div>
             ))}

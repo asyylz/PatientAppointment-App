@@ -146,9 +146,9 @@ select {
     margin-top: 20px;
 }
 
-p {
+/* p {
     font-size: 12px;
-}
+} */
 
 @media (min-width:320px) and (max-width:767px) {
     button {

@@ -43,12 +43,6 @@
     height: 100%;
 }
 
-.section4 h1 {
-    height: 30px;
-    width: 100%;
-    text-align: center;
-}
-
 .carousel {
     display: flex;
     flex-wrap: nowrap;
@@ -68,12 +62,6 @@
     position: relative;
     height: 35vw;
     width: 20vw;
-}
-
-.card h3,
-.card h2 {
-    padding-top: 3px;
-
 }
 
 .picture img {
@@ -136,12 +124,35 @@
 
 .description> :nth-child(2) h1,
 .section2 h1,
-.section4 h1 {
-    font-size: 2vw;
+.section4 h1,
+.card h1,
+.links h1 {
+    font-size: clamp(12px, 2vw, 2.5vw);
+}
+
+.description> :nth-child(2) h1 {
+    font-size: clamp(1.5vw, 1.8vw, 2.5vw);
 }
 
 .description> :nth-child(2) p {
-    font-size: 1.2vw;
+    font-size: clamp(1.1vw, 1.1vw, 1.6vw);
+}
+
+.partners p,
+.partners ul li,
+.links ul li,
+.partners a {
+    font-size: clamp(8px, 2vw, 14px);
+}
+
+.partners p,
+.links p {
+    color: #E2D8D7;
+    padding-bottom: 6px;
+}
+
+.navbar a {
+    font-size: clamp(1.6vw, 1.8vw, 2.2vw);
 }
 
 .description :first-child {
@@ -152,7 +163,7 @@
 .description :nth-child(2) {
     background-color: #E2D8D7;
     grid-column: 2;
-    padding: 6px;
+    padding: 4px;
 
 }
 
@@ -192,7 +203,7 @@
     align-items: center;
     padding: 0 2rem;
     background-color: #f3f0ef;
-    font-size: 16px;
+    /* font-size: 16px; */
     color: #444;
 }
 
@@ -274,15 +285,15 @@
 
 .subscribe input {
     width: 100%;
-    padding-left: 10px;
+    padding-left: clamp(4px, 6px, 10px);
     outline: none;
     border: none;
     border-radius: 50px;
-    font-size: 12px;
     min-width: 0%;
     max-width: 40vw;
     outline: none;
     margin-top: 0;
+    font-size: clamp(7px, 1.4vw, 12px);
 
 }
 
@@ -293,6 +304,7 @@
     right: 6px;
     top: 5px;
     background-color: #E2D8D7;
+    font-size: clamp(7px, 1.4vw, 12px);
 }
 
 .links {
@@ -357,12 +369,6 @@
     align-items: center;
 }
 
-.partners p {
-    color: #E2D8D7;
-    font-size: 16px;
-    padding-bottom: 6px;
-}
-
 .partners ul {
     display: flex;
     justify-content: space-around;
@@ -373,14 +379,6 @@
 
 /* Mobile view */
 @media (min-width: 768px) and (max-width:834px) {
-    .description> :nth-child(2) p {
-        font-size: 1.1vw;
-    }
-
-    .card h2,
-    .card h3 {
-        font-size: 12px;
-    }
 
     .images img {
         margin: 5px;
@@ -396,34 +394,14 @@
         grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(450px);
     }
 
-    .description> :nth-child(2) h1 {
-        font-size: 1.4vw;
-    }
-
     .description> :nth-child(2) p {
-        font-size: 1.1vw;
         padding: 2px;
-    }
-
-    .card h2,
-    .card h3 {
-        font-size: 10px;
-    }
-
-    .subscribe button {
-        width: 8vw;
-        font-size: 8px;
-    }
-
-    .subscribe input {
-        font-size: 6px;
     }
 
     .partners {
         margin-top: 2rem;
         height: 100px;
         padding-left: 2rem;
-        font-size: 12px
     }
 
     .partners div {
@@ -437,7 +415,6 @@
     .links {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        font-size: 12px;
         padding-left: 10vw;
         gap: 1rem;
     }
@@ -445,15 +422,6 @@
     .carousel .card {
         height: 45vw;
         padding: 0.5rem;
-    }
-
-    .subscribe input {
-        font-size: 6px;
-
-    }
-
-    .subscribe button {
-        font-size: 8px;
     }
 
     .images img {
@@ -483,19 +451,9 @@
         padding: 0 0.5rem;
     }
 
-    .subscribe button {
-        width: 8vw;
-        font-size: 8px;
-    }
-
-    .subscribe input {
-        font-size: 6px;
-    }
-
     .links {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        font-size: 12px;
         padding-left: 10vw;
         gap: 1rem;
     }
@@ -504,7 +462,6 @@
         margin-top: 2rem;
         height: 100px;
         padding-left: 2rem;
-        font-size: 12px
     }
 
     .partners div {
@@ -513,11 +470,6 @@
 
     .partners ul {
         flex-direction: column;
-    }
-
-    .card h2,
-    .card h3 {
-        font-size: 10px;
     }
 
     .carousel .card {
@@ -533,12 +485,7 @@
         width: 8px;
     }
 
-    .description> :nth-child(2) h1 {
-        font-size: 1.5vw;
-    }
-
     .description> :nth-child(2) p {
-        font-size: 1.1vw;
         padding: 2px;
     }
 
