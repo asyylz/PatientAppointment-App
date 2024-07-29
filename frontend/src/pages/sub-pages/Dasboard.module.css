@@ -12,7 +12,7 @@
     color: #444;
 }
 
-.user-left-section {
+.dashboard-left-section {
     box-shadow: 10px 0 10px rgba(0, 0, 0, 0.1);
     display: grid;
     grid-template-columns: 1fr;
@@ -22,27 +22,27 @@
     position: relative;
 }
 
-.user-left-section__image img {
+.dashboard-left-section__image-wrapper img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin: 20px
+    margin: 20px;
 }
 
-.user-left-section__welcome {
-    font-size: 14px;
-    margin: 10px auto;
+.dashboard-left-section__welcome {
+    font-size: clamp(12px, 2.5vw, 20px);
     text-align: center;
+
 }
 
-.user-right-section {
+.dashboard-right-section {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 100px 1fr;
 
 }
 
-.user-right-section__top {
+.dashboard-right-section__top {
     padding-top: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -51,7 +51,7 @@
 
 }
 
-.user-right-section__box {
+.dashboard-right-section__top--wrapper {
     height: 90%;
     width: 80%;
     max-width: 400px;
@@ -67,15 +67,15 @@
     margin: 0 auto;
 }
 
-.user-right-section__box--total-visits {
+.dashboard-right-section__top--wrapper--total-visits {
     border: 3px solid var(--color_1)
 }
 
-.user-right-section__box--upcoming-visits {
+.dashboard-right-section__top--wrapper--upcoming-visits {
     border: 3px solid var(--color_2)
 }
 
-.user-right-section__box--total-doctors {
+.dashboard-right-section__top--wrapper--total-doctors {
     border: 3px solid var(--color_3)
 }
 
@@ -87,30 +87,27 @@
     position: relative;
 }
 
-.user-right-section__bottom {
+.dashboard-right-section__bottom {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 30px;
     margin: 0 10px;
     height: max-content;
 }
 
-.user-right-section__bottom .appointments {
-    padding: 10px;
-}
-
-.appointments {
+.dashboard-right-section__bottom-appointments {
+    margin: 0 auto;
     width: calc(100vw - 186px - 150px - 34px);
+
 }
 
-.appointments__wrapper h5 {
+.right-section__bottom-appointments-title {
     margin-top: 1rem;
     padding-left: 20px;
+    display: flex;
+    justify-content: center;
 }
 
-.appointments__wrapper {
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .close {
     border: 3px solid var(--color_4);
@@ -121,16 +118,16 @@
     border: 3px solid var(--color_5);
 }
 
-.icons--stethoscope {
+.dashboard-right-section__top--icons--stethoscope {
     color: var(--color_2);
 }
 
-.icons--total-visit {
+.dashboard-right-section__top--icons--total-visit {
     color: var(--color_1);
 
 }
 
-.icons--total-doctor {
+.dashboard-right-section__top--icons--total-doctor {
     color: var(--color_3);
 
 }
@@ -179,20 +176,22 @@ thead tr th {
     text-decoration: line-through;
 }
 
-.appointments tr {
-    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+
+
+.gap--line {
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2)
 }
 
 tbody table tr:last-child {
     border-bottom: none;
 }
 
-.appointments td {
+.dashboard-right-section__bottom-appointments td {
     text-align: left;
 }
 
-.appointments td:last-child,
-.appointments td:nth-child(4) {
+.dashboard-right-section__bottom-appointments td:last-child,
+.dashboard-right-section__bottom-appointments td:nth-child(4) {
     text-align: center;
 }
 
@@ -218,9 +217,9 @@ td .icons--edit {
     justify-content: space-around;
 }
 
-.user-right-section__bottom td,
-.user-right-section__bottom th {
-    font-size: clamp(9px, 1.2vw, 18px);
+.dashboard-right-section__bottom td,
+.dashboard-right-section__bottom th {
+    font-size: clamp(10px, 1.7vw, 16px);
     padding: clamp(2px, 6px, 10px);
 }
 
@@ -233,24 +232,24 @@ td .icons--edit {
 
 @media (min-width:835px) and (max-width:930px) {
 
-    .user-right-section__bottom td,
-    .user-right-section__bottom th {
+    .dashboard-right-section__bottom td,
+    .dashboard-right-section__bottom th {
         padding: 2px;
     }
 }
 
 
 @media (min-width:835px) {
-    .user-right-section__top {
+    .dashboard-right-section__top {
         grid-template-columns: 1fr;
         grid-template-rows: 50px 50px 50px;
     }
 
-    .user-right-section {
+    .dashboard-right-section {
         grid-template-rows: 210px 1fr;
     }
 
-    .user-right-section__bottom {
+    .dashboard-right-section__bottom {
         max-width: calc(100vw - 330px);
     }
 
@@ -265,17 +264,17 @@ td .icons--edit {
         grid-template-columns: 1fr;
     }
 
-    .user-left-section {
+    .dashboard-left-section {
         grid-template-columns: calc(100vw - 60px);
         grid-template-rows: 170px 1fr;
         align-items: center;
     }
 
-    .user-right-section__top {
+    .dashboard-right-section__top {
         height: 70px;
     }
 
-    .appointments {
+    .dashboard-right-section__bottom-appointments {
         width: calc(100vw - 56px - 30px);
     }
 
@@ -293,28 +292,28 @@ td .icons--edit {
         grid-template-columns: 1fr;
     }
 
-    .user-left-section {
+    .dashboard-left-section {
         grid-template-columns: calc(100vw - 90px);
         grid-template-rows: 40px 1fr;
         align-items: center;
         gap: 0;
     }
 
-    .user-right-section {
+    .dashboard-right-section {
         grid-template-rows: 180px 1fr;
     }
 
-    .user-left-section__image {
+    .dashboard-left-section__image-wrapper {
         display: none;
     }
 
-    .user-right-section__top {
+    .dashboard-right-section__top {
         grid-template-columns: 1fr;
         grid-template-rows: 40px 40px 40px;
 
     }
 
-    .user-right-section__box {
+    .dashboard-right-section__box {
         height: 70%;
         width: 40%;
         text-align: center;
@@ -327,24 +326,24 @@ td .icons--edit {
 
     }
 
-    .user-right-section__box--total-visits {
+    .dashboard-right-section__box--total-visits {
         border: 1px solid var(--color_1)
     }
 
-    .user-right-section__box--upcoming-visits {
+    .dashboard-right-section__box--upcoming-visits {
         border: 1px solid var(--color_2)
     }
 
-    .user-right-section__box--total-doctors {
+    .dashboard-right-section__box--total-doctors {
         border: 1px solid var(--color_3)
     }
 
 
-    .user-right-section__bottom {
+    .dashboard-right-section__bottom {
         width: calc(100vw - 82px);
     }
 
-    .appointments {
+    .dashboard-right-section__bottom-appointments {
         width: calc(100vw - 56px - 30px);
         padding: 5px;
     }
@@ -364,10 +363,9 @@ td .icons--edit {
         margin-left: 5px;
     }
 
-    .appointments hr {
+    .dashboard-right-section__bottom-appointments hr {
         margin-bottom: 10px;
     }
-
 
 }
 
@@ -376,44 +374,44 @@ td .icons--edit {
         grid-template-columns: 1fr;
     }
 
-    .user-left-section {
+    .dashboard-left-section {
         grid-template-columns: calc(100vw - 40px);
         grid-template-rows: 30px 1fr;
         align-items: center;
         gap: 0;
     }
 
-    .user-left-section__image {
+    .dashboard-left-section__image-wrapper {
         display: none;
     }
 
-    .user-right-section {
+    .dashboard-right-section {
         grid-template-rows: 150px 1fr;
 
     }
 
-    .user-right-section__top {
+    .dashboard-right-section__top {
         grid-template-columns: calc(100vw - 40px);
         grid-template-rows: 40px 40px 40px;
 
     }
 
-    .user-right-section__box {
+    .dashboard-right-section__box {
         height: 70%;
         width: 40%;
         text-align: center;
 
     }
 
-    .user-right-section__box--total-visits {
+    .dashboard-right-section__box--total-visits {
         border: 1px solid var(--color_1)
     }
 
-    .user-right-section__box--upcoming-visits {
+    .dashboard-right-section__box--upcoming-visits {
         border: 1px solid var(--color_2)
     }
 
-    .user-right-section__box--total-doctors {
+    .dashboard-right-section__box--total-doctors {
         border: 1px solid var(--color_3)
     }
 
@@ -424,12 +422,17 @@ td .icons--edit {
         margin-top: 5px;
     }
 
-    .user-right-section__bottom {
+    .dashboard-right-section__bottom {
         width: calc(100vw - 52px);
+    }
+
+    .dashboard-right-section__bottom-appointments {
+        width: calc(100vw - 50px);
     }
 
     table {
         border: 3px solid #c4c4c4 !important;
+        width: calc(100vw - 70px);
     }
 
     td .icons--edit {
@@ -441,11 +444,7 @@ td .icons--edit {
         margin-left: 5px;
     }
 
-    .appointments hr {
+    .dashboard-right-section__bottom-appointments hr {
         margin-bottom: 10px;
-    }
-
-    .appointments {
-        padding: 5px;
     }
 }

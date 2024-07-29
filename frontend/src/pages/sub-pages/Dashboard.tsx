@@ -93,55 +93,57 @@ const Dashboard: React.FC = () => {
           </div>
         </ModalCustom>
       )}
-      <div className={classes.container} 
-      //style={{ border: '1px solid red' }}
-      >
-        <div className={classes['user-left-section']}>
-          <div className={classes['user-left-section__wrapper']}>
-            <div className={classes['user-left-section__image']}>
+      <div className={classes.container}>
+        <div className={classes['dashboard-left-section']}>
+          <div className={classes['dashboard-left-section__wrapper']}>
+            <div className={classes['dashboard-left-section__image-wrapper']}>
               <img src={userData?.image} alt="User profile image" />
             </div>
-            <p className={classes['user-left-section__welcome']}>
+            <p className={classes['dashboard-left-section__welcome']}>
               Welcome {userData?.name}
             </p>
           </div>
         </div>
-        <div className={classes['user-right-section']}>
-          <div className={classes['user-right-section__top']}>
+        <div className={classes['dashboard-right-section']}>
+          <div className={classes['dashboard-right-section__top']}>
             <div
-              className={`${classes['user-right-section__box']} ${classes['user-right-section__box--total-visits']}`}
+              className={`${classes['dashboard-right-section__top--wrapper']} ${classes['dashboard-right-section__top--wrapper--total-visits']}`}
             >
               <p>Total Visits: {total}</p>
               <div
-                className={`${classes.icons} ${classes['icons--total-visit']}`}
+                className={`${classes.icons} ${classes['dashboard-right-section__top--icons--total-visit']}`}
               >
                 <FaBriefcaseMedical />
               </div>
             </div>
             <div
-              className={`${classes['user-right-section__box']} ${classes['user-right-section__box--upcoming-visits']}`}
+              className={`${classes['dashboard-right-section__top--wrapper']} ${classes['dashboard-right-section__top--wrapper--upcoming-visits']}`}
             >
               <p>Upcoming Visits: {upcomingAppointments}</p>
               <div
-                className={`${classes.icons} ${classes['icons--stethoscope']}`}
+                className={`${classes.icons} ${classes['dashboard-right-section__top--icons--stethoscope']}`}
               >
                 <FaStethoscope />
               </div>
             </div>
             <div
-              className={`${classes['user-right-section__box']} ${classes['user-right-section__box--total-doctors']}`}
+              className={`${classes['dashboard-right-section__top--wrapper']} ${classes['dashboard-right-section__top--wrapper--total-doctors']}`}
             >
               <p>Total Doctors : {totalDoctors.length}</p>
               <div
-                className={`${classes.icons} ${classes['icons--total-doctor']}`}
+                className={`${classes.icons} ${classes['dashboard-right-section__top--icons--total-doctor']}`}
               >
                 <FaUserDoctor />
               </div>
             </div>
           </div>
-          <div className={classes['user-right-section__bottom']}>
-            <div className={classes.appointments}>
-              <div className={classes.appointments__wrapper}>
+          <div className={classes['dashboard-right-section__bottom']}>
+            <div
+              className={`${classes['dashboard-right-section__bottom-appointments']}`}
+            >
+              <div
+                className={`${classes['right-section__bottom-appointments-title']}`}
+              >
                 <h5>Latest Appointments</h5>
               </div>
               <hr />
@@ -161,7 +163,7 @@ const Dashboard: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className={classes['gap-line']}></tr>
+                    <tr className={classes['gap--line']}></tr>
                     {appointmentsForPatient?.map(
                       (appointment: Appointment, index: number) => (
                         <React.Fragment key={appointment._id.toString()}>
@@ -198,7 +200,7 @@ const Dashboard: React.FC = () => {
                               />
                             </td>
                           </tr>
-                          <tr className={classes['gap-line']}></tr>
+                          <tr className={classes['gap--line']}></tr>
                         </React.Fragment>
                       )
                     )}

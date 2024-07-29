@@ -17,7 +17,7 @@ const sideBarSectionList = [
     url: '?limit=24&page=1&sort=departmentMain',
     icon: 'fas fa-puzzle-piece',
   },
-  { title: 'Payments', icon: 'fas fa-hand-holding-usd' },
+  // { title: 'Payments', icon: 'fas fa-hand-holding-usd' },
 
   { title: 'Help', icon: 'fas fa-question' },
 ];
