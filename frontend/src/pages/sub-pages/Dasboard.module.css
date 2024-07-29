@@ -190,8 +190,8 @@ tbody table tr:last-child {
     text-align: left;
 }
 
-.dashboard-right-section__bottom-appointments td:last-child,
-.dashboard-right-section__bottom-appointments td:nth-child(4) {
+.dashboard-right-section__bottom-appointments tr:last-child,
+.dashboard-right-section__bottom-appointments tr:nth-child(4) {
     text-align: center;
 }
 

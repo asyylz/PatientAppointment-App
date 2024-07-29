@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import classes from './LeftSideBar.module.css';
 import { useSelector } from 'react-redux';
 const sideBarSectionList = [
-  { title: 'HOSPITAL', icon: 'fas fa-clinic-medical' },
   { title: 'Dashboard', icon: 'fas fa-th-large' },
   { title: 'Profile Settings', icon: 'fas fa-cog' },
   // { title: 'Appointments', icon: 'fas fa-stethoscope' },
@@ -27,6 +26,14 @@ export default function LeftSideBar() {
     <>
       <div className={classes.sidebar}>
         <ul>
+          <li>
+            <Link to="/">
+              <div className={classes.iconBox}>
+                <i className="fas fa-clinic-medical"></i>
+              </div>
+              <div className='home'>Home</div>
+            </Link>
+          </li>
           {sideBarSectionList.map((section) => {
             return (
               <li key={section.title}>

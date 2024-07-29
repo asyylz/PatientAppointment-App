@@ -23,7 +23,11 @@ const routes: RouteObject[] = [
   },
   {
     path: '/user',
-    element: <MainLayout />,
+    element: (
+      <PrivateRoute>
+        <MainLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: 'dashboard',

@@ -20,14 +20,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding: 0 1rem;
     background-color: #f3f0ef;
     color: #444;
 }
 
 .navbar__link {
     color: #444;
-    font-size: clamp(1.6vw, 1.8vw, 2.2vw);
+    font-size: clamp(9px, 1.8vw, 16px);
+    margin-left: 6px;
 }
 
 .navbar__link:hover {
