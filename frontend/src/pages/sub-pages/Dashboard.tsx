@@ -87,51 +87,61 @@ const Dashboard: React.FC = () => {
       {openModal === 'confirmation' && (
         <ModalCustom height="auto" width="auto">
           <p>Please confirm to cancel the appointment?</p>
-          <div className={classes.buttonContainer}>
+          <div className={classes['buttons--container']}>
             <button onClick={confirmDelete}>Confirm</button>
             <button onClick={cancelDelete}>Cancel</button>
           </div>
         </ModalCustom>
       )}
-      <div className={classes.container}>
-        <div className={classes.userLeftSection}>
-          <div className={classes.wrapper}>
-            <div className={classes.image}>
-              {/* <img
-                src={`http://localhost:3000/static${userData?.image}`}/> */}
-              {/* <img
-                src={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData?.image}`}
-                alt="User"
-              /> */}
+      <div className={classes.container} 
+      //style={{ border: '1px solid red' }}
+      >
+        <div className={classes['user-left-section']}>
+          <div className={classes['user-left-section__wrapper']}>
+            <div className={classes['user-left-section__image']}>
               <img src={userData?.image} alt="User profile image" />
             </div>
-            <p>Welcome {userData?.name}</p>
+            <p className={classes['user-left-section__welcome']}>
+              Welcome {userData?.name}
+            </p>
           </div>
         </div>
-        <div className={classes.userRightSection}>
-          <div className={classes.rightTop}>
-            <div className={`${classes.box} ${classes.box1}`}>
+        <div className={classes['user-right-section']}>
+          <div className={classes['user-right-section__top']}>
+            <div
+              className={`${classes['user-right-section__box']} ${classes['user-right-section__box--total-visits']}`}
+            >
               <p>Total Visits: {total}</p>
-              <div className={`${classes.icons} ${classes.totalVisit}`}>
+              <div
+                className={`${classes.icons} ${classes['icons--total-visit']}`}
+              >
                 <FaBriefcaseMedical />
               </div>
             </div>
-            <div className={`${classes.box} ${classes.box2}`}>
+            <div
+              className={`${classes['user-right-section__box']} ${classes['user-right-section__box--upcoming-visits']}`}
+            >
               <p>Upcoming Visits: {upcomingAppointments}</p>
-              <div className={`${classes.icons} ${classes.stethoscope}`}>
+              <div
+                className={`${classes.icons} ${classes['icons--stethoscope']}`}
+              >
                 <FaStethoscope />
               </div>
             </div>
-            <div className={`${classes.box} ${classes.box3}`}>
+            <div
+              className={`${classes['user-right-section__box']} ${classes['user-right-section__box--total-doctors']}`}
+            >
               <p>Total Doctors : {totalDoctors.length}</p>
-              <div className={`${classes.icons} ${classes.totalDoctor}`}>
+              <div
+                className={`${classes.icons} ${classes['icons--total-doctor']}`}
+              >
                 <FaUserDoctor />
               </div>
             </div>
           </div>
-          <div className={classes.rightBottom}>
+          <div className={classes['user-right-section__bottom']}>
             <div className={classes.appointments}>
-              <div className={classes.wrapper}>
+              <div className={classes.appointments__wrapper}>
                 <h5>Latest Appointments</h5>
               </div>
               <hr />
@@ -151,7 +161,7 @@ const Dashboard: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className={classes.gapLine}></tr>
+                    <tr className={classes['gap-line']}></tr>
                     {appointmentsForPatient?.map(
                       (appointment: Appointment, index: number) => (
                         <React.Fragment key={appointment._id.toString()}>
@@ -159,7 +169,7 @@ const Dashboard: React.FC = () => {
                             className={
                               new Date(appointment.appointmentDateAndTime) >
                               new Date()
-                                ? `${classes.row} ${classes.active}`
+                                ? `${classes.row} ${classes['row--active']}`
                                 : `${classes.row}`
                             }
                             //onClick={() => handleClick(appointment)}
@@ -180,7 +190,7 @@ const Dashboard: React.FC = () => {
                             <td>{appointment.diagnose}</td>
                             <td>
                               <FaEdit
-                                className={`${classes.icons} ${classes.edit}`}
+                                className={`${classes.icons} ${classes['icons--edit']}`}
                                 onClick={() => {
                                   // e.stopPropagation();
                                   handleClick(appointment);
@@ -188,7 +198,7 @@ const Dashboard: React.FC = () => {
                               />
                             </td>
                           </tr>
-                          <tr className={classes.gapLine}></tr>
+                          <tr className={classes['gap-line']}></tr>
                         </React.Fragment>
                       )
                     )}
