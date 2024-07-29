@@ -1,17 +1,18 @@
 .wrapper {
     min-height: 100vh;
+    background-color: #E3D8DC;
 }
 
 .container {
     background-color: rgba(255, 253, 253, 0.3);
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     width: 100%;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px;
 }
 
 .container--body {
-    grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(350px);
+    grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(250px);
 }
 
 .navbar {
@@ -164,13 +165,7 @@
     font-size: clamp(12px, 2vw, 2.5vw);
 }
 
-.galeria {
-    max-width: 100vw;
-}
-
 .galeria__images {
-    padding: 0 10px;
-    background-color: #E3D8DC;
     display: grid;
     grid-template-areas:
         "  one one three three four four"
@@ -178,14 +173,12 @@
         " two two three three five five";
     grid-template-rows: repeat(3, 15vw);
     grid-template-columns: repeat(6, 1fr);
-    width: 100%;
     gap: 0.5rem;
     position: relative;
-    margin: auto 0;
+    padding: 5px;
 }
 
 .galeria__image {
-    padding: 10px;
     transition: all ease-in-out 1s;
 }
 
@@ -228,13 +221,10 @@
 /* ---------------------- SECTION 4 ---------------------- */
 .container--section4 {
     background-color: #E3D8DC;
-    height: 100%;
 }
 
 .section4--carousel {
     display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
     margin-bottom: 1rem;
 }
 
@@ -254,6 +244,7 @@
     position: relative;
     height: 35vw;
     width: 20vw;
+    margin: 0 auto;
 }
 
 .carousel__picture img {
@@ -411,6 +402,7 @@
     .description__text {
         padding: 2px;
     }
+
 }
 
 @media (min-width: 414px) and (max-width:767px) {
@@ -422,6 +414,11 @@
         width: 44vw;
         height: 47%;
         grid-template-columns: 2fr 1.5fr;
+    }
+
+    .description__text {
+        padding: 2px;
+
     }
 
     .footer__partners {
@@ -478,8 +475,7 @@
 
     .description__text {
         font-size: 6px;
-        padding: 0px;
-
+        padding: 2px;
     }
 
     .navbar__link--login::after {
@@ -516,10 +512,6 @@
         padding: 0.5rem;
     }
 
-    .galeria {
-        height: max-content;
-    }
-
     .galeria__image--three {
         padding-top: 10px;
     }
@@ -534,10 +526,6 @@
 
     .galeria__image--five {
         height: 80%;
-    }
-
-    .galeria__images {
-        gap: 0.5rem;
     }
 
 
