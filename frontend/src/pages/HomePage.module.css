@@ -12,7 +12,7 @@
 }
 
 .container--body {
-    grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(250px);
+    grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(270px);
 }
 
 .navbar {

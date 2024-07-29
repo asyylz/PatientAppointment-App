@@ -6,37 +6,22 @@ import Footer from '../../components/UI/Footer';
 
 const MainLayout: React.FC = () => {
   return (
-    <div
-      style={{
-        //border: '5px solid purple',
-        //marginTop: '5rem',
-        minHeight: '100%',
-         backgroundColor: '#f3f0ef',
-      }}
-    >
-      <div
-        //style={{ border: '2px solid red' }}
-       // className={`${classes.container} ${classes.active}`}
-        className={`${classes.container}`}
-      >
-        <div
-          //style={{ border: '2px solid green' }}
-          className={classes.leftSection}
-        >
+    // <div className={classes.main}>
+      <div className={classes['main__sections--container']}>
+        <section className={classes['main__section--left']}>
           <LeftSideBar />
-        </div>
-        <div
-          // style={{ border: '5px solid green' }}
-          className={classes.rightSection}
-        >
+        </section>
+        <section className={classes['main__section--right']}>
           <TopSearchBar />
-          <div className={classes.outletContainer}>
+          <div className={classes['main__container--outlet']}>
             <Outlet />
           </div>
+        </section>
+        <div className={classes['main__wrapper--footer']}>
+          <Footer />
         </div>
-        <Footer />
       </div>
-    </div>
+    // </div>
   );
 };
 export default MainLayout;

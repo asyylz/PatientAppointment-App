@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { fetchDoctors } from './../store/doctors-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
+import Footer from '../components/UI/Footer';
 const images: { [key: string]: string } = {
   one: 'https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGVhbHRofGVufDB8fDB8fHwy',
   two: 'https://images.unsplash.com/photo-1488228469209-c141f8bcd723?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGhlYWx0aHxlbnwwfHwwfHx8Mg%3D%3D',
@@ -19,6 +20,10 @@ export default function HomePage() {
     // status,
     // error,
   } = useSelector((state: RootState) => state.doctors);
+
+  const { userData, token } = useSelector(
+    (state: RootState) => state.currentUser
+  );
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -38,7 +43,7 @@ export default function HomePage() {
 
     return () => clearInterval(interval);
   }, []);
-
+  console.log(token);
   return (
     <div className={classes.wrapper}>
       <div className={`${classes.container} ${classes['container--body']}`}>
@@ -53,7 +58,7 @@ export default function HomePage() {
             className={`${classes['navbar__link']} ${classes['navbar__link--login']}`}
             href="/auth"
           >
-            LOG IN
+            {token !== '' ? 'LOG OUT' : 'LOG IN'}
           </a>
         </nav>
         <section
@@ -94,6 +99,7 @@ export default function HomePage() {
                 key={key}
                 src={value}
                 alt={key}
+                loading="lazy"
               />
             ))}
           </div>
@@ -131,67 +137,7 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-        <section className={classes['container--footer']}>
-          <div className={classes['footer__subscribe']}>
-            <input
-              className={classes['footer__input']}
-              type="text"
-              placeholder="Enter your email address..."
-            />
-            <button className={classes['footer__button']}>SUBSCRIBE</button>
-          </div>
-          <div className={classes['footer__links']}>
-            <div className={classes['footer__box']}>
-              <h1 className={classes['footer__title']}>Discover</h1>
-              <p className={classes['footer__text']}>
-                Read week of the blog post...{' '}
-                <a href="" className={classes['footer__link']}>
-                  here
-                </a>
-              </p>
-            </div>
-            <div className={classes['footer__box']}>
-              <h1 className={classes['footer__title']}>About</h1>
-              <ul className={classes['footer__list']}>
-                <li className={classes['footer__item']}>Staff</li>
-                <li className={classes['footer__item']}>Team</li>
-                <li className={classes['footer__item']}>Careers</li>
-                <li className={classes['footer__item']}>Blog</li>
-              </ul>
-            </div>
-            <div className={classes['footer__box']}>
-              <h1 className={classes['footer__title']}>Resources</h1>
-              <ul className={classes['footer__list']}>
-                <li className={classes['footer__item']}>Security</li>
-                <li className={classes['footer__item']}>Global</li>
-                <li className={classes['footer__item']}>Privacy</li>
-              </ul>
-            </div>
-            <div className={classes['footer__box']}>
-              <h1 className={classes['footer__title']}>Social</h1>
-              <ul className={classes['footer__list']}>
-                <li className={classes['footer__item']}>Facebook</li>
-                <li className={classes['footer__item']}>Instagram</li>
-                <li className={classes['footer__item']}>Twitter</li>
-                <li className={classes['footer__item']}>GooglePlus</li>
-              </ul>
-            </div>
-          </div>
-          <div className={classes['footer__partners']}>
-            <div className={classes['footer__partnersList']}>
-              <p className={classes['footer__partnersTitle']}>Our Partners:</p>
-              <ul className={classes['footer__partnersItems']}>
-                <li className={classes['footer__partner']}>Company 1</li>
-                <li className={classes['footer__partner']}>Company 2</li>
-                <li className={classes['footer__partner']}>Company 3</li>
-                <li className={classes['footer__partner']}>Company 4</li>
-              </ul>
-            </div>
-            <a href="" className={classes['footer__link']}>
-              See all
-            </a>
-          </div>
-        </section>
+        <Footer />
       </div>
     </div>
   );
