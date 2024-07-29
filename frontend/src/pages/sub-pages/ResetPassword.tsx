@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../store/currentUser-slice';
 import { useSelector } from 'react-redux';
 import { AppDispatch } from '../../store';
+import classes from './ResetPassword.module.css';
 
 interface data {
   password: string;
@@ -16,21 +17,17 @@ const ResetPassword: React.FC = () => {
   // const useQuery = () => {
   //   return new URLSearchParams(useLocation().search);
   // };
-  const dispatch:AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const { resetToken } = useParams();
-  const { status } = useSelector(
-    (state: RootState) => state.currentUser
-  );
+  const { status } = useSelector((state: RootState) => state.currentUser);
 
   const [passwordAndResetTokenData, setPasswordAndResetTokenData] =
     useState<data>({
       password: '',
       passwordConfirm: '',
-      resetToken:'',
+      resetToken: '',
     });
-  //const resetToken = params.get('accessToken');
-  console.log(resetToken);
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -62,7 +59,7 @@ const ResetPassword: React.FC = () => {
     }));
   };
   return (
-    <>
+    <div className={classes.container}>
       <CustomInput
         name="password"
         type="password"
@@ -76,7 +73,7 @@ const ResetPassword: React.FC = () => {
         onChange={handleInputChange}
       />
       <button onClick={handleClick}>Update</button>
-    </>
+    </div>
   );
 };
 

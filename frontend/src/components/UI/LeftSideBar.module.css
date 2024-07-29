@@ -88,6 +88,9 @@ ul li a i {
     .sidebar {
         width: 60px !important;
     }
+    .home{
+        display: none;
+    }
 
     .sidebar ul li a i {
         min-width: 60px;

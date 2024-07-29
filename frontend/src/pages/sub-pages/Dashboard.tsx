@@ -174,7 +174,6 @@ const Dashboard: React.FC = () => {
                                 ? `${classes.row} ${classes['row--active']}`
                                 : `${classes.row}`
                             }
-                            //onClick={() => handleClick(appointment)}
                           >
                             <td>{index + 1}.</td>
                             <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
@@ -194,7 +193,6 @@ const Dashboard: React.FC = () => {
                               <FaEdit
                                 className={`${classes.icons} ${classes['icons--edit']}`}
                                 onClick={() => {
-                                  // e.stopPropagation();
                                   handleClick(appointment);
                                 }}
                               />

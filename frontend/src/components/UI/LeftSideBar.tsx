@@ -31,7 +31,7 @@ export default function LeftSideBar() {
               <div className={classes.iconBox}>
                 <i className="fas fa-clinic-medical"></i>
               </div>
-              <div className='home'>Home</div>
+              <div className={classes.home}>Home</div>
             </Link>
           </li>
           {sideBarSectionList.map((section) => {
