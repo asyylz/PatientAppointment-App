@@ -13,13 +13,11 @@
 }
 
 .dashboard-left-section {
-    /* border: 1px solid red; */
     box-shadow: 10px 0 10px rgba(0, 0, 0, 0.1);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 300px 1fr;
     gap: 1rem;
-    /* min-height: 100vh; */
     align-items: center;
     position: relative;
 }
@@ -102,11 +100,12 @@
 
 }
 
-.right-section__bottom-appointments-title {
+.right-section__bottom-appointments-title h5 {
     margin-top: 1rem;
     padding-left: 20px;
     display: flex;
     justify-content: center;
+    font-size: clamp(16px, 2.8vw, 20px);
 }
 
 

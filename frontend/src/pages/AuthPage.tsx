@@ -27,7 +27,7 @@ const AuthPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
-  const { status } = useSelector((state: RootState) => state.currentUser);
+  const {status } = useSelector((state: RootState) => state.currentUser);
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 

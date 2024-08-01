@@ -11,18 +11,37 @@ const signToken = id => {
   });
 };
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, res, req) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
+    //secure: true, // in production only
     httpOnly: true
   };
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  if (process.env.NODE_ENV === 'production') {
+    cookieOptions.secure = true;
+    cookieOptions.sameSite = 'strict';
+  }
 
   res.cookie('jwt', token, cookieOptions);
   user.password = undefined;
+
+  //session
+  // req.session = {
+  //   email: user.email,
+  //   password: user.password
+  // };
+  // req.session.email = user.email;
+  // req.session.password = user.password;
+  // req.session.id = user._id;
+
+  // if (req.body.remindMe) {
+  //   console.log('from remind me');
+  //   req.session.remindMe = req.body.remindMe;
+  //   req.sessionOptions.maxAge = 1000 * 60 * 60 * 24 * 3;
+  // }
 
   res.status(statusCode).json({
     status: 'success',
@@ -87,7 +106,7 @@ exports.login = async (req, res, next) => {
       return next(new AppError('Incorrect email or password', 401));
     }
 
-    createSendToken(user, 200, res);
+    createSendToken(user, 200, res, req);
   } catch (err) {
     next(err);
   }
@@ -106,10 +125,11 @@ exports.logout = async (req, res, next) => {
       // console.log('logout', token);
     }
 
-    res.cookie('jwt', '', {
-      expires: new Date(Date.now() + 10 * 1000), // expire cookie in 10 seconds
-      httpOnly: true
-    });
+    // res.cookie('jwt', '', {
+    //   expires: new Date(Date.now() + 10 * 1000), // expire cookie in 10 seconds
+    //   httpOnly: true
+    // });
+    //req.session = null;
     res.status(200).json({ status: 'success' });
   } catch (err) {
     next(err);
@@ -157,7 +177,7 @@ exports.protect = async (req, res, next) => {
     }
 
     req.user = currentUser;
-    console.log(req.body);
+    //console.log(req.body);
 
     next();
   } catch (err) {

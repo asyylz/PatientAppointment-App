@@ -7,6 +7,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+const session = require('cookie-session');
 
 const doctorsRouter = require('./routes/doctorsRoutes');
 const patientsRouter = require('./routes/patientsRoutes');
@@ -35,6 +36,20 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+// cookie session
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET
+    // resave: false,
+    // saveUninitialized: false,
+    // cookie: {
+    //   httpOnly: true,
+    //   expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
+    //   secure: process.env.NODE_ENV === 'production' ? true : false
+    //}
+  })
+);
+
 // Boody parser , reading data from  body into req.body
 app.use(express.json({ limit: '10kb' }));
 
@@ -50,13 +65,14 @@ app.use(xss());
 app.all('/', (req, res) => {
   res.send({
     error: false,
-    message: 'Welcome to PIZZA API',
+    message: 'Welcome to Patient Appointment System',
     docs: {
       swagger: '/documents/swagger',
       redoc: '/documents/redoc',
       json: '/documents/json'
     },
-    user: req.user
+    user: req.user,
+    session: req.session
   });
 });
 

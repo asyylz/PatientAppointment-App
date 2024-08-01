@@ -72,19 +72,14 @@ const ProfileForm: React.FC = () => {
       <>
         <p>User Info</p>
         <hr />
-        <div
-          // style={{border:'1px solid red'}}
-          className={`${classes.container} ${classes.info}`}
-        >
+        <div className={classes.container}>
           <ImagePicker
             name="image"
             setter={setUpdatedUserData}
-            // defaultImage={`http://localhost:3000/static${userData?.image}`}
-            //defaultImage={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData.image}`}
             defaultImage={userData.image}
           />
 
-          <div className={`${classes.wrapper} ${classes.info}`}>
+          <div className={classes['wrapper__info--fields']}>
             <CustomInput
               defaultValue={userData.name}
               type="text"
@@ -117,7 +112,7 @@ const ProfileForm: React.FC = () => {
         <div>
           <p>Adsress Settings</p>
           <hr />
-          <div className={`${classes.container} ${classes.address}`}>
+          <div className={classes['wrapper__address']}>
             <MapAndAdressForm
               setAddressParts={setAddressParts}
               addressParts={addressParts}
@@ -125,7 +120,7 @@ const ProfileForm: React.FC = () => {
             />
           </div>
 
-          <div className={`${classes.container} ${classes.button}`}>
+          <div className={classes['wrapper__buttons']}>
             <button onClick={updateInfo} type="submit">
               Update
             </button>

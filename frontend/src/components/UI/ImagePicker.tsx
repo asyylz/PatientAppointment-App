@@ -44,21 +44,23 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
   };
 
   return (
-    <div className={classes.container}>
+    <div className={classes['container__imagepicker']}>
       <label htmlFor={name}>{label}</label>
-      <div className={`${classes.container} ${classes.picker}`}>
-        <div className={classes.preview}>
+      <div
+        className={`${classes['container__imagepicker']} ${classes['wrapper__imagepicker--fields']}`}
+      >
+        <div className={classes['imagepicker__preview']}>
           {!pickedImage && <p>No image picked yet.</p>}
           {pickedImage && (
             <img
-            className={classes.pickedImage}
+              className={classes['imagepicker__preview--pickedImage']}
               src={pickedImage as string}
               alt="The image selected by the user."
             />
           )}
         </div>
         <input
-          className={classes.input}
+          className={classes['wrapper__imagepicker--fields-field']}
           type="file"
           id={name}
           accept="image/png, image/jpeg"
@@ -67,7 +69,11 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           onChange={handleImageChange}
           required
         />
-        <button type="button" onClick={handlePickClick}>
+        <button
+          className={classes['container__imagepicker--button']}
+          type="button"
+          onClick={handlePickClick}
+        >
           Pick image
         </button>
       </div>
