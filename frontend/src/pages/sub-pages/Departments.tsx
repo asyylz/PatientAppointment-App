@@ -1,4 +1,4 @@
-import CustomButton from '../../components/UI/CustomButton';
+import CustomButton from '../../components/UI/DepartmentButton';
 import classes from './Department.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from './../../store/index';

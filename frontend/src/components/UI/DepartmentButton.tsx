@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import classes from './CustomButton.module.css';
+import classes from './DepartmentButton.module.css';
 
 interface CustomButtonProps {
   department: Department;
@@ -14,18 +14,17 @@ const CustomButton: React.FC<CustomButtonProps> = ({ department }) => {
   };
 
   return (
-    <div
-      className={classes['department__wrapper']}
-    >
-      <div
-        className={classes['department__button']}
-      >
-        <div className={classes['department__button--name']} onClick={handleClick}>
+    <div className={classes['department__wrapper']}>
+      <div className={classes['department__button']}>
+        <div
+          className={classes['department__button--name']}
+          onClick={handleClick}
+        >
           {department?.departmentMain}
         </div>
       </div>
 
-      <div >
+      <div>
         <ul className={classes['department__sub-wrapper']}>
           {department?.departmentSub?.map((el: string, index: number) => (
             <li className={classes['department__sub--item']} key={index}>
