@@ -60,13 +60,13 @@ const AvailabilityTable: React.FC = () => {
           />
         </ModalCustom>
       )}
-      <div className={classes.wrapper}>
-        <table className={classes.table}>
+      <div className={classes['availability__container']}>
+        <table>
           <thead>
             <tr>
-              <th className={classes.th}>Time</th>
+              <th>Time</th>
               {daysMappedToDates.map((day, index) => (
-                <th key={index} className={classes.th}>
+                <th key={index}>
                   <span>{day.date}</span>
                   <br />
                   <span>{day.day}</span>
@@ -78,22 +78,17 @@ const AvailabilityTable: React.FC = () => {
           <tbody>
             {timeSlots.map((time, timeIndex) => (
               <tr key={timeIndex}>
-                <td className={classes.td}>{time}</td>
+                <td>{time}</td>
                 {daysMappedToDates.map((day, dayIndex) => {
                   // Check if there's an availability for the current day and time
                   const availability = selectedDoctor?.availabilities.find(
                     (slot) => slot.day === day.day && slot.time === time
                   );
-                  // console.log(availability);
 
                   const slotStatus = availability
                     ? appointmentsForDoctor?.find(
                         (appointment: Appointment) =>
                           appointment.appointmentDateAndTime ===
-                          // convertToDateandDateString(
-                          //   availability.day,
-                          //   availability.time
-                          // ).availabilityDateTimeString
                           availability.currentWeekAvailabilityInDateFormat
                       )
                       ? 'Booked'

@@ -82,21 +82,26 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
   };
 
   return (
-    <div className={classes.container}>
-      <h1 className={classes.title}>Booking Form</h1>
-      <form onSubmit={handleSubmit}>
-        <div className={classes.leftSection}>
+    <div className={classes['booking__container']}>
+      <h1 className={classes['booking__container-title']}>Booking Form</h1>
+      <form
+        className={classes['booking__container-form']}
+        onSubmit={handleSubmit}
+      >
+        <div>
           <CustomInput
             name="doctor"
             value={`Dr.${doctor?.firstName} ${doctor?.lastName}`}
             type="text"
             readOnly
           />
-          {/* <select name="mainDepartment" aria-readonly>
-            <option value={0}>{doctor?.departmentId.departmentMain}</option>
-          </select> */}
           <CustomInput value={doctor?.departmentId.departmentMain} readOnly />
-          <select name="subDepartmentName" onChange={handleChange} required>
+          <select
+            className={classes['booking__container-select']}
+            name="subDepartmentName"
+            onChange={handleChange}
+            required
+          >
             <option>Choose Sub Department</option>
             {doctor?.departmentId.departmentSub.map((el, index) => (
               <option key={index} value={el}>
@@ -105,7 +110,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
             ))}
           </select>
         </div>
-        <div className={classes.rightSection}>
+        <div>
           <CustomInput type="text" value={user.name} readOnly />
           <CustomInput
             type="date"
@@ -123,7 +128,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
           />
         </div>
         <textarea
-          className={classes.reason}
+          className={classes['booking__container-reason']}
           placeholder="Please write your concerns..."
           name="reason"
           onChange={handleChange}

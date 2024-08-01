@@ -13,7 +13,7 @@ const TopSearchBar: React.FC = () => {
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
- // console.log(userData?.image);
+
   useEffect(() => {
     const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
     return () => {
@@ -29,23 +29,23 @@ const TopSearchBar: React.FC = () => {
 
   return (
     <>
-      <div className={classes.topBar}>
-        <div className={classes.search}>
+      <div className={classes['top__bar']}>
+        <div className={classes['top__bar--search']}>
           <input
+            className={classes['top__bar--search-input']}
             type="text"
             name="search"
             placeholder="search here"
             onChange={(e) => setSearchInput(e.target.value)}
           />
-         
-            <div className={classes.searchIcon}>
-              <i className="fas fa-search"></i>
-            </div>
-         
+
+          <div className={classes['top__bar--search-icon']}>
+            <i className="fas fa-search"></i>
+          </div>
         </div>
 
         {token && userData ? (
-          <div className={classes.user}>
+          <div className={classes['top__bar--search-user']}>
             <h5>
               {userData?.role === 'doctor'
                 ? `Dr. ${userData?.name}`
@@ -53,15 +53,12 @@ const TopSearchBar: React.FC = () => {
             </h5>
             <i className="fas fa-bell"></i>
             <img
-              //src={`http://localhost:3000/static${userData?.image}`}
-              // src={`https://patient-appointment-system.s3.eu-west-2.amazonaws.com/${userData.image}`}
               src={userData.image}
               alt="User"
             />
             <button onClick={handleLogout}>Logout</button>
           </div>
         ) : (
-          // <GlobalLink text="Login" to="/auth" />
           <button onClick={() => navigate('/auth')}>Login</button>
         )}
       </div>

@@ -1,4 +1,4 @@
-.container {
+.booking__container {
     height: 95%;
     width: 95%;
     background: #F0F1F2;
@@ -7,14 +7,14 @@
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
 }
 
-.title {
+.booking__container-title {
     font-size: 30px;
     font-weight: 600;
     margin: 20px 0 10px 0;
     position: relative;
 }
 
-.title::after {
+.booking__container-title::after {
     content: "";
     position: absolute;
     height: 4px;
@@ -25,16 +25,16 @@
     background: linear-gradient(0deg, rgba(34, 193, 195, 1) 23%, rgba(173, 217, 209, 1) 91%);
 }
 
-.container form {
+.booking__container-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
 
-.container textarea {
+.booking__container-reason {
     grid-column: span 2;
 }
 
-.container select {
+.booking__container-select {
     font-size: 12px;
 }

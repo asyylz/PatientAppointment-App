@@ -8,7 +8,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({ department }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    //navigate(`/user/doctors?departmentId=${department._id}`);
     navigate(
       `/user/doctors?limit=2&page=1&sort=firstName&departmentId=${department._id}`
     );
@@ -16,24 +15,20 @@ const CustomButton: React.FC<CustomButtonProps> = ({ department }) => {
 
   return (
     <div
-      className={classes.wrapper}
-      // style={{ border: '3px solid green' }}
+      className={classes['department__wrapper']}
     >
       <div
-        className={classes.card}
-        //style={{ border: '1px solid red', marginTop: '2rem' }}
+        className={classes['department__button']}
       >
-        <div className={classes.cardName} onClick={handleClick}>
+        <div className={classes['department__button--name']} onClick={handleClick}>
           {department?.departmentMain}
         </div>
       </div>
 
-      <div
-      //style={{ border: '1px solid red' }}
-      >
-        <ul className={classes.subDepartmentsContainer}>
+      <div >
+        <ul className={classes['department__sub-wrapper']}>
           {department?.departmentSub?.map((el: string, index: number) => (
-            <li className={classes.subDepartment} key={index}>
+            <li className={classes['department__sub--item']} key={index}>
               <Link to="">{el}</Link>
             </li>
           ))}

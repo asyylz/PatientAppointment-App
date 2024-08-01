@@ -1,9 +1,9 @@
-.wrapper {
+.department__wrapper {
     /* border:1px solid red; */
     max-width: 300px;
 }
 
-.card {
+.department__button {
     background: var(--primary-background);
     padding-bottom: 5px;
     display: flex;
@@ -16,15 +16,15 @@
 
 }
 
-.card:hover {
+.department__button:hover {
     background-color: #444;
 }
 
-.card:hover .cardName {
+.department__button:hover .department__button--name {
     color: #fff;
 }
 
-.cardName {
+.department__button--name {
     color: #444;
     font-size: 16px;
     font-weight: 500;
@@ -33,28 +33,23 @@
 }
 
 
-.iconBox {
-    font-size: 45px;
-    color: #444;
-}
-
-.subDepartmentsContainer {
+.department__sub-wrapper {
     margin-top: 1rem;
     padding-left: 40px;
 }
 
-.subDepartment {
+.department__sub--item {
     list-style: disc;
     line-height: 24px;
     cursor: pointer;
 }
 
-.subDepartment a {
+.department__sub--item a {
     text-decoration: none;
     color: #444;
 }
 
-.subDepartment a:hover {
+.department__sub--item a:hover {
     text-decoration: underline;
     color: #444;
 }
