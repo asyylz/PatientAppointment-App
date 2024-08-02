@@ -1,46 +1,47 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axiosInterceptors from '../hooks/axiosInterceptors';
 
 /* ------------------------------------------------------ */
 /*                        ENTITIES                        */
 /* ------------------------------------------------------ */
 type HttpMethod = 'get' | 'post' | 'patch' | 'delete';
 
-export const fetchEntities1 = <T>(
-  entity: string,
-  url: string | ((pagination?: number, departmentId?: string) => string), // we catch optional pagination argument
-  method: HttpMethod = 'get'
-) =>
-  createAsyncThunk<T | object, { pagination?: number; departmentId?: string }>(
-    `${entity}/fetch`,
-    async ({ pagination, departmentId } = {}) => {
-      try {
-        const axiosMethods: Record<
-          HttpMethod,
-          (url: string, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-        > = {
-          get: axios.get,
-          post: (url, config) => axios.post(url, {}, config),
-          patch: (url, config) => axios.patch(url, {}, config),
-          delete: axios.delete,
-        };
-        const requestUrl =
-          typeof url === 'function' ? url(pagination, departmentId) : url;
-        const response = await axiosMethods[method](requestUrl);
-        console.log(`${entity} data:`, response.data.data);
-        return response.data.data[entity];
-      } catch (err) {
-        console.log(err);
-        throw err;
-      }
-    }
-  );
+// export const fetchEntities1 = <T>(
+//   entity: string,
+//   url: string | ((pagination?: number, departmentId?: string) => string), // we catch optional pagination argument
+//   method: HttpMethod = 'get'
+// ) =>
+//   createAsyncThunk<T | object, { pagination?: number; departmentId?: string }>(
+//     `${entity}/fetch`,
+//     async ({ pagination, departmentId } = {}) => {
+//       try {
+//         const axiosMethods: Record<
+//           HttpMethod,
+//           (url: string, config?: AxiosRequestConfig) => Promise<AxiosResponse>
+//         > = {
+//           get: axios.get,
+//           post: (url, config) => axios.post(url, {}, config),
+//           patch: (url, config) => axios.patch(url, {}, config),
+//           delete: axios.delete,
+//         };
+//         const requestUrl =
+//           typeof url === 'function' ? url(pagination, departmentId) : url;
+//         const response = await axiosMethods[method](requestUrl);
+//         console.log(`${entity} data:`, response.data.data);
+//         return response.data.data[entity];
+//       } catch (err) {
+//         console.log(err);
+//         throw err;
+//       }
+//     }
+//   );
 
 export const fetchEntities = <T>(entity: string, method: HttpMethod = 'get') =>
   createAsyncThunk<T | object, string>(
     `${entity}/fetch`,
     async (url, { rejectWithValue }) => {
-      console.log(url);
+      //console.log(url);
       try {
         const axiosMethods: Record<
           HttpMethod,
@@ -93,15 +94,37 @@ export const fetchEntitiesWithIdAndToken = <T>(
 ) =>
   createAsyncThunk<T, { id: string; token: string; pagination?: number }>(
     `${entity}/fetchWithIdAndToken`,
-    async ({ id, token, pagination }) => {
+    async ({ id, pagination }, { rejectWithValue }) => {
       // Generate the URL, handle undefined pagination if needed
       const requestUrl = url(id, pagination);
-      // Make the API request with the token in the headers
-      const response = await axios.get(requestUrl, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      // return response.data.data[entity];
-      return response.data.data;
+      try {
+        const { default: axiosInterceptors } = await import(
+          '../hooks/axiosInterceptors'
+        );
+        // Make the API request with the token in the headers
+        const response = await axiosInterceptors.get(requestUrl,
+        //    {
+        //   headers: { Authorization: `Bearer ${token}` },
+        // }
+      );
+        // return response.data.data[entity];
+        console.log(response.data);
+        return response.data.data;
+      } catch (err) {
+        // Check if `err` has `response` property
+        if (err.response) {
+          // Return a detailed error message using `rejectWithValue`
+          return rejectWithValue({
+            message: err.response.data.message || 'An error occurred',
+            details: err.response.data.error || err.message,
+          });
+        } else {
+          // Handle cases where there is no response property
+          return rejectWithValue({
+            message: err.message || 'An unknown error occurred',
+          });
+        }
+      }
     }
   );
 
@@ -147,7 +170,12 @@ export const createEntitySlice = <T>(
         )
         .addCase(fetchEntityThunk.rejected, (state, action) => {
           state.status = 'failed';
-          state.error = action.error.message || `Failed to fetch ${entity}`;
+          console.log(action);
+          if (action.payload) {
+            state.error = action.payload.message;
+          } else {
+            state.error = action.error.message || `Failed to fetch ${entity}`;
+          }
         });
 
       // Apply additional reducers if provided

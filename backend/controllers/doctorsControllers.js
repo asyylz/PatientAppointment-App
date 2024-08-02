@@ -80,7 +80,7 @@ exports.getAllDoctors = async (req, res, next) => {
       .sort();
 
     const doctors = await features.query;
-    console.log(doctors);
+
 
     // SEND RESPONSE //
     res.status(200).json({

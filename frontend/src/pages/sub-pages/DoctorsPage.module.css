@@ -17,8 +17,15 @@ p.header {
     padding-top: 20px;
 }
 
+.no--available {
+    width: 100%;
+    margin: 0px auto;
+    border: 1px solid red;
+    width: 100%;
+} 
+
 @media (min-width:768px) {
-    .container.pagination {
+    .pagination__wrapper {
         display: flex;
         justify-content: center;
         position: absolute;

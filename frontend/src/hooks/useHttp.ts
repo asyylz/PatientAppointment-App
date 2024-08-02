@@ -1,5 +1,5 @@
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
-import useAxios from './useAxios';
+import axiosInterceptors from '../hooks/axiosInterceptors';
 
 interface ReviewData {
   doctorId: string;
@@ -9,11 +9,10 @@ interface ReviewData {
 }
 
 const useHttp = () => {
-  const axiosWithToken = useAxios();
 
   const createAppointment = async (data: AppointmentForBooking) => {
     try {
-      const response = await axiosWithToken.post(
+      const response = await axiosInterceptors.post(
         'http://localhost:3000/api/v1/appointments',
         data
       );
@@ -34,7 +33,7 @@ const useHttp = () => {
     id: ObjectId | undefined
   ) => {
     try {
-      const response = await axiosWithToken.patch(
+      const response = await axiosInterceptors.patch(
         `http://localhost:3000/api/v1/appointments/${id}`,
         data
       );
@@ -56,7 +55,7 @@ const useHttp = () => {
     console.log(id);
 
     try {
-      const response = await axiosWithToken.delete(
+      const response = await axiosInterceptors.delete(
         `http://localhost:3000/api/v1/appointments/${id}`
       );
       toastSuccessNotify('Your appointment successfully deleted.');
@@ -71,9 +70,8 @@ const useHttp = () => {
   const updateUserPassWord = async (
     updatedUserData: UpdatedUserPasswordAndToken
   ) => {
-    // console.log(updatedUserData);
     try {
-      const response = await axiosWithToken.patch(
+      const response = await axiosInterceptors.patch(
         `http://localhost:3000/api/v1/users/updateMyPassword`,
         updatedUserData
       );
@@ -88,7 +86,7 @@ const useHttp = () => {
   const getDoctorAppointments = async (id: ObjectId) => {
     console.log(id);
     try {
-      const response = await axiosWithToken.get(
+      const response = await axiosInterceptors.get(
         `http://localhost:3000/api/v1/appointments/doctors/${id}`
       );
       console.log(response.data.data.appointmentsForDoctor);
@@ -102,20 +100,21 @@ const useHttp = () => {
   const getDoctorWithAvailabilities = async (id: string) => {
     console.log(id);
     try {
-      const response = await axiosWithToken.get(
+      const response = await axiosInterceptors.get(
         `http://localhost:3000/api/v1/doctors/${id}`
       );
       console.log(response.data);
       return response.data.data;
     } catch (error: any) {
-      console.log(error);
+      console.log(error.response);
       toastErrorNotify(`${error.response.data.message}`);
+      throw new Error(error.response.data.message);
     }
   };
   const postReview = async (data: ReviewData) => {
     console.log(data);
     try {
-      const response = await axiosWithToken.post(
+      const response = await axiosInterceptors.post(
         `http://localhost:3000/api/v1/reviews`,
         data
       );

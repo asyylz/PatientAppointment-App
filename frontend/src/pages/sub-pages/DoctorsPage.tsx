@@ -82,7 +82,6 @@ const Doctors: React.FC = () => {
       setFilteredDoctors(doctors);
     }
   }, [searchWord, doctors]);
-  //console.log(filteredDoctors);
 
   return (
     <>
@@ -103,9 +102,11 @@ const Doctors: React.FC = () => {
             />
           ))}
         {status === 'failed' && <p>{error}</p>}
-        {doctors.length === 0 && <p>No available doctor in this department.</p>}
+        {doctors.length === 0 && status === 'succeeded' && (
+          <p className={classes['no--available']}>No available doctor.</p>
+        )}
       </div>
-      <div className={`${classes.container} ${classes.pagination}`}>
+      <div className={classes['pagination__wrapper']}>
         <PaginationButtons
           pagination={pagination}
           setPagination={setPagination}

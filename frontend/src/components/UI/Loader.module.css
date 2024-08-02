@@ -1,23 +1,23 @@
-.container {
-    width: 100vw;
+.loader__container {
+    width: calc(100vw - 186px);
     display: flex;
     justify-content: center;
     /* border: 1px solid red; */
 }
 
-.ldsRipple,
-.ldsRipple div {
+.loader__ldsRipple,
+.loader__ldsRipple div {
     box-sizing: border-box;
 }
 
-.ldsRipple {
+.loader__ldsRipple {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
 }
 
-.ldsRipple div {
+.loader__ldsRipple div {
     position: absolute;
     border: 4px solid currentColor;
     opacity: 1;
@@ -25,7 +25,7 @@
     animation: ldsRipple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
-.ldsRipple div:nth-child(2) {
+.loader__ldsRipple div:nth-child(2) {
     animation-delay: -0.5s;
 }
 

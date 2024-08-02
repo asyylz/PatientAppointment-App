@@ -1,12 +1,11 @@
-.wrapper.pagination {
+.pagination__wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 2rem auto;
 }
 
-
-.wrapper.pagination .iconBox {
+.pagination__icon--wrapper {
     position: relative;
     cursor: pointer;
     display: flex;
@@ -14,11 +13,11 @@
     margin: 0 40px;
 }
 
-.iconBox.passive {
+.passive {
     opacity: 0.4;
 }
 
-.wrapper.pagination .iconBox svg {
+.pagination__icon--wrapper svg {
     margin: 0 1rem;
     color: #444;
     height: 30px;
@@ -26,12 +25,12 @@
 }
 
 @media (min-width:375px) and (max-width:414px) {
-    .wrapper.pagination p {
+    .pagination__wrapper p {
         font-size: 10px;
         margin: 0 10px;
     }
 
-    .wrapper.pagination svg {
+    .pagination__wrapper svg {
         height: 15px !important;
         width: 15px !important;
     }

@@ -13,35 +13,25 @@ const signToken = id => {
 
 const createSendToken = (user, statusCode, res, req) => {
   const token = signToken(user._id);
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    //secure: true, // in production only
-    httpOnly: true
-  };
-  if (process.env.NODE_ENV === 'production') {
-    cookieOptions.secure = true;
-    cookieOptions.sameSite = 'strict';
-  }
+  const decodedToken = jwt.decode(token);
+  const expiresIn = decodedToken.exp * 1000; // Convert to milliseconds
+  const expiresInDate = new Date(expiresIn);
+  
+  // res.cookie('jwt', token, {
+  //   expires: expiresInDate,
+  //   httpOnly: false, // Set to true if you need to access via JavaScript
+  //   secure: process.env.NODE_ENV === 'production', // Set to true if using HTTPS in production
+  //   sameSite: 'Lax' // Adjust based on your requirements ('Strict', 'Lax', 'None')
+  // });
 
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie('jwtExpiry', expiresIn, {
+    expires: expiresInDate,
+    httpOnly: false, // Set to false if you need to access via JavaScript
+    secure: process.env.NODE_ENV === 'production', // Set to true if using HTTPS in production
+    sameSite: 'Lax' // Adjust based on your requirements ('Strict', 'Lax', 'None')
+  });
+
   user.password = undefined;
-
-  //session
-  // req.session = {
-  //   email: user.email,
-  //   password: user.password
-  // };
-  // req.session.email = user.email;
-  // req.session.password = user.password;
-  // req.session.id = user._id;
-
-  // if (req.body.remindMe) {
-  //   console.log('from remind me');
-  //   req.session.remindMe = req.body.remindMe;
-  //   req.sessionOptions.maxAge = 1000 * 60 * 60 * 24 * 3;
-  // }
 
   res.status(statusCode).json({
     status: 'success',
@@ -55,13 +45,12 @@ const createSendToken = (user, statusCode, res, req) => {
 /* ----------------------- SIGNUP ----------------------- */
 exports.signup = async (req, res, next) => {
   let imagePath;
-  console.log('from signup controller', req.file);
+  //console.log('from signup controller', req.file);
   // if (req.file) {
   //   imagePath = `/userProfileImages/${req.file.filename}`;
   // } else {
   //   imagePath = `/userProfileImages/userDefaultAvatar.png`;
   // }
-  console.log(req.fileLocation);
 
   if (req.fileLocation) {
     imagePath = req.fileLocation;
@@ -116,6 +105,7 @@ exports.login = async (req, res, next) => {
 // Logout handler
 exports.logout = async (req, res, next) => {
   let token;
+
   try {
     if (
       req.headers.authorization &&
@@ -125,11 +115,11 @@ exports.logout = async (req, res, next) => {
       // console.log('logout', token);
     }
 
-    // res.cookie('jwt', '', {
-    //   expires: new Date(Date.now() + 10 * 1000), // expire cookie in 10 seconds
-    //   httpOnly: true
-    // });
-    //req.session = null;
+    res.cookie('jwtExpiry', '', {
+      expires: new Date(Date.now() + 10 * 1000), // expire cookie in 10 seconds
+      httpOnly: false
+    });
+
     res.status(200).json({ status: 'success' });
   } catch (err) {
     next(err);
@@ -140,7 +130,7 @@ exports.logout = async (req, res, next) => {
 exports.protect = async (req, res, next) => {
   // 1) Getting token and check of it is there
   let token;
-  // console.log('from protect', req.headers);
+  //console.log('from protect', req.headers);
 
   try {
     if (
@@ -157,6 +147,7 @@ exports.protect = async (req, res, next) => {
 
     // 2) Verification token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    //console.log('decoded', decoded);
 
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.id);
@@ -177,8 +168,6 @@ exports.protect = async (req, res, next) => {
     }
 
     req.user = currentUser;
-    //console.log(req.body);
-
     next();
   } catch (err) {
     next(err);
@@ -199,7 +188,7 @@ exports.restrictTo = (...roles) => {
 /* ------------------- FORGOT PASSWORD ------------------ */
 exports.forgotPassword = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
-  console.log(req.body.email);
+  // console.log(req.body.email);
 
   if (!user) {
     return next(new AppError('There is no user with this email address', 404));
@@ -207,11 +196,7 @@ exports.forgotPassword = async (req, res, next) => {
 
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
-  //await user.save();
 
-  // const resetURL = `${req.protocol}://${req.get(
-  //   'host'
-  // )}/resetPassword/${resetToken}`;
   const resetURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
 
   const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
@@ -238,8 +223,8 @@ exports.forgotPassword = async (req, res, next) => {
 };
 /* ------------------- RESET PASSWORD ------------------- */
 exports.resetPassword = async (req, res, next) => {
-  console.log('from reset password', req.body);
-  console.log('from reset password', req.params);
+  //console.log('from reset password', req.body);
+  //console.log('from reset password', req.params);
 
   try {
     const hashedToken = crypto
@@ -273,7 +258,7 @@ exports.resetPassword = async (req, res, next) => {
 /* ------------------- UPDATE PASSWORD ------------------ */
 exports.updatePassword = async (req, res, next) => {
   const { oldPassword, newPassword, confirmNewPassword } = req.body;
-  console.log('from updatePassword', req.user.id);
+  //console.log('from updatePassword', req.user.id);
 
   const user = await User.findById(req.user.id).select('+password');
   if (!(await user.correctPassword(oldPassword))) {
@@ -283,4 +268,15 @@ exports.updatePassword = async (req, res, next) => {
   user.passwordConfirm = confirmNewPassword;
   await user.save();
   createSendToken(user, 200, res);
+};
+
+exports.refreshToken = async (req, res, next) => {
+  //console.log(req.body);
+  //console.log('asiye');
+  //console.log(req.user);
+  try {
+    createSendToken(req.user, 200, res);
+  } catch (err) {
+    next(err);
+  }
 };

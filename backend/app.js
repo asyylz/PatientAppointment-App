@@ -7,7 +7,6 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
-const session = require('cookie-session');
 
 const doctorsRouter = require('./routes/doctorsRoutes');
 const patientsRouter = require('./routes/patientsRoutes');
@@ -22,7 +21,12 @@ const AppError = require('./utils/appError');
 const app = express();
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Adjust based on your client URL
+    credentials: true
+  })
+);
 //app.options('*', cors());
 
 // Set security HTTP headers
@@ -35,20 +39,6 @@ const limiter = rateLimit({
   message: 'Too many request from this IP, please try again  in an hour'
 });
 app.use('/api', limiter);
-
-// cookie session
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET
-    // resave: false,
-    // saveUninitialized: false,
-    // cookie: {
-    //   httpOnly: true,
-    //   expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
-    //   secure: process.env.NODE_ENV === 'production' ? true : false
-    //}
-  })
-);
 
 // Boody parser , reading data from  body into req.body
 app.use(express.json({ limit: '10kb' }));
@@ -94,13 +84,13 @@ app.use(
 //app.use(express.static(`${__dirname}/public`));
 
 //Test middlewares
-app.use((req, res, next) => {
-  //res.setHeader('Access-Control-Allow-Origin', '*');
-  //res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  //res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Cross-Origin-Resource-Policy', 'same-site');
-  next();
-});
+// app.use((req, res, next) => {
+//   //res.setHeader('Access-Control-Allow-Origin', '*');
+//   //res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+//   //res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   res.setHeader('Cross-Origin-Resource-Policy', 'same-site');
+//   next();
+// });
 
 // ROUTES
 app.use('/api/v1/doctors', doctorsRouter);

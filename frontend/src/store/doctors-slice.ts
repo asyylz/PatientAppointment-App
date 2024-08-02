@@ -6,6 +6,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 //     departmentId ? `&departmentId=${departmentId}` : ''
 //   }`;
 // };
+
 export const doctorsUrl = (url: string) => {
   return url || '';
 };

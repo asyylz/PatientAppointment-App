@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
+import axiosInterceptors from '../hooks/axiosInterceptors';
+import Cookies from 'js-cookie';
 
 const initialState: CurrentUser = {
   status: 'idle',
@@ -17,14 +19,14 @@ export const register = createAsyncThunk<
   { rejectValue: string }
 >('currentUser/signup', async (credentials, { rejectWithValue }) => {
   console.log(credentials);
-  
+
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/signup',
       credentials
     );
     toastSuccessNotify('Successfully registered!');
-    //console.log(response.data);
+
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -48,17 +50,19 @@ export const register = createAsyncThunk<
 export const login = createAsyncThunk<
   CurrentUserPayload,
   { email: string; password: string },
-
   { rejectValue: string }
 >('currentUser/login', async (credentials, { rejectWithValue }) => {
-  console.log(credentials);
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/login',
-      credentials
+      credentials,
+      { withCredentials: true }
     );
+
     toastSuccessNotify('Successfully login!');
-    //console.log(response.data);
+    console.log('JWT Expiry Cookie:', Cookies.get('jwtExpiry'));
+    console.log('JWT Cookie:', Cookies.get('jwt'));
+
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -78,54 +82,17 @@ export const login = createAsyncThunk<
 /* ------------------------------------------------------ */
 /*                         LOGOUT                         */
 /* ------------------------------------------------------ */
-export const logout = createAsyncThunk<void, string, { rejectValue: string }>(
-  'currentUser/logout',
-  async (token: string, { rejectWithValue }) => {
-    try {
-      await axios.get('http://localhost:3000/api/v1/users/logout', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      toastSuccessNotify('Successfully logout!');
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        if (axiosError.response?.status === 401) {
-          toastErrorNotify(
-            `${(axiosError.response.data as { message: string }).message}`
-          );
-        }
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-);
 
-/* ------------------------------------------------------ */
-/*                         UPDATE                         */
-/* ------------------------------------------------------ */
-export const updateUserInfo = createAsyncThunk<
-  CurrentUserPayload,
-  { token: string; userUpdatedFormData: FormData },
+export const logout = createAsyncThunk<
+  { status: string },
+  void,
   { rejectValue: string }
->('currentUser/updateProfile', async (tokenAndData, { rejectWithValue }) => {
-  console.log(FormData);
-  //console.log(tokenAndData.userUpdatedFormData.get('address'));
+>('currentUser/logout', async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.patch(
-      'http://localhost:3000/api/v1/users/updateUser',
-      tokenAndData.userUpdatedFormData,
-      {
-        headers: {
-          Authorization: `Bearer ${tokenAndData.token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
+    const response = await axiosInterceptors.get(
+      'http://localhost:3000/api/v1/users/logout'
     );
-
-    toastSuccessNotify('Successfully updated!');
-    return response.data;
+    return response.data.status;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
@@ -141,6 +108,39 @@ export const updateUserInfo = createAsyncThunk<
 });
 
 /* ------------------------------------------------------ */
+/*                         UPDATE                         */
+/* ------------------------------------------------------ */
+export const updateUserInfo = createAsyncThunk<
+  CurrentUserPayload,
+  FormData,
+  { rejectValue: string }
+>(
+  'currentUser/updateProfile',
+  async (userUpdatedFormData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInterceptors.patch(
+        'http://localhost:3000/api/v1/users/updateUser',
+        userUpdatedFormData
+      );
+
+      toastSuccessNotify('Successfully updated!');
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.status === 401) {
+          toastErrorNotify(
+            `${(axiosError.response.data as { message: string }).message}`
+          );
+        }
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue('An unexpected error occurred');
+    }
+  }
+);
+
+/* ------------------------------------------------------ */
 /*                         FORGET                         */
 /* ------------------------------------------------------ */
 export const forgotPassword = createAsyncThunk<
@@ -148,7 +148,6 @@ export const forgotPassword = createAsyncThunk<
   { email: string },
   { rejectValue: string }
 >('currentUser/forgotPassword', async (email, { rejectWithValue }) => {
-  console.log(email);
   try {
     const response = await axios.post(
       'http://localhost:3000/api/v1/users/forgotPassword',
@@ -180,9 +179,6 @@ export const resetPassword = createAsyncThunk<
 >(
   'currentUser/resetPassword',
   async ({ password, passwordConfirm, resetToken }, { rejectWithValue }) => {
-    //console.log(password, passwordConfirm, resetToken);
-    // console.log('Asiye');
-
     try {
       const response = await axios.patch(
         `http://localhost:3000/api/v1/users/resetPassword/${resetToken}`,
@@ -217,22 +213,15 @@ export const updatePassword = createAsyncThunk<
     oldPassword: string;
     newPassword: string;
     confirmNewPassword: string;
-    token: string;
   },
   { rejectValue: string }
 >('currentUser/updatePassword', async (data, { rejectWithValue }) => {
-  const { oldPassword, newPassword, confirmNewPassword, token } = data;
-  //console.log(oldPassword, newPassword, confirmNewPassword, token);
+  const { oldPassword, newPassword, confirmNewPassword } = data;
 
   try {
-    const response = await axios.patch(
+    const response = await axiosInterceptors.patch(
       'http://localhost:3000/api/v1/users/updateMyPassword',
-      { oldPassword, newPassword, confirmNewPassword },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      { oldPassword, newPassword, confirmNewPassword }
     );
     toastSuccessNotify(`Your password successfully updated`);
     console.log(response.data);
@@ -248,6 +237,38 @@ export const updatePassword = createAsyncThunk<
       }
     }
     return rejectWithValue('An unexpected error occurred');
+  }
+});
+
+/* ------------------------------------------------------ */
+/*                      REFRESH TOKEN                     */
+/* ------------------------------------------------------ */
+export const refreshSession = createAsyncThunk<
+  CurrentUserPayload,
+  void,
+  { rejectValue: string }
+>('currentUser/refreshSession', async (_, { rejectWithValue }) => {
+  try {
+    const response = await axiosInterceptors.post(
+      'http://localhost:3000/api/v1/users/refresh-session',
+      {},
+      { withCredentials: true }
+    );
+
+    toastSuccessNotify('Your session has been extended another 15 mins!');
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      console.log(error);
+      toastErrorNotify(error.response?.data.message);
+      if (axiosError.response?.status === 401) {
+        toastErrorNotify(
+          `${(axiosError.response.data as { message: string }).message}`
+        );
+      }
+      return rejectWithValue(error.message);
+    }
   }
 });
 
@@ -279,6 +300,17 @@ const currentUserSlice = createSlice({
         console.log(action.error.message);
         state.error = action.error.message || 'Login failed';
       })
+      .addCase(refreshSession.fulfilled, (state, action) => {
+        const { token, data } = action.payload;
+        state.status = 'success';
+        state.token = token;
+        state.userData = data.user;
+        state.error = null;
+      })
+      .addCase(refreshSession.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message || 'Refresh failed';
+      })
       .addCase(register.fulfilled, (state, action) => {
         state.status = 'success';
         state.token = action.payload.token;
@@ -309,8 +341,6 @@ const currentUserSlice = createSlice({
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.status = 'update success';
-        console.log(action.payload);
-        //state.userData = action.payload.data.user;
         state.userData = action.payload.data.user;
         state.error = null;
       })

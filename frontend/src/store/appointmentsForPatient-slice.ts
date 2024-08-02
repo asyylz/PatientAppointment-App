@@ -3,6 +3,7 @@ import {
   createEntitySlice,
 } from './create-generic-slice';
 
+
 export const patientAppointmentsUrl = (id: string, pagination?: number) => {
   return `http://localhost:3000/api/v1/appointments/patients/${id}?limit=10&page=${pagination}`;
 };

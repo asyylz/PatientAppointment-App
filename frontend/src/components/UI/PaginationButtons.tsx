@@ -27,21 +27,21 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   };
 
   return (
-    <div className={`${classes.wrapper} ${classes.pagination}`}>
+    <div className={classes['pagination__wrapper']}>
       <div
-        className={classes.iconBox}
+        className={classes['pagination__icon--wrapper']}
         onClick={() => handlePaginationClick('prev')}
       >
         {' '}
         <GrPrevious />
         <p>Prev</p>
       </div>
-      <p>Page:{pagination}</p>
+      <p>Page: {pagination}</p>
       <div
         className={
           length < limit
-            ? `${classes.iconBox} ${classes.passive}`
-            : `${classes.iconBox}`
+            ? `${classes['pagination__icon--wrapper']} ${classes.passive}`
+            : classes['pagination__icon--wrapper']
         }
         onClick={() => handlePaginationClick('next')}
       >

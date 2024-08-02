@@ -11,14 +11,6 @@ const DoctorDetailsPage: React.FC = () => {
     selectedDoctor,
   } = useSelector((state: RootState) => state.doctors);
 
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   if (!selectedDoctor) {
     return <div>Doctor not found</div>;
   }

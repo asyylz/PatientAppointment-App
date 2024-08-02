@@ -1,19 +1,9 @@
-.wrapper {
+.doctor__details--wrapper {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     margin-top: 2rem;
-
-}
-
-.picture {
-    height: 250px;
-    width: 250px;
-    position: relative;
-    box-shadow: 0px 44px 34px -3px rgba(0, 0, 0, 0.4);
-    border-radius: 50%;
-    background-color: transparent;
-
+    min-height: 100vh;
 }
 
 .doctorInfo {
@@ -29,30 +19,30 @@
     text-align: start;
 }
 
-.bottomSection {
+.review__section--wrapper {
     grid-column: span 2;
 
 }
 
-.wrapper.reviews {
+.reviews__wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
     grid-auto-columns: auto;
     gap: 1rem;
     align-items: center;
-
 }
 
-.container.review {
+.review__container {
     width: 280px;
     margin: 0 auto;
     gap: 10px;
     padding: 25px;
     color: #444;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  
 }
 
-.imgAndUser {
+.commenter {
     display: grid;
     grid-template-columns: 50px 50px;
     gap: 1rem;
@@ -62,7 +52,7 @@
 
 }
 
-.image img {
+.commenter__image img {
     height: 40px;
     width: 40px;
     position: relative;
@@ -70,14 +60,14 @@
 
 }
 
-.commenterInfo {
+.review__container--commenter {
     display: flex;
     flex-direction: column;
     align-items: start;
     margin-bottom: 20px;
 }
 
-.imgAndUser h2 {
+.commenter h2 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,43 +82,36 @@
 
 }
 
-.commenterInfo .commentAndRate {
-    width: 100%;
-}
 
-.commenterInfo h3 {
+.review__container--commenter h3 {
     text-decoration: underline;
     margin-bottom: 2px;
 }
 
-.commenterInfo p {
+.review__container--commenter p {
     font-size: 12px;
 }
 
-.bottomSection h3 {
+.review__section--wrapper h3 {
     text-align: center;
     margin-top: 2rem;
 }
 
-.bottomSection button {
-    margin-top: 2rem;
-    width: 130px;
-}
 
 @media (min-width:414px) and (max-width:767px) {
-    .wrapper {
+    .review__section--wrapper {
         grid-template-columns: calc(100vw - 60px);
     }
 }
 
 @media (min-width:375px) and (max-width:834px) {
-    .bottomSection {
+    .review__section--wrapper {
         display: grid;
         grid-template-columns: calc(100vw - 30px);
         grid-template-rows: auto auto 1fr;
     }
 
-    .wrapper.reviews {
+    .reviews__wrapper {
         justify-content: center;
     }
 }

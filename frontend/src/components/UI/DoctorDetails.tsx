@@ -14,7 +14,7 @@ const DoctorDetails: React.FC = () => {
 
   const [pagination, setPagination] = useState<number>(1);
 
-  const { error: doctorsError, selectedDoctor } = useSelector(
+  const { selectedDoctor } = useSelector(
     (state: RootState) => state.doctors
   );
 
@@ -30,50 +30,27 @@ const DoctorDetails: React.FC = () => {
     }
   }, [dispatch, selectedDoctor, pagination]);
 
-  if (doctorsError) {
-    return <div>Error: {doctorsError}</div>;
-  }
 
-  if (!selectedDoctor) {
-    return <div>No doctor found.</div>;
-  }
 
   return (
-    <div
-      //style={{ border: '1px solid red' }}
-      className={classes.wrapper}
-    >
+    <div className={classes['doctor__details--wrapper']}>
       <AvailabilityTable />
 
-      <div
-        // style={{ border: '2px solid blue' }}
-        className={classes.bottomSection}
-      >
+      <div className={classes['review__section--wrapper']}>
         <h3>Reviews</h3>
         <hr />
 
         {reviewsStatus === 'loading' && <Loader />}
         {reviewsStatus === 'succeeded' && (
-          <ul className={`${classes.wrapper} ${classes.reviews}`}>
+          <ul className={classes['reviews__wrapper']}>
             {reviews.map((review: Review, index: number) => (
-              <div
-                key={index}
-                //style={{ border: '3px solid red' }}
-                className={`${classes.container} ${classes.review}`}
-              >
-                <div className={classes.commenterInfo}>
-                  <div className={classes.imgAndUser}>
-                    <div className={classes.image}>
-                      <img
-                        //src={`http://localhost:3000/static${review.userId?.image}`}
-                        src={review.userId?.image}
-                        alt=""
-                      />
+              <div key={index} className={classes['review__container']}>
+                <div className={classes['review__container--commenter']}>
+                  <div className={classes['commenter']}>
+                    <div className={classes['commenter__image']}>
+                      <img src={review.userId?.image} alt="" />
                     </div>
-
-                    {/* <h2>{review.averageRating?.toFixed(1)}</h2> */}
                     <h2>
-                      {' '}
                       {(
                         Object.entries(review.attributes)
                           .filter(([_key]) => _key !== '_id')
@@ -94,7 +71,7 @@ const DoctorDetails: React.FC = () => {
                     <ReviewRead
                       key={attrIndex}
                       attributeName={key}
-                      attributeValue={value as number} // Use type assertion here
+                      attributeValue={value as number}
                     />
                   ))}
               </div>
@@ -103,7 +80,7 @@ const DoctorDetails: React.FC = () => {
         )}
         {reviewsError && <p>Could not fetch reviews...</p>}
         {reviewsStatus === 'failed' && <p>{reviewsError}</p>}
-        {/* <button onClick={handleMoreReview}>Load More</button> */}
+
         <PaginationButtons
           pagination={pagination}
           setPagination={setPagination}

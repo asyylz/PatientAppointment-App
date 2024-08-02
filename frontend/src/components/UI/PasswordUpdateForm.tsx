@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import CustomInput from './CustomInput';
 import classes from './PasswordUpdateForm.module.css';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { updatePassword } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 
 const PasswordResetForm: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { token } = useSelector((state: RootState) => state.currentUser);
-
+  
   const [updatedUserPasswordAndToken, setUpdatedUserPasswordAndToken] =
     useState({
       oldPassword: '',
@@ -38,7 +36,6 @@ const PasswordResetForm: React.FC = () => {
           oldPassword: updatedUserPasswordAndToken.oldPassword,
           newPassword: updatedUserPasswordAndToken.newPassword,
           confirmNewPassword: updatedUserPasswordAndToken.confirmNewPassword,
-          token,
         })
       );
     }

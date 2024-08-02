@@ -17,6 +17,19 @@ const handleValidationErrorDB = err => {
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
+const handleJWTTokenExpireError = (err, req, res, next) => {
+  console.log('asiye', err.name);
+  console.log('user', req);
+  //const refreshToken = req.cookies.refreshJwt;
+  // if (!refreshToken) {
+  //   return next(
+  //     new AppError('Your token has expired! Please log in again.', 401)
+  //   );
+  // }
+
+  const message = 'Your session expired. Please login again!';
+  return new AppError(message, 401);
+};
 
 const sendErrorDev = (err, res) => {
   console.log('hello from dev error management');
@@ -45,16 +58,17 @@ const sendErrorProd = (err, res) => {
 };
 
 module.exports = (err, req, res, next) => {
-  //console.log(process.env.NODE_ENV === 'production');
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
   if (process.env.NODE_ENV === 'development') {
+    console.log(err.name);
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
     if (err.name === 'CastError') err = handleCastErrorDB(err);
     if (err.code === 11000) err = handleDuplicateFieldsDB(err);
     if (err.name === 'ValidationError') err = handleValidationErrorDB(err);
-
+    if (err.name === 'TokenExpiredError')
+      err = handleJWTTokenExpireError(err, req, res, next);
     sendErrorProd(err, res);
   }
 };

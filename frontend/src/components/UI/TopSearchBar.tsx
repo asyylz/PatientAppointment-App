@@ -5,6 +5,7 @@ import { logout, logoutSuccess } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice';
+import { toastSuccessNotify } from './../../helper/ToastNotify';
 
 const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -23,7 +24,13 @@ const TopSearchBar: React.FC = () => {
 
   const handleLogout = async () => {
     navigate('/');
-    await dispatch(logout(token));
+    const response = await dispatch(logout());
+    
+    if (response.payload === 'success') {
+      toastSuccessNotify('Successfully logout!');
+      navigate('/');
+      dispatch(logoutSuccess()); // to set state to idle
+    }
     dispatch(logoutSuccess()); // to set state to idle
   };
 
@@ -52,10 +59,7 @@ const TopSearchBar: React.FC = () => {
                 : userData?.name}
             </h5>
             <i className="fas fa-bell"></i>
-            <img
-              src={userData.image}
-              alt="User"
-            />
+            <img src={userData.image} alt="User" />
             <button onClick={handleLogout}>Logout</button>
           </div>
         ) : (

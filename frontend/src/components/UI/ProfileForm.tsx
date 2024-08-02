@@ -47,7 +47,7 @@ const ProfileForm: React.FC = () => {
       address: userData?.address,
     });
   };
-
+ 
   const updateInfo = () => {
     const userUpdatedFormData = new FormData();
     if (updatedUserData) {
@@ -61,7 +61,7 @@ const ProfileForm: React.FC = () => {
       });
     }
 
-    dispatch(updateUserInfo({ userUpdatedFormData, token }));
+    dispatch(updateUserInfo(userUpdatedFormData));
     setUpdatedUserData({});
   };
 

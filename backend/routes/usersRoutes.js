@@ -14,6 +14,12 @@ router.post(
   authControllers.signup
 );
 
+router.post(
+  '/refresh-session',
+  authControllers.protect,
+  authControllers.refreshToken
+);
+
 router.post('/login', authControllers.login);
 router.get('/logout', authControllers.logout);
 

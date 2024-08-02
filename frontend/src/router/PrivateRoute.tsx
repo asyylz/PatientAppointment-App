@@ -13,7 +13,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   );
 
   if (!userData || !token) {
-    toastErrorNotify('You should login');
+    //toastErrorNotify('You should login');
     return (
       <div className={classes.wrapper}>
         <p>

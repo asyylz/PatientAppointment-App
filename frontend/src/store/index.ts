@@ -56,7 +56,7 @@ const rootPersistConfig = {
 const authPersistConfig = {
   key: 'currentUser',
   storage: storage,
-  blacklist: ['status', 'error'],
+ // blacklist: ['status', 'error'],
 };
 // const doctorPersistConfig = {
 //   key: 'doctors',
