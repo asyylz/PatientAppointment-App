@@ -2,7 +2,10 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
 import axiosInterceptors from '../hooks/axiosInterceptors';
-import Cookies from 'js-cookie';
+import {
+  checkTokenExpiration,
+  TOKEN_CHECK_INTERVAL,
+} from './../hooks/axiosInterceptors';
 
 const initialState: CurrentUser = {
   status: 'idle',
@@ -46,6 +49,30 @@ export const register = createAsyncThunk<
 /* ------------------------------------------------------ */
 /*                          LOGIN                         */
 /* ------------------------------------------------------ */
+// Global variable to hold the interval ID
+let intervalId: NodeJS.Timeout | null = null;
+console.log(intervalId)
+// Function to start the interval
+const startTokenCheckInterval = () => {
+  // Clear existing interval if it exists
+  if (intervalId) {
+    clearInterval(intervalId);
+    console.log('Cleared existing interval with ID:', intervalId);
+  }
+  // Start a new interval
+  intervalId = setInterval(checkTokenExpiration, TOKEN_CHECK_INTERVAL);
+  console.log('Set new interval with ID:', intervalId);
+};
+
+// Function to stop the interval
+const stopTokenCheckInterval = () => {
+  if (intervalId) {
+    clearInterval(intervalId);
+    console.log('Stopped interval with ID:', intervalId);
+    intervalId = null; // Ensure to nullify the interval ID
+  }
+};
+
 
 export const login = createAsyncThunk<
   CurrentUserPayload,
@@ -58,11 +85,8 @@ export const login = createAsyncThunk<
       credentials,
       { withCredentials: true }
     );
-
     toastSuccessNotify('Successfully login!');
-    console.log('JWT Expiry Cookie:', Cookies.get('jwtExpiry'));
-    console.log('JWT Cookie:', Cookies.get('jwt'));
-
+    startTokenCheckInterval();
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -92,6 +116,7 @@ export const logout = createAsyncThunk<
     const response = await axiosInterceptors.get(
       'http://localhost:3000/api/v1/users/logout'
     );
+    stopTokenCheckInterval(); // Stop the interval upon successful logout
     return response.data.status;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -250,9 +275,7 @@ export const refreshSession = createAsyncThunk<
 >('currentUser/refreshSession', async (_, { rejectWithValue }) => {
   try {
     const response = await axiosInterceptors.post(
-      'http://localhost:3000/api/v1/users/refresh-session',
-      {},
-      { withCredentials: true }
+      'http://localhost:3000/api/v1/users/refresh-session'
     );
 
     toastSuccessNotify('Your session has been extended another 15 mins!');

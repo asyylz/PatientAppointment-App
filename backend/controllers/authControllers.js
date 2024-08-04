@@ -271,9 +271,6 @@ exports.updatePassword = async (req, res, next) => {
 };
 
 exports.refreshToken = async (req, res, next) => {
-  //console.log(req.body);
-  //console.log('asiye');
-  //console.log(req.user);
   try {
     createSendToken(req.user, 200, res);
   } catch (err) {

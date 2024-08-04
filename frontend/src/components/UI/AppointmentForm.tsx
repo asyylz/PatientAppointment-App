@@ -28,6 +28,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       reason: appointment.reason,
     });
 
+  console.log(updatedAppointmentData);
+
   const [openModalDeleteAndComment, setOpenModalDeleteAndComment] =
     useState<string>('');
 

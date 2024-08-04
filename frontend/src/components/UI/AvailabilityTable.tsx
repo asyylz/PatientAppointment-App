@@ -3,15 +3,17 @@ import classes from './AvailabilityTable.module.css';
 import { generateTimeSlots } from '../../utils/timeSlots';
 import { useSelector } from 'react-redux';
 import ModalCustom from './ModalCustom';
-import { getWeekDatesFromToday } from '../../helper/generateDates';
+import {
+  getWeekDatesFromToday,
+  getFormattedAvailabilityDate,
+} from '../../helper/generateDates';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
 import AppointmentBookingForm from './AppointmentBookingForm';
+import { GrNext, GrPrevious } from 'react-icons/gr';
 
 const timeSlots = generateTimeSlots();
-
-const daysMappedToDates = getWeekDatesFromToday();
 
 /* ---------------------- COMPONENT --------------------- */
 const AvailabilityTable: React.FC = () => {
@@ -28,9 +30,13 @@ const AvailabilityTable: React.FC = () => {
   );
   const { appointmentsForDoctor } = entities;
 
+
   /* ---------------------- useSates ---------------------- */
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [slot, setSlot] = useState({ time: '', date: '' });
+  const [week, setWeek] = useState<'current' | 'next'>('current');
+
+  const daysMappedToDates = getWeekDatesFromToday(week);
 
   useEffect(() => {
     if (selectedDoctor) {
@@ -60,75 +66,97 @@ const AvailabilityTable: React.FC = () => {
           />
         </ModalCustom>
       )}
-      <div className={classes['availability__container']}>
-        <table>
-          <thead>
-            <tr>
-              <th>Time</th>
-              {daysMappedToDates.map((day, index) => (
-                <th key={index}>
-                  <span>{day.date}</span>
-                  <br />
-                  <span>{day.day}</span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {timeSlots.map((time, timeIndex) => (
-              <tr key={timeIndex}>
-                <td>{time}</td>
-                {daysMappedToDates.map((day, dayIndex) => {
-                  // Check if there's an availability for the current day and time
-                  const availability = selectedDoctor?.availabilities.find(
-                    (slot) => slot.day === day.day && slot.time === time
-                  );
-
-                  const slotStatus = availability
-                    ? appointmentsForDoctor?.find(
-                        (appointment: Appointment) =>
-                          appointment.appointmentDateAndTime ===
-                          availability.currentWeekAvailabilityInDateFormat
-                      )
-                      ? 'Booked'
-                      : 'Available'
-                    : '-';
-
-                  const conditionalClassName =
-                    availability && slotStatus === 'Booked'
-                      ? new Date(
-                          availability.currentWeekAvailabilityInDateFormat
-                        ) < new Date()
-                        ? `${classes.booked} ${classes.past}`
-                        : `${classes.booked}`
-                      : availability && slotStatus === 'Available'
-                      ? new Date(
-                          availability.currentWeekAvailabilityInDateFormat
-                        ) < new Date()
-                        ? `${classes.available} ${classes.past}`
-                        : `${classes.available}`
-                      : '';
-
-                  return (
-                    <td
-                      key={`${timeIndex}-${dayIndex}`}
-                      className={conditionalClassName}
-                      onClick={
-                        slotStatus === 'Available' &&
-                        !conditionalClassName.includes('past')
-                          ? () => handleSlotClick(time, day.date)
-                          : undefined
-                      }
-                    >
-                      {slotStatus}
-                    </td>
-                  );
-                })}
+      <div>
+        <div className={classes['week__buttons-wrapper']}>
+          <div
+            className={classes['pagination__icon--wrapper']}
+            onClick={() => setWeek('current')}
+          >
+            <GrPrevious />
+          </div>
+          <p>{`${week.toUpperCase()} WEEK`} </p>
+          <div
+            onClick={() => setWeek('next')}
+            className={classes['pagination__icon--wrapper']}
+          >
+            <GrNext />
+          </div>
+        </div>
+        <div
+          //style={{ border: '1px solid red' }}
+          className={classes['availability__container']}
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                {daysMappedToDates.map((day, index) => (
+                  <th key={index}>
+                    <span>{day.date}</span>
+                    <br />
+                    <span>{day.day}</span>
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {timeSlots.map((time, timeIndex) => (
+                <tr key={timeIndex}>
+                  <td>{time}</td>
+                  {daysMappedToDates.map((day, dayIndex) => {
+                    // Check if there's an availability for the current day and time
+                    const availability = selectedDoctor?.availabilities.find(
+                      (slot) => slot.day === day.day && slot.time === time
+                    );
+                    //console.log(availability);
+
+                    const slotStatus = availability
+                      ? appointmentsForDoctor?.find(
+                          (appointment: Appointment) =>
+                            appointment.appointmentDateAndTime ===
+                            //availability.currentWeekAvailabilityInDateFormat
+                            getFormattedAvailabilityDate(day.day, time, week)
+                        )
+                        ? 'Booked'
+                        : 'Available'
+                      : '-';
+
+                    const conditionalClassName =
+                      availability && slotStatus === 'Booked'
+                        ? new Date(
+                            getFormattedAvailabilityDate(day.day, time, week)
+                          ) < new Date()
+                          ? `${classes.booked} ${classes.past}`
+                          : `${classes.booked}`
+                        : availability && slotStatus === 'Available'
+                        ? new Date(
+                            getFormattedAvailabilityDate(day.day, time, week)
+                          ) < new Date()
+                          ? `${classes.available} ${classes.past}`
+                          : `${classes.available}`
+                        : '';
+
+                    return (
+                      <td
+                        key={`${timeIndex}-${dayIndex}`}
+                        className={conditionalClassName}
+                        onClick={
+                          slotStatus === 'Available' &&
+                          !conditionalClassName.includes('past')
+                            ? () => handleSlotClick(time, day.date)
+                            : undefined
+                        }
+                      >
+                        {slotStatus}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

@@ -98,15 +98,15 @@ const useHttp = () => {
   };
 
   const getDoctorWithAvailabilities = async (id: string) => {
-    console.log(id);
+   // console.log(id);
     try {
       const response = await axiosInterceptors.get(
         `http://localhost:3000/api/v1/doctors/${id}`
       );
-      console.log(response.data);
+     // console.log(response.data);
       return response.data.data;
     } catch (error: any) {
-      console.log(error.response);
+     // console.log(error.response);
       toastErrorNotify(`${error.response.data.message}`);
       throw new Error(error.response.data.message);
     }

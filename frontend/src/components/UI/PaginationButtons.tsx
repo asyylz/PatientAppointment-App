@@ -32,7 +32,6 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         className={classes['pagination__icon--wrapper']}
         onClick={() => handlePaginationClick('prev')}
       >
-        {' '}
         <GrPrevious />
         <p>Prev</p>
       </div>

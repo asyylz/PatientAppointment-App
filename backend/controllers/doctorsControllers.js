@@ -4,7 +4,7 @@ const Doctor = require('../models/doctorModel');
 const Availability = require('../models/availabilityModel');
 const Review = require('./../models/reviewModel');
 
-const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
+const { getWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 
 /* ------------------- ROUTES HANDLERS ------------------ */
 // GET ALL // Doctors:sending back to the client
@@ -81,7 +81,6 @@ exports.getAllDoctors = async (req, res, next) => {
 
     const doctors = await features.query;
 
-
     // SEND RESPONSE //
     res.status(200).json({
       status: 'success',
@@ -125,15 +124,18 @@ exports.getDoctor = async (req, res, next) => {
     }
 
     // Convert days in availabilities collection to current week dates
-    const currentWeekDates = {
-      Monday: getCurrentWeekDate('Monday'),
-      Tuesday: getCurrentWeekDate('Tuesday'),
-      Wednesday: getCurrentWeekDate('Wednesday'),
-      Thursday: getCurrentWeekDate('Thursday'),
-      Friday: getCurrentWeekDate('Friday'),
-      Saturday: getCurrentWeekDate('Saturday'),
-      Sunday: getCurrentWeekDate('Sunday')
+    const generateWeekDates = week => {
+      return {
+        Monday: getWeekDate('Monday', week),
+        Tuesday: getWeekDate('Tuesday', week),
+        Wednesday: getWeekDate('Wednesday', week),
+        Thursday: getWeekDate('Thursday', week),
+        Friday: getWeekDate('Friday', week),
+        Saturday: getWeekDate('Saturday', week),
+        Sunday: getWeekDate('Sunday', week)
+      };
     };
+    const currentWeekDates = generateWeekDates('current');
 
     // Convert doctor's availability dates to Date object and format it to ISO string for comparison
     const availbilitiesInDateFormat = availabilities.map(avail => {

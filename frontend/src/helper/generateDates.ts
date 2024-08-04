@@ -8,14 +8,20 @@ const days = [
   'Sunday',
 ];
 
-export const getWeekDatesFromToday = () => {
+export const getWeekDatesFromToday = (week: 'current' | 'next') => {
+  // Get today's date
   const today = new Date();
   const currentDayIndex = today.getDay(); // 0 is Sunday, 1 is Monday, etc.
   const startOfWeek = new Date(today);
 
-  // Adjust to start the week from the current day
+  // Calculate the offset for the start of the week based on the parameter
+  const weekOffset = week === 'next' ? 1 : 0;
+
+  // Adjust the start of the week to the correct date
   startOfWeek.setDate(
-    today.getDate() - (currentDayIndex === 0 ? 6 : currentDayIndex - 1)
+    today.getDate() -
+      (currentDayIndex === 0 ? 6 : currentDayIndex - 1) +
+      weekOffset * 7
   );
 
   // Function to add days to a date
@@ -25,6 +31,18 @@ export const getWeekDatesFromToday = () => {
     return newDate;
   };
 
+  // Array of day names (optional)
+  const days = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
+
+  // Generate week dates
   const weekDates = days.map((day, index) => {
     const date = addDays(startOfWeek, index);
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(
@@ -35,8 +53,90 @@ export const getWeekDatesFromToday = () => {
     return { date: formattedDate, day };
   });
 
+  console.log(weekDates);
   return weekDates;
 };
+
+export const getFormattedAvailabilityDate = (
+  day: string,
+  time: string,
+  week: 'current' | 'next'
+): string => {
+  // Array of day names
+  const daysOfWeek = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
+
+  // Find index of the given day
+  const targetDayIndex = daysOfWeek.indexOf(day);
+  if (targetDayIndex === -1) {
+    throw new Error('Invalid day provided');
+  }
+
+  // Get today's date
+  const today = new Date();
+  const currentDayIndex = today.getDay(); // 0 is Sunday, 1 is Monday, etc.
+
+  // Calculate the start of the week
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(
+    today.getDate() - (currentDayIndex === 0 ? 6 : currentDayIndex - 1)
+  );
+
+  // Calculate the week offset
+  const weekOffset = week === 'next' ? 1 : 0;
+
+  // Calculate the target date
+  const targetDate = new Date(startOfWeek);
+  targetDate.setDate(startOfWeek.getDate() + targetDayIndex + weekOffset * 7);
+
+  // Set the time
+  const [hours, minutes] = time.split(':').map(Number);
+
+  targetDate.setHours(hours + 1, minutes, 0, 0);
+
+  // Format to ISO string with Z (UTC) timezone
+  const isoDateString = targetDate.toISOString();
+ // console.log(isoDateString);
+
+  return isoDateString;
+};
+
+// export const getWeekDatesFromToday = () => {
+//   const today = new Date();
+//   const currentDayIndex = today.getDay(); // 0 is Sunday, 1 is Monday, etc.
+//   const startOfWeek = new Date(today);
+
+//   // Adjust to start the week from the current day
+//   startOfWeek.setDate(
+//     today.getDate() - (currentDayIndex === 0 ? 6 : currentDayIndex - 1)
+//   );
+
+//   // Function to add days to a date
+//   const addDays = (date: Date, days: number) => {
+//     const newDate = new Date(date);
+//     newDate.setDate(date.getDate() + days);
+//     return newDate;
+//   };
+
+//   const weekDates = days.map((day, index) => {
+//     const date = addDays(startOfWeek, index);
+//     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(
+//       date.getMonth() + 1
+//     )
+//       .toString()
+//       .padStart(2, '0')}/${date.getFullYear()}`;
+//     return { date: formattedDate, day };
+//   });
+// console.log(weekDates)
+//   return weekDates;
+// };
 
 export const convertDateAndTimeStringToDate = (
   dateString: string,

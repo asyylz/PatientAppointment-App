@@ -20,13 +20,6 @@ const handleValidationErrorDB = err => {
 const handleJWTTokenExpireError = (err, req, res, next) => {
   console.log('asiye', err.name);
   console.log('user', req);
-  //const refreshToken = req.cookies.refreshJwt;
-  // if (!refreshToken) {
-  //   return next(
-  //     new AppError('Your token has expired! Please log in again.', 401)
-  //   );
-  // }
-
   const message = 'Your session expired. Please login again!';
   return new AppError(message, 401);
 };

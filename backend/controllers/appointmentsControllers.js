@@ -1,7 +1,7 @@
 const Appointment = require('../models/appointmentModel');
 const Availability = require('../models/availabilityModel');
 const APIFeatures = require('../utils/apiFeatures');
-const { getCurrentWeekDate } = require('./../utils/datesOfTheCurrentWeek');
+const { getWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 // GET ALL //
 exports.getAllAppointments = async (req, res, next) => {
   try {
@@ -131,15 +131,13 @@ exports.updateAppointment = async (req, res, next) => {
       .status(404)
       .json({ status: 'error', message: 'Appointment not found for updated' });
   }
-  console.log('user', req.body);
+  console.log('user appointment update', req.body);
 
   // Check if appointment date is in  past
   const today = new Date();
   const isPastAppointment =
     new Date(appointment.appointmentDateAndTime) < today;
 
-  //console.log(req.user.role);
-  //console.log(req.user.doctorId);
 
   if (isPastAppointment && req.user.role !== 'doctor') {
     // If the appointment is in the past and the user is not a doctor, throw an error
@@ -170,39 +168,49 @@ exports.updateAppointment = async (req, res, next) => {
     doctorId: appointment.doctorId
   });
 
-  // Convert days in availabilities collection recent week dates
-  const currentWeekDates = {
-    Monday: getCurrentWeekDate('Monday'),
-    Tuesday: getCurrentWeekDate('Tuesday'),
-    Wednesday: getCurrentWeekDate('Wednesday'),
-    Thursday: getCurrentWeekDate('Thursday'),
-    Friday: getCurrentWeekDate('Friday'),
-    Saturday: getCurrentWeekDate('Saturday'),
-    Sunday: getCurrentWeekDate('Sunday')
+  // Generate week dates for current and next weeks
+  const generateWeekDates = week => {
+    return {
+      Monday: getWeekDate('Monday', week),
+      Tuesday: getWeekDate('Tuesday', week),
+      Wednesday: getWeekDate('Wednesday', week),
+      Thursday: getWeekDate('Thursday', week),
+      Friday: getWeekDate('Friday', week),
+      Saturday: getWeekDate('Saturday', week),
+      Sunday: getWeekDate('Sunday', week)
+    };
   };
+
+  const currentWeekDates = generateWeekDates('current');
+  const nextWeekDates = generateWeekDates('next');
 
   // Convert doctor's availability dates to Date object and format it to ISO string for comparison
   const availbilitiesInDateFormat = availabilities.map(avail => {
-    const { day } = avail;
+    const { day, time } = avail;
     return {
       ...avail,
       currentWeekAvailabilityInDateFormat: new Date(
-        `${currentWeekDates[day]}T${avail.time}:00.000Z`
+        `${currentWeekDates[day]}T${time}:00.000Z`
+      ),
+      nextWeekAvailabilityInDateFormat: new Date(
+        `${nextWeekDates[day]}T${time}:00.000Z`
       )
     };
   });
-  console.log('asiye', req.body.appointmentDateAndTime);
 
   // Check if doctor is available on the selected appointment date and time
   if (req.body.appointmentDateAndTime) {
-    const isDoctorAvailable = availbilitiesInDateFormat.some(avail => {
-      return (
-        avail.currentWeekAvailabilityInDateFormat.toISOString() ===
-        new Date(req.body.appointmentDateAndTime).toISOString()
-      );
-    });
+    const appointmentDate = new Date(
+      req.body.appointmentDateAndTime
+    ).toISOString();
 
-    // If doctor is not available throw error
+    const isDoctorAvailable = availbilitiesInDateFormat.some(
+      avail =>
+        avail.currentWeekAvailabilityInDateFormat.toISOString() ===
+          appointmentDate ||
+        avail.nextWeekAvailabilityInDateFormat.toISOString() === appointmentDate
+    );
+
     if (!isDoctorAvailable) {
       return res.status(400).json({
         status: 'error',

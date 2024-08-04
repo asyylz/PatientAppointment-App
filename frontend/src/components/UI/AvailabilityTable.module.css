@@ -10,6 +10,17 @@ table {
     border: 6px solid #c4c4c4;
 }
 
+.week__buttons-wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+.pagination__icon--wrapper {
+    cursor: pointer;
+}
+
+
 th,
 td {
     border: 1px solid #ddd;
