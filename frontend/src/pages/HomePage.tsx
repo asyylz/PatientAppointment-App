@@ -5,6 +5,8 @@ import { fetchDoctors } from './../store/doctors-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
 import Footer from '../components/UI/Footer';
+import Navbar from './../components/UI/Navbar';
+
 const images: { [key: string]: string } = {
   one: 'https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGVhbHRofGVufDB8fDB8fHwy',
   two: 'https://images.unsplash.com/photo-1488228469209-c141f8bcd723?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGhlYWx0aHxlbnwwfHwwfHx8Mg%3D%3D',
@@ -20,10 +22,6 @@ export default function HomePage() {
     // status,
     // error,
   } = useSelector((state: RootState) => state.doctors);
-
-  const { userData, token } = useSelector(
-    (state: RootState) => state.currentUser
-  );
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -43,24 +41,11 @@ export default function HomePage() {
 
     return () => clearInterval(interval);
   }, []);
-  console.log(token);
+  // console.log(token);
   return (
     <div className={classes.wrapper}>
       <div className={`${classes.container} ${classes['container--body']}`}>
-        <nav className={classes.navbar}>
-          <a className={classes['navbar__logo']}>LOGO</a>
-          <a className={classes['navbar__link']}>DISCOVER MORE</a>
-          <a className={classes['navbar__link']}>DOCTORS</a>
-          <a className={classes['navbar__link']}>DEPARTMENTS</a>
-          <a className={classes['navbar__link']}>GALERIA</a>
-          <a className={classes['navbar__link']}>CONTACT</a>
-          <a
-            className={`${classes['navbar__link']} ${classes['navbar__link--login']}`}
-            href="/auth"
-          >
-            {token !== '' ? 'LOG OUT' : 'LOG IN'}
-          </a>
-        </nav>
+        <Navbar />
         <section
           className={`${classes.container} ${classes['container--section1']}`}
         >

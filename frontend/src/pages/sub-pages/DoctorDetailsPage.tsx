@@ -5,9 +5,6 @@ import classes from './DoctorDetailsPage.module.css';
 import GlobalLink from '../../components/UI/GlobalLink';
 const DoctorDetailsPage: React.FC = () => {
   const {
-    //entities: doctors,
-    status,
-    error,
     selectedDoctor,
   } = useSelector((state: RootState) => state.doctors);
 

@@ -1,8 +1,12 @@
+@import url('./../../App.css');
+
 .container {
     border-radius: 20px;
     margin: 100px 10px;
     padding-top: 10px;
     box-shadow: 1px -4px 68px -5px rgba(0, 0, 0, 0.55);
+    -webkit-animation: scaleUp .7s ease both;
+    animation: scaleUp .7s ease both;
 }
 
 .navigation {

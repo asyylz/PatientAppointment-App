@@ -23,7 +23,10 @@ const app = express();
 // Enable CORS for all routes
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Adjust based on your client URL
+    origin: [
+      'http://localhost:5173',
+      'https://patientappointmentsystem.netlify.app'
+    ], // Adjust based on your client URL
     credentials: true
   })
 );

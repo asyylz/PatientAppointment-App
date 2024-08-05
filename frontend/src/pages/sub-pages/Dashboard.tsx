@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './../../App.css';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
 import { FaStethoscope, FaBriefcaseMedical } from 'react-icons/fa';
@@ -29,7 +30,6 @@ const Dashboard: React.FC = () => {
   );
   const { total, appointmentsForPatient, upcomingAppointments } = entities;
 
-  
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
 

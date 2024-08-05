@@ -5,13 +5,11 @@ import { AppDispatch } from './../store/index';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { forgotPassword, login, register } from '../store/currentUser-slice';
-import ImagePicker from '../components/UI/ImagePicker';
 import CustomInput from '../components/UI/CustomInput';
+import Navbar from '../components/UI/Navbar';
 
 const AuthPage = () => {
   const [registerData, setRegisterData] = useState<Credentials>({
-    // email: 'aytekin@test.com',
-    // password: 'newpass12',
     name: '',
     email: '',
     password: '',
@@ -40,7 +38,7 @@ const AuthPage = () => {
         login({ email: loginData.email, password: loginData.password })
       );
       console.log(response);
-      console.log(login.fulfilled.match(response))
+      console.log(login.fulfilled.match(response));
       if (login.fulfilled.match(response))
         setLoginData({
           email: '',
@@ -114,6 +112,9 @@ const AuthPage = () => {
   return (
     //container takes styles local
     <div className={classes.container}>
+      <div className={classes['navbar__wrapper']}>
+        <Navbar />
+      </div>
       {/*------------------------ Login ----------------------- */}
       <div className={classes.wrapper}>
         <h2>Login</h2>
@@ -172,7 +173,7 @@ const AuthPage = () => {
           <CustomInput
             type="date"
             name="DOB"
-            // value={registerData.DOB}
+            //value={registerData.DOB}
             placeHolder="Enter your DOB"
             onChange={handleInputChange}
             required
@@ -203,15 +204,6 @@ const AuthPage = () => {
             />
             <h3>I accept all terms & condition</h3>
           </div>
-          {/* <div className={classes.imagePickerWrapper}>
-            <ImagePicker
-              name="image"
-              setter={setRegisterData}
-              // defaultImage="http://localhost:3000/static/userProfileImages/userDefaultAvatar.png"
-              defaultImage="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/defaultUserAvatar.png"
-            />
-          </div> */}
-
           <button type="submit">Register</button>
         </form>
       </div>

@@ -1,3 +1,5 @@
+@import url('./../../App.css');
+
 * {
     --color_1: #70CFDE;
     --color_2: #CADE70;
@@ -10,7 +12,11 @@
     display: grid;
     grid-template-columns: 150px 1fr;
     color: #444;
+    -webkit-animation: scaleUp .7s ease both;
+    animation: scaleUp .7s ease both;
+
 }
+
 
 .dashboard-left-section {
     box-shadow: 10px 0 10px rgba(0, 0, 0, 0.1);
@@ -413,3 +419,4 @@ tbody table tr:last-child {
         margin-bottom: 10px;
     }
 }
+

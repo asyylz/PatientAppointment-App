@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
-import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
+import { toastSuccessNotify } from './../helper/ToastNotify';
 import {
   axiosInterceptorsWithToken,
   axiosInterceptorsWithoutToken,
@@ -44,20 +43,20 @@ const initialState: CurrentUser = {
 /* ------------------------------------------------------ */
 /*                        REGISTER                        */
 /* ------------------------------------------------------ */
-export const register = createAsyncThunk<
-  CurrentUserPayload,
-  FormData
->('currentUser/signup', async (credentials) => {
- // console.log(credentials);
+export const register = createAsyncThunk<CurrentUserPayload, FormData>(
+  'currentUser/signup',
+  async (credentials) => {
+    // console.log(credentials);
 
-  //try {
-  const response = await axiosInterceptorsWithoutToken.post(
-    'http://localhost:3000/api/v1/users/signup',
-    credentials
-  );
-  toastSuccessNotify('Successfully registered!');
-  return response.data;
-});
+    //try {
+    const response = await axiosInterceptorsWithoutToken.post(
+      'http://localhost:3000/api/v1/users/signup',
+      credentials
+    );
+    toastSuccessNotify('Successfully registered!');
+    return response.data;
+  }
+);
 
 /* ------------------------------------------------------ */
 /*                          LOGIN                         */
@@ -80,16 +79,16 @@ export const login = createAsyncThunk<
 /*                         LOGOUT                         */
 /* ------------------------------------------------------ */
 
-export const logout = createAsyncThunk<
-  { status: string },
-  void
->('currentUser/logout', async () => {
-  const response = await axiosInterceptorsWithToken.get(
-    'http://localhost:3000/api/v1/users/logout'
-  );
-  stopTokenCheckInterval(); // Stop the interval upon successful logout
-  return response.data.status;
-});
+export const logout = createAsyncThunk<{ status: string }, void>(
+  'currentUser/logout',
+  async () => {
+    const response = await axiosInterceptorsWithToken.get(
+      'http://localhost:3000/api/v1/users/logout'
+    );
+    stopTokenCheckInterval(); // Stop the interval upon successful logout
+    return response.data.status;
+  }
+);
 
 /* ------------------------------------------------------ */
 /*                         UPDATE                         */
@@ -264,7 +263,7 @@ const currentUserSlice = createSlice({
       })
       .addCase(logout.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload || 'Logout failed';
+        state.error = action.payload as string || 'Logout failed';
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.status = 'update success';

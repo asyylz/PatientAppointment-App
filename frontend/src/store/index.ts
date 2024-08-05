@@ -47,36 +47,36 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 //   devTools: process.env.NODE_ENV !== 'production',
 // });
 
-const rootPersistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['currentUser', 'doctors'], // Only persist the 'currentUserSlice' slice
-};
+// const rootPersistConfig = {
+//   key: 'root',
+//   storage,
+//   whitelist: ['currentUser', 'doctors'], // Only persist the 'currentUserSlice' slice
+// };
 
 const authPersistConfig = {
   key: 'currentUser',
   storage: storage,
- // blacklist: ['status', 'error'],
+  // blacklist: ['status', 'error'],
 };
-// const doctorPersistConfig = {
-//   key: 'doctors',
-//   storage: storage,
-//  // blacklist: ['status','error']
-// }
+const doctorPersistConfig = {
+  key: 'doctors',
+  storage: storage,
+  // blacklist: ['status','error']
+};
 const allReducers = combineReducers({
   currentUser: persistReducer(authPersistConfig, currentUserReducer),
   departments: departmentsReducer,
-  doctors: doctorsReducer,
+  doctors: persistReducer(doctorPersistConfig, doctorsReducer),
   reviews: reviewsReducer,
   search: searchReducer,
   appointmentsForDoctor: appointmentsForDoctorReducer,
   appointmentsForPatient: appointmentsForPatientReducer,
 });
 
-const persistedReducer = persistReducer(rootPersistConfig, allReducers);
+//const persistedReducer = persistReducer(rootPersistConfig, allReducers);
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: allReducers,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

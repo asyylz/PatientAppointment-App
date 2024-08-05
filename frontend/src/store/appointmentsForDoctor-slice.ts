@@ -4,6 +4,7 @@ import {
 } from './create-generic-slice';
 
 export const doctorAppointmentsUrl = (id: string) => {
+  console.log(id);
   return `http://localhost:3000/api/v1/appointments/doctors/${id}`;
 };
 

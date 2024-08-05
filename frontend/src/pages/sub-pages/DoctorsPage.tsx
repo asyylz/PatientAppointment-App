@@ -37,8 +37,7 @@ const Doctors: React.FC = () => {
   const queryParams = new URLSearchParams(location.search);
   const departmentId = queryParams.get('departmentId');
   //const pagination2 = queryParams.get('page');
-  //console.log(departmentId);
-  // console.log(location);
+
 
   useEffect(() => {
     // if (departmentId) dispatch(fetchDoctors({ pagination, departmentId }));

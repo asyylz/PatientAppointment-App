@@ -11,7 +11,7 @@ import MapAndAdressForm from './MapAndAdressForm';
 
 const ProfileForm: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { userData, status, token } = useSelector(
+  const { userData, status } = useSelector(
     (state: RootState) => state.currentUser
   );
 
@@ -47,7 +47,7 @@ const ProfileForm: React.FC = () => {
       address: userData?.address,
     });
   };
- 
+
   const updateInfo = () => {
     const userUpdatedFormData = new FormData();
     if (updatedUserData) {

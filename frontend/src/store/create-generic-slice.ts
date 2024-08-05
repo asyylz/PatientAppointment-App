@@ -93,39 +93,39 @@ export const fetchEntitiesWithIdAndToken = <T>(
 ) =>
   createAsyncThunk<T, { id: string; token: string; pagination?: number }>(
     `${entity}/fetchWithIdAndToken`,
-    async ({ id, pagination }, { rejectWithValue }) => {
+    async ({ id, pagination }) => {
       // Generate the URL, handle undefined pagination if needed
       const requestUrl = url(id, pagination);
-      try {
-        const { axiosInterceptorsWithToken } = await import(
-          '../hooks/axiosInterceptors'
-        );
-        // Make the API request with the token in the headers
-        const response = await axiosInterceptorsWithToken.get(
-          requestUrl
-          //    {
-          //   headers: { Authorization: `Bearer ${token}` },
-          // }
-        );
-        // return response.data.data[entity];
-        console.log(response.data);
-        return response.data.data;
-      } catch (err) {
-        // Check if `err` has `response` property
-        if (err.response) {
-          console.log(err);
-          // Return a detailed error message using `rejectWithValue`
-          return rejectWithValue({
-            message: err.response.data.message || 'An error occurred',
-            details: err.response.data.error || err.message,
-          });
-        } else {
-          // Handle cases where there is no response property
-          return rejectWithValue({
-            message: err.message || 'An unknown error occurred',
-          });
-        }
-      }
+      //  try {
+      const { axiosInterceptorsWithToken } = await import(
+        '../hooks/axiosInterceptors'
+      );
+      // Make the API request with the token in the headers
+      const response = await axiosInterceptorsWithToken.get(
+        requestUrl
+        //    {
+        //   headers: { Authorization: `Bearer ${token}` },
+        // }
+      );
+      // return response.data.data[entity];
+      console.log(response.data);
+      return response.data.data;
+      // } catch (err) {
+      //   // Check if `err` has `response` property
+      //   if (err.response) {
+      //     console.log(err);
+      //     // Return a detailed error message using `rejectWithValue`
+      //     return rejectWithValue({
+      //       message: err.response.data.message || 'An error occurred',
+      //       details: err.response.data.error || err.message,
+      //     });
+      //   } else {
+      //     // Handle cases where there is no response property
+      //     return rejectWithValue({
+      //       message: err.message || 'An unknown error occurred',
+      //     });
+      //   }
+      // }
     }
   );
 

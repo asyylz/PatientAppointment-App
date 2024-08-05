@@ -15,7 +15,7 @@ const handleErrorResponse = async (error: any) => {
     error.response?.data?.message || 'An unexpected error occurred';
 
   if (status === 401) {
-    //await store.dispatch(logout());
+    await store.dispatch(logout());
     toastErrorNotify(error.response.data.message); // wrong logi credentials
   } else if (status === 404) {
     toastErrorNotify('Resource not found!');
@@ -92,7 +92,8 @@ axiosInterceptorsWithToken.interceptors.response.use(
     console.log(status);
     console.log(error);
     console.log(error.response.data.message);
-    toastErrorNotify(error.response.data.message)
+    //toastErrorNotify(error.response.data.message)
+    handleErrorResponse
     
     // if (
     //   (status === 401 &&

@@ -1,11 +1,16 @@
+@import url('./../App.css');
+
 .container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 80px 1fr;
     align-items: center;
     justify-items: center;
     color: #707070;
     min-height: 100vh;
     background: #F2F2F2;
+    -webkit-animation: moveFromLeftFade 1s ease both;
+    animation: moveFromLeftFade 1s ease both;
 
 }
 
@@ -20,13 +25,21 @@
     background: #C7BEBE;
 }
 
+.navbar__wrapper {
+    grid-column: span 2;
+    height: 80px;
+    width: 100vw;
+}
+
 .wrapper {
     position: relative;
-    max-width: 350px;
+    max-width: 450px;
+    width: 40vw;
     background: #fff;
     padding: 34px;
     border-radius: 6px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
 }
 
 
@@ -65,14 +78,14 @@ form .policy h3 {
     font-size: 10px;
     margin: auto 0;
     margin-left: 6px;
-    
+
 }
 
 .policy input {
     height: 15px;
     width: 15px;
     margin: auto 0;
-    min-width: 30px; /*to override global*/
+    min-width: 30px;
 }
 
 .policy h3 {
@@ -131,6 +144,16 @@ form h3 {
         font-size: 16px;
     }
 
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .wrapper {
+        width: 60vw;
+        grid-column: span 2;
+        margin: 2rem 0;
+    }
+
     .policy h3 {
         font-size: 10px;
         margin: auto 6px;
@@ -164,13 +187,6 @@ form h3 {
 
 
 @media (max-width: 767px) {
-    .container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        margin: 3rem;
-
-    }
-
     .container::before {
         display: none;
     }

@@ -1,7 +1,8 @@
-.main {
+/* .main {
     min-height: 100%;
-    background-color: #f3f0ef;
-}
+} */
+ 
+@import url('./../../App.css');
 
 .main__sections--container {
     display: grid;
@@ -9,6 +10,8 @@
     grid-template-rows: 1fr min(300px);
     min-height: 100vh;
     transition: transform 0.5s ease-in, opacity 0.5s ease-in;
+    -webkit-animation: moveFromLeftFade .7s ease both;
+    animation: moveFromLeftFade .7s ease both;
 }
 
 .main__section--left {
@@ -23,6 +26,7 @@
 }
 
 .main__container--outlet {
+    /* border: 1px solid red; */
     min-height: 100vh;
     max-width: calc(100vw - 190px);
 }

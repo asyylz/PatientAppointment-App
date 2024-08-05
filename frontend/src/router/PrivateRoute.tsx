@@ -1,7 +1,6 @@
 // PrivateRoute.tsx
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { toastErrorNotify } from '../helper/ToastNotify';
 import classes from './PrivateRoute.module.css';
 interface PrivateRouteProps {
   children: React.ReactNode;

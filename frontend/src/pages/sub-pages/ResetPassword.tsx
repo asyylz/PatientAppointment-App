@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CustomInput from '../../components/UI/CustomInput';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../store/currentUser-slice';
 import { useSelector } from 'react-redux';
@@ -14,12 +14,8 @@ interface data {
 }
 
 const ResetPassword: React.FC = () => {
-  // const useQuery = () => {
-  //   return new URLSearchParams(useLocation().search);
-  // };
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const { resetToken } = useParams();
   const { status } = useSelector((state: RootState) => state.currentUser);
 
   const [passwordAndResetTokenData, setPasswordAndResetTokenData] =
@@ -34,11 +30,6 @@ const ResetPassword: React.FC = () => {
     if (passwordAndResetTokenData) {
       dispatch(resetPassword({ ...passwordAndResetTokenData }));
     }
-    console.log(status);
-
-    // if (status === 'reset success' && token) {
-    //   navigate('/user/dashboard');
-    // }
   };
 
   useEffect(() => {

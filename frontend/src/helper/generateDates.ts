@@ -1,12 +1,12 @@
-const days = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-];
+// const days = [
+//   'Monday',
+//   'Tuesday',
+//   'Wednesday',
+//   'Thursday',
+//   'Friday',
+//   'Saturday',
+//   'Sunday',
+// ];
 
 export const getWeekDatesFromToday = (week: 'current' | 'next') => {
   // Get today's date
@@ -53,7 +53,6 @@ export const getWeekDatesFromToday = (week: 'current' | 'next') => {
     return { date: formattedDate, day };
   });
 
-  console.log(weekDates);
   return weekDates;
 };
 

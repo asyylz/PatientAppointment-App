@@ -29,7 +29,8 @@ const AvailabilityTable: React.FC = () => {
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;
-
+console.log(appointmentsForDoctor)
+console.log(appointmentsForDoctor?.length)
 
   /* ---------------------- useSates ---------------------- */
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -47,7 +48,7 @@ const AvailabilityTable: React.FC = () => {
         })
       );
     }
-  }, [openModal]);
+  }, [openModal,selectedDoctor]);
 
   const handleSlotClick = (time: string, date: string) => {
     setOpenModal(true);
