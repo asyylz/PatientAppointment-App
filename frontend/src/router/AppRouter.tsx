@@ -15,11 +15,18 @@ import PrivateRouteForRoles from './PrivateRouteForRoles';
 import MainLayout from '../pages/layouts/MainLayout';
 import SettingsPage from '../pages/sub-pages/SettingsPage';
 import ResetPassword from '../pages/sub-pages/ResetPassword';
+import ContactPage from '../pages/ContactPage';
+import HomeLayout from '../pages/layouts/HomeLayout';
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <HomePage />,
+    // element: <HomePage />,
+    element: <HomeLayout />,
+    children: [
+      { path: '/', element: <HomePage /> },
+      { path: '/contact', element: <ContactPage /> },
+    ],
   },
   {
     path: '/user',
@@ -80,6 +87,10 @@ const routes: RouteObject[] = [
   {
     path: '/auth',
     element: <AuthPage />,
+  },
+  {
+    path: '/contact',
+    element: <ContactPage />,
   },
   { path: 'resetPassword/:resetToken', element: <ResetPassword /> },
 ];

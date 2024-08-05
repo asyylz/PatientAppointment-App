@@ -14,7 +14,8 @@
     --primary-hover: #c4c4c4;
     --primary-textcolor: #444;
     --scaleUp: var(--scaleUp);
-     margin: 0;
+    --font-family: "Rajdhani", sans-serif;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
 
@@ -57,14 +58,6 @@ button.Toastify__close-button:hover {
 }
 
 
-/* .container {
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    justify-content: center;
-
-} */
-
 /* applies all buttons,textaraes,selectboxes */
 button {
     text-decoration: none;
@@ -96,6 +89,7 @@ textarea {
     border-bottom: 3px solid var(--primary-background);
     padding: 6px;
     font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
     width: 100%;
 }
 
@@ -164,18 +158,6 @@ select {
 }
 
 
-/* @keyframes slidein {
-    from {
-        translate: 150vw 0;
-        scale: 200% 1;
-    }
-
-    to {
-        translate: 0 0;
-        scale: 100% 1;
-    }
-} */
-
 @keyframes scaleUp {
     from {
         opacity: 0.5;
@@ -205,36 +187,48 @@ select {
         opacity: 1;
     }
 }
+
 @keyframes slideIn {
     0% {
-      transform: translateX(500px) scale(.2);
+        transform: translateX(500px) scale(.2);
     }
+
     100% {
-      transform: translateX(0px) scale(1);
+        transform: translateX(0px) scale(1);
     }
-  }
-  @keyframes slideInFromLeft {
+}
+
+@keyframes slideInFromLeft {
     0% {
-      transform: translateY(-400px) scale(.2);
+        transform: translateY(-400px) scale(.2);
     }
+
     100% {
-      transform: translateX(0px) scale(1);
+        transform: translateX(0px) scale(1);
     }
-  }
+}
 
 @-webkit-keyframes moveFromLeftFade {
-	from { opacity: 0.3; -webkit-transform: translateX(-100%); }
+    from {
+        opacity: 0.3;
+        -webkit-transform: translateX(-100%);
+    }
 }
+
 @keyframes moveFromLeftFade {
-	from { opacity: 0.3; -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+    from {
+        opacity: 0.3;
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+    }
 }
 
 @keyframes expand {
     0% {
-      transform: translateX(100%);
+        transform: translateX(100%);
     }
+
     100% {
-      transform: translateX(0);
+        transform: translateX(0);
     }
-  }
-  
+}

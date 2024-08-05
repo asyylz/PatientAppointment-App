@@ -16,7 +16,7 @@
 }
 
 .container--body {
-    grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(270px);
+    grid-template-rows: max(62.5vw) max(7vw) 1fr max(7vw) 1fr ;
 }
 
 .container--section1 {
@@ -367,7 +367,7 @@
 
 @media (min-width: 414px) and (max-width:767px) {
     .container--body {
-        grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(450px);
+        grid-template-rows: max(62.5vw) max(7vw) 1fr max(7vw) 1fr;
     }
 
     .description {
@@ -412,7 +412,7 @@
 
 @media(min-width: 375px)and (max-width: 413px) {
     .container--body {
-        grid-template-rows: 70px max(62.5vw) max(7vw) 1fr max(7vw) 1fr min(450px);
+        grid-template-rows: max(62.5vw) max(7vw) 1fr max(7vw) 1fr;
     }
 
     .description {

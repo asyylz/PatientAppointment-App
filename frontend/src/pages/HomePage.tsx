@@ -45,7 +45,7 @@ export default function HomePage() {
   return (
     <div className={classes.wrapper}>
       <div className={`${classes.container} ${classes['container--body']}`}>
-        <Navbar />
+      
         <section
           className={`${classes.container} ${classes['container--section1']}`}
         >
@@ -122,7 +122,6 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-        <Footer />
       </div>
     </div>
   );

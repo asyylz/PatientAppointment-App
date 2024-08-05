@@ -1,4 +1,5 @@
 @import url('./../../App.css');
+
 .navbar {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     display: flex;
@@ -33,6 +34,7 @@
     font-size: clamp(9px, 1.8vw, 16px);
     text-align: center;
     width: 12vw;
+    text-decoration: none;
 }
 
 .navbar__link:hover {
@@ -44,7 +46,6 @@
 .navbar__link.navbar__link--logo {
     text-align: start;
     width: 8vw;
-
 }
 
 .navbar__link--login {
@@ -107,7 +108,6 @@
 }
 
 @media (min-width: 414px) and (max-width:767px) {
-
     .navbar {
         padding: 0 0.5rem;
     }
