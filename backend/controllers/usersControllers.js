@@ -90,7 +90,6 @@ exports.deleteUser = async (req, res, next) => {
 
 // UPDATE //
 exports.updateUser = async (req, res, next) => {
-  //console.log('from req.file', req.file);
   let imagePath;
   try {
     const user = await User.findById(req.user._id);

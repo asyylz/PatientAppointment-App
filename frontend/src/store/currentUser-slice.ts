@@ -1,57 +1,19 @@
 import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toastErrorNotify, toastSuccessNotify } from './../helper/ToastNotify';
-import axiosInterceptors from '../hooks/axiosInterceptors';
+import {
+  axiosInterceptorsWithToken,
+  axiosInterceptorsWithoutToken,
+} from '../hooks/axiosInterceptors';
 import {
   checkTokenExpiration,
   TOKEN_CHECK_INTERVAL,
-} from './../hooks/axiosInterceptors';
+} from '../hooks/axiosInterceptors';
 
-const initialState: CurrentUser = {
-  status: 'idle',
-  token: '',
-  userData: null,
-};
-
-/* ------------------------------------------------------ */
-/*                        REGISTER                        */
-/* ------------------------------------------------------ */
-export const register = createAsyncThunk<
-  CurrentUserPayload,
-  FormData,
-  { rejectValue: string }
->('currentUser/signup', async (credentials, { rejectWithValue }) => {
-  console.log(credentials);
-
-  try {
-    const response = await axios.post(
-      'http://localhost:3000/api/v1/users/signup',
-      credentials
-    );
-    toastSuccessNotify('Successfully registered!');
-
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      console.log(error.response?.data.message);
-      toastErrorNotify(error.response?.data.message);
-      if (axiosError.response?.status === 401) {
-        toastErrorNotify(
-          `${(axiosError.response.data as { message: string }).message}`
-        );
-      }
-      return rejectWithValue(error.message);
-    }
-  }
-});
-
-/* ------------------------------------------------------ */
-/*                          LOGIN                         */
-/* ------------------------------------------------------ */
 // Global variable to hold the interval ID
 let intervalId: NodeJS.Timeout | null = null;
-console.log(intervalId)
+console.log(intervalId);
+
 // Function to start the interval
 const startTokenCheckInterval = () => {
   // Clear existing interval if it exists
@@ -73,34 +35,45 @@ const stopTokenCheckInterval = () => {
   }
 };
 
+const initialState: CurrentUser = {
+  status: 'idle',
+  token: '',
+  userData: null,
+};
 
+/* ------------------------------------------------------ */
+/*                        REGISTER                        */
+/* ------------------------------------------------------ */
+export const register = createAsyncThunk<
+  CurrentUserPayload,
+  FormData
+>('currentUser/signup', async (credentials) => {
+ // console.log(credentials);
+
+  //try {
+  const response = await axiosInterceptorsWithoutToken.post(
+    'http://localhost:3000/api/v1/users/signup',
+    credentials
+  );
+  toastSuccessNotify('Successfully registered!');
+  return response.data;
+});
+
+/* ------------------------------------------------------ */
+/*                          LOGIN                         */
+/* ------------------------------------------------------ */
 export const login = createAsyncThunk<
   CurrentUserPayload,
-  { email: string; password: string },
-  { rejectValue: string }
->('currentUser/login', async (credentials, { rejectWithValue }) => {
-  try {
-    const response = await axios.post(
-      'http://localhost:3000/api/v1/users/login',
-      credentials,
-      { withCredentials: true }
-    );
-    toastSuccessNotify('Successfully login!');
-    startTokenCheckInterval();
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      console.log(error);
-      toastErrorNotify(error.response?.data.message);
-      if (axiosError.response?.status === 401) {
-        toastErrorNotify(
-          `${(axiosError.response.data as { message: string }).message}`
-        );
-      }
-      return rejectWithValue(error.message);
-    }
-  }
+  { email: string; password: string }
+>('currentUser/login', async (credentials) => {
+  const response = await axiosInterceptorsWithoutToken.post(
+    'http://localhost:3000/api/v1/users/login',
+    credentials,
+    { withCredentials: true }
+  );
+  toastSuccessNotify('Successfully login!');
+  startTokenCheckInterval();
+  return response.data;
 });
 
 /* ------------------------------------------------------ */
@@ -109,27 +82,13 @@ export const login = createAsyncThunk<
 
 export const logout = createAsyncThunk<
   { status: string },
-  void,
-  { rejectValue: string }
->('currentUser/logout', async (_, { rejectWithValue }) => {
-  try {
-    const response = await axiosInterceptors.get(
-      'http://localhost:3000/api/v1/users/logout'
-    );
-    stopTokenCheckInterval(); // Stop the interval upon successful logout
-    return response.data.status;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      if (axiosError.response?.status === 401) {
-        toastErrorNotify(
-          `${(axiosError.response.data as { message: string }).message}`
-        );
-      }
-      return rejectWithValue(error.message);
-    }
-    return rejectWithValue('An unexpected error occurred');
-  }
+  void
+>('currentUser/logout', async () => {
+  const response = await axiosInterceptorsWithToken.get(
+    'http://localhost:3000/api/v1/users/logout'
+  );
+  stopTokenCheckInterval(); // Stop the interval upon successful logout
+  return response.data.status;
 });
 
 /* ------------------------------------------------------ */
@@ -139,31 +98,28 @@ export const updateUserInfo = createAsyncThunk<
   CurrentUserPayload,
   FormData,
   { rejectValue: string }
->(
-  'currentUser/updateProfile',
-  async (userUpdatedFormData, { rejectWithValue }) => {
-    try {
-      const response = await axiosInterceptors.patch(
-        'http://localhost:3000/api/v1/users/updateUser',
-        userUpdatedFormData
-      );
+>('currentUser/updateProfile', async (userUpdatedFormData) => {
+  //try {
+  const response = await axiosInterceptorsWithToken.patch(
+    'http://localhost:3000/api/v1/users/updateUser',
+    userUpdatedFormData
+  );
 
-      toastSuccessNotify('Successfully updated!');
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        if (axiosError.response?.status === 401) {
-          toastErrorNotify(
-            `${(axiosError.response.data as { message: string }).message}`
-          );
-        }
-        return rejectWithValue(error.message);
-      }
-      return rejectWithValue('An unexpected error occurred');
-    }
-  }
-);
+  toastSuccessNotify('Your profile successfully updated!');
+  return response.data;
+  //   } catch (error) {
+  //     if (axios.isAxiosError(error)) {
+  //       const axiosError = error as AxiosError;
+  //       if (axiosError.response?.status === 401) {
+  //         toastErrorNotify(
+  //           `${(axiosError.response.data as { message: string }).message}`
+  //         );
+  //       }
+  //       return rejectWithValue(error.message);
+  //     }
+  //     return rejectWithValue('An unexpected error occurred');
+  //   }
+});
 
 /* ------------------------------------------------------ */
 /*                         FORGET                         */
@@ -172,26 +128,13 @@ export const forgotPassword = createAsyncThunk<
   CurrentUserPayload,
   { email: string },
   { rejectValue: string }
->('currentUser/forgotPassword', async (email, { rejectWithValue }) => {
-  try {
-    const response = await axios.post(
-      'http://localhost:3000/api/v1/users/forgotPassword',
-      email
-    );
-    toastSuccessNotify(`Email sent to ${email.email} successfully!`);
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      if (axiosError.response?.status === 401) {
-        toastErrorNotify(
-          `${(axiosError.response.data as { message: string }).message}`
-        );
-      }
-      return rejectWithValue(error.message);
-    }
-    return rejectWithValue('An unexpected error occurred');
-  }
+>('currentUser/forgotPassword', async (email) => {
+  const response = await axiosInterceptorsWithoutToken.post(
+    'http://localhost:3000/api/v1/users/forgotPassword',
+    email
+  );
+  toastSuccessNotify(`Email sent to ${email.email} successfully!`);
+  return response.data;
 });
 
 /* ------------------------------------------------------ */
@@ -199,34 +142,20 @@ export const forgotPassword = createAsyncThunk<
 /* ------------------------------------------------------ */
 export const resetPassword = createAsyncThunk<
   CurrentUserPayload,
-  { password: string; passwordConfirm: string; resetToken: string },
-  { rejectValue: string }
+  { password: string; passwordConfirm: string; resetToken: string }
 >(
   'currentUser/resetPassword',
-  async ({ password, passwordConfirm, resetToken }, { rejectWithValue }) => {
-    try {
-      const response = await axios.patch(
-        `http://localhost:3000/api/v1/users/resetPassword/${resetToken}`,
-        {
-          password,
-          passwordConfirm,
-        }
-      );
-      toastSuccessNotify(`Your password successfully re-set`);
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 400) {
-          toastErrorNotify(
-            `${(error.response.data as { message: string }).message}`
-          );
-
-          return rejectWithValue(error.response?.data?.message);
-        }
+  async ({ password, passwordConfirm, resetToken }) => {
+    const response = await axiosInterceptorsWithoutToken.patch(
+      `http://localhost:3000/api/v1/users/resetPassword/${resetToken}`,
+      {
+        password,
+        passwordConfirm,
       }
-      return rejectWithValue('An unexpected error occurred');
-    }
+    );
+    toastSuccessNotify(`Your password successfully re-set`);
+    console.log(response.data);
+    return response.data;
   }
 );
 /* ------------------------------------------------------ */
@@ -238,31 +167,16 @@ export const updatePassword = createAsyncThunk<
     oldPassword: string;
     newPassword: string;
     confirmNewPassword: string;
-  },
-  { rejectValue: string }
->('currentUser/updatePassword', async (data, { rejectWithValue }) => {
-  const { oldPassword, newPassword, confirmNewPassword } = data;
-
-  try {
-    const response = await axiosInterceptors.patch(
-      'http://localhost:3000/api/v1/users/updateMyPassword',
-      { oldPassword, newPassword, confirmNewPassword }
-    );
-    toastSuccessNotify(`Your password successfully updated`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 400) {
-        toastErrorNotify(
-          `${(error.response.data as { message: string }).message}`
-        );
-
-        return rejectWithValue(error.response?.data?.message);
-      }
-    }
-    return rejectWithValue('An unexpected error occurred');
   }
+>('currentUser/updatePassword', async (data) => {
+  const { oldPassword, newPassword, confirmNewPassword } = data;
+  const response = await axiosInterceptorsWithToken.patch(
+    'http://localhost:3000/api/v1/users/updateMyPassword',
+    { oldPassword, newPassword, confirmNewPassword }
+  );
+  toastSuccessNotify(`Your password successfully updated`);
+  console.log(response.data);
+  return response.data;
 });
 
 /* ------------------------------------------------------ */
@@ -272,27 +186,13 @@ export const refreshSession = createAsyncThunk<
   CurrentUserPayload,
   void,
   { rejectValue: string }
->('currentUser/refreshSession', async (_, { rejectWithValue }) => {
-  try {
-    const response = await axiosInterceptors.post(
-      'http://localhost:3000/api/v1/users/refresh-session'
-    );
+>('currentUser/refreshSession', async () => {
+  const response = await axiosInterceptorsWithToken.post(
+    'http://localhost:3000/api/v1/users/refresh-session'
+  );
 
-    toastSuccessNotify('Your session has been extended another 15 mins!');
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      console.log(error);
-      toastErrorNotify(error.response?.data.message);
-      if (axiosError.response?.status === 401) {
-        toastErrorNotify(
-          `${(axiosError.response.data as { message: string }).message}`
-        );
-      }
-      return rejectWithValue(error.message);
-    }
-  }
+  toastSuccessNotify('Your session has been extended another 15 mins!');
+  return response.data;
 });
 
 /* ------------------------------------------------------ */
@@ -339,6 +239,10 @@ const currentUserSlice = createSlice({
         state.token = action.payload.token;
         state.userData = action.payload.data.user;
         state.error = null;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message || 'Register failed';
       })
       .addCase(resetPassword.fulfilled, (state, action) => {
         state.status = 'success';

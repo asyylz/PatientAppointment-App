@@ -8,39 +8,44 @@ import { forgotPassword, login, register } from '../store/currentUser-slice';
 import ImagePicker from '../components/UI/ImagePicker';
 import CustomInput from '../components/UI/CustomInput';
 
-// const [email, setEmail] = useState<string>('aytekin@test.com');
-//const [email, setEmail] = useState<string>('alice.johnson@example.com');
-//const [password, setPassword] = useState<string>('newpass12');
-//6946224Asy@
-
 const AuthPage = () => {
-  const [userData, setUserData] = useState<Credentials | null>({
-    email: 'alice@test.com',
-    password: '6946224Asy!',
-    // email: '',
-    // password: '',
+  const [registerData, setRegisterData] = useState<Credentials>({
     // email: 'aytekin@test.com',
     // password: 'newpass12',
+    name: '',
+    email: '',
+    password: '',
+    DOB: '',
+    passwordConfirm: '',
+    policy: false,
+  });
+  const [loginData, setLoginData] = useState<Credentials>({
+    // email: '',
+    // password: '',
+    email: 'alice@test.com',
+    password: '6946224Asy!',
   });
 
-  //console.log(userData);
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
-  const {status } = useSelector((state: RootState) => state.currentUser);
+  const { status } = useSelector((state: RootState) => state.currentUser);
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
 
-  // async yapinca test pass etmedi
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (userData && userData.email && userData.password) {
-      await dispatch(
-        login({ email: userData.email, password: userData.password })
+    if (loginData && loginData.email && loginData.password) {
+      const response = await dispatch(
+        login({ email: loginData.email, password: loginData.password })
       );
-      setUserData(null);
-    } else {
-      console.error('Email and password are required for login.');
+      console.log(response);
+      console.log(login.fulfilled.match(response))
+      if (login.fulfilled.match(response))
+        setLoginData({
+          email: '',
+          password: '',
+        });
     }
   };
 
@@ -52,23 +57,24 @@ const AuthPage = () => {
 
   const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const userFormData = new FormData();
-    if (userData) {
-      Object.entries(userData).forEach(([key, value]) => {
+    if (registerData) {
+      Object.entries(registerData).forEach(([key, value]) => {
         if (value !== undefined) {
           userFormData.append(key, value.toString()); // Ensure value is a string
         }
       });
     }
-
-    try {
-      await dispatch(register(userFormData)); // Handle async action
-    } catch (error) {
-      console.error('Registration failed:', error); // Handle errors
-    }
-
-    setUserData(null);
+    const response = await dispatch(register(userFormData)); // Handle async action
+    if (register.fulfilled.match(response))
+      setRegisterData({
+        name: '',
+        email: '',
+        password: '',
+        DOB: null,
+        passwordConfirm: '',
+        policy: false,
+      });
   };
 
   const handleInputChange = (
@@ -79,18 +85,18 @@ const AuthPage = () => {
     const { name, value, type } = e.target;
     if (name === 'DOB' && type === 'date') {
       const formattedDate = new Date(`${value}T00:00:00.000Z`);
-      setUserData((prevValues) => ({
+      setRegisterData((prevValues) => ({
         ...prevValues,
         DOB: formattedDate,
       }));
     } else if (name === 'policy' && type === 'checkbox') {
       const checkboxValue = (e.target as HTMLInputElement).checked;
-      setUserData((prevValues) => ({
+      setRegisterData((prevValues) => ({
         ...prevValues,
         policy: checkboxValue,
       }));
     } else {
-      setUserData((prevValues) => ({
+      setRegisterData((prevValues) => ({
         ...prevValues,
         [name]: value,
       }));
@@ -100,8 +106,8 @@ const AuthPage = () => {
   const handleClick = () => {
     //e: React.MouseEvent
     //e.preventDefault();
-    if (userData && userData.email) {
-      dispatch(forgotPassword({ email: userData.email }));
+    if (loginData && loginData.email) {
+      dispatch(forgotPassword({ email: loginData.email }));
     }
   };
 
@@ -115,18 +121,22 @@ const AuthPage = () => {
           <CustomInput
             type="email"
             name="email"
-            value={userData?.email}
+            value={loginData?.email}
             placeHolder="Enter your email"
-            onChange={handleInputChange}
+            onChange={(e) =>
+              setLoginData((prev) => ({ ...prev, email: e.target.value }))
+            }
             required
           />
 
           <CustomInput
             type="password"
             name="password"
-            value={userData?.password}
+            value={loginData?.password}
             placeHolder="Enter your password"
-            onChange={handleInputChange}
+            onChange={(e) =>
+              setLoginData((prev) => ({ ...prev, password: e.target.value }))
+            }
             required
           />
           <div className={classes.forgetPassword}>
@@ -145,6 +155,7 @@ const AuthPage = () => {
           <CustomInput
             type="text"
             name="name"
+            value={registerData?.name}
             placeHolder="Enter your name"
             onChange={handleInputChange}
             required
@@ -153,6 +164,7 @@ const AuthPage = () => {
           <CustomInput
             type="email"
             name="email"
+            value={registerData?.email}
             placeHolder="Enter your email"
             onChange={handleInputChange}
             required
@@ -160,6 +172,7 @@ const AuthPage = () => {
           <CustomInput
             type="date"
             name="DOB"
+            // value={registerData.DOB}
             placeHolder="Enter your DOB"
             onChange={handleInputChange}
             required
@@ -168,12 +181,14 @@ const AuthPage = () => {
           <CustomInput
             type="password"
             name="password"
+            value={registerData.password}
             placeHolder="Enter your password"
             onChange={handleInputChange}
           />
           <CustomInput
             type="password"
             name="passwordConfirm"
+            value={registerData.passwordConfirm}
             placeHolder="Confirm your password"
             onChange={handleInputChange}
             required
@@ -183,18 +198,19 @@ const AuthPage = () => {
               name="policy"
               type="checkbox"
               onChange={handleInputChange}
+              value={registerData.policy?.toString()}
               required
             />
             <h3>I accept all terms & condition</h3>
           </div>
-          <div className={classes.imagePickerWrapper}>
+          {/* <div className={classes.imagePickerWrapper}>
             <ImagePicker
               name="image"
-              setter={setUserData}
+              setter={setRegisterData}
               // defaultImage="http://localhost:3000/static/userProfileImages/userDefaultAvatar.png"
               defaultImage="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/defaultUserAvatar.png"
             />
-          </div>
+          </div> */}
 
           <button type="submit">Register</button>
         </form>

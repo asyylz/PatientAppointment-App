@@ -8,6 +8,7 @@ const sendEmail = require('./../utils/email');
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN
+    //expiresIn: 30
   });
 };
 
@@ -16,7 +17,7 @@ const createSendToken = (user, statusCode, res, req) => {
   const decodedToken = jwt.decode(token);
   const expiresIn = decodedToken.exp * 1000; // Convert to milliseconds
   const expiresInDate = new Date(expiresIn);
-  
+
   // res.cookie('jwt', token, {
   //   expires: expiresInDate,
   //   httpOnly: false, // Set to true if you need to access via JavaScript
@@ -27,7 +28,7 @@ const createSendToken = (user, statusCode, res, req) => {
   res.cookie('jwtExpiry', expiresIn, {
     expires: expiresInDate,
     httpOnly: false, // Set to false if you need to access via JavaScript
-    secure: process.env.NODE_ENV === 'production', // Set to true if using HTTPS in production
+    //secure: process.env.NODE_ENV === 'production', // Set to true if using HTTPS in production
     sameSite: 'Lax' // Adjust based on your requirements ('Strict', 'Lax', 'None')
   });
 
@@ -55,7 +56,7 @@ exports.signup = async (req, res, next) => {
   if (req.fileLocation) {
     imagePath = req.fileLocation;
   } else {
-    imagePath = `userDefaultAvatar.png`;
+    imagePath = `https://patient-appointment-system.s3.eu-west-2.amazonaws.com/defaultUserAvatar.png`;
   }
 
   try {

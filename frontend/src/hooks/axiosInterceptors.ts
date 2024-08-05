@@ -2,15 +2,31 @@ import axios from 'axios';
 import { logout, refreshSession } from '../store/currentUser-slice';
 import store from '../store/index';
 import Cookies from 'js-cookie';
-//import { toastWarnNotify } from '../helper/ToastNotify';
+import { toastErrorNotify } from '../helper/ToastNotify';
+
+/* ------------------------------------------------------ */
+/*                     ERROR HANDLING                     */
+/* ------------------------------------------------------ */
+// Centralized error management for both instances
+const handleErrorResponse = async (error: any) => {
+  const status = error.response ? error.response.status : null;
+  console.log(error.response.data.message);
+  const message =
+    error.response?.data?.message || 'An unexpected error occurred';
+
+  if (status === 401) {
+    //await store.dispatch(logout());
+    toastErrorNotify(error.response.data.message); // wrong logi credentials
+  } else if (status === 404) {
+    toastErrorNotify('Resource not found!');
+  } else {
+    toastErrorNotify(message);
+  }
+
+  return Promise.reject(error);
+};
 
 let isRefreshing = false;
-
-const axiosInterceptors = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  withCredentials: true,
-  //timeout: 10000, // 10 seconds Set a timeout to handle slow network requests or unresponsive servers.
-});
 
 export const TOKEN_CHECK_INTERVAL = 10000; // Check every 10 seconds
 const TOKEN_WARNING_THRESHOLD = 60000; // 1 minute before expiry
@@ -31,17 +47,13 @@ export const checkTokenExpiration = async () => {
       const userConfirmed = window.confirm(
         'Your session is about to expire. Would you like to extend it?'
       );
+      console.log(userConfirmed);
       if (userConfirmed) {
+        console.log('asiye');
         isRefreshing = true;
-        try {
-          await store.dispatch(refreshSession());
-          console.log('Session successfully extended.');
-        } catch (error) {
-          console.error('Failed to refresh session:', error);
-          await store.dispatch(logout());
-        } finally {
-          isRefreshing = false;
-        }
+        await store.dispatch(refreshSession());
+        //console.log('Session successfully extended.');
+        isRefreshing = false;
       } else {
         await store.dispatch(logout());
         console.log('asiye');
@@ -50,8 +62,17 @@ export const checkTokenExpiration = async () => {
   }
 };
 
+/* ------------------------------------------------------ */
+/*                       WITH TOKEN                       */
+/* ------------------------------------------------------ */
+
+const axiosInterceptorsWithToken = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  withCredentials: true,
+  //timeout: 10000, // 10 seconds Set a timeout to handle slow network requests or unresponsive servers.
+});
 // Axios interceptor for attaching token to requests
-axiosInterceptors.interceptors.request.use(
+axiosInterceptorsWithToken.interceptors.request.use(
   (config) => {
     const state = store.getState();
     const currentToken = state.currentUser.token;
@@ -64,27 +85,49 @@ axiosInterceptors.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-axiosInterceptors.interceptors.response.use(
+axiosInterceptorsWithToken.interceptors.response.use(
   (response) => response,
   async (error) => {
     const status = error.response ? error.response.status : null;
-    //console.log(status);
-    //console.log(error);
-    // console.log(error.response.data.message);
-    if (
-      status === 401 &&
-      error.response.data.message ===
-        'Your session expired. Please login again!'
-    ) {
-      await store.dispatch(logout());
-    } else if (status === 404) {
-      // Handle not found errors
-    } else {
-      // Handle other errors
-    }
+    console.log(status);
+    console.log(error);
+    console.log(error.response.data.message);
+    toastErrorNotify(error.response.data.message)
+    
+    // if (
+    //   (status === 401 &&
+    //     error.response.data.message ===
+    //       'Your session expired. Please login again!') ||
+    //   (status === 500 && error.response.data.message === 'jwt expired')
+    // ) {
+    //   await store.dispatch(logout());
+    //   console.log('aaa');
+    //   toastErrorNotify('Your session expired. Please login again!');
+    // } else if (status === 404) {
+    //   // Handle not found errors
+    // } else if (status === 401) {
+    //   toastErrorNotify(error.response.data.message);
+    //   console.log(error.response.data.message);
+    // } else {
+    //   toastErrorNotify(error.response.data.message); // status 400
+    // }
 
     return Promise.reject(error);
   }
 );
 
-export default axiosInterceptors;
+/* ------------------------------------------------------ */
+/*                      WITHOUT TOKEN                     */
+/* ------------------------------------------------------ */
+const axiosInterceptorsWithoutToken = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  withCredentials: true,
+});
+
+// Adding response interceptor for axiosInterceptorsWithoutToken
+axiosInterceptorsWithoutToken.interceptors.response.use(
+  (response) => response,
+  handleErrorResponse
+);
+
+export { axiosInterceptorsWithToken, axiosInterceptorsWithoutToken };
