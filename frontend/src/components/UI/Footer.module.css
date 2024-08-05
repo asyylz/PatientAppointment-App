@@ -1,18 +1,3 @@
-/* .footer {
-     border: 1px solid red; 
-    height: 200px;
-    border-top: 4px solid #c4c4c4;
-    width: 100%;
-    background-color: var(--primary-background);
-    text-align: center;
-    grid-column: 1 / span 2;
-    z-index: 10;
-    margin-top: 10px;
-
-} */
-
-/* ----------------------- FOOTER ----------------------- */
-
 .footer {
     background-color: #444;
     height: 100%;
@@ -42,6 +27,17 @@
 
 .footer__input:hover {
     border-bottom: none;
+}
+
+.footer__logo {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin-right: 1rem;
+}
+
+.footer__logo img {
+    border-radius: 50%;
 }
 
 .footer__button {
@@ -143,10 +139,7 @@
 }
 
 /* Mobile view */
-@media (min-width: 768px) and (max-width:834px) {
-  
-
-}
+@media (min-width: 768px) and (max-width:834px) {}
 
 @media (min-width: 414px) and (max-width:767px) {
 

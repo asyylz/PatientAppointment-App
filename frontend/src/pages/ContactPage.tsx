@@ -15,7 +15,6 @@ const ContactPage: React.FC = () => {
     subject: '',
     message: '',
   });
-  console.log(contactData);
 
   const handleCancelClick = () => {
     setContactData({
@@ -71,6 +70,10 @@ const ContactPage: React.FC = () => {
         <button type="submit">Submit</button>
         <button onClick={handleCancelClick}>Cancel</button>
       </div>
+
+      {/* <div className={classes['logo']}>
+        <h1>H</h1>
+      </div> */}
     </div>
   );
 };

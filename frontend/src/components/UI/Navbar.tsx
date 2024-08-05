@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
       <a
         className={`${classes['navbar__link']} ${classes['navbar__link--logo']}`}
       >
-        LOGO
+        <img src="./public/PAS-LOGO.png" alt="" />
       </a>
       <a href="/" className={classes['navbar__link']}>
         HOME
@@ -18,7 +18,9 @@ const NavBar: React.FC = () => {
       <a className={classes['navbar__link']}>DOCTORS</a>
       <a className={classes['navbar__link']}>DEPARTMENTS</a>
       <a className={classes['navbar__link']}>GALERIA</a>
-      <a href="/contact" className={classes['navbar__link']}>CONTACT</a>
+      <a href="/contact" className={classes['navbar__link']}>
+        CONTACT
+      </a>
       <a
         className={`${classes['navbar__link']} ${classes['navbar__link--login']}`}
         href="/auth"

@@ -27,3 +27,20 @@
 }
 
 @media (min-width: 375px) and (max-width:413px) {}
+
+.logo {
+    height: 100px;
+    width: 100px;
+    background-color: #8FC1B5;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #E2D8D7;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px;
+}
+
+.logo h1 {
+    font-size: 56px;
+    font-family: 'Times New Roman', Times, serif;
+}
