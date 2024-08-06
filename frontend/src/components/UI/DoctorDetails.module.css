@@ -112,13 +112,15 @@
 
 @media (min-width:414px) and (max-width:767px) {
     .review__section--wrapper {
+        justify-items: center;
         grid-template-columns: calc(100vw - 60px);
+        grid-template-rows: auto auto 1fr;
     }
 }
 
-@media (min-width:375px) and (max-width:834px) {
+@media (min-width:375px) and (max-width:413px) {
     .review__section--wrapper {
-        display: grid;
+        justify-items: center;
         grid-template-columns: calc(100vw - 30px);
         grid-template-rows: auto auto 1fr;
     }

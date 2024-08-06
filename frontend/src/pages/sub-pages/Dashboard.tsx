@@ -1,36 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './../../App.css';
 import classes from './Dasboard.module.css';
 import { useSelector } from 'react-redux';
 import { FaStethoscope, FaBriefcaseMedical } from 'react-icons/fa';
 import { FaUserDoctor } from 'react-icons/fa6';
-import { fetchAppointmentsForPatient } from '../../store/appointmentsForPatient-slice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
 import ModalCustom from '../../components/UI/ModalCustom';
 import useHttp from '../../hooks/useHttp';
-import { formatDateForUI } from '../../helper/generateDates';
 import AppointmentForm from '../../components/UI/AppointmentForm';
-import { FaEdit } from 'react-icons/fa';
-import PaginationButtons from '../../components/UI/PaginationButtons';
+import PatientAppointmentsTable from './../../components/UI/PatientAppointmentsTable';
 
 const Dashboard: React.FC = () => {
-  const { userData, token } = useSelector(
-    (state: RootState) => state.currentUser
-  );
+  const { userData } = useSelector((state: RootState) => state.currentUser);
 
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment>();
+
   const [openModal, setOpenModal] = useState<string>('');
+
   const [appointmentIdToDelete, setAppointmentIdToDelete] =
     useState<ObjectId | null>(null);
 
-  const [pagination, setPagination] = useState<number>(1);
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForPatient
   );
   const { total, appointmentsForPatient, upcomingAppointments } = entities;
 
-  const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
 
   const confirmDelete = () => {
@@ -45,22 +38,6 @@ const Dashboard: React.FC = () => {
     setOpenModal('');
     setAppointmentIdToDelete(null);
   };
-  const handleClick = (appointment: Appointment) => {
-    setOpenModal('open');
-    setSelectedAppointment(appointment);
-  };
-
-  useEffect(() => {
-    if (userData?._id) {
-      dispatch(
-        fetchAppointmentsForPatient({
-          id: userData._id.toString(),
-          token,
-          pagination,
-        })
-      );
-    }
-  }, [appointmentIdToDelete, pagination, openModal]);
 
   const totalDoctors = [
     ...new Set(
@@ -149,70 +126,14 @@ const Dashboard: React.FC = () => {
               </div>
               <hr />
               {status === 'loading' && <div>Loading...</div>}
-
-              {status === 'succeeded' && (
-                <table>
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Doctor Name</th>
-                      <th>Date</th>
-                      <th>Concerns</th>
-                      <th>Time</th>
-                      <th>Diagnose</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className={classes['gap--line']}></tr>
-                    {appointmentsForPatient?.map(
-                      (appointment: Appointment, index: number) => (
-                        <React.Fragment key={appointment._id.toString()}>
-                          <tr
-                            className={
-                              new Date(appointment.appointmentDateAndTime) >
-                              new Date()
-                                ? `${classes.row} ${classes['row--active']}`
-                                : `${classes.row}`
-                            }
-                          >
-                            <td>{index + 1}.</td>
-                            <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
-                            <td>
-                              {formatDateForUI(
-                                appointment.appointmentDateAndTime
-                              )}
-                            </td>
-                            <td>{appointment.reason}</td>
-                            <td>
-                              {appointment.appointmentDateAndTime
-                                .split('T')[1]
-                                .slice(0, 5)}
-                            </td>
-                            <td>{appointment.diagnose}</td>
-                            <td>
-                              <FaEdit
-                                className={`${classes.icons} ${classes['icons--edit']}`}
-                                onClick={() => {
-                                  handleClick(appointment);
-                                }}
-                              />
-                            </td>
-                          </tr>
-                          <tr className={classes['gap--line']}></tr>
-                        </React.Fragment>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              )}
+              {error && <p>Error:{error}</p>}
+              <PatientAppointmentsTable
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+                setSelectedAppointment={setSelectedAppointment}
+                appointmentIdToDelete={appointmentIdToDelete}
+              />
             </div>
-            <PaginationButtons
-              setPagination={setPagination}
-              pagination={pagination}
-              length={appointmentsForPatient?.length}
-              limit={10}
-            />
           </div>
         </div>
       </div>

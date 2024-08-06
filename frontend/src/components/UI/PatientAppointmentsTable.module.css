@@ -1,0 +1,123 @@
+@import url('./../../App.css');
+
+/* .close {
+    border: 3px solid var(--color_4);
+    text-decoration: line-through;
+}
+
+.open {
+    border: 3px solid var(--color_5);
+} */
+
+/* ------------------------------------------------------ */
+/*                          Table                         */
+/* ------------------------------------------------------ */
+@media (min-width:1700px) {
+    table {
+        max-width: 1500px;
+    }
+}
+
+table {
+    margin: 0 auto;
+    border: 6px solid #c4c4c4 !important;
+    width: calc(100vw - 186px - 150px - 50px);
+}
+
+
+thead tr th {
+    font-weight: 600;
+    cursor: default;
+}
+
+.row.row--active {
+    background: var(--active-background);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.row {
+    background: var(--completed-background);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    text-decoration: line-through;
+}
+
+.gap--line {
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    height: 5px;
+}
+
+tbody table tr:last-child {
+    border-bottom: none;
+}
+
+.dashboard-right-section__bottom-appointments td {
+    text-align: left;
+}
+
+.dashboard-right-section__bottom-appointments tr:last-child,
+.dashboard-right-section__bottom-appointments tr:nth-child(7) {
+    text-align: center;
+}
+
+.icons--edit {
+    padding: 5px;
+    color: #fff;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    margin-left: 10px;
+    background: #4BB2F2;
+    cursor: pointer;
+}
+
+
+
+.dashboard-right-section__bottom td,
+.dashboard-right-section__bottom th {
+    font-size: clamp(10px, 1.7vw, 16px);
+    padding: clamp(2px, 6px, 10px);
+}
+
+
+
+@media (min-width:835px) and (max-width:930px) {
+    .dashboard-right-section__bottom td,
+    .dashboard-right-section__bottom th {
+        padding: 2px;
+    }
+}
+
+
+@media (min-width:835px) {
+table {
+        border: 3px solid #c4c4c4 !important;
+    }
+
+}
+
+@media (min-width:768px) and (max-width:834px) {
+    table {
+        margin: 0 auto;
+        width: calc(100vw - 100px) !important;
+        border: 3px solid #c4c4c4 !important;
+    }
+
+}
+
+
+@media (min-width:414px) and (max-width:767px) {
+    table {
+        margin: 0 auto;
+        width: calc(100vw - 100px) !important;
+        border: 3px solid #c4c4c4 !important;
+    }
+
+}
+
+@media (min-width:375px) and (max-width:413px) {
+    table {
+        border: 3px solid #c4c4c4 !important;
+        width: calc(100vw - 70px);
+    }
+}

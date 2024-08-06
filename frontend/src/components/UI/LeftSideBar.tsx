@@ -6,7 +6,6 @@ import { useState } from 'react';
 const sideBarSectionList = [
   { title: 'Dashboard', icon: 'fas fa-th-large' },
   { title: 'Profile Settings', icon: 'fas fa-cog' },
-  // { title: 'Appointments', icon: 'fas fa-stethoscope' },
   {
     title: 'Doctors',
     url: '?limit=2&page=1&sort=firstName',
@@ -17,14 +16,12 @@ const sideBarSectionList = [
     url: '?limit=24&page=1&sort=departmentMain',
     icon: 'fas fa-puzzle-piece',
   },
-  // { title: 'Payments', icon: 'fas fa-hand-holding-usd' },
-  // { title: 'Help', icon: 'fas fa-question' },
 ];
 export default function LeftSideBar() {
   const { userData } = useSelector((state: RootState) => state.currentUser);
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState('Dashboard');
 
-  const handleItemClick = (item) => {
+  const handleItemClick = (item: string): void => {
     setActiveItem(item);
   };
   return (
