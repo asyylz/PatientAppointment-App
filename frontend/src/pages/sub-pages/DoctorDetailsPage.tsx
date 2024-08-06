@@ -8,6 +8,7 @@ const DoctorDetailsPage: React.FC = () => {
     selectedDoctor,
   } = useSelector((state: RootState) => state.doctors);
 
+  console.log(selectedDoctor)
   if (!selectedDoctor) {
     return <div>Doctor not found</div>;
   }
@@ -23,7 +24,6 @@ const DoctorDetailsPage: React.FC = () => {
           //style={{ border: '1px solid green' }}
           className={classes.picture}
         >
-          {/* <img src={doctor.image} /> */}
           <img
             src={
               selectedDoctor.userId?.image
@@ -32,9 +32,9 @@ const DoctorDetailsPage: React.FC = () => {
             }
           />
         </div>
-        <div>
-          <h3>{`Dr ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</h3>
-          <h3>{selectedDoctor.departmentId.departmentMain}</h3>
+        <div className={classes['doctor__name']}>
+          <h2>{`Dr ${selectedDoctor.firstName} ${selectedDoctor.lastName}`}</h2>
+          <h2>{selectedDoctor.departmentId.departmentMain}</h2>
         </div>
       </div>
       <DoctorDetails />

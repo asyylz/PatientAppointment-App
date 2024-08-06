@@ -69,7 +69,7 @@ const ProfileForm: React.FC = () => {
 
   return (
     userData && (
-      <>
+      <div className={classes['profil__container']}>
         <p>User Info</p>
         <hr />
         <div className={classes.container}>
@@ -127,7 +127,7 @@ const ProfileForm: React.FC = () => {
             <button onClick={handleCancelInputs}>Cancel</button>
           </div>
         </div>
-      </>
+      </div>
     )
   );
 };

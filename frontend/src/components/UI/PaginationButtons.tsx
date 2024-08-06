@@ -35,7 +35,7 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         <GrPrevious />
         <p>Prev</p>
       </div>
-      <p>Page: {pagination}</p>
+      <p className={classes['pagination__page-number']}>Page: {pagination}</p>
       <div
         className={
           length < limit

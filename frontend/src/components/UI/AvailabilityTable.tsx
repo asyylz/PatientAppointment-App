@@ -29,8 +29,8 @@ const AvailabilityTable: React.FC = () => {
     (state: RootState) => state.appointmentsForDoctor
   );
   const { appointmentsForDoctor } = entities;
-console.log(appointmentsForDoctor)
-console.log(appointmentsForDoctor?.length)
+//console.log(appointmentsForDoctor)
+//console.log(appointmentsForDoctor?.length)
 
   /* ---------------------- useSates ---------------------- */
   const [openModal, setOpenModal] = useState<boolean>(false);

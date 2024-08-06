@@ -1,3 +1,4 @@
+@import url('./../../App.css');
 :root {
     --surface-color: #D2E8E3;
     --card-background-color: #F0F1F2;
@@ -8,6 +9,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-animation: scaleUp .7s ease both;
+    animation: scaleUp .7s ease both;
 }
 
 .ourTeam {

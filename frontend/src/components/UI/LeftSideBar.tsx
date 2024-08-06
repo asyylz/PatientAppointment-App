@@ -17,52 +17,51 @@ const sideBarSectionList = [
     icon: 'fas fa-puzzle-piece',
   },
   // { title: 'Payments', icon: 'fas fa-hand-holding-usd' },
-
-  { title: 'Help', icon: 'fas fa-question' },
+  // { title: 'Help', icon: 'fas fa-question' },
 ];
 export default function LeftSideBar() {
   const { userData } = useSelector((state: RootState) => state.currentUser);
   return (
-    <>
-      <div className={classes.sidebar}>
-        <ul>
-          <li>
-            <Link to="/">
-              <div className={classes.iconBox}>
-                <i className="fas fa-clinic-medical"></i>
-              </div>
-              <div className={classes.home}>Home</div>
-            </Link>
-          </li>
-          {sideBarSectionList.map((section) => {
-            return (
-              <li key={section.title}>
-                <Link
-                  to={`/user/${section.title
-                    .split(' ')
-                    .join('')
-                    .toLowerCase()}${section.url ? `${section.url}` : ''}`}
-                >
-                  <div className={classes.iconBox}>
-                    <i className={section.icon}></i>
-                  </div>
-                  <div className={classes.title}>{section.title}</div>
-                </Link>
-              </li>
-            );
-          })}
-          {userData?.role === 'doctor' && (
-            <li key="appointments">
-              <Link to="/user/appointments">
-                <div className={classes.iconBox}>
-                  <i className="fas fa-stethoscope"></i>
+    <div className={classes['sidebar__container']}>
+      <ul>
+        <li className={classes['sidebar__item']}>
+          <Link to="/" className={classes['sidebar__item-link']}>
+            <div className={classes['sidebar__logo']}>
+              <img src="/public/PAS-LOGO.png" alt="" />
+            </div>
+            <div className={classes['link__home']}>Home</div>
+          </Link>
+        </li>
+        {sideBarSectionList.map((section) => {
+          return (
+            <li className={classes['sidebar__item']} key={section.title}>
+              <Link
+                className={classes['sidebar__item-link']}
+                to={`/user/${section.title.split(' ').join('').toLowerCase()}${
+                  section.url ? `${section.url}` : ''
+                }`}
+              >
+                <div className={classes['icon__box']}>
+                  <i className={section.icon}></i>
                 </div>
-                <div className={classes.title}>Appointments</div>
+                <div className={classes['icon__box-title']}>
+                  {section.title}
+                </div>
               </Link>
             </li>
-          )}
-        </ul>
-      </div>
-    </>
+          );
+        })}
+        {userData?.role === 'doctor' && (
+          <li key="appointments">
+            <Link to="/user/appointments">
+              <div className={classes['icon__box']}>
+                <i className="fas fa-stethoscope"></i>
+              </div>
+              <div className={classes['icon__box-title']}>Appointments</div>
+            </Link>
+          </li>
+        )}
+      </ul>
+    </div>
   );
 }

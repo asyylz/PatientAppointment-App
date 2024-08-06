@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux';
 import { fetchDoctors } from './../store/doctors-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
-import Footer from '../components/UI/Footer';
-import Navbar from './../components/UI/Navbar';
 
 const images: { [key: string]: string } = {
   one: 'https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGVhbHRofGVufDB8fDB8fHwy',

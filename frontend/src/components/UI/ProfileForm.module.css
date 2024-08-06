@@ -1,3 +1,10 @@
+@import url('./../../App.css');
+
+.profil__container {
+    -webkit-animation: scaleUp .7s ease both;
+    animation: scaleUp .7s ease both;
+}
+
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;

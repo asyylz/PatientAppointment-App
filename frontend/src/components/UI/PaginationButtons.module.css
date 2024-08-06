@@ -17,6 +17,15 @@
     opacity: 0.4;
 }
 
+.pagination__wrapper p {
+    font-size: clamp(10px, 2.5vw, 16px);
+    text-align: center;
+}
+
+.pagination__page-number {
+    min-width: 30px;
+}
+
 .pagination__icon--wrapper svg {
     margin: 0 1rem;
     color: #444;
@@ -26,7 +35,6 @@
 
 @media (min-width:375px) and (max-width:414px) {
     .pagination__wrapper p {
-        font-size: 10px;
         margin: 0 10px;
     }
 

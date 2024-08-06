@@ -1,4 +1,4 @@
-.sidebar {
+.sidebar__container {
     position: fixed;
     width: 190px;
     min-height: 100%;
@@ -10,41 +10,41 @@
 
 }
 
-.sidebar ul li {
+.sidebar__item {
     width: 100%;
     list-style: none;
     padding: 0 10px;
 
 }
 
-.sidebar ul li:hover {
+.sidebar__item:hover {
     background: #444;
 }
 
 /* ------------- to prevent a global styles ------------- */
-.sidebar ul li a {
+.sidebar__item-link {
     box-shadow: none;
     border: none;
     background: none;
     border-radius: none;
 }
 
-.sidebar ul li a:hover {
+.sidebar__item-link:hover {
     color: #fff;
     background-color: none;
 }
 
-.sidebar ul li:first-child:hover {
+.sidebar__item:first-child:hover {
     background: none;
     color: none;
 
 }
 
-.sidebar ul li a:first-child:hover {
+.sidebar__item-link:first-child:hover {
     color: none;
 }
 
-.sidebar ul li:first-child {
+.sidebar__item:first-child {
     height: 80px;
     display: flex;
     align-items: center;
@@ -54,7 +54,7 @@
 
 }
 
-.sidebar ul li a {
+.sidebar__item-link {
     width: 100%;
     text-decoration: none;
     height: 35px;
@@ -71,12 +71,25 @@ ul li a i {
     margin: 10px;
 }
 
-.iconBox {
+.icon__box {
     min-width: 35px;
-    /* border: 1px solid red;  */
 }
 
-.sidebar .title {
+.sidebar__logo {
+    height: 45px;
+    width: 45px;
+    position: relative;
+    margin-right: 6px;
+
+}
+
+.sidebar__logo img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.icon__box-title {
     padding: 0 10px;
     font-size: 14px;
     flex: 2;
@@ -85,44 +98,70 @@ ul li a i {
 }
 
 @media (max-width:834px) {
-    .sidebar {
+    .sidebar__container {
         width: 60px !important;
     }
-    .home{
+
+    .link__home {
         display: none;
     }
 
-    .sidebar ul li a i {
+    .sidebar__item-link i {
         min-width: 60px;
         font-size: 44px;
         text-align: center;
     }
 
-    .sidebar .title {
+    .icon__box-title {
         display: none;
     }
 
 }
 
-@media (max-width:390px) {
-    .sidebar {
+@media (min-width: 768px) and (max-width:834px) {
+    .sidebar__logo {
+        height: 40px;
+        width: 40px;
+        margin-right: 0px;
+
+    }
+}
+
+@media (min-width: 414px) and (max-width:767px) {
+    .sidebar__logo {
+        height: 38px;
+        width: 38px;
+        margin-right: 0px;
+
+    }
+}
+
+@media(min-width: 375px)and (max-width: 413px) {
+    .sidebar__container {
         width: 30px !important;
     }
 
-    .sidebar ul li a i {
+    .sidebar__item-link i {
         max-width: 15px;
         font-size: 18px;
         text-align: center;
     }
 
-    .iconBox {
+    .sidebar__logo {
+        height: 25px;
+        width: 25px;
+        margin-right: 0px;
+
+    }
+
+    .icon__box {
         min-width: 10px !important;
         display: flex;
         margin-left: 3px;
 
     }
 
-    .sidebar ul li {
+    .sidebar__item {
         padding: 0;
 
     }

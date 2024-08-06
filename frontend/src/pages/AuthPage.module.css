@@ -3,7 +3,6 @@
 .container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 80px 1fr;
     align-items: center;
     justify-items: center;
     color: #707070;
@@ -25,11 +24,6 @@
     background: #C7BEBE;
 }
 
-.navbar__wrapper {
-    grid-column: span 2;
-    height: 80px;
-    width: 100vw;
-}
 
 .wrapper {
     position: relative;
@@ -39,14 +33,12 @@
     padding: 34px;
     border-radius: 6px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-
 }
-
 
 
 .wrapper h2 {
     position: relative;
-    font-size: 22px;
+    font-size: clamp(18px, 1.7vw, 2.5vw);
     font-weight: 600;
     color: #707070;
 }
@@ -67,36 +59,29 @@
 }
 
 
-form .policy {
+form .policy__wrapper {
     display: flex;
     align-items: center;
     margin-top: 1.5rem;
     justify-content: start;
 }
 
-form .policy h3 {
-    font-size: 10px;
+.policy__wrapper h3 {
+    font-size: clamp(10px, 1.7vw, 14px);
     margin: auto 0;
     margin-left: 6px;
+    font-weight: bold;
+    color: #707070;
 
 }
 
-.policy input {
+
+
+.policy__wrapper input {
     height: 15px;
     width: 15px;
     margin: auto 0;
     min-width: 30px;
-}
-
-.policy h3 {
-    font-weight: bold;
-}
-
-form h3 {
-    color: #707070;
-    font-size: 14px;
-    font-weight: 500;
-    margin-left: 10px;
 }
 
 
@@ -110,58 +95,42 @@ form h3 {
     width: 50%;
 }
 
-.forgetPassword {
+.forgot-password__wrapper {
     margin: 2rem 0;
     display: flex;
     gap: 1rem;
 }
 
-.forgetPassword a {
+.forgot-password__wrapper a {
     color: #444;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.forgetPassword a:hover {
+.forgot-password__wrapper a:hover {
     scale: 1.2;
 }
 
-.forgetPassword button {
+.forgot-password__wrapper button {
     color: #444;
     text-decoration: underline;
     cursor: pointer;
     width: 50%;
 }
 
-.forgetPassword p,
-.forgetPassword a {
-    font-size: 10px;
+.forgot-password__wrapper p,
+.forgot-password__wrapper a {
+    font-size: clamp(12px, 1.7vw, 14px);
 }
 
 @media (min-width:320px) and (max-width:767px) {
-
-    .container h2 {
-        font-size: 16px;
-    }
-
     .container {
         grid-template-columns: 1fr;
     }
 
     .wrapper {
-        width: 60vw;
-        grid-column: span 2;
-        margin: 2rem 0;
-    }
-
-    .policy h3 {
-        font-size: 10px;
-        margin: auto 6px;
-    }
-
-    .forgetPassword p,
-    a {
-        font-size: 10px;
+        width: 80vw;
+        margin: 2rem auto;
     }
 
     form button {
@@ -169,20 +138,6 @@ form h3 {
         width: 120px;
         height: 30px;
     }
-}
-
-@media (min-width:768px) and (max-width:834px) {
-
-    .policy h3 {
-        font-size: 13px;
-        margin: auto 6px;
-    }
-
-    .forgetPassword p,
-    a {
-        font-size: 12px;
-    }
-
 }
 
 

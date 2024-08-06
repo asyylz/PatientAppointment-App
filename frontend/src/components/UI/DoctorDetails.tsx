@@ -14,10 +14,8 @@ const DoctorDetails: React.FC = () => {
 
   const [pagination, setPagination] = useState<number>(1);
 
-  const { selectedDoctor } = useSelector(
-    (state: RootState) => state.doctors
-  );
-
+  const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
+console.log(selectedDoctor)
   const {
     entities: reviews,
     status: reviewsStatus,
@@ -30,8 +28,6 @@ const DoctorDetails: React.FC = () => {
     }
   }, [dispatch, selectedDoctor, pagination]);
 
-
-
   return (
     <div className={classes['doctor__details--wrapper']}>
       <AvailabilityTable />
@@ -41,6 +37,7 @@ const DoctorDetails: React.FC = () => {
         <hr />
 
         {reviewsStatus === 'loading' && <Loader />}
+        {reviews.length === 0 && <p className={classes['no__reviews-text']}>No reviews yet...</p>}
         {reviewsStatus === 'succeeded' && (
           <ul className={classes['reviews__wrapper']}>
             {reviews.map((review: Review, index: number) => (

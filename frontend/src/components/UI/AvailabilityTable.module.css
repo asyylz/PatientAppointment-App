@@ -1,7 +1,11 @@
+@import url('./../../App.css');
+
 .availability__container {
-    /* padding: 1rem; */
-    font-family: var(--font-family);
     margin: 0 auto;
+    /* -webkit-animation: scaleUp .7s ease both;
+    animation: scaleUp .7s ease both;
+    border:1px solid red */
+
 }
 
 table {
@@ -30,7 +34,6 @@ td {
 
 .available {
     background-color: #45C4B0;
-    font-size: 0.9rem;
 }
 
 .available:hover {
@@ -49,7 +52,6 @@ td {
 }
 
 .booked {
-    font-size: 14px;
     background-color: var(--completed-background);
     cursor: default;
 }
@@ -62,42 +64,6 @@ th {
 th,
 td,
 .available {
-    font-size: 12px;
-    padding: 6px;
-}
-
-
-
-@media (min-width:768px) and (max-width:910px) {
-
-    .available,
-    th,
-    td {
-        font-size: 10px;
-        padding: 2px;
-    }
-
-}
-
-@media (min-width:414px) and (max-width:767px) {
-
-    .available,
-    th,
-    td {
-        font-size: 6px;
-        padding: 2px;
-    }
-
-}
-
-@media (min-width:375px) and (max-width:413px) {
-
-
-    .available,
-    th,
-    td {
-        font-size: 6px;
-        padding: 2px;
-    }
-
+    font-size: clamp(6px, 1.9vw, 14px);
+    padding: clamp(2px, 3px, 6px)
 }

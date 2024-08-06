@@ -21,8 +21,8 @@ const TabContainer: React.FC = () => {
   )?.component;
 
   return (
-    <div className={classes.tabContainer}>
-      <div className={classes.tabList}>
+    <div className={classes.tab__container}>
+      <div className={classes.tab__list}>
         {tabList.map((tab, index) => (
           <Tab
             key={index}
@@ -32,7 +32,7 @@ const TabContainer: React.FC = () => {
           />
         ))}
       </div>
-      <div className={classes.tabContent}>
+      <div className={classes.tab__content}>
         {ActiveComponent && <ActiveComponent />}
       </div>
     </div>

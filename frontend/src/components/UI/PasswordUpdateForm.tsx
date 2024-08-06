@@ -51,7 +51,7 @@ const PasswordResetForm: React.FC = () => {
   };
 
   return (
-    <div className='container'>
+    <div className={classes['password__container']}>
       <div className={classes.wrapper}>
         <CustomInput
           type="password"

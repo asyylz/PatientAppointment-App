@@ -9,10 +9,7 @@
     justify-content: center;
     align-items: center;
     grid-auto-columns: auto;
-    -webkit-animation: scaleUp .7s ease both;
-    animation: scaleUp .7s ease both;
 }
-
 
 p.header {
     text-align: center;
@@ -28,13 +25,13 @@ p.header {
 }
 
 @media (min-width:768px) {
-    .pagination__wrapper {
+    /* .pagination__wrapper {
         display: flex;
         justify-content: center;
         position: absolute;
         bottom: 0;
         width: 80vw;
-    }
+    } */
 
 }
 

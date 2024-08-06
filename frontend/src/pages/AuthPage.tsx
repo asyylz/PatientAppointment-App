@@ -112,9 +112,6 @@ const AuthPage = () => {
   return (
     //container takes styles local
     <div className={classes.container}>
-      <div className={classes['navbar__wrapper']}>
-        <Navbar />
-      </div>
       {/*------------------------ Login ----------------------- */}
       <div className={classes.wrapper}>
         <h2>Login</h2>
@@ -140,7 +137,7 @@ const AuthPage = () => {
             }
             required
           />
-          <div className={classes.forgetPassword}>
+          <div className={classes['forgot-password__wrapper']}>
             <p>Forgot your password?</p>
 
             <a onClick={handleClick}>Click here</a>
@@ -194,8 +191,9 @@ const AuthPage = () => {
             onChange={handleInputChange}
             required
           />
-          <div className={classes.policy}>
+          <div className={classes['policy__wrapper']}>
             <input
+         
               name="policy"
               type="checkbox"
               onChange={handleInputChange}

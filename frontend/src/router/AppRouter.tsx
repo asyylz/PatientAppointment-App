@@ -26,6 +26,7 @@ const routes: RouteObject[] = [
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/contact', element: <ContactPage /> },
+      { path: '/auth', element: <AuthPage /> },
     ],
   },
   {
