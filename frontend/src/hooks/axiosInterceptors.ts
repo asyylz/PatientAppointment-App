@@ -26,6 +26,9 @@ const handleErrorResponse = async (error: any) => {
   return Promise.reject(error);
 };
 
+/* ------------------------------------------------------ */
+/*                       TOKEN CHECK                      */
+/* ------------------------------------------------------ */
 let isRefreshing = false;
 
 export const TOKEN_CHECK_INTERVAL = 10000; // Check every 10 seconds

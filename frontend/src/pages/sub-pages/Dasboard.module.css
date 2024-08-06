@@ -98,6 +98,8 @@
     border-radius: 30px;
     margin: 0 10px;
     height: max-content;
+    -webkit-animation: scaleUp .7s ease both;
+    animation: scaleUp .7s ease both;
 }
 
 .dashboard-right-section__bottom-appointments {

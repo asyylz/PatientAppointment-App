@@ -3,9 +3,9 @@
 .doctor__details--wrapper {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: min-content min-content;
     margin-top: 2rem;
-    min-height: 100vh;
+
 }
 
 .doctorInfo {
@@ -22,14 +22,15 @@
 }
 
 .review__section--wrapper {
+    margin-top: 2rem;
     grid-column: span 2;
-    min-height: 60vh;
+    display: grid;
+    grid-template-rows: 60px min(30vh) 120px;
     -webkit-animation: scaleUp .7s ease both;
     animation: scaleUp .7s ease both;
 }
 
 .reviews__wrapper {
-    min-height: 40vh;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
     grid-auto-columns: auto;
@@ -95,7 +96,6 @@
 
 }
 
-
 .review__container--commenter h3 {
     text-decoration: underline;
     margin-bottom: 2px;
@@ -107,7 +107,6 @@
 
 .review__section--wrapper h3 {
     text-align: center;
-    margin-top: 2rem;
 }
 
 

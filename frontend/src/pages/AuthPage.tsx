@@ -37,8 +37,8 @@ const AuthPage = () => {
       const response = await dispatch(
         login({ email: loginData.email, password: loginData.password })
       );
-      console.log(response);
-      console.log(login.fulfilled.match(response));
+      //console.log(response);
+      //console.log(login.fulfilled.match(response));
       if (login.fulfilled.match(response))
         setLoginData({
           email: '',

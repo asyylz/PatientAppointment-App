@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import classes from './LeftSideBar.module.css';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 const sideBarSectionList = [
   { title: 'Dashboard', icon: 'fas fa-th-large' },
   { title: 'Profile Settings', icon: 'fas fa-cog' },
@@ -21,6 +22,11 @@ const sideBarSectionList = [
 ];
 export default function LeftSideBar() {
   const { userData } = useSelector((state: RootState) => state.currentUser);
+  const [activeItem, setActiveItem] = useState(null);
+
+  const handleItemClick = (item) => {
+    setActiveItem(item);
+  };
   return (
     <div className={classes['sidebar__container']}>
       <ul>
@@ -34,7 +40,15 @@ export default function LeftSideBar() {
         </li>
         {sideBarSectionList.map((section) => {
           return (
-            <li className={classes['sidebar__item']} key={section.title}>
+            <li
+              id={section.title}
+              className={`${classes.sidebar__item} ${
+                activeItem === section.title ? classes.active : ''
+              }`}
+              key={section.title}
+              onClick={() => handleItemClick(section.title)}
+              data-for={section.title}
+            >
               <Link
                 className={classes['sidebar__item-link']}
                 to={`/user/${section.title.split(' ').join('').toLowerCase()}${

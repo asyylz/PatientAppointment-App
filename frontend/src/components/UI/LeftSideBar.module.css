@@ -14,11 +14,19 @@
     width: 100%;
     list-style: none;
     padding: 0 10px;
-
 }
 
-.sidebar__item:hover {
-    background: #444;
+
+.sidebar__item-link:hover {
+    scale: 1.2
+}
+
+.active {
+    background-color: #444;
+}
+
+.active .sidebar__item-link {
+    color: #fff;
 }
 
 /* ------------- to prevent a global styles ------------- */
@@ -29,15 +37,10 @@
     border-radius: none;
 }
 
-.sidebar__item-link:hover {
-    color: #fff;
-    background-color: none;
-}
 
 .sidebar__item:first-child:hover {
     background: none;
     color: none;
-
 }
 
 .sidebar__item-link:first-child:hover {

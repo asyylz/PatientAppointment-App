@@ -15,7 +15,8 @@ const DoctorDetails: React.FC = () => {
   const [pagination, setPagination] = useState<number>(1);
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
-console.log(selectedDoctor)
+  //console.log(selectedDoctor)
+
   const {
     entities: reviews,
     status: reviewsStatus,
@@ -33,57 +34,64 @@ console.log(selectedDoctor)
       <AvailabilityTable />
 
       <div className={classes['review__section--wrapper']}>
-        <h3>Reviews</h3>
-        <hr />
-
-        {reviewsStatus === 'loading' && <Loader />}
-        {reviews.length === 0 && <p className={classes['no__reviews-text']}>No reviews yet...</p>}
-        {reviewsStatus === 'succeeded' && (
-          <ul className={classes['reviews__wrapper']}>
-            {reviews.map((review: Review, index: number) => (
-              <div key={index} className={classes['review__container']}>
-                <div className={classes['review__container--commenter']}>
-                  <div className={classes['commenter']}>
-                    <div className={classes['commenter__image']}>
-                      <img src={review.userId?.image} alt="" />
+        <div>
+          <h3>Reviews</h3>
+          <hr />
+        </div>
+        <div>
+          {reviewsStatus === 'loading' && <Loader />}
+          {reviews.length === 0 && (
+            <p className={classes['no__reviews-text']}>No reviews yet...</p>
+          )}
+          {reviewsStatus === 'succeeded' && (
+            <ul className={classes['reviews__wrapper']}>
+              {reviews.map((review: Review, index: number) => (
+                <div key={index} className={classes['review__container']}>
+                  <div className={classes['review__container--commenter']}>
+                    <div className={classes['commenter']}>
+                      <div className={classes['commenter__image']}>
+                        <img src={review.userId?.image} alt="" />
+                      </div>
+                      <h2>
+                        {(
+                          Object.entries(review.attributes)
+                            .filter(([_key]) => _key !== '_id')
+                            .reduce(
+                              (acc, [_key, value]) => acc + (value as number),
+                              0
+                            ) / 4
+                        ).toFixed(1)}
+                      </h2>
                     </div>
-                    <h2>
-                      {(
-                        Object.entries(review.attributes)
-                          .filter(([_key]) => _key !== '_id')
-                          .reduce(
-                            (acc, [_key, value]) => acc + (value as number),
-                            0
-                          ) / 4
-                      ).toFixed(1)}
-                    </h2>
+                    <h5>{review.userId?.name}</h5>
+                    <p>{review.comments}</p>
                   </div>
-                  <h5>{review.userId?.name}</h5>
-                  <p>{review.comments}</p>
+
+                  {Object.entries(review.attributes)
+                    .filter(([key]) => key !== '_id')
+                    .map(([key, value], attrIndex) => (
+                      <ReviewRead
+                        key={attrIndex}
+                        attributeName={key}
+                        attributeValue={value as number}
+                      />
+                    ))}
                 </div>
-
-                {Object.entries(review.attributes)
-                  .filter(([key]) => key !== '_id')
-                  .map(([key, value], attrIndex) => (
-                    <ReviewRead
-                      key={attrIndex}
-                      attributeName={key}
-                      attributeValue={value as number}
-                    />
-                  ))}
-              </div>
-            ))}
-          </ul>
-        )}
-        {reviewsError && <p>Could not fetch reviews...</p>}
-        {reviewsStatus === 'failed' && <p>{reviewsError}</p>}
-
-        <PaginationButtons
-          pagination={pagination}
-          setPagination={setPagination}
-          length={reviews?.length}
-          limit={2}
-        />
+              ))}
+            </ul>
+          )}
+          {reviewsError && <p>Could not fetch reviews...</p>}
+          {reviewsStatus === 'failed' && <p>{reviewsError}</p>}
+        </div>
+        <div className={classes['pagination__wrapper-doctorDetailPage']}>
+          {' '}
+          <PaginationButtons
+            pagination={pagination}
+            setPagination={setPagination}
+            length={reviews?.length}
+            limit={2}
+          />
+        </div>
       </div>
     </div>
   );
