@@ -15,12 +15,12 @@ interface Props {
 }
 
 const PatientAppointmentsTable: React.FC<Props> = ({
-  openModal,
   setOpenModal,
+  openModal,
   setSelectedAppointment,
   appointmentIdToDelete,
 }) => {
-  const { entities} = useSelector(
+  const { entities } = useSelector(
     (state: RootState) => state.appointmentsForPatient
   );
   const { userData, token } = useSelector(
@@ -42,7 +42,15 @@ const PatientAppointmentsTable: React.FC<Props> = ({
         })
       );
     }
-  }, [appointmentIdToDelete, pagination, openModal, dispatch, token, userData?._id]);
+  }, [
+    appointmentIdToDelete,
+    pagination,
+    dispatch,
+    token,
+    userData?._id,
+    setOpenModal,
+    openModal,
+  ]);
 
   const handleClick = (appointment: Appointment) => {
     setOpenModal('open');

@@ -43,12 +43,9 @@ const initialState: CurrentUser = {
 /* ------------------------------------------------------ */
 /*                        REGISTER                        */
 /* ------------------------------------------------------ */
-export const register = createAsyncThunk<CurrentUserPayload, FormData>(
+export const register = createAsyncThunk<CurrentUserPayload, Credentials>(
   'currentUser/signup',
   async (credentials) => {
-    // console.log(credentials);
-
-    //try {
     const response = await axiosInterceptorsWithoutToken.post(
       'http://localhost:3000/api/v1/users/signup',
       credentials
@@ -65,6 +62,7 @@ export const login = createAsyncThunk<
   CurrentUserPayload,
   { email: string; password: string }
 >('currentUser/login', async (credentials) => {
+  console.log(credentials);
   const response = await axiosInterceptorsWithoutToken.post(
     'http://localhost:3000/api/v1/users/login',
     credentials,
@@ -133,6 +131,7 @@ export const forgotPassword = createAsyncThunk<
     email
   );
   toastSuccessNotify(`Email sent to ${email.email} successfully!`);
+  console.log(response.data);
   return response.data;
 });
 
@@ -212,6 +211,7 @@ const currentUserSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         const { token, data } = action.payload;
+        console.log(action);
         state.status = 'success';
         state.token = token;
         state.userData = data.user;
@@ -263,7 +263,7 @@ const currentUserSlice = createSlice({
       })
       .addCase(logout.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload as string || 'Logout failed';
+        state.error = (action.payload as string) || 'Logout failed';
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.status = 'update success';
@@ -273,6 +273,12 @@ const currentUserSlice = createSlice({
       .addCase(updateUserInfo.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || 'Update failed';
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.status === 'success';
+      })
+      .addCase(forgotPassword.rejected, (state) => {
+        state.status === 'failed';
       })
       .addCase('currentUser/stateToIdle', (state) => {
         state.status = 'idle'; // Reset status to 'idle' on successful logout

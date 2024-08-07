@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { forgotPassword, login, register } from '../store/currentUser-slice';
 import CustomInput from '../components/UI/CustomInput';
-import Navbar from '../components/UI/Navbar';
 
 const AuthPage = () => {
   const [registerData, setRegisterData] = useState<Credentials>({
@@ -18,10 +17,8 @@ const AuthPage = () => {
     policy: false,
   });
   const [loginData, setLoginData] = useState<Credentials>({
-    // email: '',
-    // password: '',
-    email: 'alice@test.com',
-    password: '6946224Asy!',
+    email: '',
+    password: '',
   });
 
   const dispatch = useDispatch<AppDispatch>();
@@ -34,19 +31,19 @@ const AuthPage = () => {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (loginData && loginData.email && loginData.password) {
-      const response = await dispatch(
+      await dispatch(
         login({ email: loginData.email, password: loginData.password })
       );
-      //console.log(response);
-      //console.log(login.fulfilled.match(response));
-      if (login.fulfilled.match(response))
+      if (login.fulfilled?.type === 'currentUser/login/fulfilled')
+        // if (login.fulfilled?.match(response))
         setLoginData({
           email: '',
           password: '',
         });
     }
   };
-
+  // email: 'alice@test.com',
+  // password: '6946224Asy!',
   useEffect(() => {
     if (status === 'success') {
       navigate('/user/dashboard');
@@ -55,16 +52,10 @@ const AuthPage = () => {
 
   const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const userFormData = new FormData();
-    if (registerData) {
-      Object.entries(registerData).forEach(([key, value]) => {
-        if (value !== undefined) {
-          userFormData.append(key, value.toString()); // Ensure value is a string
-        }
-      });
-    }
-    const response = await dispatch(register(userFormData)); // Handle async action
-    if (register.fulfilled.match(response))
+
+    await dispatch(register(registerData)); // Handle async action
+    if (register.fulfilled?.type === 'currentUser/register/fulfilled')
+      //if (register.fulfilled?.match(response))
       setRegisterData({
         name: '',
         email: '',
@@ -102,8 +93,6 @@ const AuthPage = () => {
   };
 
   const handleClick = () => {
-    //e: React.MouseEvent
-    //e.preventDefault();
     if (loginData && loginData.email) {
       dispatch(forgotPassword({ email: loginData.email }));
     }
@@ -122,7 +111,7 @@ const AuthPage = () => {
             value={loginData?.email}
             placeHolder="Enter your email"
             onChange={(e) =>
-              setLoginData((prev) => ({ ...prev, email: e.target.value }))
+              setLoginData({ ...loginData, email: e.target.value })
             }
             required
           />
@@ -133,7 +122,7 @@ const AuthPage = () => {
             value={loginData?.password}
             placeHolder="Enter your password"
             onChange={(e) =>
-              setLoginData((prev) => ({ ...prev, password: e.target.value }))
+              setLoginData({ ...loginData, password: e.target.value })
             }
             required
           />
@@ -193,7 +182,6 @@ const AuthPage = () => {
           />
           <div className={classes['policy__wrapper']}>
             <input
-         
               name="policy"
               type="checkbox"
               onChange={handleInputChange}

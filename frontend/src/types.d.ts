@@ -21,24 +21,6 @@ interface EntityStateForAppointments<T> {
   error: string | null;
 }
 
-// interface EntityState<T> {
-//   entities: T[];
-//   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-//   error: string | null;
-// }
-// interface EntityStateForUser<T> {
-//   //image?: string;
-//   entities: T;
-//   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-//   error: string | null;
-// }
-
-// interface EntityStateForAppointments<T> {
-//   entities: T;
-//   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-//   error: string | null;
-// }
-
 interface ExtendedEntityState<T> extends EntityState<T> {
   selectedDoctor?: T;
 }
@@ -187,7 +169,6 @@ interface Credentials {
   email?: string;
   password?: string;
   passwordConfirm?: string;
-  image?: Blob | string;
   policy?: boolean;
   DOB?: string | date;
   address?: Address;
