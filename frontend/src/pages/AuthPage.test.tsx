@@ -8,7 +8,7 @@ import AuthPage from './AuthPage';
 
 import { login, register, forgotPassword } from '../store/currentUser-slice';
 import '@testing-library/jest-dom';
-import { toastSuccessNotify } from './../helper/ToastNotify';
+import { toastSuccessNotify } from '../helper/ToastNotify';
 
 // Mock the toast function
 jest.mock('./../helper/ToastNotify', () => ({
@@ -142,10 +142,12 @@ describe('AuthPage', () => {
       'Enter your password'
     )[0];
     const loginButton = screen.getByRole('button', { name: 'Login' });
-
+   
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(loginButton);
+
+  
 
     await waitFor(() => {
       expect(

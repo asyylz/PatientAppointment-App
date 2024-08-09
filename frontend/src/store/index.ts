@@ -13,7 +13,7 @@ import departmentsReducer from './departments-slice';
 import doctorsReducer from './doctors-slice';
 import reviewsReducer from './reviews-slice';
 import currentUserReducer from './currentUser-slice';
-import { useDispatch } from 'react-redux';
+//import { useDispatch } from 'react-redux';
 import searchReducer from './search-slice';
 import appointmentsForDoctorReducer from './appointmentsForDoctor-slice';
 import appointmentsForPatientReducer from './appointmentsForPatient-slice';
@@ -63,7 +63,7 @@ const doctorPersistConfig = {
   storage: storage,
   // blacklist: ['status','error']
 };
-const allReducers = combineReducers({
+export const allReducers = combineReducers({
   currentUser: persistReducer(authPersistConfig, currentUserReducer),
   departments: departmentsReducer,
   doctors: persistReducer(doctorPersistConfig, doctorsReducer),
@@ -87,7 +87,7 @@ const store = configureStore({
 });
 
 export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+//export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore['getState']>;
 

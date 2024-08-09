@@ -6,36 +6,6 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 /* ------------------------------------------------------ */
 type HttpMethod = 'get' | 'post' | 'patch' | 'delete';
 
-// export const fetchEntities1 = <T>(
-//   entity: string,
-//   url: string | ((pagination?: number, departmentId?: string) => string), // we catch optional pagination argument
-//   method: HttpMethod = 'get'
-// ) =>
-//   createAsyncThunk<T | object, { pagination?: number; departmentId?: string }>(
-//     `${entity}/fetch`,
-//     async ({ pagination, departmentId } = {}) => {
-//       try {
-//         const axiosMethods: Record<
-//           HttpMethod,
-//           (url: string, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-//         > = {
-//           get: axios.get,
-//           post: (url, config) => axios.post(url, {}, config),
-//           patch: (url, config) => axios.patch(url, {}, config),
-//           delete: axios.delete,
-//         };
-//         const requestUrl =
-//           typeof url === 'function' ? url(pagination, departmentId) : url;
-//         const response = await axiosMethods[method](requestUrl);
-//         console.log(`${entity} data:`, response.data.data);
-//         return response.data.data[entity];
-//       } catch (err) {
-//         console.log(err);
-//         throw err;
-//       }
-//     }
-//   );
-
 export const fetchEntities = <T>(entity: string, method: HttpMethod = 'get') =>
   createAsyncThunk<T | object, string>(
     `${entity}/fetch`,
@@ -156,12 +126,14 @@ export const createEntitySlice = <T>(
     },
     extraReducers: (builder) => {
       builder
-        .addCase(fetchEntityThunk.pending, (state) => {
+        .addCase(fetchEntityThunk.pending, (state,action) => {
+          console.log(action)
           state.status = 'loading';
         })
         .addCase(
           fetchEntityThunk.fulfilled,
           (state, action: PayloadAction<T | object>) => {
+            console.log(action)
             state.status = 'succeeded';
             state.entities = action.payload;
             state.error = null;
@@ -170,6 +142,7 @@ export const createEntitySlice = <T>(
           }
         )
         .addCase(fetchEntityThunk.rejected, (state, action) => {
+          console.log(action)
           state.status = 'failed';
           console.log(action);
           if (action.payload) {

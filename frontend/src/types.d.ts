@@ -32,7 +32,7 @@ interface RootState {
   appointmentsForPatient: EntityStateForAppointments<AppointmentsForPatient>;
   reviews: EntityState<Review>;
   doctors: ExtendedEntityState<Doctor>;
-  selectedDoctor: Doctor;
+  //selectedDoctor: Doctor;
   currentUser: CurrentUser;
   search: string;
 }
@@ -248,3 +248,21 @@ interface SingleAppointmentForDoctor {
   _v: number;
 }
 type combinedAppointmentType = SingleAppointmentForDoctor | Appointment;
+
+/* ------------------------------------------------------ */
+/*                        TESTTING                        */
+/* ------------------------------------------------------ */
+declare namespace NodeJS {
+  interface Global {
+    importMetaEnv: {
+      VITE_BASE_URL: string;
+    };
+  }
+}
+declare let global: NodeJS.Global;
+
+interface ImportMeta {
+  env: {
+    VITE_BASE_URL: string;
+  };
+}

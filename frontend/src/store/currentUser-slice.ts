@@ -11,7 +11,7 @@ import {
 
 // Global variable to hold the interval ID
 let intervalId: NodeJS.Timeout | null = null;
-console.log(intervalId);
+
 
 // Function to start the interval
 const startTokenCheckInterval = () => {

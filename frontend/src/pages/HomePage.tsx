@@ -39,7 +39,8 @@ export default function HomePage() {
 
     return () => clearInterval(interval);
   }, []);
-  // console.log(token);
+  
+  
   return (
     <div className={classes.wrapper}>
       <div className={`${classes.container} ${classes['container--body']}`}>

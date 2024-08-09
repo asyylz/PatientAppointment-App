@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactPage matches the DOM snapshot 1`] = `
+<div
+  className="contact-form__container"
+>
+  <h1>
+    Contact Form
+  </h1>
+  <div
+    className="wrapper input"
+    style={{}}
+  >
+    <input
+      name="name"
+      onChange={[Function]}
+      placeholder="Name"
+      style={{}}
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="wrapper input"
+    style={{}}
+  >
+    <input
+      name="email"
+      onChange={[Function]}
+      placeholder="Email"
+      style={{}}
+      type="email"
+      value=""
+    />
+  </div>
+  <div
+    className="wrapper input"
+    style={{}}
+  >
+    <input
+      name="subject"
+      onChange={[Function]}
+      placeholder="Subject"
+      style={{}}
+      type="text"
+      value=""
+    />
+  </div>
+  <textarea
+    name="message"
+    onChange={[Function]}
+    placeholder="Please write here..."
+    value=""
+  />
+  <div
+    className="buttons__wrapper"
+  >
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+    <button
+      onClick={[Function]}
+    >
+      Cancel
+    </button>
+  </div>
+</div>
+`;

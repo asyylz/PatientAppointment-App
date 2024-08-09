@@ -70,7 +70,7 @@ export const checkTokenExpiration = async () => {
 /* ------------------------------------------------------ */
 
 const axiosInterceptorsWithToken = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  //baseURL: import.meta.env.VITE_BASE_URL,
   withCredentials: true,
   //timeout: 10000, // 10 seconds Set a timeout to handle slow network requests or unresponsive servers.
 });
@@ -124,7 +124,7 @@ axiosInterceptorsWithToken.interceptors.response.use(
 /*                      WITHOUT TOKEN                     */
 /* ------------------------------------------------------ */
 const axiosInterceptorsWithoutToken = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  //baseURL: import.meta.env.VITE_BASE_URL,
   withCredentials: true,
 });
 

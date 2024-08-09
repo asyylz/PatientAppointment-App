@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
 import useHttp from './../../hooks/useHttp';
+import { formatDateForUI } from '../../helper/generateDates';
 
 /* ---------------------- COMPONENT --------------------- */
 const Appointments: React.FC = () => {
@@ -28,16 +29,19 @@ const Appointments: React.FC = () => {
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForDoctor
   );
+  //console.log(entities);
   const { appointmentsForDoctor } = entities;
-  console.log(appointmentsForDoctor);
-
+  //console.log(appointmentsForDoctor);
   useEffect(() => {
     if (userData?.doctorId) {
+      console.log('asiye')
       dispatch(
         fetchAppointmentsForDoctor({ id: userData.doctorId.toString(), token })
       );
     }
   }, [dispatch, openModal, token, userData?._id, userData?.doctorId]);
+
+console.log(appointmentsForDoctor)
 
   const handleClick = (appointment: SingleAppointmentForDoctor) => {
     setOpenModal('open');
@@ -116,7 +120,12 @@ const Appointments: React.FC = () => {
                 >
                   <td>{appointment.patientId?.name}</td>
                   <td>{appointment.patientId?.DOB.split('T')[0]}</td>
-                  <td>{appointment.appointmentDateAndTime.split('T')[0]}</td>
+
+                  <td>
+                    {formatDateForUI(
+                      appointment.appointmentDateAndTime.split('T')[0]
+                    )}
+                  </td>
                   <td>
                     {appointment?.appointmentDateAndTime
                       .split('T')[1]
