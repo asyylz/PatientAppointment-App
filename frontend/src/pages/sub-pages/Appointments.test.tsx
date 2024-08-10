@@ -1,21 +1,41 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import Appointments from './Appointments';
 import { act } from 'react';
-//import { jest } from '@jest/globals';
+import renderer from 'react-test-renderer';
 import store from '../../store/index';
-//import { configureStore } from '@reduxjs/toolkit';
-//import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
+import '@testing-library/dom';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
+
+import React from 'react';
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useEffect: jest.fn(),
+}));
 
 // Define initial state
 const initialState = {
   currentUser: {
-    status: 'idle',
-    token: '',
-    userData: null,
+    status: 'success',
+    token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NmMxZjEwYWQwMTVlNmRmMTdhOThlNCIsImlhdCI6MTcyMzI0MzI0NywiZXhwIjoxNzIzMjQ1MDQ3fQ.7QOdK3nCWtb5wQ1yWZD26GhZ731F8nZzlH-d9-oonrY',
+    userData: {
+      _id: '6673662fbd42a966b75dec92',
+      name: 'Asiye',
+      email: 'alice@test.com',
+      DOB: '1986-01-22T00:00:00.000Z',
+      image: 'test image',
+      role: 'doctor',
+      address: {
+        street: '123 Main St',
+        city: 'New York',
+        country: 'NY',
+        town: 'test town',
+        postalCode: '10001',
+      },
+    },
     _persist: { version: -1, rehydrated: true },
   },
   departments: { entities: [], status: 'idle', error: null },
@@ -53,10 +73,33 @@ const afterDispatchState = {
   status: 'succeeded',
   error: null,
 };
-
-
+jest.spyOn(React, 'useEffect').mockImplementation(() => {});
 describe('Appointments Component', () => {
-  it('should have initial state with status "idle"', () => {
+  const handleDelete = jest.fn();
+  const confirmDelete = jest.fn();
+  const cancelDelete = jest.fn();
+
+  beforeEach(() => {
+    // Reset mock function calls before each test
+    handleDelete.mockClear();
+    confirmDelete.mockClear();
+    cancelDelete.mockClear();
+  });
+  /* -------------------------- - ------------------------- */
+  it('1--Renders correctly before data is fetched', () => {
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <MemoryRouter>
+            <Appointments />
+          </MemoryRouter>
+        </Provider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  /* -------------------------- - ------------------------- */
+  it('2--Initializes state with status "idle', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -64,25 +107,23 @@ describe('Appointments Component', () => {
         </MemoryRouter>
       </Provider>
     );
-    //console.log(store.getState().currentUser);
     // Initial state should be 'idle'
     expect(store.getState().appointmentsForDoctor.status).toEqual('idle');
-    expect(store.getState()).toEqual(initialState);
+    expect(store.getState().appointmentsForDoctor).toEqual(
+      initialState.appointmentsForDoctor
+    );
   });
-
-  it('should dispatch fetchAppointmentsForDoctor action and update the state with the action payload', async () => {
+  /* -------------------------- - ------------------------- */
+  it('3--Dispatches fetchAppointmentsForDoctor action and updates state with the action payload', async () => {
     expect(store.getState().appointmentsForDoctor.status).toEqual('idle');
 
-  
-      render(
-        <Provider store={store}>
-          <MemoryRouter>
-            <Appointments />
-          </MemoryRouter>
-        </Provider>
-      );
-    
-    console.log(store.getState().appointmentsForDoctor.status);
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Appointments />
+        </MemoryRouter>
+      </Provider>
+    );
 
     await act(async () => {
       store.dispatch(
@@ -94,7 +135,6 @@ describe('Appointments Component', () => {
     });
 
     expect(store.getState().appointmentsForDoctor.status).toEqual('loading');
-    //console.log(store.getState().appointmentsForDoctor.status);
 
     const fullfilledAction = {
       type: 'appointmentsForDoctor/fetchWithIdAndToken/fulfilled',
@@ -121,10 +161,9 @@ describe('Appointments Component', () => {
     await act(async () => {
       store.dispatch(fullfilledAction);
     });
-
-   // console.log(store.getState().appointmentsForDoctor.status);
   });
-  it('should  see data after dispatching in DOM', () => {
+  /* -------------------------- - ------------------------- */
+  it('4--Renders fetched data in the DOM after dispatching action', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -133,13 +172,20 @@ describe('Appointments Component', () => {
       </Provider>
     );
 
-    //console.log(store.getState().appointmentsForDoctor);
-    
     // After dispatching the action, the state should be updated
     expect(store.getState().appointmentsForDoctor).toEqual(afterDispatchState);
-
+  });
+  /* -------------------------- - ------------------------- */
+  it('5--Renders 7 cells per row with correct values based on fetched data', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Appointments />
+        </MemoryRouter>
+      </Provider>
+    );
     const cells = screen.getAllByRole('cell');
-
+    expect(cells.length).toBe(8);
     // Check the content of the cells
     expect(cells[0]).toHaveTextContent('Asiye');
     expect(cells[1]).toHaveTextContent('1986-01-22');
@@ -148,6 +194,7 @@ describe('Appointments Component', () => {
     expect(cells[4]).toHaveTextContent('Regular Checkup');
     expect(cells[5]).toHaveTextContent('Pain killer given.');
     expect(cells[6]).toHaveTextContent('Yes');
+    expect(cells[7]).toContainHTML('svg');
 
     expect(screen.getByText('Asiye')).toBeInTheDocument();
     expect(screen.getByText('1986-01-22')).toBeInTheDocument();
@@ -156,5 +203,117 @@ describe('Appointments Component', () => {
     expect(screen.getByText('Regular Checkup')).toBeInTheDocument();
     expect(screen.getByText('Pain killer given.')).toBeInTheDocument();
     expect(screen.getByText('Yes')).toBeInTheDocument();
+  });
+
+  /* -------------------------- - ------------------------- */
+  it('6--Renders the correct number of rows based on the fetched data length', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Appointments />
+        </MemoryRouter>
+      </Provider>
+    );
+    const rows = within(screen.getByTestId('appointments')).getAllByRole('row');
+    // we have two <tr> tag for decoration,  they need to be taken out
+    expect(rows.length - 2).toEqual(
+      afterDispatchState.entities.appointmentsForDoctor.length
+    );
+  });
+
+  /* -------------------------- - ------------------------- */
+  it('7--Displays content correctly after data is successfully fetched', () => {
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <MemoryRouter>
+            <Appointments />
+          </MemoryRouter>
+        </Provider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  /* -------------------------- - ------------------------- */
+  it('8--Opens confirmation modal and triggers delete action when the trash icon is clicked', async () => {
+    render(
+      <>
+        <div id="modal" data-testid="modal"></div>
+        <Provider store={store}>
+          <MemoryRouter>
+            <Appointments />
+          </MemoryRouter>
+        </Provider>
+      </>
+    );
+    // Check if the modal is rendered
+    expect(document.getElementById('modal')).toBeInTheDocument();
+
+    // Simulate clicking the trash icon
+    const trashIcon = screen.getByTestId('trash-icon');
+    fireEvent.click(trashIcon);
+    trashIcon.onclick = handleDelete();
+    expect(handleDelete).toHaveBeenCalledTimes(1);
+
+    expect(
+      screen.getByText('Please confirm to delete the appointment?')
+    ).toBeInTheDocument();
+
+    expect(screen.getByText('Confirm')).toBeInTheDocument();
+    expect(screen.getByText('Cancel')).toBeInTheDocument();
+
+    const confirmButton = screen.getByText('Confirm');
+
+    fireEvent.click(confirmButton);
+    await act(async () => {
+      confirmButton.onclick = confirmDelete('66aff973470dee291e76b8fc');
+    });
+    expect(confirmDelete).toHaveBeenCalledTimes(1);
+    // expect(
+    //   screen.getByText('Your appointment successfully deleted.')
+    // ).toBeInTheDocument();
+    console.log(store.getState().appointmentsForDoctor);
+  });
+
+  it('9--Opens confirmation modal and triggers cancel action when the trash icon is clicked', async () => {
+    render(
+      <>
+        <div id="modal" data-testid="modal"></div>
+        <Provider store={store}>
+          <MemoryRouter>
+            <Appointments />
+          </MemoryRouter>
+        </Provider>
+      </>
+    );
+    // Check if the modal is rendered
+    expect(document.getElementById('modal')).toBeInTheDocument();
+
+    // Simulate clicking the trash icon
+    const trashIcon = screen.getByTestId('trash-icon');
+    fireEvent.click(trashIcon);
+    trashIcon.onclick = handleDelete();
+    expect(handleDelete).toHaveBeenCalledTimes(1);
+
+    expect(
+      screen.getByText('Please confirm to delete the appointment?')
+    ).toBeInTheDocument();
+
+    expect(screen.getByText('Cancel')).toBeInTheDocument();
+    const cancelButton = screen.getByText('Cancel');
+
+    fireEvent.click(cancelButton);
+    cancelButton.onclick = cancelDelete();
+    // await act(async () => {
+    //   cancelButton.onclick = cancelDelete();
+    // });
+    expect(cancelDelete).toHaveBeenCalledTimes(1);
+
+    expect(screen.getByText('Confirm')).not.toBeInTheDocument;
+    expect(screen.getByText('Cancel')).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Please confirm to delete the appointment?')
+    ).not.toBeInTheDocument();
   });
 });

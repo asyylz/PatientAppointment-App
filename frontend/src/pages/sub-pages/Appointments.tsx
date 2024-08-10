@@ -34,14 +34,14 @@ const Appointments: React.FC = () => {
   //console.log(appointmentsForDoctor);
   useEffect(() => {
     if (userData?.doctorId) {
-      console.log('asiye')
+      // console.log('asiye')
       dispatch(
         fetchAppointmentsForDoctor({ id: userData.doctorId.toString(), token })
       );
     }
   }, [dispatch, openModal, token, userData?._id, userData?.doctorId]);
 
-console.log(appointmentsForDoctor)
+  //console.log(appointmentsForDoctor)
 
   const handleClick = (appointment: SingleAppointmentForDoctor) => {
     setOpenModal('open');
@@ -105,7 +105,7 @@ console.log(appointmentsForDoctor)
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody data-testid="appointments">
           <tr className={classes.gapLine}></tr>
           {appointmentsForDoctor?.map(
             (appointment: SingleAppointmentForDoctor) => (
@@ -136,6 +136,7 @@ console.log(appointmentsForDoctor)
                   <td>{appointment.referral ? 'Yes' : 'No'}</td>
                   <td>
                     <FaRegTrashAlt
+                      data-testid="trash-icon"
                       className={`${classes.icons} ${classes.trash}`}
                       onClick={(e) => {
                         e.stopPropagation();

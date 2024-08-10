@@ -79,7 +79,7 @@ axiosInterceptorsWithToken.interceptors.request.use(
   (config) => {
     const state = store.getState();
     const currentToken = state.currentUser.token;
-
+    console.log(currentToken);
     if (currentToken) {
       config.headers.Authorization = `Bearer ${currentToken}`;
     }
@@ -91,13 +91,13 @@ axiosInterceptorsWithToken.interceptors.request.use(
 axiosInterceptorsWithToken.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const status = error.response ? error.response.status : null;
+    const status = error.response ? error.response.status : 500;
     console.log(status);
     console.log(error);
     console.log(error.response.data.message);
     //toastErrorNotify(error.response.data.message)
-    handleErrorResponse
-    
+    handleErrorResponse;
+
     // if (
     //   (status === 401 &&
     //     error.response.data.message ===

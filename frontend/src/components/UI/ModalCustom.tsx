@@ -12,7 +12,8 @@ const ModalCustom: React.FC<ModalCustomProps> = ({
   height,
   width,
 }) => {
-  const modalElement = document.getElementById('modal');
+
+  const modalElement = document.getElementById('modal')
 
   if (!modalElement) {
     throw new Error('No modal element found with id "modal"');
@@ -25,6 +26,7 @@ const ModalCustom: React.FC<ModalCustomProps> = ({
       >
         {children}
       </div>
+      
     </div>,
     modalElement
   );

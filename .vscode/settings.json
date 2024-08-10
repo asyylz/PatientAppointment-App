@@ -350,6 +350,15 @@
         "wholeMatch": false
       },
       "color": "darkviolet"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* -------------------------- - ------------------------- */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "darkviolet"
     }
   ]
 }

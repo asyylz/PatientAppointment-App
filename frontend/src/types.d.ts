@@ -9,7 +9,6 @@ interface EntityState<T> {
   error: string | null;
 }
 interface EntityStateForUser<T> {
-  //image?: string;
   entities: Draft<T>;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
