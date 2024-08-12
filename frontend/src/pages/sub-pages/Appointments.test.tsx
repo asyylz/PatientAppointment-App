@@ -36,8 +36,9 @@ deleteMock.mockResolvedValue({
 });
 
 const getMock = axiosInterceptorsWithToken.get as jest.Mock;
+
 // Simulate loading state
-getMock.mockImplementationOnce(() => new Promise(() => {}));  // Keeps the promise pending to simulate loading
+getMock.mockImplementationOnce(() => new Promise(() => {})); // Keeps the promise pending to simulate loading
 getMock.mockResolvedValue({
   data: {
     status: 'succeeded',
@@ -62,7 +63,6 @@ getMock.mockResolvedValue({
     },
   },
 });
-
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -139,22 +139,7 @@ const afterDispatchState = {
 };
 
 describe('Appointments Component', () => {
-  const handleDelete = jest.fn();
-  const confirmDelete = jest.fn(() =>
-    deleteAppointmentMock('66aff973470dee291e76b8fc')
-  );
-  const cancelDelete = jest.fn();
 
-  beforeEach(() => {
-    // Reset mock function calls before each test
-    handleDelete.mockClear();
-    confirmDelete.mockClear();
-    cancelDelete.mockClear();
-  });
-
-  // beforeEach(() => {
-  //   jest.resetAllMocks();
-  // });
   /* -------------------------- - ------------------------- */
   it('1--Renders correctly before data is fetched', () => {
     const tree = renderer
@@ -307,7 +292,6 @@ describe('Appointments Component', () => {
 
   /* -------------------------- - ------------------------- */
   it('8--Opens confirmation modal and triggers delete action when the trash icon is clicked', async () => {
-
     render(
       <>
         <div id="modal" data-testid="modal"></div>
@@ -324,8 +308,6 @@ describe('Appointments Component', () => {
     // Simulate clicking the trash icon
     const trashIcon = screen.getByTestId('trash-icon');
     fireEvent.click(trashIcon);
-    //trashIcon.onclick = handleDelete();
-    //expect(handleDelete).toHaveBeenCalledTimes(1);
 
     expect(
       screen.getByText('Please confirm to delete the appointment?')
@@ -337,7 +319,6 @@ describe('Appointments Component', () => {
     const confirmButton = screen.getByText('Confirm');
 
     fireEvent.click(confirmButton);
-    //confirmButton.onclick = confirmDelete();
 
     // Wait for deleteAppointment to be called
     await waitFor(() => {
@@ -378,8 +359,8 @@ describe('Appointments Component', () => {
     // Simulate clicking the trash icon
     const trashIcon = screen.getByTestId('trash-icon');
     fireEvent.click(trashIcon);
-    trashIcon.onclick = handleDelete();
-    expect(handleDelete).toHaveBeenCalledTimes(1);
+    //trashIcon.onclick = handleDelete();
+    //expect(handleDelete).toHaveBeenCalledTimes(1);
 
     expect(
       screen.getByText('Please confirm to delete the appointment?')
