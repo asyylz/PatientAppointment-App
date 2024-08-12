@@ -29,21 +29,17 @@ const Appointments: React.FC = () => {
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForDoctor
   );
-  //console.log(entities);
+
   const { appointmentsForDoctor } = entities;
-  //console.log(appointmentsForDoctor);
-  
+
+
   useEffect(() => {
-    console.log('asiye')
     if (userData?.doctorId) {
-       console.log('asiye')
       dispatch(
         fetchAppointmentsForDoctor({ id: userData.doctorId.toString(), token })
       );
     }
   }, [dispatch, openModal, token, userData?._id, userData?.doctorId]);
-
-  //console.log(appointmentsForDoctor)
 
   const handleClick = (appointment: SingleAppointmentForDoctor) => {
     setOpenModal('open');

@@ -138,7 +138,6 @@ exports.updateAppointment = async (req, res, next) => {
   const isPastAppointment =
     new Date(appointment.appointmentDateAndTime) < today;
 
-
   if (isPastAppointment && req.user.role !== 'doctor') {
     // If the appointment is in the past and the user is not a doctor, throw an error
     return res.status(400).json({
@@ -321,6 +320,7 @@ exports.createAppointment = async (req, res, next) => {
 
 // DELETE //
 exports.deleteAppointment = async (req, res, next) => {
+  //console.log('from deleteAppointment', req.params.id);
   try {
     // First check appointment is in DB
     const appointment = await Appointment.findById(req.params.id);

@@ -1,0 +1,345 @@
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { act } from 'react';
+import renderer from 'react-test-renderer';
+import store from '../../store/index';
+import { MemoryRouter } from 'react-router-dom';
+import '@testing-library/jest-dom';
+import '@testing-library/dom';
+import { fetchAppointmentsForPatient } from '../../store/appointmentsForPatient-slice';
+import useHttp from '../../hooks/useHttp';
+import { axiosInterceptorsWithToken } from './../../hooks/axiosInterceptors';
+import Dashboard from './Dashboard';
+
+/* ---------------- Mock axiosInterceptor --------------- */
+jest.mock('./../../hooks/axiosInterceptors', () => ({
+  axiosInterceptorsWithToken: {
+    delete: jest.fn(),
+    post: jest.fn(),
+    patch: jest.fn(),
+    get: jest.fn(),
+    interceptors: {
+      request: { use: jest.fn() },
+      response: { use: jest.fn() },
+    },
+  },
+}));
+const deleteMock = axiosInterceptorsWithToken.delete as jest.Mock;
+deleteMock.mockResolvedValue({
+  data: { success: true }, // Simulate a successful delete response
+});
+
+const getMock = axiosInterceptorsWithToken.get as jest.Mock;
+
+getMock.mockImplementationOnce(() => new Promise(() => {}));
+getMock.mockResolvedValue({
+  data: {
+    status: 'succeeded',
+    error: null,
+    data: {
+      total: 1,
+      upcomingAppointments: 1,
+      appointmentsForPatient: [
+        {
+          _id: '66b0a0c31d2124f7d8aaa65b',
+          doctorId: {
+            _id: '665f0f2959c971659af920ca',
+            firstName: 'Bowen',
+            lastName: 'Chan',
+            departmentId: '6660fbd12e3c00fe18cfceef',
+          },
+          patientId: '6673662fbd42a966b75dec92',
+          appointmentDateAndTime: '2024-08-16T11:00:00.000Z',
+          reason: 'test3',
+          diagnose: null,
+          status: null,
+          referral: false,
+        },
+      ],
+    },
+  },
+});
+
+/* ------------------- Mock useEffect ------------------- */
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useEffect: jest.fn(),
+}));
+
+/* ------------------- Mock useHttp ------------------ */
+jest.mock('../../hooks/useHttp');
+
+const deleteAppointmentMock = jest.fn();
+(useHttp as jest.Mock).mockReturnValue({
+  deleteAppointment: deleteAppointmentMock,
+});
+
+/* -------------------- Initial state ------------------- */
+const initialState = {
+  currentUser: {
+    status: 'success',
+    token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NmMxZjEwYWQwMTVlNmRmMTdhOThlNCIsImlhdCI6MTcyMzI0MzI0NywiZXhwIjoxNzIzMjQ1MDQ3fQ.7QOdK3nCWtb5wQ1yWZD26GhZ731F8nZzlH-d9-oonrY',
+    userData: {
+      _id: '6673662fbd42a966b75dec92',
+      name: 'Asiye',
+      email: 'alice@test.com',
+      DOB: '1986-01-22T00:00:00.000Z',
+      image: 'test image',
+      role: 'doctor',
+      address: {
+        street: '123 Main St',
+        city: 'New York',
+        country: 'NY',
+        town: 'test town',
+        postalCode: '10001',
+      },
+    },
+    _persist: { version: -1, rehydrated: true },
+  },
+  departments: { entities: [], status: 'idle', error: null },
+  doctors: {
+    entities: [],
+    status: 'idle',
+    error: null,
+    _persist: { version: -1, rehydrated: true },
+  },
+  reviews: { entities: [], status: 'idle', error: null },
+  search: '',
+  appointmentsForDoctor: { entities: [], status: 'idle', error: null },
+  appointmentsForPatient: { entities: [], status: 'idle', error: null },
+};
+
+/* ------------------- After dispatch ------------------- */
+const afterDispatchState = {
+  entities: {
+    appointmentsForPatient: [
+      {
+        _id: '66b0a0c31d2124f7d8aaa65b',
+        doctorId: {
+          _id: '665f0f2959c971659af920ca',
+          firstName: 'Bowen',
+          lastName: 'Chan',
+          departmentId: '6660fbd12e3c00fe18cfceef',
+        },
+        patientId: '6673662fbd42a966b75dec92',
+        appointmentDateAndTime: '2024-08-16T11:00:00.000Z',
+        reason: 'test3',
+        diagnose: null,
+        status: null,
+        referral: false,
+      },
+    ],
+  },
+  status: 'succeeded',
+  error: null,
+};
+
+/* ---------------- Test Component ------------------ */
+describe('Dasboard', () => {
+  /* -------------------------- - ------------------------- */
+  it('1--Renders correctly before data is fetched', () => {
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <MemoryRouter>
+            <Dashboard />
+          </MemoryRouter>
+        </Provider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  /* -------------------------- - ------------------------- */
+  it('2--Initializes state with status "idle', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Dashboard />
+        </MemoryRouter>
+      </Provider>
+    );
+    // Initial state should be 'idle'
+    expect(store.getState().appointmentsForPatient.status).toEqual('idle');
+    expect(store.getState().appointmentsForPatient).toEqual(
+      initialState.appointmentsForPatient
+    );
+  });
+  /* -------------------------- - ------------------------- */
+  it('3--Dispatches fetchAppointmentsForPatient action and updates state with the action payload', async () => {
+    expect(store.getState().appointmentsForPatient.status).toEqual('idle');
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Dashboard />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    await act(async () => {
+      store.dispatch(
+        fetchAppointmentsForPatient({
+          id: '665f0f2959c971659af920ca',
+          token: 'someToken',
+        })
+      );
+    });
+
+    expect(store.getState().appointmentsForPatient.status).toEqual('loading');
+
+    const fullfilledAction = {
+      type: 'appointmentsForPatient/fetchWithIdAndToken/fulfilled',
+      payload: {
+        appointmentsForPatient: [
+          {
+            _id: '66b0a0c31d2124f7d8aaa65b',
+            doctorId: {
+              _id: '665f0f2959c971659af920ca',
+              firstName: 'Bowen',
+              lastName: 'Chan',
+              departmentId: '6660fbd12e3c00fe18cfceef',
+            },
+            patientId: '6673662fbd42a966b75dec92',
+            appointmentDateAndTime: '2024-08-16T11:00:00.000Z',
+            reason: 'test3',
+            diagnose: null,
+            status: null,
+            referral: false,
+          },
+        ],
+      },
+    };
+
+    await act(async () => {
+      store.dispatch(fullfilledAction);
+    });
+  });
+  /* -------------------------- - ------------------------- */
+  it('4--Renders fetched data in the DOM after dispatching action', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Dashboard />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    // After dispatching the action, the state should be updated
+    expect(store.getState().appointmentsForPatient).toEqual(afterDispatchState);
+
+    console.log(store.getState().appointmentsForPatient);
+  });
+  /* -------------------------- - ------------------------- */
+  it('5--Renders 7 cells per row with correct values based on fetched data', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Dashboard />
+        </MemoryRouter>
+      </Provider>
+    );
+    const cells = screen.getAllByRole('cell');
+    expect(cells.length).toBe(7);
+    // Check the content of the cells
+    expect(cells[0]).toHaveTextContent('1.');
+    expect(cells[1]).toHaveTextContent('Dr. Bowen Chan');
+    expect(cells[2]).toHaveTextContent('16/08/2024 Friday');
+    expect(cells[3]).toHaveTextContent('11:00');
+    expect(cells[4]).toHaveTextContent('test3');
+    expect(cells[5]).toHaveTextContent('');
+    expect(cells[6]).toContainHTML('svg');
+  });
+  /* -------------------------- - ------------------------- */
+  it('6--Renders the correct number of rows based on the fetched data length', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Dashboard />
+        </MemoryRouter>
+      </Provider>
+    );
+    const rows = within(
+      screen.getByTestId('appointments-patient')
+    ).getAllByRole('row');
+    // we have two <tr> tag for decoration,  they need to be taken out
+    expect(rows.length - 2).toEqual(
+      afterDispatchState.entities.appointmentsForPatient.length
+    );
+  });
+  /* -------------------------- - ------------------------- */
+  it('7--Displays content correctly after data is successfully fetched', () => {
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <MemoryRouter>
+            <Dashboard />
+          </MemoryRouter>
+        </Provider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  /* -------------------------- - ------------------------- */
+  it('8--Opens Appointment form when the edit icon is clicked, triggers delete action, opens modal window for confirmation ', async () => {
+    render(
+      <>
+        <div id="modal" data-testid="modal"></div>
+        <Provider store={store}>
+          <MemoryRouter>
+            <Dashboard />
+          </MemoryRouter>
+        </Provider>
+      </>
+    );
+    // Check if the modal is rendered
+    expect(document.getElementById('modal')).toBeInTheDocument();
+
+    // Simulate clicking the trash icon
+    const editIcon = screen.getByTestId('edit-icon');
+    fireEvent.click(editIcon);
+
+    expect(screen.getByText('Delete')).toBeInTheDocument();
+    expect(screen.getByText('Update')).toBeInTheDocument();
+    expect(screen.getByText('Close')).toBeInTheDocument();
+
+    const deleteButton = screen.getByText('Delete');
+
+    fireEvent.click(deleteButton);
+
+    expect(
+      screen.getByText('You are about to cancel your recent appointment?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Confirm')).toBeInTheDocument();
+    expect(screen.getByText('Cancel')).toBeInTheDocument();
+
+    const confirmButton = screen.getByText('Confirm');
+    fireEvent.click(confirmButton);
+
+    // Wait for deleteAppointment to be called
+    await waitFor(() => {
+      expect(deleteAppointmentMock).toHaveBeenCalledWith(
+        '66b0a0c31d2124f7d8aaa65b'
+      );
+      expect(deleteAppointmentMock).toHaveBeenCalledTimes(1);
+    });
+
+    // Additional logging
+    console.log(
+      'deleteAppointmentMock calls:',
+      deleteAppointmentMock.mock.calls
+    );
+    console.log('Current state:', store.getState().appointmentsForPatient);
+
+    // expect(
+    //   screen.getByText('Your appointment successfully deleted.')
+    // ).toBeInTheDocument();
+  });
+});

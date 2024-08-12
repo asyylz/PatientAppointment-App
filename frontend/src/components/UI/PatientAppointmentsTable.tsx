@@ -65,13 +65,13 @@ const PatientAppointmentsTable: React.FC<Props> = ({
             <th>No</th>
             <th>Doctor Name</th>
             <th>Date</th>
-            <th>Concerns</th>
             <th>Time</th>
+            <th>Concerns</th>
             <th>Diagnose</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody data-testid="appointments-patient">
           <tr className={classes['gap--line']}></tr>
           {appointmentsForPatient?.map(
             (appointment: Appointment, index: number) => (
@@ -86,15 +86,16 @@ const PatientAppointmentsTable: React.FC<Props> = ({
                   <td>{index + 1}.</td>
                   <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
                   <td>{formatDateForUI(appointment.appointmentDateAndTime)}</td>
-                  <td>{appointment.reason}</td>
                   <td>
                     {appointment.appointmentDateAndTime
                       .split('T')[1]
                       .slice(0, 5)}
                   </td>
+                  <td>{appointment.reason}</td>
                   <td>{appointment.diagnose}</td>
                   <td>
                     <FaEdit
+                      data-testid="edit-icon"
                       className={`${classes.icons} ${classes['icons--edit']}`}
                       onClick={() => {
                         handleClick(appointment);

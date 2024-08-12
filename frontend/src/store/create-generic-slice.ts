@@ -73,29 +73,11 @@ export const fetchEntitiesWithIdAndToken = <T>(
       // Make the API request with the token in the headers
       const response = await axiosInterceptorsWithToken.get(
         requestUrl
-        //    {
-        //   headers: { Authorization: `Bearer ${token}` },
-        // }
       );
       // return response.data.data[entity];
       console.log(response.data);
       return response.data.data;
-      // } catch (err) {
-      //   // Check if `err` has `response` property
-      //   if (err.response) {
-      //     console.log(err);
-      //     // Return a detailed error message using `rejectWithValue`
-      //     return rejectWithValue({
-      //       message: err.response.data.message || 'An error occurred',
-      //       details: err.response.data.error || err.message,
-      //     });
-      //   } else {
-      //     // Handle cases where there is no response property
-      //     return rejectWithValue({
-      //       message: err.message || 'An unknown error occurred',
-      //     });
-      //   }
-      // }
+      
     }
   );
 
