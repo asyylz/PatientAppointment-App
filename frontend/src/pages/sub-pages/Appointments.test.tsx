@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import Appointments from './Appointments';
 import { act } from 'react';
@@ -8,12 +14,70 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import '@testing-library/dom';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
+import useHttp from '../../hooks/useHttp';
+import { axiosInterceptorsWithToken } from './../../hooks/axiosInterceptors';
 
-import React from 'react';
+jest.mock('./../../hooks/axiosInterceptors', () => ({
+  axiosInterceptorsWithToken: {
+    delete: jest.fn(),
+    post: jest.fn(),
+    patch: jest.fn(),
+    get: jest.fn(),
+    interceptors: {
+      request: { use: jest.fn() },
+      response: { use: jest.fn() },
+    },
+  },
+}));
+
+const deleteMock = axiosInterceptorsWithToken.delete as jest.Mock;
+deleteMock.mockResolvedValue({
+  data: { success: true }, // Simulate a successful delete response
+});
+
+const getMock = axiosInterceptorsWithToken.get as jest.Mock;
+// Simulate loading state
+getMock.mockImplementationOnce(() => new Promise(() => {}));  // Keeps the promise pending to simulate loading
+getMock.mockResolvedValue({
+  data: {
+    status: 'succeeded',
+    error: null,
+    data: {
+      appointmentsForDoctor: [
+        {
+          _id: '66aff973470dee291e76b8fc',
+          doctorId: '665f0f2959c971659af920ca',
+          patientId: {
+            _id: '6673662fbd42a966b75dec92',
+            name: 'Asiye',
+            email: 'alice@test.com',
+            DOB: '1986-01-22T00:00:00.000Z',
+          },
+          appointmentDateAndTime: '2024-08-09T11:00:00.000Z',
+          reason: 'Regular Checkup',
+          diagnose: 'Pain killer given.',
+          referral: true,
+        },
+      ],
+    },
+  },
+});
+
+
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useEffect: jest.fn(),
 }));
+
+// Mock the module containing the useHttp hook
+jest.mock('../../hooks/useHttp');
+
+// Set up the mock implementation for useHttp
+const deleteAppointmentMock = jest.fn();
+
+(useHttp as jest.Mock).mockReturnValue({
+  deleteAppointment: deleteAppointmentMock,
+});
 
 // Define initial state
 const initialState = {
@@ -73,10 +137,12 @@ const afterDispatchState = {
   status: 'succeeded',
   error: null,
 };
-jest.spyOn(React, 'useEffect').mockImplementation(() => {});
+
 describe('Appointments Component', () => {
   const handleDelete = jest.fn();
-  const confirmDelete = jest.fn();
+  const confirmDelete = jest.fn(() =>
+    deleteAppointmentMock('66aff973470dee291e76b8fc')
+  );
   const cancelDelete = jest.fn();
 
   beforeEach(() => {
@@ -85,6 +151,10 @@ describe('Appointments Component', () => {
     confirmDelete.mockClear();
     cancelDelete.mockClear();
   });
+
+  // beforeEach(() => {
+  //   jest.resetAllMocks();
+  // });
   /* -------------------------- - ------------------------- */
   it('1--Renders correctly before data is fetched', () => {
     const tree = renderer
@@ -237,6 +307,7 @@ describe('Appointments Component', () => {
 
   /* -------------------------- - ------------------------- */
   it('8--Opens confirmation modal and triggers delete action when the trash icon is clicked', async () => {
+
     render(
       <>
         <div id="modal" data-testid="modal"></div>
@@ -253,8 +324,8 @@ describe('Appointments Component', () => {
     // Simulate clicking the trash icon
     const trashIcon = screen.getByTestId('trash-icon');
     fireEvent.click(trashIcon);
-    trashIcon.onclick = handleDelete();
-    expect(handleDelete).toHaveBeenCalledTimes(1);
+    //trashIcon.onclick = handleDelete();
+    //expect(handleDelete).toHaveBeenCalledTimes(1);
 
     expect(
       screen.getByText('Please confirm to delete the appointment?')
@@ -266,14 +337,26 @@ describe('Appointments Component', () => {
     const confirmButton = screen.getByText('Confirm');
 
     fireEvent.click(confirmButton);
-    await act(async () => {
-      confirmButton.onclick = confirmDelete('66aff973470dee291e76b8fc');
+    //confirmButton.onclick = confirmDelete();
+
+    // Wait for deleteAppointment to be called
+    await waitFor(() => {
+      expect(deleteAppointmentMock).toHaveBeenCalledWith(
+        '66aff973470dee291e76b8fc'
+      );
+      expect(deleteAppointmentMock).toHaveBeenCalledTimes(1);
     });
-    expect(confirmDelete).toHaveBeenCalledTimes(1);
+
+    // Additional logging
+    console.log(
+      'deleteAppointmentMock calls:',
+      deleteAppointmentMock.mock.calls
+    );
+    console.log('Current state:', store.getState().appointmentsForDoctor);
+
     // expect(
     //   screen.getByText('Your appointment successfully deleted.')
     // ).toBeInTheDocument();
-    console.log(store.getState().appointmentsForDoctor);
   });
 
   it('9--Opens confirmation modal and triggers cancel action when the trash icon is clicked', async () => {
@@ -290,6 +373,8 @@ describe('Appointments Component', () => {
     // Check if the modal is rendered
     expect(document.getElementById('modal')).toBeInTheDocument();
 
+    //console.log(store.getState().appointmentsForDoctor);
+
     // Simulate clicking the trash icon
     const trashIcon = screen.getByTestId('trash-icon');
     fireEvent.click(trashIcon);
@@ -304,16 +389,11 @@ describe('Appointments Component', () => {
     const cancelButton = screen.getByText('Cancel');
 
     fireEvent.click(cancelButton);
-    cancelButton.onclick = cancelDelete();
-    // await act(async () => {
-    //   cancelButton.onclick = cancelDelete();
-    // });
-    expect(cancelDelete).toHaveBeenCalledTimes(1);
-
-    expect(screen.getByText('Confirm')).not.toBeInTheDocument;
-    expect(screen.getByText('Cancel')).not.toBeInTheDocument();
+    //cancelButton.onclick = cancelDelete();
+    expect(screen.queryByText('Confirm')).not.toBeInTheDocument();
+    expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
     expect(
-      screen.getByText('Please confirm to delete the appointment?')
+      screen.queryByText('Please confirm to delete the appointment?')
     ).not.toBeInTheDocument();
   });
 });

@@ -32,6 +32,7 @@ const useHttp = () => {
 
   const deleteAppointment = async (id: ObjectId | undefined) => {
     console.log(id)
+    console.log('asiye')
     const response = await axiosInterceptorsWithToken.delete(
       `http://localhost:3000/api/v1/appointments/${id}`
     );

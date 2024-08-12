@@ -32,9 +32,11 @@ const Appointments: React.FC = () => {
   //console.log(entities);
   const { appointmentsForDoctor } = entities;
   //console.log(appointmentsForDoctor);
+  
   useEffect(() => {
+    console.log('asiye')
     if (userData?.doctorId) {
-      // console.log('asiye')
+       console.log('asiye')
       dispatch(
         fetchAppointmentsForDoctor({ id: userData.doctorId.toString(), token })
       );
@@ -54,6 +56,7 @@ const Appointments: React.FC = () => {
   };
 
   const confirmDelete = () => {
+    console.log('asiye')
     if (appointmentIdToDelete) {
       deleteAppointment(appointmentIdToDelete);
     }
@@ -62,6 +65,7 @@ const Appointments: React.FC = () => {
   };
 
   const cancelDelete = () => {
+    console.log('asiye')
     setOpenModal('');
     setAppointmentIdToDelete(null);
   };
