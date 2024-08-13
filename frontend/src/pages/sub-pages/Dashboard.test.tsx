@@ -30,11 +30,14 @@ jest.mock('./../../hooks/axiosInterceptors', () => ({
     },
   },
 }));
+
+
 // Mock delete
 const deleteMock = axiosInterceptorsWithToken.delete as jest.Mock;
 deleteMock.mockResolvedValue({
   data: { success: true }, // Simulate a successful delete response
 });
+
 // Mock update
 const updateMock = axiosInterceptorsWithToken.patch as jest.Mock;
 updateMock.mockResolvedValue({
@@ -510,5 +513,24 @@ describe('Dasboard', () => {
 
     const cells = screen.getAllByRole('cell');
     expect(cells[4]).toHaveTextContent('After update');
+  });
+  /* -------------------------- - ------------------------- */
+  it('11--Renders the error if fetchAppointmentsForPatient returns error', async () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Dashboard />
+        </MemoryRouter>
+      </Provider>
+    );
+    await act(async () => {
+      store.dispatch({
+        type: 'appointmentsForPatient/fetchWithIdAndToken/rejected',
+        payload: new Error('Failed to fetch appointments for this patient'),
+      });
+    });
+    expect(
+      screen.getByText('Error: Failed to fetch appointments for this patient')
+    ).toBeInTheDocument();
   });
 });

@@ -1,6 +1,8 @@
 import type { Config } from 'jest';
 
 const config: Config = {
+  coverageDirectory:"<rootDir>/src/_testUtils/coverage" ,
+  collectCoverage:true,
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['./setupTests.ts'],

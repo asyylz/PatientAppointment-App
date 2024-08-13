@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 const mockStore = configureStore();
+import '@testing-library/jest-dom';
 
 describe('ContactPage', () => {
   let store: any;

@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 // import { fetchDoctors } from '../store/doctors-slice';
+import '@testing-library/jest-dom';
 
 const mockStore = configureStore();
 jest.mock('../store/doctors-slice', () => ({

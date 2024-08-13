@@ -47,8 +47,6 @@ const Dashboard: React.FC = () => {
     ),
   ];
 
-  if (error) return <div>Error: {error}</div>;
-
   return (
     <>
       {openModal === 'open' && selectedAppointment && (
@@ -126,7 +124,8 @@ const Dashboard: React.FC = () => {
               </div>
               <hr />
               {status === 'loading' && <div>Loading...</div>}
-              {error && <p>Error:{error}</p>}
+              {error && <p>Error: {error}</p>}
+
               <PatientAppointmentsTable
                 openModal={openModal}
                 setOpenModal={setOpenModal}
