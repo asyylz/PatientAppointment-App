@@ -27,6 +27,7 @@ const useHttp = () => {
       data
     );
     toastSuccessNotify('Your appointment successfully updated');
+    console.log(response.data)
     return response.data;
   };
 

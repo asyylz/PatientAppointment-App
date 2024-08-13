@@ -370,7 +370,6 @@ describe('Appointments Component', () => {
     const cancelButton = screen.getByText('Cancel');
 
     fireEvent.click(cancelButton);
-    //cancelButton.onclick = cancelDelete();
     expect(screen.queryByText('Confirm')).not.toBeInTheDocument();
     expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
     expect(

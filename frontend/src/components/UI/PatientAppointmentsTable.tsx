@@ -11,14 +11,14 @@ interface Props {
   openModal: string;
   setOpenModal: (openModal: string) => void;
   setSelectedAppointment: (selectedAppointment: Appointment) => void;
-  appointmentIdToDelete: ObjectId | null;
+  //appointmentIdToDelete: ObjectId | null;
 }
 
 const PatientAppointmentsTable: React.FC<Props> = ({
   setOpenModal,
   openModal,
   setSelectedAppointment,
-  appointmentIdToDelete,
+  //appointmentIdToDelete,
 }) => {
   const { entities } = useSelector(
     (state: RootState) => state.appointmentsForPatient
@@ -43,7 +43,7 @@ const PatientAppointmentsTable: React.FC<Props> = ({
       );
     }
   }, [
-    appointmentIdToDelete,
+   // appointmentIdToDelete,
     pagination,
     dispatch,
     token,

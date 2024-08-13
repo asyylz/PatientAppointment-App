@@ -2,7 +2,7 @@ import {
   fireEvent,
   render,
   screen,
-  waitFor,
+  //waitFor,
   within,
 } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -30,13 +30,32 @@ jest.mock('./../../hooks/axiosInterceptors', () => ({
     },
   },
 }));
+// Mock delete
 const deleteMock = axiosInterceptorsWithToken.delete as jest.Mock;
 deleteMock.mockResolvedValue({
   data: { success: true }, // Simulate a successful delete response
 });
+// Mock update
+const updateMock = axiosInterceptorsWithToken.patch as jest.Mock;
+updateMock.mockResolvedValue({
+  status: 'success',
+  data: {
+    appointment: {
+      _id: '66bb4c6a7f78041ac61a875c',
+      doctorId: '665f0f2959c971659af920e5',
+      patientId: '6673662fbd42a966b75dec92',
+      appointmentDateAndTime: '2024-08-16T16:00:00.000Z',
+      reason: 'ccccc',
+      diagnose: null,
+      status: null,
+      referral: false,
+      __v: 0,
+    },
+  },
+});
 
+// Mock get
 const getMock = axiosInterceptorsWithToken.get as jest.Mock;
-
 getMock.mockImplementationOnce(() => new Promise(() => {}));
 getMock.mockResolvedValue({
   data: {
@@ -76,8 +95,19 @@ jest.mock('react', () => ({
 jest.mock('../../hooks/useHttp');
 
 const deleteAppointmentMock = jest.fn();
+//Mock to return the desired response
+deleteAppointmentMock.mockResolvedValue({
+  status: 204, // Simulate a successful deletion response with status 204
+});
+
+const updateAppointmentMock = jest.fn();
+updateAppointmentMock.mockResolvedValue({
+  status: 'success',
+});
+
 (useHttp as jest.Mock).mockReturnValue({
   deleteAppointment: deleteAppointmentMock,
+  updateAppointment: updateAppointmentMock,
 });
 
 /* -------------------- Initial state ------------------- */
@@ -130,7 +160,7 @@ const afterDispatchState = {
         },
         patientId: '6673662fbd42a966b75dec92',
         appointmentDateAndTime: '2024-08-16T11:00:00.000Z',
-        reason: 'test3',
+        reason: 'Before update',
         diagnose: null,
         status: null,
         referral: false,
@@ -143,6 +173,9 @@ const afterDispatchState = {
 
 /* ---------------- Test Component ------------------ */
 describe('Dasboard', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   /* -------------------------- - ------------------------- */
   it('1--Renders correctly before data is fetched', () => {
     const tree = renderer
@@ -186,8 +219,9 @@ describe('Dasboard', () => {
     await act(async () => {
       store.dispatch(
         fetchAppointmentsForPatient({
-          id: '665f0f2959c971659af920ca',
-          token: 'someToken',
+          id: '6673662fbd42a966b75dec92', // id same with initialState currentUser Id
+          token:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NmMxZjEwYWQwMTVlNmRmMTdhOThlNCIsImlhdCI6MTcyMzI0MzI0NywiZXhwIjoxNzIzMjQ1MDQ3fQ.7QOdK3nCWtb5wQ1yWZD26GhZ731F8nZzlH-d9-oonrY',
         })
       );
     });
@@ -208,7 +242,7 @@ describe('Dasboard', () => {
             },
             patientId: '6673662fbd42a966b75dec92',
             appointmentDateAndTime: '2024-08-16T11:00:00.000Z',
-            reason: 'test3',
+            reason: 'Before update',
             diagnose: null,
             status: null,
             referral: false,
@@ -233,8 +267,7 @@ describe('Dasboard', () => {
 
     // After dispatching the action, the state should be updated
     expect(store.getState().appointmentsForPatient).toEqual(afterDispatchState);
-
-    console.log(store.getState().appointmentsForPatient);
+    // console.log(store.getState().appointmentsForPatient);
   });
   /* -------------------------- - ------------------------- */
   it('5--Renders 7 cells per row with correct values based on fetched data', () => {
@@ -252,7 +285,7 @@ describe('Dasboard', () => {
     expect(cells[1]).toHaveTextContent('Dr. Bowen Chan');
     expect(cells[2]).toHaveTextContent('16/08/2024 Friday');
     expect(cells[3]).toHaveTextContent('11:00');
-    expect(cells[4]).toHaveTextContent('test3');
+    expect(cells[4]).toHaveTextContent('Before update');
     expect(cells[5]).toHaveTextContent('');
     expect(cells[6]).toContainHTML('svg');
   });
@@ -288,7 +321,7 @@ describe('Dasboard', () => {
   });
 
   /* -------------------------- - ------------------------- */
-  it('8--Opens Appointment form when the edit icon is clicked, triggers delete action, opens modal window for confirmation ', async () => {
+  it('8--Opens Appointment form when the edit icon is clicked, fire delete button, opens modal window for confirmation, fire confirm button and trigger delete action', async () => {
     render(
       <>
         <div id="modal" data-testid="modal"></div>
@@ -324,7 +357,7 @@ describe('Dasboard', () => {
     fireEvent.click(confirmButton);
 
     // Wait for deleteAppointment to be called
-    await waitFor(() => {
+    await act(async () => {
       expect(deleteAppointmentMock).toHaveBeenCalledWith(
         '66b0a0c31d2124f7d8aaa65b'
       );
@@ -336,10 +369,146 @@ describe('Dasboard', () => {
       'deleteAppointmentMock calls:',
       deleteAppointmentMock.mock.calls
     );
+
+    expect(
+      screen.queryByRole('button', { name: 'Confirm' })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
+
+    expect(screen.queryByText('Delete')).not.toBeInTheDocument();
+    expect(screen.queryByText('Update')).not.toBeInTheDocument();
+    expect(screen.queryByText('Close')).not.toBeInTheDocument();
+  });
+  /* -------------------------- - ------------------------- */
+  it('9--Opens Appointment form when the edit icon is clicked, fire delete button, opens modal window for confirmation, fire cancel button and close confirmation window', async () => {
+    render(
+      <>
+        <div id="modal" data-testid="modal"></div>
+        <Provider store={store}>
+          <MemoryRouter>
+            <Dashboard />
+          </MemoryRouter>
+        </Provider>
+      </>
+    );
+    // Check if the modal is rendered
+    expect(document.getElementById('modal')).toBeInTheDocument();
+
+    // Simulate clicking the trash icon
+    const editIcon = screen.getByTestId('edit-icon');
+    fireEvent.click(editIcon);
+
+    expect(screen.getByText('Delete')).toBeInTheDocument();
+    expect(screen.getByText('Update')).toBeInTheDocument();
+    expect(screen.getByText('Close')).toBeInTheDocument();
+
+    const deleteButton = screen.getByText('Delete');
+
+    fireEvent.click(deleteButton);
+
+    expect(
+      screen.getByText('You are about to cancel your recent appointment?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Confirm')).toBeInTheDocument();
+    expect(screen.getByText('Cancel')).toBeInTheDocument();
+    const cancelButton = screen.getByText('Cancel');
+    fireEvent.click(cancelButton);
+
+    expect(screen.getByText('Delete')).toBeInTheDocument();
+    expect(screen.getByText('Update')).toBeInTheDocument();
+    expect(screen.getByText('Close')).toBeInTheDocument();
+
+    expect(screen.queryByText('Confirm')).not.toBeInTheDocument();
+    expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
+  });
+  /* -------------------------- - ------------------------- */
+  it('10--open an appointment form by clicking the edit icon, make changes in the inputs, fire the update button, trigger the update action, and finally close the modal window', async () => {
+    render(
+      <>
+        <div id="modal" data-testid="modal"></div>
+        <Provider store={store}>
+          <MemoryRouter>
+            <Dashboard />
+          </MemoryRouter>
+        </Provider>
+      </>
+    );
+    // Check if the modal is rendered
+    expect(document.getElementById('modal')).toBeInTheDocument();
+
+    // Simulate clicking the trash icon
+    const editIcon = screen.getByTestId('edit-icon');
+    fireEvent.click(editIcon);
+    console.log('asiye');
+    //checking modal appointment form presence
+    expect(screen.getByText('Appointment Details')).toBeInTheDocument();
+
+    // Simulate changing form inputs
+    fireEvent.change(
+      screen.getByPlaceholderText('Please write your concerns...'),
+      {
+        target: { value: 'After update' }, // Example reason change
+      }
+    );
+
+    // fireEvent.change(screen.getByLabelText('Reason'), {
+    //   target: { value: 'Updated Reason' },
+    // });
+
+    // Simulate clicking the update button
+    const updateButton = screen.getByText('Update');
+    fireEvent.click(updateButton);
+
+    await act(async () => {
+      expect(updateAppointmentMock).toHaveBeenCalledWith(
+        {
+          appointmentDateAndTime: '2024-08-16T11:00:00.000Z',
+          reason: 'After update',
+        },
+        '66b0a0c31d2124f7d8aaa65b'
+      );
+      expect(updateAppointmentMock).toHaveBeenCalledTimes(1);
+    });
+
+    // Additional logging
+    console.log(
+      'updateAppointmentMock calls:',
+      updateAppointmentMock.mock.calls
+    );
+
+    const fullfilledAction = {
+      type: 'appointmentsForPatient/fetchWithIdAndToken/fulfilled',
+      payload: {
+        appointmentsForPatient: [
+          {
+            _id: '66b0a0c31d2124f7d8aaa65b',
+            doctorId: {
+              _id: '665f0f2959c971659af920ca',
+              firstName: 'Bowen',
+              lastName: 'Chan',
+              departmentId: '6660fbd12e3c00fe18cfceef',
+            },
+            patientId: '6673662fbd42a966b75dec92',
+            appointmentDateAndTime: '2024-08-16T11:00:00.000Z',
+            reason: 'After update',
+            diagnose: null,
+            status: null,
+            referral: false,
+          },
+        ],
+      },
+    };
+
+    await act(async () => {
+      store.dispatch(fullfilledAction);
+    });
+
     console.log('Current state:', store.getState().appointmentsForPatient);
 
-    // expect(
-    //   screen.getByText('Your appointment successfully deleted.')
-    // ).toBeInTheDocument();
+    expect(screen.queryByText('Appointment Details')).not.toBeInTheDocument;
+    expect(screen.getByText('Latest Appointments')).toBeInTheDocument;
+
+    const cells = screen.getAllByRole('cell');
+    expect(cells[4]).toHaveTextContent('After update');
   });
 });

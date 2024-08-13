@@ -28,9 +28,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       reason: appointment.reason,
     });
 
-  //console.log(updatedAppointmentData);
+  console.log(updatedAppointmentData);
 
-  const [openModalDeleteAndComment, setOpenModalDeleteAndComment] =
+  const [openModalDeleteOrComment, setOpenModalDeleteOrComment] =
     useState<string>('');
 
   const [appointmentDate, setAppointmentDate] = useState(
@@ -98,8 +98,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   ) => {
     e.preventDefault();
     const response = await deleteAppointment(appointment?._id);
+    setOpenModalDeleteOrComment('');
+    setOpenModal('');
     if (response?.status === 204) {
-      setOpenModalDeleteAndComment('');
+      setOpenModalDeleteOrComment('');
       setOpenModal('');
     }
   };
@@ -129,7 +131,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         knowledge: 0,
         comments: '',
       });
-      setOpenModalDeleteAndComment('');
+      setOpenModalDeleteOrComment('');
     }
   };
   const isPast = new Date(appointment.appointmentDateAndTime) < new Date();
@@ -137,7 +139,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   return (
     <>
       {/* /* -------------- Appointment Delete Notification Modal ------------- */}
-      {openModalDeleteAndComment === 'open' && (
+      {openModalDeleteOrComment === 'open' && (
         <ModalCustom height="150px" width="300px">
           <p>You are about to cancel your recent appointment?</p>
           <div className="buttonContainer" style={{ flexDirection: 'row' }}>
@@ -146,13 +148,13 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             </button>
             <button
               style={{ color: 'blue' }}
-              onClick={() => setOpenModalDeleteAndComment('')}
+              onClick={() => setOpenModalDeleteOrComment('')}
             >Cancel</button>
           </div>
         </ModalCustom>
       )}
       {/* /* -------------------- Comment Form -------------------- */}
-      {openModalDeleteAndComment === 'comment' && (
+      {openModalDeleteOrComment === 'comment' && (
         <ModalCustom height="auto" width="auto">
           <div className={`${classes.container} ${classes.comment}`}>
             <CustomInput
@@ -182,7 +184,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               <button onClick={handlePostReview}>Comment</button>
               <button
                 onClick={() => {
-                  setOpenModalDeleteAndComment('');
+                  setOpenModalDeleteOrComment('');
                   setRatingsAndComment({
                     staff: 0,
                     punctual: 0,
@@ -297,7 +299,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <button
               onClick={(e) => {
                 e.preventDefault();
-                setOpenModalDeleteAndComment('comment');
+                setOpenModalDeleteOrComment('comment');
               }}
               style={{
                 fontSize: '12px',
@@ -314,7 +316,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <button
               onClick={(e) => {
                 e.preventDefault();
-                setOpenModalDeleteAndComment('open');
+                setOpenModalDeleteOrComment('open');
               }}
             >
               Delete
