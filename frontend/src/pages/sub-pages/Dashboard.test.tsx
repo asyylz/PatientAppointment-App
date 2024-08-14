@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  //waitFor,
-  within,
-} from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { act } from 'react';
 import renderer from 'react-test-renderer';
@@ -13,106 +7,21 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import '@testing-library/dom';
 import { fetchAppointmentsForPatient } from '../../store/appointmentsForPatient-slice';
-import useHttp from '../../hooks/useHttp';
-import { axiosInterceptorsWithToken } from './../../hooks/axiosInterceptors';
 import Dashboard from './Dashboard';
-
-/* ---------------- Mock axiosInterceptor --------------- */
-jest.mock('./../../hooks/axiosInterceptors', () => ({
-  axiosInterceptorsWithToken: {
-    delete: jest.fn(),
-    post: jest.fn(),
-    patch: jest.fn(),
-    get: jest.fn(),
-    interceptors: {
-      request: { use: jest.fn() },
-      response: { use: jest.fn() },
-    },
-  },
-}));
-
-
-// Mock delete
-const deleteMock = axiosInterceptorsWithToken.delete as jest.Mock;
-deleteMock.mockResolvedValue({
-  data: { success: true }, // Simulate a successful delete response
-});
-
-// Mock update
-const updateMock = axiosInterceptorsWithToken.patch as jest.Mock;
-updateMock.mockResolvedValue({
-  status: 'success',
-  data: {
-    appointment: {
-      _id: '66bb4c6a7f78041ac61a875c',
-      doctorId: '665f0f2959c971659af920e5',
-      patientId: '6673662fbd42a966b75dec92',
-      appointmentDateAndTime: '2024-08-16T16:00:00.000Z',
-      reason: 'ccccc',
-      diagnose: null,
-      status: null,
-      referral: false,
-      __v: 0,
-    },
-  },
-});
-
-// Mock get
-const getMock = axiosInterceptorsWithToken.get as jest.Mock;
-getMock.mockImplementationOnce(() => new Promise(() => {}));
-getMock.mockResolvedValue({
-  data: {
-    status: 'succeeded',
-    error: null,
-    data: {
-      total: 1,
-      upcomingAppointments: 1,
-      appointmentsForPatient: [
-        {
-          _id: '66b0a0c31d2124f7d8aaa65b',
-          doctorId: {
-            _id: '665f0f2959c971659af920ca',
-            firstName: 'Bowen',
-            lastName: 'Chan',
-            departmentId: '6660fbd12e3c00fe18cfceef',
-          },
-          patientId: '6673662fbd42a966b75dec92',
-          appointmentDateAndTime: '2024-08-16T11:00:00.000Z',
-          reason: 'test3',
-          diagnose: null,
-          status: null,
-          referral: false,
-        },
-      ],
-    },
-  },
-});
-
+import {
+  deleteAppointmentMock,
+  updateAppointmentMock,
+} from '../../_testUtils/mocks/mockHttp';
 /* ------------------- Mock useEffect ------------------- */
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useEffect: jest.fn(),
 }));
 
-/* ------------------- Mock useHttp ------------------ */
+ /* ------------------- Mock useHttp ------------------ */
+// it needs to be declared at the top level of the test file to override the module system before any imports occur. 
 jest.mock('../../hooks/useHttp');
-
-const deleteAppointmentMock = jest.fn();
-//Mock to return the desired response
-deleteAppointmentMock.mockResolvedValue({
-  status: 204, // Simulate a successful deletion response with status 204
-});
-
-const updateAppointmentMock = jest.fn();
-updateAppointmentMock.mockResolvedValue({
-  status: 'success',
-});
-
-(useHttp as jest.Mock).mockReturnValue({
-  deleteAppointment: deleteAppointmentMock,
-  updateAppointment: updateAppointmentMock,
-});
-
+ 
 /* -------------------- Initial state ------------------- */
 const initialState = {
   currentUser: {
@@ -230,7 +139,7 @@ describe('Dasboard', () => {
     });
 
     expect(store.getState().appointmentsForPatient.status).toEqual('loading');
-
+    console.log(store.getState().appointmentsForPatient.status);
     const fullfilledAction = {
       type: 'appointmentsForPatient/fetchWithIdAndToken/fulfilled',
       payload: {
@@ -257,7 +166,10 @@ describe('Dasboard', () => {
     await act(async () => {
       store.dispatch(fullfilledAction);
     });
+    console.log(store.getState().appointmentsForPatient.status);
+    console.log(store.getState().appointmentsForPatient.entities);
   });
+
   /* -------------------------- - ------------------------- */
   it('4--Renders fetched data in the DOM after dispatching action', () => {
     render(
@@ -513,6 +425,9 @@ describe('Dasboard', () => {
 
     const cells = screen.getAllByRole('cell');
     expect(cells[4]).toHaveTextContent('After update');
+
+    console.log(store.getState().appointmentsForPatient.status);
+    console.log(store.getState().appointmentsForPatient);
   });
   /* -------------------------- - ------------------------- */
   it('11--Renders the error if fetchAppointmentsForPatient returns error', async () => {

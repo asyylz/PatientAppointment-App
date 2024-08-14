@@ -32,7 +32,6 @@ const Appointments: React.FC = () => {
 
   const { appointmentsForDoctor } = entities;
 
-
   useEffect(() => {
     if (userData?.doctorId) {
       dispatch(
@@ -52,7 +51,7 @@ const Appointments: React.FC = () => {
   };
 
   const confirmDelete = () => {
-    console.log('asiye')
+    console.log('asiye');
     if (appointmentIdToDelete) {
       deleteAppointment(appointmentIdToDelete);
     }
@@ -61,7 +60,7 @@ const Appointments: React.FC = () => {
   };
 
   const cancelDelete = () => {
-    console.log('asiye')
+    console.log('asiye');
     setOpenModal('');
     setAppointmentIdToDelete(null);
   };
@@ -83,7 +82,7 @@ const Appointments: React.FC = () => {
       )}
       {openModal === 'confirmation' && (
         <ModalCustom height="200px" width="250px">
-          <p>Please confirm to delete the appointment?</p>
+          <p>Please confirm to delete the patient's appointment?</p>
           <div className="buttonContainer">
             <button onClick={confirmDelete} style={{ color: 'red' }}>
               Confirm
@@ -102,6 +101,7 @@ const Appointments: React.FC = () => {
             <th>Concerns</th>
             <th>Diagnose</th>
             <th>Referrals</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -134,6 +134,7 @@ const Appointments: React.FC = () => {
                   <td>{appointment.reason}</td>
                   <td>{appointment.diagnose}</td>
                   <td>{appointment.referral ? 'Yes' : 'No'}</td>
+                  <td>{appointment.status ? 'Completed' : 'No'}</td>
                   <td>
                     <FaRegTrashAlt
                       data-testid="trash-icon"

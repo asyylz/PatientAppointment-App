@@ -37,6 +37,7 @@ const useHttp = () => {
     const response = await axiosInterceptorsWithToken.delete(
       `http://localhost:3000/api/v1/appointments/${id}`
     );
+    console.log(response)
     toastSuccessNotify('Your appointment successfully deleted.');
     return response;
   };

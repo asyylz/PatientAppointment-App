@@ -28,7 +28,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       reason: appointment.reason,
     });
 
-  console.log(updatedAppointmentData);
+  //console.log(updatedAppointmentData);
 
   const [openModalDeleteOrComment, setOpenModalDeleteOrComment] =
     useState<string>('');
@@ -98,8 +98,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   ) => {
     e.preventDefault();
     const response = await deleteAppointment(appointment?._id);
-    setOpenModalDeleteOrComment('');
-    setOpenModal('');
     if (response?.status === 204) {
       setOpenModalDeleteOrComment('');
       setOpenModal('');
@@ -141,7 +139,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       {/* /* -------------- Appointment Delete Notification Modal ------------- */}
       {openModalDeleteOrComment === 'open' && (
         <ModalCustom height="150px" width="300px">
-          <p>You are about to cancel your recent appointment?</p>
+          <p>
+            {isPatient
+              ? 'You are about to cancel your recent appointment?'
+              : "Please confirm to delete the patient's appointment?"}
+          </p>
           <div className="buttonContainer" style={{ flexDirection: 'row' }}>
             <button style={{ color: 'red' }} onClick={handleDeleteAppointment}>
               Confirm
@@ -149,7 +151,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <button
               style={{ color: 'blue' }}
               onClick={() => setOpenModalDeleteOrComment('')}
-            >Cancel</button>
+            >
+              Cancel
+            </button>
           </div>
         </ModalCustom>
       )}

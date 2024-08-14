@@ -95,7 +95,7 @@ axiosInterceptorsWithToken.interceptors.response.use(
     console.log(status);
     console.log(error);
     console.log(error.response.data.message);
-    toastErrorNotify(error.response.data.message)
+    toastErrorNotify(error.response.data.message);
     handleErrorResponse;
 
     // if (
@@ -135,5 +135,3 @@ axiosInterceptorsWithoutToken.interceptors.response.use(
 );
 
 export { axiosInterceptorsWithToken, axiosInterceptorsWithoutToken };
-
-

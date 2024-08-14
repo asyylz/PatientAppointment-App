@@ -18,7 +18,7 @@ export default function HomePage() {
   const {
     entities: doctors,
     // status,
-    // error,
+    error,
   } = useSelector((state: RootState) => state.doctors);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -39,12 +39,10 @@ export default function HomePage() {
 
     return () => clearInterval(interval);
   }, []);
-  
-  
+
   return (
     <div className={classes.wrapper}>
       <div className={`${classes.container} ${classes['container--body']}`}>
-      
         <section
           className={`${classes.container} ${classes['container--section1']}`}
         >
@@ -110,6 +108,7 @@ export default function HomePage() {
                   />
                 </div>
                 <div className={classes['carousel__info']}>
+                  {error && <p>Error: {error}</p>}
                   <h1
                     className={classes['carousel__doctorName']}
                   >{`Dr ${doctor.firstName} ${doctor.lastName}`}</h1>

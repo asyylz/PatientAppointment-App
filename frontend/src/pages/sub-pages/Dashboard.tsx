@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { FaStethoscope, FaBriefcaseMedical } from 'react-icons/fa';
 import { FaUserDoctor } from 'react-icons/fa6';
 import ModalCustom from '../../components/UI/ModalCustom';
-//import useHttp from '../../hooks/useHttp';
 import AppointmentForm from '../../components/UI/AppointmentForm';
 import PatientAppointmentsTable from './../../components/UI/PatientAppointmentsTable';
 
@@ -16,28 +15,10 @@ const Dashboard: React.FC = () => {
 
   const [openModal, setOpenModal] = useState<string>('');
 
-  //const [appointmentIdToDelete, setAppointmentIdToDelete] =
-   // useState<ObjectId | null>(null);
-
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForPatient
   );
   const { total, appointmentsForPatient, upcomingAppointments } = entities;
-
- // const { deleteAppointment } = useHttp();
-
-  // const confirmDelete = () => {
-  //   if (appointmentIdToDelete) {
-  //     deleteAppointment(appointmentIdToDelete);
-  //   }
-  //   setOpenModal('');
-  //   setAppointmentIdToDelete(null);
-  // };
-
-  // const cancelDelete = () => {
-  //   setOpenModal('');
-  //   setAppointmentIdToDelete(null);
-  // };
 
   const totalDoctors = [
     ...new Set(
@@ -59,16 +40,7 @@ const Dashboard: React.FC = () => {
           />
         </ModalCustom>
       )}
-{/* 
-      {openModal === 'confirmation' && (
-        <ModalCustom height="auto" width="auto">
-          <p>Please confirm to cancel the appointment?</p>
-          <div className={classes['buttons--container']}>
-            <button onClick={confirmDelete}>Confirm</button>
-            <button onClick={cancelDelete}>Cancel</button>
-          </div>
-        </ModalCustom>
-      )} */}
+
       <div className={classes.container}>
         <div className={classes['dashboard-left-section']}>
           <div className={classes['dashboard-left-section__wrapper']}>
@@ -130,7 +102,6 @@ const Dashboard: React.FC = () => {
                 openModal={openModal}
                 setOpenModal={setOpenModal}
                 setSelectedAppointment={setSelectedAppointment}
-               // appointmentIdToDelete={appointmentIdToDelete}
               />
             </div>
           </div>
