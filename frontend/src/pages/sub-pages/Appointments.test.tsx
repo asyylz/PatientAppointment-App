@@ -120,7 +120,7 @@ describe('Appointments Component', () => {
   });
   /* -------------------------- - ------------------------- */
   it('2--Initializes state with status "idle', async () => {
-    expect(store.getState().appointmentsForDoctor.status).toEqual('idle')
+    expect(store.getState().appointmentsForDoctor.status).toEqual('idle');
     expect(
       store.dispatch({
         type: 'appointmentsForDoctor/fetchWithIdAndToken/pending',
@@ -131,7 +131,6 @@ describe('Appointments Component', () => {
     await waitFor(() => {
       expect(screen.getByText('Loading...'));
     });
-  
   });
   /* -------------------------- - ------------------------- */
   it('3--Dispatches fetchAppointmentsForDoctor action and updates state with the action payload', async () => {

@@ -115,7 +115,7 @@ export const createEntitySlice = <T>(
         .addCase(
           fetchEntityThunk.fulfilled,
           (state, action: PayloadAction<T | object>) => {
-            console.log(action)
+            console.log(action.payload)
             state.status = 'succeeded';
             state.entities = action.payload;
             state.error = null;

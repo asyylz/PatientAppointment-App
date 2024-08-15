@@ -5,7 +5,6 @@ import HomePage from './../pages/HomePage';
 import Departments from './../pages/sub-pages/Departments';
 import DoctorsPage from '../pages/sub-pages/DoctorsPage';
 import Dashboard from '../pages/sub-pages/Dashboard';
-import Payments from '../pages/sub-pages/Payments';
 import Appointments from '../pages/sub-pages/Appointments';
 import DoctorDetailsPage from './../pages/sub-pages/DoctorDetailsPage';
 import DoctorsLayout from '../pages/layouts/DoctorsLayout';
@@ -72,8 +71,6 @@ const routes: RouteObject[] = [
         ],
       },
       { path: 'departments', element: <Departments /> },
-      { path: 'payments', element: <Payments /> },
-      { path: 'help', element: <Payments /> },
       {
         path: 'profilesettings',
         element: (

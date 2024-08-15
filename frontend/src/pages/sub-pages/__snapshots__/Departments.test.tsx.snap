@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Departments Page 1--Matches the DOM snapshot 1`] = `
+<div
+  className="mainWrapper"
+>
+  <div
+    className="headerWrapper"
+  >
+    <h2>
+      DEPARTMENTS
+    </h2>
+    <hr />
+  </div>
+  <div
+    className="container"
+  >
+    <p>
+      Departments loading...
+    </p>
+  </div>
+</div>
+`;

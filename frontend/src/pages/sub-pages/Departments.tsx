@@ -85,7 +85,7 @@ const Departments: React.FC = () => {
         //style={{ border: '2px solid red' }}
       >
         {status === 'loading' && <p>Departments loading...</p>}
-
+       
         {status === 'succeeded' &&
           filteredDepartments.map((department: Department) => (
             <CustomButton key={department._id} department={department} />
