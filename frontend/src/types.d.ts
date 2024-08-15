@@ -118,8 +118,12 @@ interface CurrentUser {
     | 'failed'
     | 'success'
     | 'logout success'
+    | 'logout failed'
     | 'login success'
     | 'update success'
+    | 'email sent success'
+    | 'email sent failed'
+    | 'sent success'
     | null;
   error?: string | null;
 }

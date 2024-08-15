@@ -12,7 +12,7 @@ const AuthPage = () => {
     name: '',
     email: '',
     password: '',
-    DOB: '',
+    DOB: '1990-01-01',
     passwordConfirm: '',
     policy: false,
   });
@@ -26,7 +26,7 @@ const AuthPage = () => {
   const navigate = useNavigate();
   const { status } = useSelector((state: RootState) => state.currentUser);
 
-  const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
+  //console.log(status);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,36 +34,39 @@ const AuthPage = () => {
       await dispatch(
         login({ email: loginData.email, password: loginData.password })
       );
-      if (login.fulfilled?.type === 'currentUser/login/fulfilled')
-        // if (login.fulfilled?.match(response))
+      if (login.fulfilled?.type === 'currentUser/login/fulfilled') {
+        
         setLoginData({
           email: '',
           password: '',
         });
+      }
     }
   };
+
   // email: 'alice@test.com',
   // password: '6946224Asy!',
   useEffect(() => {
     if (status === 'success') {
+      console.log(status);
       navigate('/user/dashboard');
     }
-  }, [status, navigate, selectedDoctor]);
+  }, [status, navigate]);
 
   const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     await dispatch(register(registerData)); // Handle async action
-    if (register.fulfilled?.type === 'currentUser/register/fulfilled')
-      //if (register.fulfilled?.match(response))
+    if (register.fulfilled?.type === 'currentUser/register/fulfilled') {
+      console.log('asiye');
       setRegisterData({
         name: '',
         email: '',
         password: '',
-        DOB: null,
+        DOB: '1990-01-01',
         passwordConfirm: '',
         policy: false,
       });
+    }
   };
 
   const handleInputChange = (
@@ -104,7 +107,7 @@ const AuthPage = () => {
       {/*------------------------ Login ----------------------- */}
       <div className={classes.wrapper}>
         <h2>Login</h2>
-        <form onSubmit={handleLogin}>
+        <form aria-label="login-form" onSubmit={handleLogin}>
           <CustomInput
             type="email"
             name="email"
@@ -186,6 +189,7 @@ const AuthPage = () => {
               type="checkbox"
               onChange={handleInputChange}
               value={registerData.policy?.toString()}
+              checked={registerData.policy}
               required
             />
             <h3>I accept all terms & condition</h3>

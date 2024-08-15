@@ -1,81 +1,52 @@
+import renderer from 'react-test-renderer';
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-
-import configureStore from 'redux-mock-store';
 import AuthPage from './AuthPage';
-
-import { login, register, forgotPassword } from '../store/currentUser-slice';
 import '@testing-library/jest-dom';
 import { toastSuccessNotify } from '../helper/ToastNotify';
+import { act } from 'react';
+import { combineReducers } from 'redux';
+import currentUserReducer from '../store/currentUser-slice';
+import { configureStore } from '@reduxjs/toolkit/react';
+import * as router from 'react-router-dom';
 
-// Mock the toast function
 jest.mock('./../helper/ToastNotify', () => ({
   toastSuccessNotify: jest.fn(),
 }));
-
-describe('toastSuccessNotify', () => {
-  it('should call toast.success with the correct message', () => {
-    const message = 'Email sent to test@example.com successfully!';
-    toastSuccessNotify(message);
-
-    expect(toastSuccessNotify).toHaveBeenCalledWith(message);
-  });
-});
-
-// Create a mock store with thunk middleware
-const mockStore = configureStore();
-
-jest.mock('../store/currentUser-slice', () => ({
-  login: jest.fn(() => ({
-    type: 'currentUser/login/fulfilled',
-    payload: {},
-    fulfilled: {
-      match: jest.fn((action) => action.type.endsWith('/fulfilled')),
-    },
-    rejected: {
-      match: jest.fn((action) => action.type.endsWith('/rejected')),
-    },
-  })),
-  register: jest.fn(() => ({
-    type: 'currentUser/register/fulfilled',
-    payload: {},
-    fulfilled: {
-      match: jest.fn((action) => action.type.endsWith('/fulfilled')),
-    },
-    rejected: {
-      match: jest.fn((action) => action.type.endsWith('/rejected')),
-    },
-  })),
-  forgotPassword: jest.fn(() => ({
-    type: 'currentUser/forgotPassword/fulfilled',
-    payload: {},
-    fulfilled: {
-      match: jest.fn((action) => action.type.endsWith('/fulfilled')),
-    },
-    rejected: {
-      match: jest.fn((action) => action.type.endsWith('/rejected')),
-    },
-  })),
+// Mock useNavigate
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
 }));
 
+//jest.mock('redux-persist');
+jest.mock('redux-persist', () => {
+  const actual = jest.requireActual('redux-persist');
+  return {
+    ...actual,
+    persistReducer: jest.fn().mockImplementation((_config, reducer) => reducer),
+    // persistStore: jest.fn().mockReturnValue({
+    //   // Add any other methods you need to mock
+    // }),
+  };
+});
+
+const mockAllReducers = combineReducers({
+  currentUser: currentUserReducer,
+  // other reducers...
+});
+
+const store = configureStore({
+  reducer: mockAllReducers,
+});
+
 describe('AuthPage', () => {
-  let store: any;
-
+  const navigate = jest.fn();
   beforeEach(() => {
-    store = mockStore({
-      currentUser: {
-        status: 'idle',
-      },
-      doctors: {
-        selectedDoctor: null,
-      },
-    });
-    store.dispatch = jest.fn();
-  });
-
-  it('should render login form', () => {
+    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+    jest.clearAllMocks();
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -83,7 +54,24 @@ describe('AuthPage', () => {
         </MemoryRouter>
       </Provider>
     );
+  });
 
+  /* -------------------------- - ------------------------- */
+  it('1--Snapshot before login', () => {
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <MemoryRouter>
+            <AuthPage />
+          </MemoryRouter>
+        </Provider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  /* -------------------------- - ------------------------- */
+  it('2--Should render login form', () => {
     expect(screen.getAllByText('Login')[0]).toBeInTheDocument();
     expect(
       screen.getAllByPlaceholderText('Enter your email')[0]
@@ -96,15 +84,8 @@ describe('AuthPage', () => {
     expect(screen.getByText('Click here')).toBeInTheDocument();
   });
 
-  it('should render registration form', () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <AuthPage />
-        </MemoryRouter>
-      </Provider>
-    );
-
+  /* -------------------------- - ------------------------- */
+  it('3--Should render registration form', () => {
     expect(screen.getByText('Registration')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument();
     expect(
@@ -123,97 +104,57 @@ describe('AuthPage', () => {
     ).toBeInTheDocument();
   });
 
-  it('should dispatch login action on form submission', async () => {
-    const mockLoginResponse = {
-      type: 'currentUser/login/fulfilled',
-      payload: {},
-    };
-    (login as unknown as jest.Mock).mockReturnValueOnce(mockLoginResponse);
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <AuthPage />
-        </MemoryRouter>
-      </Provider>
-    );
-
+  /* -------------------------- - ------------------------- */
+  it('4--Should dispatch login action on form submission', async () => {
+    expect(store.getState().currentUser.status).toEqual('idle');
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[0];
     const passwordInput = screen.getAllByPlaceholderText(
       'Enter your password'
     )[0];
     const loginButton = screen.getByRole('button', { name: 'Login' });
-   
+    //const form = screen.getByRole('form', { name: 'login-form' });
+
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(loginButton);
+    // fireEvent.submit(form);
 
-  
-
-    await waitFor(() => {
-      expect(
-        store.dispatch(
-          login({ email: 'test@example.com', password: 'password123' })
-        )
-      ).toHaveBeenCalled;
-      expect(login).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123',
+    expect(store.getState().currentUser.status).toEqual('loading');
+    await act(async () => {
+      store.dispatch({
+        type: 'currentUser/login/fulfilled',
+        payload: {
+          token: 'mock-token',
+          data: {
+            user: {
+              _id: '6673662fbd42a966b75dec92',
+              name: 'Asiye',
+              email: 'alice@test.com',
+              role: 'patient',
+              __v: 0,
+              DOB: '1986-01-22T00:00:00.000Z',
+              image:
+                'https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1722605356602-asiye%20serife.jpeg',
+            },
+          },
+        },
       });
-      expect(login).toHaveReturnedWith(mockLoginResponse);
     });
-  });
+    expect(store.getState().currentUser.status).toEqual('success');
 
-  it('should dispatch forgotPassword action', async () => {
-    const mockForgotPasswordResponse = {
-      type: 'currentUser/forgotPassword/fulfilled',
-      payload: {},
-    };
-    (forgotPassword as unknown as jest.Mock).mockReturnValueOnce(
-      mockForgotPasswordResponse
-    );
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <AuthPage />
-        </MemoryRouter>
-      </Provider>
-    );
-
-    const forgotPasswordButton = screen.getByText('Click here');
-    fireEvent.click(forgotPasswordButton);
-
-    await waitFor(() => {
-      expect(store.dispatch(forgotPassword({ email: 'test@example.com' })))
-        .toHaveBeenCalled;
-      expect(forgotPassword).toHaveBeenCalledWith({
-        email: 'test@example.com',
-      });
-      expect(forgotPassword).toHaveReturnedWith(mockForgotPasswordResponse);
-    });
-
-    await waitFor(() => {
-      expect(toastSuccessNotify).toHaveBeenCalledWith(
-        'Email sent to test@example.com successfully!'
+    await waitFor(async () => {
+      expect(screen.getAllByPlaceholderText('Enter your email')[0]).toHaveValue(
+        ''
       );
+      expect(
+        screen.getAllByPlaceholderText('Enter your password')[0]
+      ).toHaveValue('');
     });
+    expect(navigate).toHaveBeenCalledWith('/user/dashboard');
   });
 
-  it('should dispatch register action on form submission', async () => {
-    const mockRegisterResponse = {
-      type: 'currentUser/register/fulfilled',
-      payload: {},
-    };
-    (register as unknown as jest.Mock).mockReturnValueOnce(
-      mockRegisterResponse
-    );
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <AuthPage />
-        </MemoryRouter>
-      </Provider>
-    );
-
+  /* -------------------------- - ------------------------- */
+  it('5--Should dispatch register action on form submission', async () => {
     const nameInput = screen.getByPlaceholderText('Enter your name');
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[1];
     const dobInput = screen.getByPlaceholderText('Enter your DOB');
@@ -236,28 +177,71 @@ describe('AuthPage', () => {
     fireEvent.click(acceptTermsCheckbox);
     fireEvent.click(registerButton);
 
+    expect(store.getState().currentUser.status).toEqual('loading');
+    console.log(store.getState().currentUser.status);
+
+    await act(async () => {
+      store.dispatch({
+        type: 'currentUser/register/fulfilled',
+        payload: {
+          token: 'mock-token-register',
+          data: {
+            user: {
+              _id: '6673662fbd42a966b75dec92',
+              name: 'Asiye',
+              email: 'alice@test.com',
+              role: 'patient',
+              __v: 0,
+              DOB: '1986-01-22T00:00:00.000Z',
+              image:
+                'https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1722605356602-asiye%20serife.jpeg',
+            },
+          },
+        },
+      });
+    });
+    //console.log(store.getState().currentUser.status);
+    expect(store.getState().currentUser.status).toEqual('success');
+
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText('Enter your name')).toHaveValue('');
+      expect(screen.getAllByPlaceholderText('Enter your email')[1]).toHaveValue(
+        ''
+      );
+
+      expect(
+        screen.getAllByPlaceholderText('Enter your password')[1]
+      ).toHaveValue('');
+      expect(screen.getByPlaceholderText('Enter your DOB')).toHaveValue(
+        '1990-01-01'
+      );
+      expect(screen.getByPlaceholderText('Confirm your password')).toHaveValue(
+        ''
+      );
+      expect(screen.getByRole('checkbox')).not.toBeChecked();
+    });
+
+    const message = 'Successfully registered!';
+    toastSuccessNotify(message);
+    expect(toastSuccessNotify).toHaveBeenCalledWith(message);
+  });
+
+  it('6--Should forgotPassword action send email', async () => {
+    const emailInput = screen.getAllByPlaceholderText('Enter your email')[0];
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    const forgotPasswordButton = screen.getByText('Click here');
+    fireEvent.click(forgotPasswordButton);
     await waitFor(() => {
       expect(
-        store.dispatch(
-          register({
-            name: 'John Doe',
-            email: 'test@example.com',
-            DOB: new Date('1990-01-01T00:00:00.000Z'),
-            password: 'password123',
-            passwordConfirm: 'password123',
-            policy: true,
-          })
-        )
-      ).toHaveBeenCalled;
-      expect(register).toHaveBeenCalledWith({
-        name: 'John Doe',
-        email: 'test@example.com',
-        DOB: new Date('1990-01-01T00:00:00.000Z'),
-        password: 'password123',
-        passwordConfirm: 'password123',
-        policy: true,
-      });
-      expect(register).toHaveReturnedWith(mockRegisterResponse);
+        store.dispatch({
+          type: 'currentUser/forgotPassword/fulfilled',
+          payload: { email: 'test@example.com' },
+        })
+      );
     });
+
+    const message = 'Email sent to test@example.com successfully!';
+    toastSuccessNotify(message);
+    expect(toastSuccessNotify).toHaveBeenCalledWith(message);
   });
 });

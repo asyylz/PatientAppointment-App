@@ -10,6 +10,7 @@ import { toastErrorNotify } from '../helper/ToastNotify';
 // Centralized error management for both instances
 const handleErrorResponse = async (error: any) => {
   const status = error.response ? error.response.status : null;
+  console.log(error);
   console.log(error.response.data.message);
   const message =
     error.response?.data?.message || 'An unexpected error occurred';

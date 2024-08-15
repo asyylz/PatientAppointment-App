@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomePage snapshot matches the DOM snapshot 1`] = `
+exports[`HomePage snapshot 1--Renders correctly before data is fetched 1`] = `
 <div
   className="wrapper"
 >
@@ -55,30 +55,144 @@ exports[`HomePage snapshot matches the DOM snapshot 1`] = `
         <img
           alt="one"
           className="galeria__image galeria__image--one galeria__image--fade"
+          data-testid="current-image"
           loading="lazy"
           src="https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGVhbHRofGVufDB8fDB8fHwy"
         />
         <img
           alt="two"
           className="galeria__image galeria__image--two "
+          data-testid=""
           loading="lazy"
           src="https://images.unsplash.com/photo-1488228469209-c141f8bcd723?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGhlYWx0aHxlbnwwfHwwfHx8Mg%3D%3D"
         />
         <img
           alt="three"
           className="galeria__image galeria__image--three "
+          data-testid=""
           loading="lazy"
           src="https://images.unsplash.com/photo-1444312645910-ffa973656eba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGVhbHRofGVufDB8fDB8fHwy"
         />
         <img
           alt="four"
           className="galeria__image galeria__image--four "
+          data-testid=""
           loading="lazy"
           src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         />
         <img
           alt="five"
           className="galeria__image galeria__image--five "
+          data-testid=""
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1604881991720-f91add269bed?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjc1fHxoZWFsdGh8ZW58MHx8MHx8fDI%3D"
+        />
+      </div>
+    </section>
+    <section
+      className="container container--section3"
+    >
+      <h1
+        className="section3__title"
+      >
+        MEET OUR DOCTORS
+      </h1>
+    </section>
+    <section
+      className="container container--section4"
+    >
+      <div
+        className="section4--carousel"
+      />
+    </section>
+  </div>
+</div>
+`;
+
+exports[`HomePage snapshot 5--Displays doctors correctly after data is successfully fetched 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="container container--body"
+  >
+    <section
+      className="container container--section1"
+    >
+      <div
+        className="description"
+      >
+        <div
+          className="description__item--one"
+        />
+        <div
+          className="description__item--two"
+        >
+          <h1
+            className="description__title"
+          >
+            THE LEADER IN CARING YOU...
+          </h1>
+          <p
+            className="description__text"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos maiores possimus rerum delectus magni cupiditate nostrum, ipsa, quasi odio facere fuga ea dicta cum debitis in ducimus doloremque quod magnam.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section
+      className="container container--section2"
+    >
+      <h1
+        className="section2__title"
+      >
+        DISCOVER 
+      </h1>
+      <a
+        className="section2__title--underline"
+      >
+        MORE
+      </a>
+    </section>
+    <section
+      className="galeria"
+    >
+      <div
+        className="galeria__images"
+      >
+        <img
+          alt="one"
+          className="galeria__image galeria__image--one galeria__image--fade"
+          data-testid="current-image"
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGVhbHRofGVufDB8fDB8fHwy"
+        />
+        <img
+          alt="two"
+          className="galeria__image galeria__image--two "
+          data-testid=""
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1488228469209-c141f8bcd723?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGhlYWx0aHxlbnwwfHwwfHx8Mg%3D%3D"
+        />
+        <img
+          alt="three"
+          className="galeria__image galeria__image--three "
+          data-testid=""
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1444312645910-ffa973656eba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGVhbHRofGVufDB8fDB8fHwy"
+        />
+        <img
+          alt="four"
+          className="galeria__image galeria__image--four "
+          data-testid=""
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        />
+        <img
+          alt="five"
+          className="galeria__image galeria__image--five "
+          data-testid=""
           loading="lazy"
           src="https://images.unsplash.com/photo-1604881991720-f91add269bed?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjc1fHxoZWFsdGh8ZW58MHx8MHx8fDI%3D"
         />
@@ -106,8 +220,8 @@ exports[`HomePage snapshot matches the DOM snapshot 1`] = `
             className="carousel__picture"
           >
             <img
-              alt="Dr John Doe"
-              src="https://example.com/johndoe.jpg"
+              alt="Dr Aytekin Yaliz"
+              src="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1721905296892-doctor.jpg"
             />
           </div>
           <div
@@ -116,38 +230,12 @@ exports[`HomePage snapshot matches the DOM snapshot 1`] = `
             <h1
               className="carousel__doctorName"
             >
-              Dr John Doe
+              Dr Aytekin Yaliz
             </h1>
             <h1
               className="carousel__doctorDepartment"
             >
-              Cardiology
-            </h1>
-          </div>
-        </div>
-        <div
-          className="carousel__card"
-        >
-          <div
-            className="carousel__picture"
-          >
-            <img
-              alt="Dr Jane Smith"
-              src="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*"
-            />
-          </div>
-          <div
-            className="carousel__info"
-          >
-            <h1
-              className="carousel__doctorName"
-            >
-              Dr Jane Smith
-            </h1>
-            <h1
-              className="carousel__doctorDepartment"
-            >
-              Neurology
+              Allergy & Immunology
             </h1>
           </div>
         </div>

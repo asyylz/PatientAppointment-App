@@ -139,7 +139,7 @@ describe('Dasboard', () => {
     });
 
     expect(store.getState().appointmentsForPatient.status).toEqual('loading');
-    console.log(store.getState().appointmentsForPatient.status);
+    //console.log(store.getState().appointmentsForPatient.status);
     const fullfilledAction = {
       type: 'appointmentsForPatient/fetchWithIdAndToken/fulfilled',
       payload: {
@@ -354,7 +354,7 @@ describe('Dasboard', () => {
     // Simulate clicking the trash icon
     const editIcon = screen.getByTestId('edit-icon');
     fireEvent.click(editIcon);
-    console.log('asiye');
+   
     //checking modal appointment form presence
     expect(screen.getByText('Appointment Details')).toBeInTheDocument();
 

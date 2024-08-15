@@ -18,7 +18,7 @@ export default function HomePage() {
   const {
     entities: doctors,
     // status,
-    error,
+    // error,
   } = useSelector((state: RootState) => state.doctors);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -71,6 +71,7 @@ export default function HomePage() {
           <div className={classes['galeria__images']}>
             {Object.entries(images).map(([key, value], index) => (
               <img
+                data-testid={index === currentImageIndex ? 'current-image' : ''}
                 className={`${classes['galeria__image']} ${
                   classes[`galeria__image--${key}`]
                 } ${
@@ -95,8 +96,9 @@ export default function HomePage() {
           className={`${classes.container} ${classes['container--section4']}`}
         >
           <div className={classes['section4--carousel']}>
-            {doctors.map((doctor: Doctor) => (
-              <div className={classes['carousel__card']} key={doctor.id}>
+            {/* {error && <p>Error: {error}</p>} */}
+            {doctors.map((doctor: Doctor, index:number) => (
+              <div key={index} className={classes['carousel__card']}>
                 <div className={classes['carousel__picture']}>
                   <img
                     src={
@@ -108,7 +110,6 @@ export default function HomePage() {
                   />
                 </div>
                 <div className={classes['carousel__info']}>
-                  {error && <p>Error: {error}</p>}
                   <h1
                     className={classes['carousel__doctorName']}
                   >{`Dr ${doctor.firstName} ${doctor.lastName}`}</h1>

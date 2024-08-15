@@ -139,7 +139,6 @@ const afterDispatchState = {
 };
 
 describe('Appointments Component', () => {
-
   /* -------------------------- - ------------------------- */
   it('1--Renders correctly before data is fetched', () => {
     const tree = renderer
@@ -240,7 +239,7 @@ describe('Appointments Component', () => {
       </Provider>
     );
     const cells = screen.getAllByRole('cell');
-    expect(cells.length).toBe(8);
+    expect(cells.length).toBe(9);
     // Check the content of the cells
     expect(cells[0]).toHaveTextContent('Asiye');
     expect(cells[1]).toHaveTextContent('1986-01-22');
@@ -249,7 +248,8 @@ describe('Appointments Component', () => {
     expect(cells[4]).toHaveTextContent('Regular Checkup');
     expect(cells[5]).toHaveTextContent('Pain killer given.');
     expect(cells[6]).toHaveTextContent('Yes');
-    expect(cells[7]).toContainHTML('svg');
+    expect(cells[7]).toContainHTML('No');
+    expect(cells[8]).toContainHTML('svg');
 
     expect(screen.getByText('Asiye')).toBeInTheDocument();
     expect(screen.getByText('1986-01-22')).toBeInTheDocument();
@@ -310,7 +310,7 @@ describe('Appointments Component', () => {
     fireEvent.click(trashIcon);
 
     expect(
-      screen.getByText('Please confirm to delete the appointment?')
+      screen.getByText("Please confirm to delete the patient's appointment?")
     ).toBeInTheDocument();
 
     expect(screen.getByText('Confirm')).toBeInTheDocument();
@@ -363,7 +363,7 @@ describe('Appointments Component', () => {
     //expect(handleDelete).toHaveBeenCalledTimes(1);
 
     expect(
-      screen.getByText('Please confirm to delete the appointment?')
+      screen.getByText("Please confirm to delete the patient's appointment?")
     ).toBeInTheDocument();
 
     expect(screen.getByText('Cancel')).toBeInTheDocument();

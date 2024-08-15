@@ -1,8 +1,9 @@
 import type { Config } from 'jest';
 
 const config: Config = {
-  coverageDirectory:"<rootDir>/src/_testUtils/coverage" ,
-  collectCoverage:true,
+  //resetMocks: false,
+  coverageDirectory: '<rootDir>/src/_testUtils/coverage',
+  collectCoverage: true,
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['./setupTests.ts'],
@@ -21,7 +22,9 @@ const config: Config = {
             {
               path: 'node_modules/ts-jest-mock-import-meta', // or, alternatively, 'ts-jest-mock-import-meta' directly, without node_modules.
               options: {
-                metaObjectReplacement: { baseURL: 'http://localhost:3000/api/v1/' },
+                metaObjectReplacement: {
+                  baseURL: 'http://localhost:3000/api/v1/',
+                },
               },
             },
           ],

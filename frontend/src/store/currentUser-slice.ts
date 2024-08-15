@@ -12,7 +12,6 @@ import {
 // Global variable to hold the interval ID
 let intervalId: NodeJS.Timeout | null = null;
 
-
 // Function to start the interval
 const startTokenCheckInterval = () => {
   // Clear existing interval if it exists
@@ -44,8 +43,9 @@ const initialState: CurrentUser = {
 /*                        REGISTER                        */
 /* ------------------------------------------------------ */
 export const register = createAsyncThunk<CurrentUserPayload, Credentials>(
-  'currentUser/signup',
+  'currentUser/register',
   async (credentials) => {
+    console.log(credentials);
     const response = await axiosInterceptorsWithoutToken.post(
       'http://localhost:3000/api/v1/users/signup',
       credentials
@@ -126,6 +126,7 @@ export const forgotPassword = createAsyncThunk<
   { email: string },
   { rejectValue: string }
 >('currentUser/forgotPassword', async (email) => {
+  console.log(email);
   const response = await axiosInterceptorsWithoutToken.post(
     'http://localhost:3000/api/v1/users/forgotPassword',
     email
@@ -207,19 +208,21 @@ const currentUserSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
+        console.log(state.status);
         state.status = 'loading';
       })
       .addCase(login.fulfilled, (state, action) => {
         const { token, data } = action.payload;
         console.log(action);
         state.status = 'success';
+        console.log(state.status);
         state.token = token;
         state.userData = data.user;
         state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
-        console.log(action.error.message);
+        console.log(state.status);
         state.error = action.error.message || 'Login failed';
       })
       .addCase(refreshSession.fulfilled, (state, action) => {
@@ -233,8 +236,12 @@ const currentUserSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message || 'Refresh failed';
       })
+      .addCase(register.pending, (state) => {
+        state.status = 'loading';
+      })
       .addCase(register.fulfilled, (state, action) => {
         state.status = 'success';
+        console.log(state.status);
         state.token = action.payload.token;
         state.userData = action.payload.data.user;
         state.error = null;
@@ -262,7 +269,7 @@ const currentUserSlice = createSlice({
         state.error = null;
       })
       .addCase(logout.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'logout failed';
         state.error = (action.payload as string) || 'Logout failed';
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
@@ -275,10 +282,12 @@ const currentUserSlice = createSlice({
         state.error = action.payload || 'Update failed';
       })
       .addCase(forgotPassword.fulfilled, (state) => {
-        state.status === 'success';
+        console.log(state.status);
+        state.status === 'email sent success';
+        console.log(state.status);
       })
       .addCase(forgotPassword.rejected, (state) => {
-        state.status === 'failed';
+        state.status === 'email sent failed';
       })
       .addCase('currentUser/stateToIdle', (state) => {
         state.status = 'idle'; // Reset status to 'idle' on successful logout

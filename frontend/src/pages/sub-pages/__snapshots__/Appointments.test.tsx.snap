@@ -28,6 +28,9 @@ exports[`Appointments Component 1--Renders correctly before data is fetched 1`] 
         Referrals
       </th>
       <th>
+        Status
+      </th>
+      <th>
         Actions
       </th>
     </tr>
@@ -70,6 +73,9 @@ exports[`Appointments Component 7--Displays content correctly after data is succ
         Referrals
       </th>
       <th>
+        Status
+      </th>
+      <th>
         Actions
       </th>
     </tr>
@@ -104,6 +110,9 @@ exports[`Appointments Component 7--Displays content correctly after data is succ
       </td>
       <td>
         Yes
+      </td>
+      <td>
+        No
       </td>
       <td>
         <svg

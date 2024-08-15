@@ -19,6 +19,9 @@ import appointmentsForDoctorReducer from './appointmentsForDoctor-slice';
 import appointmentsForPatientReducer from './appointmentsForPatient-slice';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
+
+
+
 // const rootPersistConfig = {
 //   key: 'root',
 //   storage,
@@ -58,6 +61,7 @@ const authPersistConfig = {
   storage: storage,
   // blacklist: ['status', 'error'],
 };
+
 const doctorPersistConfig = {
   key: 'doctors',
   storage: storage,
