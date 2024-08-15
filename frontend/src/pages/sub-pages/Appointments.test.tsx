@@ -27,10 +27,6 @@ jest.mock('../../helper/ToastNotify', () => ({
 }));
 jest.mock('../../hooks/useHttp');
 
-// jest.mock('react', () => ({
-//   ...jest.requireActual('react'),
-//   useEffect: jest.fn(),
-// }));
 jest.mock('redux-persist', () => {
   const actual = jest.requireActual('redux-persist');
   return {
@@ -123,21 +119,22 @@ describe('Appointments Component', () => {
     expect(tree).toMatchSnapshot();
   });
   /* -------------------------- - ------------------------- */
-  it('2--Initializes state with status "idle', () => {
-    expect(store.getState().appointmentsForDoctor.status).toEqual('idle');
+  it('2--Initializes state with status "idle', async () => {
+    expect(store.getState().appointmentsForDoctor.status).toEqual('idle')
+    expect(
+      store.dispatch({
+        type: 'appointmentsForDoctor/fetchWithIdAndToken/pending',
+      })
+    ).toHaveBeenCalled;
+
+    expect(store.getState().appointmentsForDoctor.status).toEqual('loading');
+    await waitFor(() => {
+      expect(screen.getByText('Loading...'));
+    });
+  
   });
   /* -------------------------- - ------------------------- */
   it('3--Dispatches fetchAppointmentsForDoctor action and updates state with the action payload', async () => {
-    expect(store.getState().appointmentsForDoctor.status).toEqual('idle');
-
-    await act(async () => {
-      store.dispatch({
-        type: 'appointmentsForDoctor/fetchWithIdAndToken/pending',
-      });
-    });
-
-    expect(store.getState().appointmentsForDoctor.status).toEqual('loading');
-
     await act(async () => {
       store.dispatch({
         type: 'appointmentsForDoctor/fetchWithIdAndToken/fulfilled',
