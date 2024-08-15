@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ContactPage matches the DOM snapshot 1`] = `
+exports[`ContactPage 1--Matches the DOM snapshot 1`] = `
 <div
   className="contact-form__container"
 >
@@ -56,6 +56,7 @@ exports[`ContactPage matches the DOM snapshot 1`] = `
     className="buttons__wrapper"
   >
     <button
+      onClick={[Function]}
       type="submit"
     >
       Submit

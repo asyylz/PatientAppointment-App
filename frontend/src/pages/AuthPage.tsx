@@ -35,7 +35,6 @@ const AuthPage = () => {
         login({ email: loginData.email, password: loginData.password })
       );
       if (login.fulfilled?.type === 'currentUser/login/fulfilled') {
-        
         setLoginData({
           email: '',
           password: '',
@@ -47,8 +46,7 @@ const AuthPage = () => {
   // email: 'alice@test.com',
   // password: '6946224Asy!',
   useEffect(() => {
-    if (status === 'success') {
-      console.log(status);
+    if (status === 'login success' || status === 'register success') {
       navigate('/user/dashboard');
     }
   }, [status, navigate]);
@@ -57,7 +55,6 @@ const AuthPage = () => {
     e.preventDefault();
     await dispatch(register(registerData)); // Handle async action
     if (register.fulfilled?.type === 'currentUser/register/fulfilled') {
-      console.log('asiye');
       setRegisterData({
         name: '',
         email: '',

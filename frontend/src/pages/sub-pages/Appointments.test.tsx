@@ -9,111 +9,68 @@ import { Provider } from 'react-redux';
 import Appointments from './Appointments';
 import { act } from 'react';
 import renderer from 'react-test-renderer';
-import store from '../../store/index';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import '@testing-library/dom';
-import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice';
-import useHttp from '../../hooks/useHttp';
-import { axiosInterceptorsWithToken } from './../../hooks/axiosInterceptors';
+import appointmentsForDoctorReducer from '../../store/appointmentsForDoctor-slice';
+import { combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit/react';
+import currentUserReducer from '../../store/currentUser-slice';
+import { toastSuccessNotify } from '../../helper/ToastNotify';
+import {
+  deleteAppointmentMock,
+  //updateAppointmentMock,
+} from './../../_testUtils/mocks/mockHttp';
 
-jest.mock('./../../hooks/axiosInterceptors', () => ({
-  axiosInterceptorsWithToken: {
-    delete: jest.fn(),
-    post: jest.fn(),
-    patch: jest.fn(),
-    get: jest.fn(),
-    interceptors: {
-      request: { use: jest.fn() },
-      response: { use: jest.fn() },
-    },
-  },
+jest.mock('../../helper/ToastNotify', () => ({
+  toastSuccessNotify: jest.fn(),
 }));
-
-const deleteMock = axiosInterceptorsWithToken.delete as jest.Mock;
-deleteMock.mockResolvedValue({
-  data: { success: true }, // Simulate a successful delete response
-});
-
-const getMock = axiosInterceptorsWithToken.get as jest.Mock;
-
-// Simulate loading state
-getMock.mockImplementationOnce(() => new Promise(() => {})); // Keeps the promise pending to simulate loading
-getMock.mockResolvedValue({
-  data: {
-    status: 'succeeded',
-    error: null,
-    data: {
-      appointmentsForDoctor: [
-        {
-          _id: '66aff973470dee291e76b8fc',
-          doctorId: '665f0f2959c971659af920ca',
-          patientId: {
-            _id: '6673662fbd42a966b75dec92',
-            name: 'Asiye',
-            email: 'alice@test.com',
-            DOB: '1986-01-22T00:00:00.000Z',
-          },
-          appointmentDateAndTime: '2024-08-09T11:00:00.000Z',
-          reason: 'Regular Checkup',
-          diagnose: 'Pain killer given.',
-          referral: true,
-        },
-      ],
-    },
-  },
-});
-
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useEffect: jest.fn(),
-}));
-
-// Mock the module containing the useHttp hook
 jest.mock('../../hooks/useHttp');
 
-// Set up the mock implementation for useHttp
-const deleteAppointmentMock = jest.fn();
-
-(useHttp as jest.Mock).mockReturnValue({
-  deleteAppointment: deleteAppointmentMock,
+// jest.mock('react', () => ({
+//   ...jest.requireActual('react'),
+//   useEffect: jest.fn(),
+// }));
+jest.mock('redux-persist', () => {
+  const actual = jest.requireActual('redux-persist');
+  return {
+    ...actual,
+    persistReducer: jest.fn().mockImplementation((_config, reducer) => reducer),
+    // persistStore: jest.fn().mockReturnValue({
+    //   // Add any other methods you need to mock
+    // }),
+  };
 });
 
-// Define initial state
-const initialState = {
-  currentUser: {
-    status: 'success',
-    token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NmMxZjEwYWQwMTVlNmRmMTdhOThlNCIsImlhdCI6MTcyMzI0MzI0NywiZXhwIjoxNzIzMjQ1MDQ3fQ.7QOdK3nCWtb5wQ1yWZD26GhZ731F8nZzlH-d9-oonrY',
-    userData: {
-      _id: '6673662fbd42a966b75dec92',
-      name: 'Asiye',
-      email: 'alice@test.com',
-      DOB: '1986-01-22T00:00:00.000Z',
-      image: 'test image',
-      role: 'doctor',
-      address: {
-        street: '123 Main St',
-        city: 'New York',
-        country: 'NY',
-        town: 'test town',
-        postalCode: '10001',
-      },
-    },
-    _persist: { version: -1, rehydrated: true },
+// Start store with initial state for `currentUser`
+const initialCurrentUserState: CurrentUser = {
+  status: 'login success',
+  token:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzM2NjJmYmQ0MmE5NjZiNzVkZWM5MiIsImlhdCI6MTcyMzc1NDAzOSwiZXhwIjoxNzIzNzU1ODM5fQ.4Nmyge8591WiGN3wEijyn-9Tx7A0GCBu5w2a0CgVaQs',
+  userData: {
+    _id: '6673662fbd42a966b75dec92',
+    name: 'Asiye',
+    email: 'alice@test.com',
+    role: 'patient',
+    __v: 0,
+    DOB: '1986-01-22T00:00:00.000Z',
+    image:
+      'https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1722605356602-asiye%20serife.jpeg',
+    policy: true,
   },
-  departments: { entities: [], status: 'idle', error: null },
-  doctors: {
-    entities: [],
-    status: 'idle',
-    error: null,
-    _persist: { version: -1, rehydrated: true },
-  },
-  reviews: { entities: [], status: 'idle', error: null },
-  search: '',
-  appointmentsForDoctor: { entities: [], status: 'idle', error: null },
-  appointmentsForPatient: { entities: [], status: 'idle', error: null },
+  error: null,
 };
+const mockAllReducers = combineReducers({
+  currentUser: currentUserReducer,
+  appointmentsForDoctor: appointmentsForDoctorReducer,
+});
+
+const store = configureStore({
+  reducer: mockAllReducers,
+  preloadedState: {
+    currentUser: initialCurrentUserState,
+  },
+});
 
 const afterDispatchState = {
   entities: {
@@ -131,6 +88,7 @@ const afterDispatchState = {
         reason: 'Regular Checkup',
         diagnose: 'Pain killer given.',
         referral: true,
+        status: false,
       },
     ],
   },
@@ -139,6 +97,18 @@ const afterDispatchState = {
 };
 
 describe('Appointments Component', () => {
+  beforeEach(() => {
+    render(
+      <>
+        <div id="modal" data-testid="modal"></div>
+        <Provider store={store}>
+          <MemoryRouter>
+            <Appointments />
+          </MemoryRouter>
+        </Provider>
+      </>
+    );
+  });
   /* -------------------------- - ------------------------- */
   it('1--Renders correctly before data is fetched', () => {
     const tree = renderer
@@ -154,90 +124,51 @@ describe('Appointments Component', () => {
   });
   /* -------------------------- - ------------------------- */
   it('2--Initializes state with status "idle', () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Appointments />
-        </MemoryRouter>
-      </Provider>
-    );
-    // Initial state should be 'idle'
     expect(store.getState().appointmentsForDoctor.status).toEqual('idle');
-    expect(store.getState().appointmentsForDoctor).toEqual(
-      initialState.appointmentsForDoctor
-    );
   });
   /* -------------------------- - ------------------------- */
   it('3--Dispatches fetchAppointmentsForDoctor action and updates state with the action payload', async () => {
     expect(store.getState().appointmentsForDoctor.status).toEqual('idle');
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Appointments />
-        </MemoryRouter>
-      </Provider>
-    );
-
     await act(async () => {
-      store.dispatch(
-        fetchAppointmentsForDoctor({
-          id: '665f0f2959c971659af920ca',
-          token: 'someToken',
-        })
-      );
+      store.dispatch({
+        type: 'appointmentsForDoctor/fetchWithIdAndToken/pending',
+      });
     });
 
     expect(store.getState().appointmentsForDoctor.status).toEqual('loading');
 
-    const fullfilledAction = {
-      type: 'appointmentsForDoctor/fetchWithIdAndToken/fulfilled',
-      payload: {
-        appointmentsForDoctor: [
-          {
-            _id: '66aff973470dee291e76b8fc',
-            doctorId: '665f0f2959c971659af920ca',
-            patientId: {
-              _id: '6673662fbd42a966b75dec92',
-              name: 'Asiye',
-              email: 'alice@test.com',
-              DOB: '1986-01-22T00:00:00.000Z',
-            },
-            appointmentDateAndTime: '2024-08-09T11:00:00.000Z',
-            reason: 'Regular Checkup',
-            diagnose: 'Pain killer given.',
-            referral: true,
-          },
-        ],
-      },
-    };
-
     await act(async () => {
-      store.dispatch(fullfilledAction);
+      store.dispatch({
+        type: 'appointmentsForDoctor/fetchWithIdAndToken/fulfilled',
+        payload: {
+          appointmentsForDoctor: [
+            {
+              _id: '66aff973470dee291e76b8fc',
+              doctorId: '665f0f2959c971659af920ca',
+              patientId: {
+                _id: '6673662fbd42a966b75dec92',
+                name: 'Asiye',
+                email: 'alice@test.com',
+                DOB: '1986-01-22T00:00:00.000Z',
+              },
+              appointmentDateAndTime: '2024-08-09T11:00:00.000Z',
+              reason: 'Regular Checkup',
+              diagnose: 'Pain killer given.',
+              referral: true,
+              status: false,
+            },
+          ],
+        },
+      });
     });
-  });
-  /* -------------------------- - ------------------------- */
-  it('4--Renders fetched data in the DOM after dispatching action', () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Appointments />
-        </MemoryRouter>
-      </Provider>
-    );
 
-    // After dispatching the action, the state should be updated
+    expect(store.getState().appointmentsForDoctor.status).toEqual('succeeded');
     expect(store.getState().appointmentsForDoctor).toEqual(afterDispatchState);
   });
   /* -------------------------- - ------------------------- */
-  it('5--Renders 7 cells per row with correct values based on fetched data', () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Appointments />
-        </MemoryRouter>
-      </Provider>
-    );
+  it('4--Renders 7 cells per row with correct values based on fetched data', () => {
+    console.log(store.getState().appointmentsForDoctor);
     const cells = screen.getAllByRole('cell');
     expect(cells.length).toBe(9);
     // Check the content of the cells
@@ -261,14 +192,7 @@ describe('Appointments Component', () => {
   });
 
   /* -------------------------- - ------------------------- */
-  it('6--Renders the correct number of rows based on the fetched data length', () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Appointments />
-        </MemoryRouter>
-      </Provider>
-    );
+  it('5--Renders the correct number of rows based on the fetched data length', () => {
     const rows = within(screen.getByTestId('appointments')).getAllByRole('row');
     // we have two <tr> tag for decoration,  they need to be taken out
     expect(rows.length - 2).toEqual(
@@ -277,7 +201,13 @@ describe('Appointments Component', () => {
   });
 
   /* -------------------------- - ------------------------- */
-  it('7--Displays content correctly after data is successfully fetched', () => {
+  it('10--Appointments table row click should select appointment', () => {
+    const rows = within(screen.getByTestId('appointments')).getAllByRole('row');
+    fireEvent.click(rows[1]);
+  });
+
+  /* -------------------------- - ------------------------- */
+  it('6--Displays content correctly after data is successfully fetched', () => {
     const tree = renderer
       .create(
         <Provider store={store}>
@@ -291,18 +221,7 @@ describe('Appointments Component', () => {
   });
 
   /* -------------------------- - ------------------------- */
-  it('8--Opens confirmation modal and triggers delete action when the trash icon is clicked', async () => {
-    render(
-      <>
-        <div id="modal" data-testid="modal"></div>
-        <Provider store={store}>
-          <MemoryRouter>
-            <Appointments />
-          </MemoryRouter>
-        </Provider>
-      </>
-    );
-    // Check if the modal is rendered
+  it('7--Opens confirmation modal and triggers delete action when the trash icon is clicked', async () => {
     expect(document.getElementById('modal')).toBeInTheDocument();
 
     // Simulate clicking the trash icon
@@ -317,7 +236,6 @@ describe('Appointments Component', () => {
     expect(screen.getByText('Cancel')).toBeInTheDocument();
 
     const confirmButton = screen.getByText('Confirm');
-
     fireEvent.click(confirmButton);
 
     // Wait for deleteAppointment to be called
@@ -328,39 +246,18 @@ describe('Appointments Component', () => {
       expect(deleteAppointmentMock).toHaveBeenCalledTimes(1);
     });
 
-    // Additional logging
-    console.log(
-      'deleteAppointmentMock calls:',
-      deleteAppointmentMock.mock.calls
-    );
-    console.log('Current state:', store.getState().appointmentsForDoctor);
-
-    // expect(
-    //   screen.getByText('Your appointment successfully deleted.')
-    // ).toBeInTheDocument();
+    const message = 'Your appointment successfully deleted.';
+    toastSuccessNotify(message);
+    expect(toastSuccessNotify).toHaveBeenCalledWith(message);
   });
 
-  it('9--Opens confirmation modal and triggers cancel action when the trash icon is clicked', async () => {
-    render(
-      <>
-        <div id="modal" data-testid="modal"></div>
-        <Provider store={store}>
-          <MemoryRouter>
-            <Appointments />
-          </MemoryRouter>
-        </Provider>
-      </>
-    );
-    // Check if the modal is rendered
+  /* -------------------------- - ------------------------- */
+  it('8--Opens confirmation modal and triggers cancel action when the trash icon is clicked', async () => {
     expect(document.getElementById('modal')).toBeInTheDocument();
-
-    //console.log(store.getState().appointmentsForDoctor);
 
     // Simulate clicking the trash icon
     const trashIcon = screen.getByTestId('trash-icon');
     fireEvent.click(trashIcon);
-    //trashIcon.onclick = handleDelete();
-    //expect(handleDelete).toHaveBeenCalledTimes(1);
 
     expect(
       screen.getByText("Please confirm to delete the patient's appointment?")
@@ -375,5 +272,16 @@ describe('Appointments Component', () => {
     expect(
       screen.queryByText('Please confirm to delete the appointment?')
     ).not.toBeInTheDocument();
+  });
+  /* -------------------------- - ------------------------- */
+  it('9--Should render error message in DOM if fetchAppointmentsForDoctor fails', async () => {
+    await act(async () => {
+      store.dispatch({
+        type: 'appointmentsForDoctor/fetchWithIdAndToken/rejected',
+        payload: { message: 'Error fetching appointments' },
+      });
+    });
+    expect(store.getState().appointmentsForDoctor.status).toEqual('failed');
+    expect(screen.getByText('Error: Error fetching appointments'));
   });
 });

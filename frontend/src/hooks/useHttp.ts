@@ -1,5 +1,8 @@
 import { toastSuccessNotify } from '../helper/ToastNotify';
-import { axiosInterceptorsWithToken } from './axiosInterceptors';
+import {
+  axiosInterceptorsWithoutToken,
+  axiosInterceptorsWithToken,
+} from './axiosInterceptors';
 
 interface ReviewData {
   doctorId: string;
@@ -7,6 +10,7 @@ interface ReviewData {
   attributes: AttributesAndComment;
   comments: string | undefined;
 }
+
 
 const useHttp = () => {
   const createAppointment = async (data: AppointmentForBooking) => {
@@ -27,17 +31,17 @@ const useHttp = () => {
       data
     );
     toastSuccessNotify('Your appointment successfully updated');
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   };
 
   const deleteAppointment = async (id: ObjectId | undefined) => {
-    console.log(id)
-    console.log('asiye')
+    console.log(id);
+    console.log('asiye');
     const response = await axiosInterceptorsWithToken.delete(
       `http://localhost:3000/api/v1/appointments/${id}`
     );
-    console.log(response)
+    console.log(response);
     toastSuccessNotify('Your appointment successfully deleted.');
     return response;
   };
@@ -76,6 +80,17 @@ const useHttp = () => {
     toastSuccessNotify('Your review successfully posted');
     return response.data;
   };
+
+  const submitContactForm = async (data: ContactFormData) => {
+    console.log(data)
+    const response = await axiosInterceptorsWithoutToken.post(
+      'http://localhost:3000/api/v1/contact',
+      data
+    );
+    console.log(response)
+    toastSuccessNotify('Your message successfully sent');
+    return response.data;
+  };
   return {
     createAppointment,
     updateAppointment,
@@ -84,6 +99,7 @@ const useHttp = () => {
     getDoctorAppointments,
     getDoctorWithAvailabilities,
     postReview,
+    submitContactForm,
   };
 };
 

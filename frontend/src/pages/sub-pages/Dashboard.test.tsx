@@ -18,10 +18,10 @@ jest.mock('react', () => ({
   useEffect: jest.fn(),
 }));
 
- /* ------------------- Mock useHttp ------------------ */
-// it needs to be declared at the top level of the test file to override the module system before any imports occur. 
+/* ------------------- Mock useHttp ------------------ */
+// it needs to be declared at the top level of the test file to override the module system before any imports occur.
 jest.mock('../../hooks/useHttp');
- 
+
 /* -------------------- Initial state ------------------- */
 const initialState = {
   currentUser: {
@@ -354,7 +354,7 @@ describe('Dasboard', () => {
     // Simulate clicking the trash icon
     const editIcon = screen.getByTestId('edit-icon');
     fireEvent.click(editIcon);
-   
+
     //checking modal appointment form presence
     expect(screen.getByText('Appointment Details')).toBeInTheDocument();
 

@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import CustomInput from '../components/UI/CustomInput';
 import classes from './ContactPage.module.css';
+import useHttp from '../hooks/useHttp';
 
-interface contactForm {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
 const ContactPage: React.FC = () => {
-  const [contactData, setContactData] = useState<contactForm>({
+  const { submitContactForm } = useHttp();
+
+  const [contactData, setContactData] = useState<ContactFormData>({
     name: '',
     email: '',
     subject: '',
@@ -34,6 +31,19 @@ const ContactPage: React.FC = () => {
       ...prevValues,
       [name]: value,
     }));
+  };
+  const handleSubmit = async () => {
+    const response = await submitContactForm(contactData);
+    console.log('asiye')
+    if (response.status === 'success') {
+      console.log('asiye')
+      setContactData({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
+    }
   };
 
   return (
@@ -67,13 +77,11 @@ const ContactPage: React.FC = () => {
         value={contactData.message}
       />
       <div className={classes['buttons__wrapper']}>
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
         <button onClick={handleCancelClick}>Cancel</button>
       </div>
-
-      {/* <div className={classes['logo']}>
-        <h1>H</h1>
-      </div> */}
     </div>
   );
 };

@@ -214,14 +214,14 @@ const currentUserSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         const { token, data } = action.payload;
         console.log(action);
-        state.status = 'success';
+        state.status = 'login success';
         console.log(state.status);
         state.token = token;
         state.userData = data.user;
         state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'login failed';
         console.log(state.status);
         state.error = action.error.message || 'Login failed';
       })
@@ -240,14 +240,14 @@ const currentUserSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.status = 'success';
+        state.status = 'register success';
         console.log(state.status);
         state.token = action.payload.token;
         state.userData = action.payload.data.user;
         state.error = null;
       })
       .addCase(register.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'register failed';
         state.error = action.error.message || 'Register failed';
       })
       .addCase(resetPassword.fulfilled, (state, action) => {
@@ -257,7 +257,7 @@ const currentUserSlice = createSlice({
         state.error = null;
       })
       .addCase(updatePassword.fulfilled, (state, action) => {
-        state.status = 'success';
+        state.status = 'updatePassword success';
         state.token = action.payload.token;
         state.userData = action.payload.data.user;
         state.error = null;

@@ -4,7 +4,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import AuthPage from './AuthPage';
-import '@testing-library/jest-dom';
 import { toastSuccessNotify } from '../helper/ToastNotify';
 import { act } from 'react';
 import { combineReducers } from 'redux';
@@ -140,7 +139,7 @@ describe('AuthPage', () => {
         },
       });
     });
-    expect(store.getState().currentUser.status).toEqual('success');
+    expect(store.getState().currentUser.status).toEqual('login success');
 
     await waitFor(async () => {
       expect(screen.getAllByPlaceholderText('Enter your email')[0]).toHaveValue(
@@ -201,7 +200,7 @@ describe('AuthPage', () => {
       });
     });
     //console.log(store.getState().currentUser.status);
-    expect(store.getState().currentUser.status).toEqual('success');
+    expect(store.getState().currentUser.status).toEqual('register success');
 
     await waitFor(() => {
       expect(screen.getByPlaceholderText('Enter your name')).toHaveValue('');
@@ -226,6 +225,7 @@ describe('AuthPage', () => {
     expect(toastSuccessNotify).toHaveBeenCalledWith(message);
   });
 
+  /* -------------------------- - ------------------------- */
   it('6--Should forgotPassword action send email', async () => {
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[0];
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });

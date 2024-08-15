@@ -51,7 +51,6 @@ const Appointments: React.FC = () => {
   };
 
   const confirmDelete = () => {
-    console.log('asiye');
     if (appointmentIdToDelete) {
       deleteAppointment(appointmentIdToDelete);
     }
@@ -60,7 +59,6 @@ const Appointments: React.FC = () => {
   };
 
   const cancelDelete = () => {
-    console.log('asiye');
     setOpenModal('');
     setAppointmentIdToDelete(null);
   };

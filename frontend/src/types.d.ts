@@ -115,8 +115,12 @@ interface CurrentUser {
   status:
     | 'idle'
     | 'loading'
+    | 'login failed'
+    | 'register failed'
     | 'failed'
     | 'success'
+    | 'updatePassword success'
+    | 'register success'
     | 'logout success'
     | 'logout failed'
     | 'login success'
@@ -252,6 +256,13 @@ interface SingleAppointmentForDoctor {
 }
 type combinedAppointmentType = SingleAppointmentForDoctor | Appointment;
 
+/* -------------------- Contact Form -------------------- */
+interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+  subject: string;
+}
 /* ------------------------------------------------------ */
 /*                        TESTTING                        */
 /* ------------------------------------------------------ */

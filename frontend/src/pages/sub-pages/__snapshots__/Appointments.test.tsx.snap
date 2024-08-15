@@ -45,7 +45,7 @@ exports[`Appointments Component 1--Renders correctly before data is fetched 1`] 
 </table>
 `;
 
-exports[`Appointments Component 7--Displays content correctly after data is successfully fetched 1`] = `
+exports[`Appointments Component 6--Displays content correctly after data is successfully fetched 1`] = `
 <table
   className="appointments"
 >
