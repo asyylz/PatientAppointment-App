@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Navbar.module.css';
 import { useSelector } from 'react-redux';
+
 const NavBar: React.FC = () => {
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser

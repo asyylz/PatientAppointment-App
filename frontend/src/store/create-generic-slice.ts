@@ -128,6 +128,7 @@ export const createEntitySlice = <T>(
           state.status = 'failed';
           console.log(action);
           if (action.payload) {
+            console.log(action.payload)
             state.error = action.payload.message;
           } else {
             state.error = action.error.message || `Failed to fetch ${entity}`;

@@ -406,7 +406,7 @@ exports[`Dasboard 7--Displays content correctly after data is successfully fetch
               className="gap--line"
             />
             <tr
-              className="row row--active"
+              className="row"
             >
               <td>
                 1

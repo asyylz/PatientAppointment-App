@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, logoutSuccess } from '../../store/currentUser-slice';
+import { logout } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice';
@@ -11,6 +11,7 @@ const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
+
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
@@ -21,17 +22,18 @@ const TopSearchBar: React.FC = () => {
       clearTimeout(timeout);
     };
   }, [dispatch, searchInput]);
-
+  
+  //6946224Asy!
   const handleLogout = async () => {
+    dispatch(logout());
     navigate('/');
-    const response = await dispatch(logout());
-    
-    if (response.payload === 'success') {
-      toastSuccessNotify('Successfully logout!');
-      navigate('/');
-      dispatch(logoutSuccess()); // to set state to idle
-    }
-    dispatch(logoutSuccess()); // to set state to idle
+    toastSuccessNotify('Successfully logout!');
+
+    // if (status === 'logout success') {
+    //if (response.payload === 'success') {
+    //toastSuccessNotify('Successfully logout!');
+    // navigate('/auth');
+    //}
   };
 
   return (
@@ -51,7 +53,7 @@ const TopSearchBar: React.FC = () => {
           </div>
         </div>
 
-        {token && userData ? (
+        {token && userData && (
           <div className={classes['top__bar--search-user']}>
             <h5>
               {userData?.role === 'doctor'
@@ -62,8 +64,8 @@ const TopSearchBar: React.FC = () => {
             <img src={userData.image} alt="User" />
             <button onClick={handleLogout}>Logout</button>
           </div>
-        ) : (
-          <button onClick={() => navigate('/auth')}>Login</button>
+          // ) : (
+          //   <button onClick={() => navigate('/auth')}>Login</button>
         )}
       </div>
     </>

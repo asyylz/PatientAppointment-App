@@ -83,8 +83,9 @@ export const logout = createAsyncThunk<{ status: string }, void>(
     const response = await axiosInterceptorsWithToken.get(
       'http://localhost:3000/api/v1/users/logout'
     );
+    console.log(response.data);
     stopTokenCheckInterval(); // Stop the interval upon successful logout
-    return response.data.status;
+    return response.data;
   }
 );
 
@@ -263,7 +264,9 @@ const currentUserSlice = createSlice({
         state.error = null;
       })
       .addCase(logout.fulfilled, (state) => {
+        console.log(state.status)
         state.status = 'logout success';
+        console.log(state.status)
         state.token = '';
         state.userData = null;
         state.error = null;

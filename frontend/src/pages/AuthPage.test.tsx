@@ -14,6 +14,7 @@ import * as router from 'react-router-dom';
 jest.mock('./../helper/ToastNotify', () => ({
   toastSuccessNotify: jest.fn(),
 }));
+
 // Mock useNavigate
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -45,7 +46,9 @@ describe('AuthPage', () => {
   const navigate = jest.fn();
   beforeEach(() => {
     jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+    
     jest.clearAllMocks();
+
     render(
       <Provider store={store}>
         <MemoryRouter>

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopSearchBar Component 1--Matches the DOM snapshot 1`] = `
+<div
+  className="top__bar"
+>
+  <div
+    className="top__bar--search"
+  >
+    <input
+      className="top__bar--search-input"
+      name="search"
+      onChange={[Function]}
+      placeholder="search here"
+      type="text"
+    />
+    <div
+      className="top__bar--search-icon"
+    >
+      <i
+        className="fas fa-search"
+      />
+    </div>
+  </div>
+  <div
+    className="top__bar--search-user"
+  >
+    <h5>
+      Asiye
+    </h5>
+    <i
+      className="fas fa-bell"
+    />
+    <img
+      alt="User"
+      src="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1722605356602-asiye%20serife.jpeg"
+    />
+    <button
+      onClick={[Function]}
+    >
+      Logout
+    </button>
+  </div>
+</div>
+`;

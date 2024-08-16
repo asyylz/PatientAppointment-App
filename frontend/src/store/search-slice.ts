@@ -14,6 +14,7 @@ const searchSlice = createSlice({
   initialState,
   reducers: {
     setSearch: (_state, action: PayloadAction<string>) => {
+      console.log(action.payload)// first Anesthesiology then empty string
       return action.payload;
     },
     clearSearch: () => {

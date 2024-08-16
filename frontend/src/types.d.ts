@@ -152,7 +152,7 @@ interface CurrentUserPayload {
       role: string;
       name: string;
       email: string;
-      doctorId?: ObjectId;
+      doctorId?: string;
       DOB: date;
       __v?: number;
       image: string;
