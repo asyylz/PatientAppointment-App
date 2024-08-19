@@ -17,7 +17,8 @@ const Departments: React.FC = () => {
   const [filteredDepartments, setFilteredDepartments] = useState(departments);
 
   const searchWord = useSelector((state: RootState) => state.search);
-
+console.log(departments)
+console.log(filteredDepartments)
   useEffect(() => {
     if (status === 'idle') {
       dispatch(
@@ -82,6 +83,7 @@ const Departments: React.FC = () => {
 
       <div
         className={classes.container}
+       role='departments-container'
         //style={{ border: '2px solid red' }}
       >
         {status === 'loading' && <p>Departments loading...</p>}

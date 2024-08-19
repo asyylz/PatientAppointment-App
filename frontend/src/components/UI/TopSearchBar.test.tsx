@@ -89,7 +89,7 @@ describe('TopSearchBar Component', () => {
       </Provider>
     );
     expect(tree.toJSON()).toMatchSnapshot();
-    expect(screen.getByText('Asiye'))
+    expect(screen.getByText('Asiye'));
   });
   /* -------------------------- - ------------------------- */
   it('Search input typed and trigger departments to be filtered', async () => {
@@ -128,11 +128,22 @@ describe('TopSearchBar Component', () => {
         type: 'currentUser/logout/fulfilled',
       });
     });
+
     await waitFor(() => {
       expect(store.dispatch).toHaveBeenCalledWith({
         type: 'currentUser/logout/fulfilled',
       });
     });
+
+    await act(async () => {
+      store.dispatch({
+        type: 'currentUser/stateToIdle',
+      });
+    });
+    expect(store.dispatch).toHaveBeenCalledWith({
+      type: 'currentUser/stateToIdle',
+    });
+    await waitFor(() => {});
 
     const message = 'Successfully logout!';
     toastSuccessNotify(message);

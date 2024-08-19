@@ -3,7 +3,9 @@ import classes from './Loader.module.css';
 
 const Loader: React.FC = () => {
   return (
-    <div className={classes['loader__container']}>
+    <div 
+    role='loader'
+    className={classes['loader__container']}>
       {' '}
       <div className={classes['loader__ldsRipple']}>
         <div></div>

@@ -14,9 +14,10 @@ const images: { [key: string]: string } = {
   five: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjc1fHxoZWFsdGh8ZW58MHx8MHx8fDI%3D',
 };
 export default function HomePage() {
+
   const dispatch: AppDispatch = useDispatch();
   const {
-    entities: doctors,
+    entities
     // status,
     // error,
   } = useSelector((state: RootState) => state.doctors);
@@ -39,7 +40,7 @@ export default function HomePage() {
 
     return () => clearInterval(interval);
   }, []);
-
+console.log(entities)
   return (
     <div className={classes.wrapper}>
       <div className={`${classes.container} ${classes['container--body']}`}>
@@ -97,7 +98,7 @@ export default function HomePage() {
         >
           <div className={classes['section4--carousel']}>
             {/* {error && <p>Error: {error}</p>} */}
-            {doctors.map((doctor: Doctor, index:number) => (
+            {entities.map((doctor: Doctor, index:number) => (
               <div key={index} className={classes['carousel__card']}>
                 <div className={classes['carousel__picture']}>
                   <img

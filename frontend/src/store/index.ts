@@ -19,9 +19,6 @@ import appointmentsForDoctorReducer from './appointmentsForDoctor-slice';
 import appointmentsForPatientReducer from './appointmentsForPatient-slice';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
-
-
-
 // const rootPersistConfig = {
 //   key: 'root',
 //   storage,
@@ -67,6 +64,7 @@ const doctorPersistConfig = {
   storage: storage,
   // blacklist: ['status','error']
 };
+//console.log('asiye')
 export const allReducers = combineReducers({
   currentUser: persistReducer(authPersistConfig, currentUserReducer),
   departments: departmentsReducer,
@@ -84,7 +82,14 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+        ],
       },
     }),
   devTools: process.env.NODE_ENV !== 'production',

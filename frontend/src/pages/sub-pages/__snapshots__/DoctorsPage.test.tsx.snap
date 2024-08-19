@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Doctors Page 1--Matches the DOM snapshot 1`] = `
+[
+  <p
+    className="header"
+  >
+    OUR DOCTORS
+  </p>,
+  <hr />,
+  <div
+    className="container"
+    role="doctors-container"
+  />,
+  <div
+    className="pagination__wrapper"
+  >
+    <div
+      className="pagination__wrapper"
+    >
+      <div
+        className="pagination__icon--wrapper"
+        onClick={[Function]}
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            fill="none"
+            points="7 2 17 12 7 22"
+            strokeWidth="2"
+            transform="matrix(-1 0 0 1 24 0)"
+          />
+        </svg>
+        <p>
+          Prev
+        </p>
+      </div>
+      <p
+        className="pagination__page-number"
+      >
+        Page: 
+        1
+      </p>
+      <div
+        className="pagination__icon--wrapper passive"
+        onClick={[Function]}
+      >
+        <p>
+          Next
+        </p>
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            fill="none"
+            points="7 2 17 12 7 22"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>,
+]
+`;

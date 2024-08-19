@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../store/currentUser-slice';
+import { logout, logoutSuccess } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice';
@@ -15,25 +15,32 @@ const TopSearchBar: React.FC = () => {
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
-
+//console.log(token)
   useEffect(() => {
     const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
     return () => {
       clearTimeout(timeout);
     };
   }, [dispatch, searchInput]);
-  
+
   //6946224Asy!
   const handleLogout = async () => {
-    dispatch(logout());
-    navigate('/');
+    await dispatch(logout());
+    dispatch(logoutSuccess());
     toastSuccessNotify('Successfully logout!');
+    navigate('/');
+    //console.log(response);
+    // if (response.type === 'currentUser/logout/fulfilled') {
+    //   dispatch(logoutSuccess());
+    //   toastSuccessNotify('Successfully logout!');
+    //   navigate('/');
+    // }
 
     // if (status === 'logout success') {
-    //if (response.payload === 'success') {
-    //toastSuccessNotify('Successfully logout!');
-    // navigate('/auth');
-    //}
+    // if (status === 'logout success') {
+    //   console.log('asiye');
+    //   dispatch(logoutSuccess());
+    //   console.log(status);
   };
 
   return (
@@ -44,7 +51,7 @@ const TopSearchBar: React.FC = () => {
             className={classes['top__bar--search-input']}
             type="text"
             name="search"
-            placeholder="search here"
+            placeholder="Search here"
             onChange={(e) => setSearchInput(e.target.value)}
           />
 

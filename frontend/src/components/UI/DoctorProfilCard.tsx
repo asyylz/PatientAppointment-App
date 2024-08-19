@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 interface DoctorProfilCardProps {
   doctor: Doctor;
   onSelectDoctor: (doctor: Doctor) => void;
+
 }
 
 const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
   doctor,
   onSelectDoctor,
 }) => {
- 
   return (
     <div
-      key={doctor._id.toString()}
+      role="doctor"
       className={classes.cardContainer}
       //style={{ border: '1px solid red' }}
     >

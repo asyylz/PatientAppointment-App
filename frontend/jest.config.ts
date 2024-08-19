@@ -6,7 +6,11 @@ const config: Config = {
   collectCoverage: true,
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
-  setupFilesAfterEnv: ['./setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx,js,jsx}', // telling collect from these files
+    '!src/**/*.d.ts', // telling not to collect from these files with !
+  ],
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
   },

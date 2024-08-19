@@ -25,7 +25,7 @@ export const fetchEntities = <T>(entity: string, method: HttpMethod = 'get') =>
         console.log(`${entity} data:`, response.data.data);
         return response.data.data[entity];
       } catch (err) {
-        console.error(err);
+        //console.error(err);
         return rejectWithValue(err); // Adjust error handling as needed
       }
     }
@@ -108,23 +108,25 @@ export const createEntitySlice = <T>(
     },
     extraReducers: (builder) => {
       builder
-        .addCase(fetchEntityThunk.pending, (state,action) => {
-          console.log(action)
+        .addCase(fetchEntityThunk.pending, (state) => {
+          //console.log(action)
           state.status = 'loading';
         })
         .addCase(
           fetchEntityThunk.fulfilled,
           (state, action: PayloadAction<T | object>) => {
-            console.log(action.payload)
+            console.log(action)
             state.status = 'succeeded';
+          
             state.entities = action.payload;
+            //console.log(state)
             state.error = null;
 
-            console.log('State updated:', state.entities); // Debug state update
+            //console.log('State updated:', state.entities); // Debug state update
           }
         )
         .addCase(fetchEntityThunk.rejected, (state, action) => {
-          console.log(action)
+         // console.log(action)
           state.status = 'failed';
           console.log(action);
           if (action.payload) {

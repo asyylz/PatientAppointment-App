@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 import { act } from 'react';
 import '@testing-library/jest-dom';
-import { render, waitFor, screen } from '@testing-library/react';
+import { waitFor, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { combineReducers } from 'redux';
@@ -10,7 +10,9 @@ import { configureStore } from '@reduxjs/toolkit/react';
 import Departments from './Departments';
 import searchReducer from '../../store/search-slice';
 import currentUserReducer from '../../store/currentUser-slice';
+import { toContainRole, renderComponent } from '../../_testUtils/mocks/helper';
 
+expect.extend({ toContainRole });
 jest.mock('redux-persist', () => {
   const actual = jest.requireActual('redux-persist');
   return {
@@ -54,19 +56,11 @@ const store = configureStore({
   },
 });
 
-console.log(store.getState());
+
 describe('Departments Page', () => {
-  beforeEach(() => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Departments />
-        </MemoryRouter>
-      </Provider>
-    );
-  });
   /* -------------------------- - ------------------------- */
   it('1--Matches the DOM snapshot', () => {
+    //renderComponent(<Departments />, store);
     const tree = renderer.create(
       <Provider store={store}>
         <MemoryRouter>
@@ -75,10 +69,11 @@ describe('Departments Page', () => {
       </Provider>
     );
     expect(tree.toJSON()).toMatchSnapshot();
+
   });
   /* -------------------------- - ------------------------- */
   it('2--After rendering useEffect fetch departments with status "loading', async () => {
-    console.log(store.getState().departments.status);
+    renderComponent(<Departments />, store);
     expect(store.getState().departments.status).toEqual('loading');
 
     expect(
@@ -93,7 +88,8 @@ describe('Departments Page', () => {
   });
 
   /* -------------------------- - ------------------------- */
-  it('fetchDepartments action fulfilled and screen expect  related data', async () => {
+  it('3--fetchDepartments action fulfilled and screen expect  related data', async () => {
+    renderComponent(<Departments />, store);
     await act(async () => {
       store.dispatch({
         type: 'departments/fetch/fulfilled',
@@ -123,17 +119,26 @@ describe('Departments Page', () => {
       });
     });
     expect(store.getState().departments.status).toEqual('succeeded');
-    expect(screen.getAllByText('Allergy & Immunology')[0]).toBeInTheDocument();
-    expect(screen.getAllByText('Anesthesiology')[0]).toBeInTheDocument();
+    screen.debug();
+
+    const departmentsContainer = screen.getByRole('departments-container');
+    expect(departmentsContainer).toContainRole('department', 2);
   });
   /* -------------------------- - ------------------------- */
-  it('Search input typed and trigger departments to be filtered', () => {
-  //  const searchInput = screen.getByPlaceholderText('search here');
+  it('After departments being fetched data should be in the snapshot', () => {
+    const tree = renderer.create(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Departments />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(tree.toJSON()).toMatchSnapshot();
 
-    //console.log(searchInput);
   });
   /* -------------------------- - ------------------------- */
   it('fetchDepartments action rejected and screen expect error message', async () => {
+    renderComponent(<Departments />, store);
     await act(async () => {
       store.dispatch({
         type: 'departments/fetch/rejected',
@@ -145,6 +150,8 @@ describe('Departments Page', () => {
   });
   /* -------------------------- - ------------------------- */
   it('fetchDepartments action rejected and screen expect error message comes from payload', async () => {
+    renderComponent(<Departments /> ,store)
+
     await act(async () => {
       store.dispatch({
         type: 'departments/fetch/rejected',
@@ -156,7 +163,5 @@ describe('Departments Page', () => {
     expect(store.getState().departments.status).toEqual('failed');
     expect(screen.getByText('Payload error')).toBeInTheDocument();
   });
-  it('', () => {
-    console.log(store.getState().departments);
-  });
+
 });

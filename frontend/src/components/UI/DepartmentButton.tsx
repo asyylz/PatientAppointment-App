@@ -14,7 +14,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ department }) => {
   };
 
   return (
-    <div className={classes['department__wrapper']}>
+    <div role="department" className={classes['department__wrapper']}>
       <div className={classes['department__button']}>
         <div
           className={classes['department__button--name']}

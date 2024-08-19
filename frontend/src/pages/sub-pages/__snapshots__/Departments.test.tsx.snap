@@ -14,10 +14,159 @@ exports[`Departments Page 1--Matches the DOM snapshot 1`] = `
   </div>
   <div
     className="container"
+    role="departments-container"
+  />
+</div>
+`;
+
+exports[`Departments Page After departments being fetched data should be in the snapshot 1`] = `
+<div
+  className="mainWrapper"
+>
+  <div
+    className="headerWrapper"
   >
-    <p>
-      Departments loading...
-    </p>
+    <h2>
+      DEPARTMENTS
+    </h2>
+    <hr />
+  </div>
+  <div
+    className="container"
+    role="departments-container"
+  >
+    <div
+      className="department__wrapper"
+      role="department"
+    >
+      <div
+        className="department__button"
+      >
+        <div
+          className="department__button--name"
+          onClick={[Function]}
+        >
+          Allergy & Immunology
+        </div>
+      </div>
+      <div>
+        <ul
+          className="department__sub-wrapper"
+        >
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Allergy
+            </a>
+          </li>
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Allergy & Immunology
+            </a>
+          </li>
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Immunology
+            </a>
+          </li>
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Immunopathology
+            </a>
+          </li>
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Pediatric Allergy
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      className="department__wrapper"
+      role="department"
+    >
+      <div
+        className="department__button"
+      >
+        <div
+          className="department__button--name"
+          onClick={[Function]}
+        >
+          Anesthesiology
+        </div>
+      </div>
+      <div>
+        <ul
+          className="department__sub-wrapper"
+        >
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Anesthesiology
+            </a>
+          </li>
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Critical Care Anesthesiology
+            </a>
+          </li>
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Critical Care Medicine
+            </a>
+          </li>
+          <li
+            className="department__sub--item"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              Pain Management
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 `;

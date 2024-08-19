@@ -9,8 +9,9 @@ import { act } from 'react';
 import { combineReducers } from 'redux';
 import currentUserReducer from '../store/currentUser-slice';
 import { configureStore } from '@reduxjs/toolkit/react';
+//import configureStore from 'redux-mock-store';
+//import thunk from 'redux-thunk';
 import * as router from 'react-router-dom';
-
 jest.mock('./../helper/ToastNotify', () => ({
   toastSuccessNotify: jest.fn(),
 }));
@@ -44,9 +45,9 @@ const store = configureStore({
 
 describe('AuthPage', () => {
   const navigate = jest.fn();
+ // jest.spyOn(store, 'dispatch');
   beforeEach(() => {
     jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
-    
     jest.clearAllMocks();
 
     render(
@@ -120,6 +121,12 @@ describe('AuthPage', () => {
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(loginButton);
     // fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(store.dispatch).toHaveBeenCalledWith({
+        type: 'currentUser/login/pending',
+      });
+    });
 
     expect(store.getState().currentUser.status).toEqual('loading');
     await act(async () => {

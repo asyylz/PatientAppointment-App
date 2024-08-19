@@ -21,7 +21,7 @@ interface EntityStateForAppointments<T> {
 }
 
 interface ExtendedEntityState<T> extends EntityState<T> {
-  selectedDoctor?: T;
+  selectedDoctor?: T | null;
 }
 
 /* --------------------- ROOT STATE --------------------- */
@@ -38,7 +38,7 @@ interface RootState {
 
 /* --------------------- DEPARTMENTS -------------------- */
 interface Department {
-  _id: number;
+  _id: string;
   departmentMain: string;
   departmentSub: [string];
 }
@@ -51,20 +51,20 @@ interface DepartmentState {
 interface Doctor {
   _id: string;
   id: number;
-  userId: { _id: string; image: string };
+  userId?: { _id: string; image: string };
   gender: string;
   image: string;
   availabilities: Availability[];
   phone: string;
-  // address: Address;
+   address: Address;
   reviews: Reviews[];
   __v: number;
   firstName: string;
   lastName: string;
   departmentId: {
-    _id: ObjectId;
+    _id: string;
     departmentMain: string;
-    departmentSub: [string];
+    departmentSub: string[];
   };
   doctorDescription: string;
 }
@@ -77,8 +77,8 @@ interface Doctor {
 // }
 /* -------------------- AVAILABILITIES -------------------- */
 interface Availability {
-  _id: ObjectId;
-  doctorId: ObjectId;
+  _id: string;
+  doctorId: string;
   day: string;
   time: string;
   currentWeekAvailabilityInDateFormat: Date | string;
@@ -174,6 +174,7 @@ interface UpdatedUserPasswordAndToken {
 interface Credentials {
   name?: string;
   email?: string;
+  image?: string;
   password?: string;
   passwordConfirm?: string;
   policy?: boolean;
