@@ -5,7 +5,6 @@ describe('SearchSlice reducer', () => {
     const initialState = '';
     const action = { type: '' };
     const result = searchSliceReducer(initialState, action);
-    console.log(result);
     expect(result).toEqual('');
   });
   it('2--Should set the search term received to state ', () => {

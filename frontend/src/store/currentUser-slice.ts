@@ -202,9 +202,6 @@ const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
   reducers: {
-    // setImagePath: (state, action: PayloadAction<string>) => {
-    //   state.image = action.payload;
-    // },
   },
   extraReducers: (builder) => {
     builder
@@ -214,7 +211,7 @@ const currentUserSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         const { token, data } = action.payload;
-        console.log(action);
+        console.log(action.payload);
         state.status = 'login success';
         console.log(state.status);
         state.token = token;
