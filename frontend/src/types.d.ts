@@ -125,9 +125,13 @@ interface CurrentUser {
     | 'logout failed'
     | 'login success'
     | 'update success'
-    | 'email sent success'
-    | 'email sent failed'
+    | 'forgotPassword success'
+    | 'forgotPassword failed'
     | 'sent success'
+    | 'refresh success'
+    | 'refresh failed'
+    | 'update failed'
+    | 'resetPassword success'
     | null;
   error?: string | null;
 }

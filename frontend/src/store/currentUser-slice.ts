@@ -201,45 +201,40 @@ export const refreshSession = createAsyncThunk<
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
-        console.log(state.status);
         state.status = 'loading';
       })
       .addCase(login.fulfilled, (state, action) => {
         const { token, data } = action.payload;
-        console.log(action.payload);
         state.status = 'login success';
-        console.log(state.status);
         state.token = token;
         state.userData = data.user;
         state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'login failed';
-        console.log(state.status);
-        state.error = action.error.message || 'Login failed';
+        state.error = action.error?.message || 'Login failed!';
       })
       .addCase(refreshSession.fulfilled, (state, action) => {
         const { token, data } = action.payload;
-        state.status = 'success';
+        state.status = 'refresh success';
         state.token = token;
         state.userData = data.user;
         state.error = null;
       })
       .addCase(refreshSession.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'refresh failed';
         state.error = action.error.message || 'Refresh failed';
+        state.token = ''; // need to be checked
       })
       .addCase(register.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(register.fulfilled, (state, action) => {
         state.status = 'register success';
-        console.log(state.status);
         state.token = action.payload.token;
         state.userData = action.payload.data.user;
         state.error = null;
@@ -249,7 +244,7 @@ const currentUserSlice = createSlice({
         state.error = action.error.message || 'Register failed';
       })
       .addCase(resetPassword.fulfilled, (state, action) => {
-        state.status = 'success';
+        state.status = 'resetPassword success';
         state.token = action.payload.token;
         state.userData = action.payload.data.user;
         state.error = null;
@@ -261,9 +256,7 @@ const currentUserSlice = createSlice({
         state.error = null;
       })
       .addCase(logout.fulfilled, (state) => {
-        console.log(state.status)
         state.status = 'logout success';
-        console.log(state.status)
         state.token = '';
         state.userData = null;
         state.error = null;
@@ -278,16 +271,15 @@ const currentUserSlice = createSlice({
         state.error = null;
       })
       .addCase(updateUserInfo.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload || 'Update failed';
+        state.status = 'update failed';
+        state.error = action.error?.message || 'Updating user info failed';
       })
       .addCase(forgotPassword.fulfilled, (state) => {
-        console.log(state.status);
-        state.status === 'email sent success';
-        console.log(state.status);
+        state.status = 'forgotPassword success';
       })
-      .addCase(forgotPassword.rejected, (state) => {
-        state.status === 'email sent failed';
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.status = 'forgotPassword failed';
+        state.error = action.error?.message || 'Forgot password failed';
       })
       .addCase('currentUser/stateToIdle', (state) => {
         state.status = 'idle'; // Reset status to 'idle' on successful logout

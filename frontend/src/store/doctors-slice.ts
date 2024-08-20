@@ -23,7 +23,7 @@ const doctorsSlice = createEntitySlice<Doctor>(
       'doctors/selectDoctor',
       (state: ExtendedEntityState<Doctor>, action: PayloadAction<Doctor>) => {
         state.selectedDoctor = action.payload;
-        console.log('State.selectedDoctor updated:', state.selectedDoctor); // Debug state update
+        //console.log('State.selectedDoctor updated:', state.selectedDoctor); // Debug state update
       }
     );
   }
