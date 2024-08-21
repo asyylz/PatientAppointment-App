@@ -1,37 +1,15 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { toastSuccessNotify } from './../helper/ToastNotify';
 import {
   axiosInterceptorsWithToken,
   axiosInterceptorsWithoutToken,
 } from '../hooks/axiosInterceptors';
 import {
-  checkTokenExpiration,
-  TOKEN_CHECK_INTERVAL,
-} from '../hooks/axiosInterceptors';
+  startTokenCheckInterval,
+  stopTokenCheckInterval,
+} from './../helper/timers';
 
-// Global variable to hold the interval ID
-let intervalId: NodeJS.Timeout | null = null;
-
-// Function to start the interval
-const startTokenCheckInterval = () => {
-  // Clear existing interval if it exists
-  if (intervalId) {
-    clearInterval(intervalId);
-    console.log('Cleared existing interval with ID:', intervalId);
-  }
-  // Start a new interval
-  intervalId = setInterval(checkTokenExpiration, TOKEN_CHECK_INTERVAL);
-  console.log('Set new interval with ID:', intervalId);
-};
-
-// Function to stop the interval
-const stopTokenCheckInterval = () => {
-  if (intervalId) {
-    clearInterval(intervalId);
-    console.log('Stopped interval with ID:', intervalId);
-    intervalId = null; // Ensure to nullify the interval ID
-  }
-};
+import { AppDispatch } from '.';
 
 const initialState: CurrentUser = {
   status: 'idle',
@@ -62,7 +40,6 @@ export const login = createAsyncThunk<
   CurrentUserPayload,
   { email: string; password: string }
 >('currentUser/login', async (credentials) => {
-  console.log(credentials);
   const response = await axiosInterceptorsWithoutToken.post(
     'http://localhost:3000/api/v1/users/login',
     credentials,
@@ -77,17 +54,33 @@ export const login = createAsyncThunk<
 /*                         LOGOUT                         */
 /* ------------------------------------------------------ */
 
-export const logout = createAsyncThunk<{ status: string }, void>(
-  'currentUser/logout',
-  async () => {
-    const response = await axiosInterceptorsWithToken.get(
-      'http://localhost:3000/api/v1/users/logout'
-    );
-    console.log(response.data);
-    stopTokenCheckInterval(); // Stop the interval upon successful logout
-    return response.data;
+// export const logout = createAsyncThunk<{ status: string }, void>(
+//   'currentUser/logout',
+//   async () => {
+//     const response = await axiosInterceptorsWithToken.get(
+//       'http://localhost:3000/api/v1/users/logout'
+//     );
+//     console.log(response.data);
+//     stopTokenCheckInterval(); // Stop the interval upon successful logout
+//     return response.data;
+//   }
+// );
+export const performLogout = () => async (dispatch: AppDispatch) => {
+  // Perform the API call to the logout endpoint
+  console.log('asiye');
+  const response = await axiosInterceptorsWithToken.get(
+    'http://localhost:3000/api/v1/users/logout'
+  );
+  console.log(response);
+  if (response.data.status === 'logout success') {
+    console.log('asiye')
+    dispatch(logout());
+    stopTokenCheckInterval();
   }
-);
+
+  return response.data;
+
+};
 
 /* ------------------------------------------------------ */
 /*                         UPDATE                         */
@@ -201,7 +194,14 @@ export const refreshSession = createAsyncThunk<
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
-  reducers: {},
+  reducers: {
+    logout(state) {
+      //console.log('asiye')
+      state.status = 'idle';
+      state.token = '';
+      state.userData = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -222,6 +222,7 @@ const currentUserSlice = createSlice({
         const { token, data } = action.payload;
         state.status = 'refresh success';
         state.token = token;
+        console.log(token);
         state.userData = data.user;
         state.error = null;
       })
@@ -255,16 +256,16 @@ const currentUserSlice = createSlice({
         state.userData = action.payload.data.user;
         state.error = null;
       })
-      .addCase(logout.fulfilled, (state) => {
-        state.status = 'logout success';
-        state.token = '';
-        state.userData = null;
-        state.error = null;
-      })
-      .addCase(logout.rejected, (state, action) => {
-        state.status = 'logout failed';
-        state.error = (action.payload as string) || 'Logout failed';
-      })
+      // .addCase(logout.fulfilled, (state) => {
+      //   state.status = 'logout success';
+      //   state.token = '';
+      //   state.userData = null;
+      //   state.error = null;
+      // })
+      // .addCase(logout.rejected, (state, action) => {
+      //   state.status = 'logout failed';
+      //   state.error = (action.payload as string) || 'Logout failed';
+      // })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.status = 'update success';
         state.userData = action.payload.data.user;
@@ -288,7 +289,8 @@ const currentUserSlice = createSlice({
 });
 
 // Export actions and reducer
-export const logoutSuccess = createAction('currentUser/stateToIdle');
+//export const logoutSuccess = createAction('currentUser/stateToIdle');
 
-//export const { setImagePath } = currentUserSlice.actions;
+export const { logout } = currentUserSlice.actions;
+
 export default currentUserSlice.reducer;

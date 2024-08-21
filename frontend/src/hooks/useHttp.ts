@@ -11,7 +11,6 @@ interface ReviewData {
   comments: string | undefined;
 }
 
-
 const useHttp = () => {
   const createAppointment = async (data: AppointmentForBooking) => {
     const response = await axiosInterceptorsWithToken.post(
@@ -82,12 +81,10 @@ const useHttp = () => {
   };
 
   const submitContactForm = async (data: ContactFormData) => {
-    console.log(data)
     const response = await axiosInterceptorsWithoutToken.post(
       'http://localhost:3000/api/v1/contact',
       data
     );
-    console.log(response)
     toastSuccessNotify('Your message successfully sent');
     return response.data;
   };

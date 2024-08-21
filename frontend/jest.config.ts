@@ -3,13 +3,14 @@ import type { Config } from 'jest';
 const config: Config = {
   //resetMocks: false,
   coverageDirectory: '<rootDir>/src/_testUtils/coverage',
-  collectCoverage: true,
+  //collectCoverage: true,
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx,js,jsx}', // telling collect from these files
     '!src/**/*.d.ts', // telling not to collect from these files with !
+    '!src/_**/*.*', // telling not to collect from these files with !
   ],
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',

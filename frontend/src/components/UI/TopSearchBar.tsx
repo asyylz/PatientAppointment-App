@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, logoutSuccess } from '../../store/currentUser-slice';
+//import { logoutSuccess } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice';
 import { toastSuccessNotify } from './../../helper/ToastNotify';
+import { performLogout } from '../../store/currentUser-slice';
 
 const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -15,7 +16,7 @@ const TopSearchBar: React.FC = () => {
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
-//console.log(token)
+  //console.log(token)
   useEffect(() => {
     const timeout = setTimeout(() => dispatch(setSearch(searchInput)), 500);
     return () => {
@@ -25,8 +26,7 @@ const TopSearchBar: React.FC = () => {
 
   //6946224Asy!
   const handleLogout = async () => {
-    await dispatch(logout());
-    dispatch(logoutSuccess());
+    dispatch(performLogout());
     toastSuccessNotify('Successfully logout!');
     navigate('/');
     //console.log(response);
