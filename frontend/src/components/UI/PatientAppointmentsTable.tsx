@@ -11,14 +11,12 @@ interface Props {
   openModal: string;
   setOpenModal: (openModal: string) => void;
   setSelectedAppointment: (selectedAppointment: Appointment) => void;
-  //appointmentIdToDelete: ObjectId | null;
 }
 
 const PatientAppointmentsTable: React.FC<Props> = ({
   setOpenModal,
   openModal,
   setSelectedAppointment,
-  //appointmentIdToDelete,
 }) => {
   const { entities } = useSelector(
     (state: RootState) => state.appointmentsForPatient
@@ -27,8 +25,6 @@ const PatientAppointmentsTable: React.FC<Props> = ({
     (state: RootState) => state.currentUser
   );
   const [pagination, setPagination] = useState<number>(1);
-
-  const { appointmentsForPatient } = entities;
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -42,7 +38,7 @@ const PatientAppointmentsTable: React.FC<Props> = ({
       );
     }
   }, [
-   // appointmentIdToDelete,
+    // appointmentIdToDelete,
     pagination,
     dispatch,
     token,
@@ -72,46 +68,42 @@ const PatientAppointmentsTable: React.FC<Props> = ({
         </thead>
         <tbody data-testid="appointments-patient">
           <tr className={classes['gap--line']}></tr>
-          {appointmentsForPatient?.map(
-            (appointment: Appointment, index: number) => (
-              <React.Fragment key={appointment._id.toString()}>
-                <tr
-                  className={
-                    new Date(appointment.appointmentDateAndTime) > new Date()
-                      ? `${classes.row} ${classes['row--active']}`
-                      : `${classes.row}`
-                  }
-                >
-                  <td>{index + 1}.</td>
-                  <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
-                  <td>{formatDateForUI(appointment.appointmentDateAndTime)}</td>
-                  <td>
-                    {appointment.appointmentDateAndTime
-                      .split('T')[1]
-                      .slice(0, 5)}
-                  </td>
-                  <td>{appointment.reason}</td>
-                  <td>{appointment.diagnose}</td>
-                  <td>
-                    <FaEdit
-                      data-testid="edit-icon"
-                      className={`${classes.icons} ${classes['icons--edit']}`}
-                      onClick={() => {
-                        handleClick(appointment);
-                      }}
-                    />
-                  </td>
-                </tr>
-                <tr className={classes['gap--line']}></tr>
-              </React.Fragment>
-            )
-          )}
+          {entities?.map((appointment: Appointment, index: number) => (
+            <React.Fragment key={appointment._id.toString()}>
+              <tr
+                className={
+                  new Date(appointment.appointmentDateAndTime) > new Date()
+                    ? `${classes.row} ${classes['row--active']}`
+                    : `${classes.row}`
+                }
+              >
+                <td>{index + 1}.</td>
+                <td>{`Dr. ${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}</td>
+                <td>{formatDateForUI(appointment.appointmentDateAndTime)}</td>
+                <td>
+                  {appointment.appointmentDateAndTime.split('T')[1].slice(0, 5)}
+                </td>
+                <td>{appointment.reason}</td>
+                <td>{appointment.diagnose}</td>
+                <td>
+                  <FaEdit
+                    data-testid="edit-icon"
+                    className={`${classes.icons} ${classes['icons--edit']}`}
+                    onClick={() => {
+                      handleClick(appointment);
+                    }}
+                  />
+                </td>
+              </tr>
+              <tr className={classes['gap--line']}></tr>
+            </React.Fragment>
+          ))}
         </tbody>
       </table>
       <PaginationButtons
         setPagination={setPagination}
         pagination={pagination}
-        length={appointmentsForPatient?.length}
+        length={entities?.length}
         limit={10}
       />
     </>

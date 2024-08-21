@@ -28,23 +28,10 @@ const TopSearchBar: React.FC = () => {
   }, [dispatch, searchInput]);
 
   //6946224Asy!
-  const handleLogout = () => {
-    dispatch(performLogout());
+  const handleLogout = async () => {
+    await dispatch(performLogout());
     toastSuccessNotify('Successfully logged out!');
     navigate('/');
-
-    // console.log(response);
-    // if (response.type === 'currentUser/logout/fulfilled') {
-    //   dispatch(logoutSuccess());
-    //   toastSuccessNotify('Successfully logout!');
-    //   navigate('/');
-    // }
-
-    // if (status === 'logout success') {
-    // if (status === 'logout success') {
-    //   console.log('asiye');
-    //   dispatch(logoutSuccess());
-    //   console.log(status);
   };
 
   return (

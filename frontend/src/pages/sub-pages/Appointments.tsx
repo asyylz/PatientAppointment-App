@@ -30,8 +30,6 @@ const Appointments: React.FC = () => {
     (state: RootState) => state.appointmentsForDoctor
   );
 
-  const { appointmentsForDoctor } = entities;
-
   useEffect(() => {
     if (userData?.doctorId) {
       dispatch(
@@ -105,7 +103,7 @@ const Appointments: React.FC = () => {
         </thead>
         <tbody data-testid="appointments">
           <tr className={classes.gapLine}></tr>
-          {appointmentsForDoctor?.map(
+          {entities?.map(
             (appointment: SingleAppointmentForDoctor) => (
               <React.Fragment key={appointment._id.toString()}>
                 <tr

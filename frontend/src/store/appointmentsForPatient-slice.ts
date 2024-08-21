@@ -1,5 +1,5 @@
 import {
-  fetchEntitiesWithIdAndToken,
+  fetchEntitiesWithId,
   createEntitySlice,
 } from './create-generic-slice';
 
@@ -9,7 +9,7 @@ export const patientAppointmentsUrl = (id: string, pagination?: number) => {
 };
 
 export const fetchAppointmentsForPatient =
-  fetchEntitiesWithIdAndToken<AppointmentsForPatient>(
+  fetchEntitiesWithId<AppointmentsForPatient>(
     'appointmentsForPatient',
     patientAppointmentsUrl
   );

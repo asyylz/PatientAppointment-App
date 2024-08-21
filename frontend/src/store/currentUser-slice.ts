@@ -55,12 +55,9 @@ export const login = createAsyncThunk<
 /*                         LOGOUT                         */
 /* ------------------------------------------------------ */
 export const performLogout = () => async (dispatch: AppDispatch) => {
-  // Perform the API call to the logout endpoint
-  console.log('asiye');
   const response = await axiosInterceptorsWithToken.get(
     'http://localhost:3000/api/v1/users/logout'
   );
-  console.log(response);
   if (response.data.status === 'success') {
     console.log('asiye');
     dispatch(logout());
