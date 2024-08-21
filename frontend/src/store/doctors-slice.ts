@@ -12,7 +12,7 @@ export const doctorsUrl = (url: string) => {
 };
 
 // Fetch doctors thunk
-export const fetchDoctors = fetchEntities<Doctor>('doctors', 'get');
+export const fetchDoctors = fetchEntities<Doctor>('doctors');
 
 // Create doctors slice
 const doctorsSlice = createEntitySlice<Doctor>(

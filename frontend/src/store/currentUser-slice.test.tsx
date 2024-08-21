@@ -6,12 +6,19 @@ import currentUserReducer, {
   updateUserInfo,
 } from './currentUser-slice'; //register, //refreshSession, //login,
 import '@testing-library/jest-dom';
-//import { toastSuccessNotify } from '../helper/ToastNotify';
+//import { toastSuccessNotify } from './../helper/ToastNotify';
 import { login } from './currentUser-slice';
 import * as axiosInterceptors from '../hooks/axiosInterceptors';
 import * as timers from './../helper/timers';
+//import * as toastNotify from './../helper/ToastNotify';
 
 jest.mock('redux-persist');
+
+// Assuming toastSuccessNotify is a named export
+//jest.doMock('./../helper/ToastNotify')
+// jest.doMock('./../helper/ToastNotify', () => ({
+//   toastSuccessNotify: jest.fn(),
+// }));
 
 interface TestAction {
   type: string;
@@ -42,15 +49,15 @@ const thunkActionApplier = async (
   // The first thing a thunk function takes is the dispatch method. The second thing is a method called getState(). We can reproduce that here by sending an error function that just returns the state.
   await thunkAction(dispatch, () => state, undefined);
   const { calls } = dispatch.mock;
-  console.log(calls);
+  // console.log(calls);
   // console.log(calls[1][0])
   expect(calls).toHaveLength(2);
 
   expect(calls[0][0].type).toEqual(`currentUser/${actionName}/pending`);
   expect(calls[1][0].type).toEqual(`currentUser/${actionName}/${status}`);
-  console.log(message);
+  //console.log(message);
   if (status === 'rejected') {
-    console.log(calls[1][0].error);
+    // console.log(calls[1][0].error);
     expect(calls[1][0].error).toEqual({
       message, // message:message
     });
@@ -59,7 +66,32 @@ const thunkActionApplier = async (
 
 jest.mock('../hooks/axiosInterceptors');
 
-describe('Thunks', () => {
+describe('CurrentUser-Slice reducer actions', () => {
+  it('1--Logout', () => {
+    const initialState = {
+      token: '12345',
+      userData: {
+        _id: '1234',
+        name: 'Alice',
+        email: 'Smith',
+        // other fields
+      },
+      error: null,
+      status: 'login success',
+    } as CurrentUser;
+
+    const action = logout();
+    const state = currentUserReducer(initialState, action);
+    expect(state).toEqual({
+      status: 'idle',
+      token: '',
+      userData: null,
+      error:null
+    });
+  });
+});
+
+describe('CurrentUser-Slice reducer thunk actions', () => {
   describe('Login', () => {
     beforeEach(() => {});
     it('1--Should login', async () => {
@@ -71,7 +103,11 @@ describe('Thunks', () => {
         password: '6946224Asy!',
       });
       thunkActionApplier(thunk, 'login', 'fulfilled');
+      //expect(toast.success).toHaveBeenCalled()
+      //expect(toastNotify.toastSuccessNotify).toHaveBeenCalled();
+      //expect(toastSuccessNotify).toHaveBeenCalledTimes(1);
     });
+
     it('Should fail with wrong credentials', async () => {
       // to simulate a failure, we need to mock a rejected promise using mockRejectedValue.
       // Mocking a failed login response
@@ -229,6 +265,7 @@ describe('Thunks', () => {
       );
     });
   });
+  describe('', () => {});
 });
 
 jest.mock('./../helper/timers');
@@ -267,8 +304,6 @@ describe('PerfomLogout', () => {
         },
       });
     // Call the performLogout function
-
-    // Check that the API call was made
     await performLogout()(dispatch);
     expect(
       axiosInterceptors.axiosInterceptorsWithToken.get
@@ -278,7 +313,7 @@ describe('PerfomLogout', () => {
     expect(dispatch).not.toHaveBeenCalledWith(logout());
 
     // Check that stopTokenCheckInterval was not called
-    expect(timers.stopTokenCheckInterval).toHaveBeenCalledTimes(1);
+    expect(timers.stopTokenCheckInterval).toHaveBeenCalledTimes(0);
   });
 });
 
@@ -372,7 +407,7 @@ describe('CurrentUser-slice states with thunk', () => {
     });
   });
   describe('Refresh Session', () => {
-    it('6--Request refreshSession should be succeedeed', () => {
+    it('1--Request refreshSession should be succeedeed', () => {
       const action = {
         type: 'currentUser/refreshSession/fulfilled',
         payload: {
@@ -405,7 +440,7 @@ describe('CurrentUser-slice states with thunk', () => {
         },
       });
     });
-    it('7--Request refreshSession rejected error should be in state', () => {
+    it('2--Request refreshSession rejected error should be in state', () => {
       const action = {
         type: 'currentUser/refreshSession/rejected',
         error: { message: 'Refresh unsuccessful' },
@@ -423,7 +458,7 @@ describe('CurrentUser-slice states with thunk', () => {
   });
 
   describe('Register', () => {
-    it('8--Register pending action  should start with status pending', () => {
+    it('1--Register pending action  should start with status pending', () => {
       const action = {
         type: 'currentUser/register/pending',
       };
@@ -434,7 +469,7 @@ describe('CurrentUser-slice states with thunk', () => {
         userData: null,
       });
     });
-    it('9--Register fulfilled action should update state with new userData', () => {
+    it('2--Register fulfilled action should update state with new userData', () => {
       const payloadData = {
         token: 'someToken',
         error: null,
@@ -460,7 +495,7 @@ describe('CurrentUser-slice states with thunk', () => {
         error: null,
       });
     });
-    it('10-Register rejected action should update error state with error', () => {
+    it('3-Register rejected action should update error state with error', () => {
       const action = {
         type: 'currentUser/register/rejected',
         error: { message: 'Registration failed' },
@@ -474,39 +509,8 @@ describe('CurrentUser-slice states with thunk', () => {
       });
     });
   });
-  describe('UpdatePassword', () => {
-    it('11--UpdatePassword fulfilled action should update password and send new token', () => {
-      const payloadData = {
-        token: 'newToken',
-        //error: null,
-        data: {
-          user: {
-            _id: '6673662fbd42a966b75dec92',
-            name: 'test name for update password',
-            email: 'test@test.com',
-            role: 'patient',
-            // other fields
-          },
-        },
-      };
-      const action = {
-        type: 'currentUser/updatePassword/fulfilled',
-        payload: payloadData,
-      };
-      const result = actionApplier(
-        { token: 'oldToken', userData: {} } as CurrentUser,
-        action
-      );
-      expect(result).toEqual({
-        status: 'updatePassword success',
-        userData: payloadData.data.user,
-        token: payloadData.token,
-        error: null,
-      });
-    });
-  });
   describe('UpdateUserInfo', () => {
-    it('14--UpdateUserInfo fulfilled action should  update states with success', () => {
+    it('1--UpdateUserInfo fulfilled action should  update states with success', () => {
       const payloadData = {
         data: {
           user: {
@@ -533,7 +537,7 @@ describe('CurrentUser-slice states with thunk', () => {
         error: null,
       });
     });
-    it('15--UpdateUserInfo rejected action should  update error state', () => {
+    it('2--UpdateUserInfo rejected action should  update error state', () => {
       const action = {
         type: 'currentUser/updateProfile/rejected',
         //error: { message: 'Updating user info failed' },
@@ -550,66 +554,13 @@ describe('CurrentUser-slice states with thunk', () => {
       });
     });
   });
-  describe('ForgotPassword', () => {
-    it('16--ForgotPassword fulfilled action should update status state', () => {
-      const action = {
-        type: 'currentUser/forgotPassword/fulfilled',
-      };
-      const result = actionApplier(undefined, action);
-      expect(result).toEqual({
-        status: 'forgotPassword success',
-        token: '',
-        userData: null,
-      });
-    });
-    it('17--ForgotPassword rejected action should update status', () => {
-      const action = {
-        type: 'currentUser/forgotPassword/rejected',
-        error: { message: 'Forgot password failed' },
-      };
-      const result = actionApplier(undefined, action);
-      expect(result).toEqual({
-        status: 'forgotPassword failed',
-        token: '',
-        userData: null,
-        error: 'Forgot password failed',
-      });
-    });
-  });
   describe('StateToIdle', () => {
-    it('18--StateToIdle action should set state to idle', () => {
+    it('1--StateToIdle action should set state to idle', () => {
       const action = {
         type: 'currentUser/stateToIdle',
       };
       const result = actionApplier({ status: 'some status' }, action);
       expect(result.status).toEqual('idle');
-    });
-  });
-  describe('ResetPassword', () => {
-    it('19--ResetPassword fulfilled action should update states with new user data', () => {
-      const payloadData = {
-        token: 'newToken after resetting password',
-        data: {
-          user: {
-            _id: '6673662fbd42a966b75dec92',
-            name: 'test name',
-            email: 'newemail@test.com',
-            role: 'patient',
-            // other fields
-          },
-        },
-      };
-      const action = {
-        type: 'currentUser/resetPassword/fulfilled',
-        payload: payloadData,
-      };
-      const result = actionApplier({ status: 'some status' }, action);
-      expect(result).toEqual({
-        status: 'resetPassword success',
-        userData: payloadData.data.user,
-        token: payloadData.token,
-        error: null,
-      });
     });
   });
 });

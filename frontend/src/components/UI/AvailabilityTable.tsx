@@ -44,7 +44,6 @@ const AvailabilityTable: React.FC = () => {
       dispatch(
         fetchAppointmentsForDoctor({
           id: selectedDoctor?._id.toString(),
-          token,
         })
       );
     }

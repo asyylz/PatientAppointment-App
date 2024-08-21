@@ -136,3 +136,17 @@ axiosInterceptorsWithoutToken.interceptors.response.use(
 );
 
 export { axiosInterceptorsWithToken, axiosInterceptorsWithoutToken };
+
+
+  //   } catch (error) {
+  //     if (axios.isAxiosError(error)) {
+  //       const axiosError = error as AxiosError;
+  //       if (axiosError.response?.status === 401) {
+  //         toastErrorNotify(
+  //           `${(axiosError.response.data as { message: string }).message}`
+  //         );
+  //       }
+  //       return rejectWithValue(error.message);
+  //     }
+  //     return rejectWithValue('An unexpected error occurred');
+  //   }

@@ -46,7 +46,7 @@ const useHttp = () => {
   };
 
   const updateUserPassWord = async (
-    updatedUserData: UpdatedUserPasswordAndToken
+    updatedUserData: UpdatedUserPasswordData
   ) => {
     const response = await axiosInterceptorsWithToken.patch(
       `http://localhost:3000/api/v1/users/updateMyPassword`,
@@ -88,6 +88,39 @@ const useHttp = () => {
     toastSuccessNotify('Your message successfully sent');
     return response.data;
   };
+  const forgotPassword = async (email: string) => {
+    const response = await axiosInterceptorsWithoutToken.post(
+      'http://localhost:3000/api/v1/users/forgotPassword',
+      email
+    );
+    toastSuccessNotify(`Email sent to ${email} successfully!`);
+    console.log(response.data);
+    return response.data;
+  };
+
+  const updatePassword = async (data: UpdatedUserPasswordData) => {
+    const { oldPassword, newPassword, confirmNewPassword } = data;
+    const response = await axiosInterceptorsWithToken.patch(
+      'http://localhost:3000/api/v1/users/updateMyPassword',
+      { oldPassword, newPassword, confirmNewPassword }
+    );
+    toastSuccessNotify(`Your password successfully updated`);
+    return response.data;
+  };
+  const resetPassword = async (data: PasswordResetData) => {
+    const { password, passwordConfirm, resetToken } = data;
+    const response = await axiosInterceptorsWithoutToken.patch(
+      `http://localhost:3000/api/v1/users/resetPassword/${resetToken}`,
+      {
+        password,
+        passwordConfirm,
+      }
+    );
+    toastSuccessNotify(`Your password successfully re-set`);
+    console.log(response.data);
+    return response.data;
+  };
+
   return {
     createAppointment,
     updateAppointment,
@@ -97,6 +130,9 @@ const useHttp = () => {
     getDoctorWithAvailabilities,
     postReview,
     submitContactForm,
+    forgotPassword,
+    updatePassword,
+    resetPassword,
   };
 };
 

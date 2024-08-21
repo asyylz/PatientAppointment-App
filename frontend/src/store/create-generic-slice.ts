@@ -1,35 +1,19 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+// , { AxiosRequestConfig, AxiosResponse }
 
 /* ------------------------------------------------------ */
 /*                        ENTITIES                        */
 /* ------------------------------------------------------ */
-type HttpMethod = 'get' | 'post' | 'patch' | 'delete';
-
-export const fetchEntities = <T>(entity: string, method: HttpMethod = 'get') =>
-  createAsyncThunk<T | object, string>(
-    `${entity}/fetch`,
-    async (url, { rejectWithValue }) => {
-      //console.log(url);
-      try {
-        const axiosMethods: Record<
-          HttpMethod,
-          (url: string, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-        > = {
-          get: axios.get,
-          post: (url, config) => axios.post(url, {}, config),
-          patch: (url, config) => axios.patch(url, {}, config),
-          delete: axios.delete,
-        };
-        const response = await axiosMethods[method](url);
-        console.log(`${entity} data:`, response.data.data);
-        return response.data.data[entity];
-      } catch (err) {
-        //console.error(err);
-        return rejectWithValue(err); // Adjust error handling as needed
-      }
-    }
-  );
+export const fetchEntities = <T>(entity: string) =>
+  createAsyncThunk<T | object, string>(`${entity}/fetch`, async (url) => {
+    const { axiosInterceptorsWithoutToken } = await import(
+      '../hooks/axiosInterceptors'
+    );
+    const response = await axiosInterceptorsWithoutToken.get(url);
+    console.log(response);
+    console.log(`${entity} data:`, response.data.data);
+    return response.data.data[entity];
+  });
 
 /* ------------------------------------------------------ */
 /*                    ENTITIES WITH ID                    */
@@ -41,16 +25,14 @@ export const fetchEntitiesWithId = <T>(
   createAsyncThunk<T, { id: string; pagination?: number }>(
     `${entity}/fetchWithId`,
     async ({ id, pagination }) => {
-      try {
-        const requestUrl = url(id, pagination);
-        const response = await axios.get(requestUrl);
-        //console.log(id)
-        console.log(response.data.data);
-        return response.data.data[entity]; // Assuming the data is under the entity property
-      } catch (err) {
-        console.log(err);
-        throw err;
-      }
+      const { axiosInterceptorsWithToken } = await import(
+        '../hooks/axiosInterceptors'
+      );
+      const requestUrl = url(id, pagination);
+      const response = await axiosInterceptorsWithToken.get(requestUrl);
+      //console.log(id)
+      console.log(response.data.data);
+      return response.data.data[entity]; // Assuming the data is under the entity property
     }
   );
 
@@ -61,7 +43,7 @@ export const fetchEntitiesWithIdAndToken = <T>(
   entity: string,
   url: (id: string, pagination?: number) => string
 ) =>
-  createAsyncThunk<T, { id: string; token: string; pagination?: number }>(
+  createAsyncThunk<T, { id: string; pagination?: number }>(
     `${entity}/fetchWithIdAndToken`,
     async ({ id, pagination }) => {
       // Generate the URL, handle undefined pagination if needed
@@ -71,13 +53,10 @@ export const fetchEntitiesWithIdAndToken = <T>(
         '../hooks/axiosInterceptors'
       );
       // Make the API request with the token in the headers
-      const response = await axiosInterceptorsWithToken.get(
-        requestUrl
-      );
+      const response = await axiosInterceptorsWithToken.get(requestUrl);
       // return response.data.data[entity];
       console.log(response.data);
       return response.data.data;
-      
     }
   );
 
@@ -103,34 +82,33 @@ export const createEntitySlice = <T>(
     initialState,
     reducers: {
       addEntity: (state, action: PayloadAction<T>) => {
+        console.log(action);
         state.entities.push(action.payload);
       },
     },
     extraReducers: (builder) => {
       builder
-        .addCase(fetchEntityThunk.pending, (state) => {
-          //console.log(action)
+        .addCase(fetchEntityThunk.pending, (state, action) => {
+          console.log(action);
           state.status = 'loading';
         })
         .addCase(
           fetchEntityThunk.fulfilled,
           (state, action: PayloadAction<T | object>) => {
-            console.log(action)
+            console.log(action);
             state.status = 'succeeded';
-          
-            state.entities = action.payload;
-            //console.log(state)
-            state.error = null;
 
+            state.entities = action.payload;
+            state.error = null;
             //console.log('State updated:', state.entities); // Debug state update
           }
         )
         .addCase(fetchEntityThunk.rejected, (state, action) => {
-         // console.log(action)
+          console.log(action);
           state.status = 'failed';
           console.log(action);
           if (action.payload) {
-            console.log(action.payload)
+            console.log(action.payload);
             state.error = action.payload.message;
           } else {
             state.error = action.error.message || `Failed to fetch ${entity}`;

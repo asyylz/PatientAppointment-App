@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../store/index';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { forgotPassword, login, register } from '../store/currentUser-slice';
+import { login, register } from '../store/currentUser-slice';
 import CustomInput from '../components/UI/CustomInput';
+import useHttp from '../hooks/useHttp';
 
 const AuthPage = () => {
   const [registerData, setRegisterData] = useState<Credentials>({
@@ -21,6 +22,7 @@ const AuthPage = () => {
     password: '',
   });
 
+  const { forgotPassword } = useHttp();
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
@@ -94,7 +96,7 @@ const AuthPage = () => {
 
   const handleClick = () => {
     if (loginData && loginData.email) {
-      dispatch(forgotPassword({ email: loginData.email }));
+      forgotPassword(loginData.email);
     }
   };
 

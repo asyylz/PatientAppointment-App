@@ -5,7 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice';
-import { toastSuccessNotify } from './../../helper/ToastNotify';
+import {
+  toastErrorNotify,
+  toastSuccessNotify,
+} from './../../helper/ToastNotify';
 import { performLogout } from '../../store/currentUser-slice';
 
 const TopSearchBar: React.FC = () => {
@@ -25,11 +28,12 @@ const TopSearchBar: React.FC = () => {
   }, [dispatch, searchInput]);
 
   //6946224Asy!
-  const handleLogout = async () => {
+  const handleLogout = () => {
     dispatch(performLogout());
-    toastSuccessNotify('Successfully logout!');
+    toastSuccessNotify('Successfully logged out!');
     navigate('/');
-    //console.log(response);
+
+    // console.log(response);
     // if (response.type === 'currentUser/logout/fulfilled') {
     //   dispatch(logoutSuccess());
     //   toastSuccessNotify('Successfully logout!');

@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import CustomInput from '../../components/UI/CustomInput';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { resetPassword } from '../../store/currentUser-slice';
 import { useSelector } from 'react-redux';
-import { AppDispatch } from '../../store';
 import classes from './ResetPassword.module.css';
+import useHttp from '../../hooks/useHttp';
 
-interface data {
-  password: string;
-  passwordConfirm: string;
-  resetToken: string;
-}
 
 const ResetPassword: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+  //const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const { status } = useSelector((state: RootState) => state.currentUser);
-
+  const { resetPassword } = useHttp();
   const [passwordAndResetTokenData, setPasswordAndResetTokenData] =
-    useState<data>({
+    useState<PasswordResetData>({
       password: '',
       passwordConfirm: '',
       resetToken: '',
@@ -28,7 +21,7 @@ const ResetPassword: React.FC = () => {
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (passwordAndResetTokenData) {
-      dispatch(resetPassword({ ...passwordAndResetTokenData }));
+      await resetPassword({ ...passwordAndResetTokenData });
     }
   };
 

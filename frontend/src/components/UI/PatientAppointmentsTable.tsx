@@ -37,7 +37,6 @@ const PatientAppointmentsTable: React.FC<Props> = ({
       dispatch(
         fetchAppointmentsForPatient({
           id: userData._id.toString(),
-          token,
           pagination,
         })
       );

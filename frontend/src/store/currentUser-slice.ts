@@ -45,26 +45,15 @@ export const login = createAsyncThunk<
     credentials,
     { withCredentials: true }
   );
-  toastSuccessNotify('Successfully login!');
+
   startTokenCheckInterval();
+  toastSuccessNotify('Successfully login!');
   return response.data;
 });
 
 /* ------------------------------------------------------ */
 /*                         LOGOUT                         */
 /* ------------------------------------------------------ */
-
-// export const logout = createAsyncThunk<{ status: string }, void>(
-//   'currentUser/logout',
-//   async () => {
-//     const response = await axiosInterceptorsWithToken.get(
-//       'http://localhost:3000/api/v1/users/logout'
-//     );
-//     console.log(response.data);
-//     stopTokenCheckInterval(); // Stop the interval upon successful logout
-//     return response.data;
-//   }
-// );
 export const performLogout = () => async (dispatch: AppDispatch) => {
   // Perform the API call to the logout endpoint
   console.log('asiye');
@@ -72,14 +61,13 @@ export const performLogout = () => async (dispatch: AppDispatch) => {
     'http://localhost:3000/api/v1/users/logout'
   );
   console.log(response);
-  if (response.data.status === 'logout success') {
-    console.log('asiye')
+  if (response.data.status === 'success') {
+    console.log('asiye');
     dispatch(logout());
     stopTokenCheckInterval();
   }
 
   return response.data;
-
 };
 
 /* ------------------------------------------------------ */
@@ -97,78 +85,6 @@ export const updateUserInfo = createAsyncThunk<
   );
 
   toastSuccessNotify('Your profile successfully updated!');
-  return response.data;
-  //   } catch (error) {
-  //     if (axios.isAxiosError(error)) {
-  //       const axiosError = error as AxiosError;
-  //       if (axiosError.response?.status === 401) {
-  //         toastErrorNotify(
-  //           `${(axiosError.response.data as { message: string }).message}`
-  //         );
-  //       }
-  //       return rejectWithValue(error.message);
-  //     }
-  //     return rejectWithValue('An unexpected error occurred');
-  //   }
-});
-
-/* ------------------------------------------------------ */
-/*                         FORGET                         */
-/* ------------------------------------------------------ */
-export const forgotPassword = createAsyncThunk<
-  CurrentUserPayload,
-  { email: string },
-  { rejectValue: string }
->('currentUser/forgotPassword', async (email) => {
-  console.log(email);
-  const response = await axiosInterceptorsWithoutToken.post(
-    'http://localhost:3000/api/v1/users/forgotPassword',
-    email
-  );
-  toastSuccessNotify(`Email sent to ${email.email} successfully!`);
-  console.log(response.data);
-  return response.data;
-});
-
-/* ------------------------------------------------------ */
-/*                          RESET                         */
-/* ------------------------------------------------------ */
-export const resetPassword = createAsyncThunk<
-  CurrentUserPayload,
-  { password: string; passwordConfirm: string; resetToken: string }
->(
-  'currentUser/resetPassword',
-  async ({ password, passwordConfirm, resetToken }) => {
-    const response = await axiosInterceptorsWithoutToken.patch(
-      `http://localhost:3000/api/v1/users/resetPassword/${resetToken}`,
-      {
-        password,
-        passwordConfirm,
-      }
-    );
-    toastSuccessNotify(`Your password successfully re-set`);
-    console.log(response.data);
-    return response.data;
-  }
-);
-/* ------------------------------------------------------ */
-/*                     UPDATE PASSWORD                    */
-/* ------------------------------------------------------ */
-export const updatePassword = createAsyncThunk<
-  CurrentUserPayload,
-  {
-    oldPassword: string;
-    newPassword: string;
-    confirmNewPassword: string;
-  }
->('currentUser/updatePassword', async (data) => {
-  const { oldPassword, newPassword, confirmNewPassword } = data;
-  const response = await axiosInterceptorsWithToken.patch(
-    'http://localhost:3000/api/v1/users/updateMyPassword',
-    { oldPassword, newPassword, confirmNewPassword }
-  );
-  toastSuccessNotify(`Your password successfully updated`);
-  console.log(response.data);
   return response.data;
 });
 
@@ -196,10 +112,11 @@ const currentUserSlice = createSlice({
   initialState,
   reducers: {
     logout(state) {
-      //console.log('asiye')
+      console.log('asiye');
       state.status = 'idle';
       state.token = '';
       state.userData = null;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -244,28 +161,6 @@ const currentUserSlice = createSlice({
         state.status = 'register failed';
         state.error = action.error.message || 'Register failed';
       })
-      .addCase(resetPassword.fulfilled, (state, action) => {
-        state.status = 'resetPassword success';
-        state.token = action.payload.token;
-        state.userData = action.payload.data.user;
-        state.error = null;
-      })
-      .addCase(updatePassword.fulfilled, (state, action) => {
-        state.status = 'updatePassword success';
-        state.token = action.payload.token;
-        state.userData = action.payload.data.user;
-        state.error = null;
-      })
-      // .addCase(logout.fulfilled, (state) => {
-      //   state.status = 'logout success';
-      //   state.token = '';
-      //   state.userData = null;
-      //   state.error = null;
-      // })
-      // .addCase(logout.rejected, (state, action) => {
-      //   state.status = 'logout failed';
-      //   state.error = (action.payload as string) || 'Logout failed';
-      // })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.status = 'update success';
         state.userData = action.payload.data.user;
@@ -274,13 +169,6 @@ const currentUserSlice = createSlice({
       .addCase(updateUserInfo.rejected, (state, action) => {
         state.status = 'update failed';
         state.error = action.error?.message || 'Updating user info failed';
-      })
-      .addCase(forgotPassword.fulfilled, (state) => {
-        state.status = 'forgotPassword success';
-      })
-      .addCase(forgotPassword.rejected, (state, action) => {
-        state.status = 'forgotPassword failed';
-        state.error = action.error?.message || 'Forgot password failed';
       })
       .addCase('currentUser/stateToIdle', (state) => {
         state.status = 'idle'; // Reset status to 'idle' on successful logout

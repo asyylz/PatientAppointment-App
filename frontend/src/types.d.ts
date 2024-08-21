@@ -168,13 +168,17 @@ interface CurrentUserPayload {
   error?: string | null;
 }
 
-interface UpdatedUserPasswordAndToken {
+interface UpdatedUserPasswordData {
   oldPassword: string | undefined;
   newPassword: string | undefined;
   confirmNewPassword: string | undefined;
-  token: string | undefined;
 }
 
+interface PasswordResetData {
+  password: string;
+  passwordConfirm: string;
+  resetToken: string;
+}
 interface Credentials {
   name?: string;
   email?: string;

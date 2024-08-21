@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import CustomInput from './CustomInput';
 import classes from './PasswordUpdateForm.module.css';
-import { useDispatch } from 'react-redux';
-import { updatePassword } from '../../store/currentUser-slice';
-import { AppDispatch } from '../../store';
+import useHttp from '../../hooks/useHttp';
 
 const PasswordResetForm: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
-  
-  const [updatedUserPasswordAndToken, setUpdatedUserPasswordAndToken] =
-    useState({
+  const [updatedUserPasswordData, setUpdatedUserPasswordData] =
+    useState<UpdatedUserPasswordData>({
       oldPassword: '',
       newPassword: '',
       confirmNewPassword: '',
     });
 
+  const { updatePassword } = useHttp();
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -22,7 +19,7 @@ const PasswordResetForm: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setUpdatedUserPasswordAndToken((prevValues) => ({
+    setUpdatedUserPasswordData((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
@@ -30,20 +27,18 @@ const PasswordResetForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (updatedUserPasswordAndToken) {
-      dispatch(
-        updatePassword({
-          oldPassword: updatedUserPasswordAndToken.oldPassword,
-          newPassword: updatedUserPasswordAndToken.newPassword,
-          confirmNewPassword: updatedUserPasswordAndToken.confirmNewPassword,
-        })
-      );
+    if (updatedUserPasswordData) {
+      updatePassword({
+        oldPassword: updatedUserPasswordData.oldPassword,
+        newPassword: updatedUserPasswordData.newPassword,
+        confirmNewPassword: updatedUserPasswordData.confirmNewPassword,
+      });
     }
     handleClearInputs();
   };
 
   const handleClearInputs = () => {
-    setUpdatedUserPasswordAndToken({
+    setUpdatedUserPasswordData({
       oldPassword: '',
       newPassword: '',
       confirmNewPassword: '',
@@ -58,21 +53,21 @@ const PasswordResetForm: React.FC = () => {
           name="oldPassword"
           placeHolder="Enter your old password"
           onChange={handleInputChange}
-          value={updatedUserPasswordAndToken?.oldPassword}
+          value={updatedUserPasswordData?.oldPassword}
         />
         <CustomInput
           type="password"
           name="newPassword"
           placeHolder="Your new password"
           onChange={handleInputChange}
-          value={updatedUserPasswordAndToken?.newPassword}
+          value={updatedUserPasswordData?.newPassword}
         />
         <CustomInput
           type="password"
           name="confirmNewPassword"
           placeHolder="Confirm your new password"
           onChange={handleInputChange}
-          value={updatedUserPasswordAndToken?.confirmNewPassword}
+          value={updatedUserPasswordData?.confirmNewPassword}
         />
       </div>
       {/* buttonContainer takes styles from global */}

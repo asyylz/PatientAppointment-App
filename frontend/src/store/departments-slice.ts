@@ -6,7 +6,7 @@ import { fetchEntities, createEntitySlice } from './create-generic-slice';
 //   'http://localhost:3000/api/v1/departments?sort=departmentMain'
 // );
 
-export const fetchDepartments = fetchEntities<Department>('departments', 'get');
+export const fetchDepartments = fetchEntities<Department>('departments');
 
 // Create departments slice
 const departmentsSlice = createEntitySlice<Department>(

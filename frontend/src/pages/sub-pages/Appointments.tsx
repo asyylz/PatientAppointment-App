@@ -35,7 +35,7 @@ const Appointments: React.FC = () => {
   useEffect(() => {
     if (userData?.doctorId) {
       dispatch(
-        fetchAppointmentsForDoctor({ id: userData.doctorId.toString(), token })
+        fetchAppointmentsForDoctor({ id: userData.doctorId.toString() })
       );
     }
   }, [dispatch, openModal, token, userData?._id, userData?.doctorId]);
