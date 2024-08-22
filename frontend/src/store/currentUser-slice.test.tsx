@@ -278,7 +278,7 @@ describe('PerfomLogout', () => {
     const dispatch = jest.fn();
     axiosInterceptors.axiosInterceptorsWithToken.get = jest
       .fn()
-      .mockResolvedValue({ data: { status: 'logout success' } });
+      .mockResolvedValue({ data: { status: 'success' } });
 
     // Call the performLogout function
     await performLogout()(dispatch);
@@ -286,7 +286,7 @@ describe('PerfomLogout', () => {
     expect(
       axiosInterceptors.axiosInterceptorsWithToken.get
     ).toHaveBeenCalledWith('http://localhost:3000/api/v1/users/logout');
-
+    
     // Check that the logout action was dispatched
     expect(dispatch).toHaveBeenCalledWith(logout());
 

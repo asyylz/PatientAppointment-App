@@ -109,7 +109,6 @@ const currentUserSlice = createSlice({
   initialState,
   reducers: {
     logout(state) {
-      console.log('asiye');
       state.status = 'idle';
       state.token = '';
       state.userData = null;

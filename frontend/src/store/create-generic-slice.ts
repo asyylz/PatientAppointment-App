@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-// , { AxiosRequestConfig, AxiosResponse }
 
 /* ------------------------------------------------------ */
 /*                        ENTITIES                        */
@@ -10,8 +9,6 @@ export const fetchEntities = <T>(entity: string) =>
       '../hooks/axiosInterceptors'
     );
     const response = await axiosInterceptorsWithoutToken.get(url);
-    //console.log(response);
-    //console.log(`${entity} data:`, response.data.data);
     return response.data.data[entity];
   });
 
@@ -30,35 +27,10 @@ export const fetchEntitiesWithId = <T>(
       );
       const requestUrl = url(id, pagination);
       const response = await axiosInterceptorsWithToken.get(requestUrl);
-      //console.log(id)
-      console.log(response.data.data);
+      //console.log(response.data.data);
       return response.data.data[entity]; // Assuming the data is under the entity property
     }
   );
-
-/* ------------------------------------------------------ */
-/*            ENTITIES WITH TOKEN AND ID                  */
-/* ------------------------------------------------------ */
-// export const fetchEntitiesWithIdAndToken = <T>(
-//   entity: string,
-//   url: (id: string, pagination?: number) => string
-// ) =>
-//   createAsyncThunk<T, { id: string; pagination?: number }>(
-//     `${entity}/fetchWithIdAndToken`,
-//     async ({ id, pagination }) => {
-//       // Generate the URL, handle undefined pagination if needed
-//       const requestUrl = url(id, pagination);
-//       //  try {
-//       const { axiosInterceptorsWithToken } = await import(
-//         '../hooks/axiosInterceptors'
-//       );
-//       // Make the API request with the token in the headers
-//       const response = await axiosInterceptorsWithToken.get(requestUrl);
-//       // return response.data.data[entity];
-//       console.log(response.data);
-//       return response.data.data;
-//     }
-//   );
 
 /* ------------------------------------------------------ */
 /*                     CREATING SLICE                     */
@@ -106,12 +78,11 @@ export const createEntitySlice = <T>(
         .addCase(fetchEntityThunk.rejected, (state, action) => {
           console.log(action);
           state.status = 'failed';
-          console.log(action);
           if (action.payload) {
             console.log(action.payload);
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
           } else {
-            state.error = action.error.message || `Failed to fetch ${entity}`;
+            state.error = action.error?.message || `Failed to fetch ${entity}`;
           }
         });
 

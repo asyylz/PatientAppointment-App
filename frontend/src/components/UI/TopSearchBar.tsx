@@ -5,10 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice';
-import {
-  toastErrorNotify,
-  toastSuccessNotify,
-} from './../../helper/ToastNotify';
+import { toastSuccessNotify } from './../../helper/ToastNotify';
 import { performLogout } from '../../store/currentUser-slice';
 
 const TopSearchBar: React.FC = () => {

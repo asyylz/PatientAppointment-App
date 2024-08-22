@@ -108,6 +108,12 @@ interface AttributesAndComment {
   [key: string]: number | string | undefined; // Allow indexing by string
 }
 
+interface ReviewData {
+  doctorId: string;
+  userId?: string;
+  attributes: AttributesAndComment;
+  comments: string | undefined;
+}
 /* -------------------- CURRENT USER -------------------- */
 interface CurrentUser {
   token: string;
@@ -223,7 +229,7 @@ interface AppointmentForBooking {
 }
 
 interface Appointment {
-  _id: ObjectId;
+  _id: string;
   patientId: { _id: string; name: string };
   // patientId: string | { _id: string; name: string };
   doctorId: {
@@ -248,7 +254,7 @@ interface AppointmentsForDoctor {
   appointmentsForDoctor: SingleAppointmentForDoctor[];
 }
 interface SingleAppointmentForDoctor {
-  _id: ObjectId;
+  _id: string;
   doctorId: string;
   patientId: {
     _id: ObjectId;

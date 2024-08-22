@@ -20,7 +20,7 @@ const AvailabilityTable: React.FC = () => {
   /* -------------------- Redux States -------------------- */
   const dispatch: AppDispatch = useDispatch();
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
-  const { userData, token } = useSelector(
+  const { userData } = useSelector(
     (state: RootState) => state.currentUser
   );
 

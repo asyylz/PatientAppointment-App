@@ -20,7 +20,7 @@ const Appointments: React.FC = () => {
 
   const [openModal, setOpenModal] = useState<string>('');
   const [appointmentIdToDelete, setAppointmentIdToDelete] =
-    useState<ObjectId | null>(null);
+    useState<string | null>(null);
 
   /* -------------------- Redux States -------------------- */
   const { userData, token } = useSelector(
@@ -43,7 +43,7 @@ const Appointments: React.FC = () => {
     setSelectedAppointment(appointment);
   };
 
-  const handleDelete = (id: ObjectId) => {
+  const handleDelete = (id: string) => {
     setOpenModal('confirmation');
     setAppointmentIdToDelete(id);
   };

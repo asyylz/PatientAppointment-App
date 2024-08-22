@@ -8,7 +8,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 // };
 
 export const doctorsUrl = (url: string) => {
-  return url ;
+  return url;
 };
 
 // Fetch doctors thunk
@@ -39,5 +39,7 @@ export const doctorActions = {
     payload: doctor,
   }),
 };
+
+export const { addEntity } = doctorsSlice.actions;
 
 export default reducer;
