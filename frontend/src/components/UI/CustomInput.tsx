@@ -33,9 +33,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
         step={step}
         name={name}
         placeholder={placeHolder}
-        value={value !== undefined ? value : defaultValue}
-        //value={value}
-        //defaultValue={defaultValue}
+        //value={value !== undefined ? value : defaultValue}
+        value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
         required={required}
         readOnly={readOnly}

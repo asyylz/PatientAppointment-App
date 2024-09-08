@@ -125,8 +125,8 @@ describe('UseHttp Hook', () => {
         .fn()
         .mockResolvedValue({ data: { status: 'success' } });
 
-      const { updateUserPassWord } = useHttp.default();
-      await updateUserPassWord(data);
+      const { updateUserPassword } = useHttp.default();
+      await updateUserPassword(data);
 
       functionCaller(
         'patch',

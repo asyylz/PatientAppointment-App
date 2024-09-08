@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForPatient
   );
+
   const { total, appointmentsForPatient, upcomingAppointments } = entities;
 
   const totalDoctors = [

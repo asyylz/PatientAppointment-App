@@ -209,7 +209,7 @@ describe('Doctors Page', () => {
     );
 
     console.log(store.getState().doctors.status); //succeeded
-    screen.debug();
+    //screen.debug();
     await act(async () => {
       store.dispatch({
         type: 'search/setSearch',

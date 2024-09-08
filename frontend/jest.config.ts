@@ -6,11 +6,22 @@ const config: Config = {
   collectCoverage: true,
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
-  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
+  // This will force JSDOM to use the node (or default) export condition, which is the correct behavior.
+
+  // If you encounter other import-related issued after this change, they aren't related and have to be addressed separately. Adding this recommendation to the migration guide as well so everyone could follow
+  testEnvironmentOptions: {
+    customExportConditions: [''], // node
+  },
+  testPathIgnorePatterns: [
+    'node_modules/',
+    'dist/', // If you want to exclude the dist folder too
+    'src/_testUtils/mocks/', // This excludes the files in the specified directory
+  ],
+  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'], //['./jest.setup.js']
   collectCoverageFrom: [
     'src/**/*.{ts,tsx,js,jsx}', // telling collect from these files
-    '!src/**/*.d.ts', // telling not to collect from these files with !
-    '!src/_**/*.*', // telling not to collect from these files with !
+    // '!src/**/*.d.ts', // telling not to collect from these files with !
+    // '!src/_**/*.*', // telling not to collect from these files with !
   ],
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',

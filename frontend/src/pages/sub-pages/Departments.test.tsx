@@ -23,6 +23,7 @@ jest.mock('redux-persist', () => {
     // }),
   };
 });
+
 // Start store with initial state for `currentUser`
 const initialCurrentUserState: CurrentUser = {
   status: 'login success',
@@ -57,6 +58,7 @@ const store = configureStore({
 });
 
 
+
 describe('Departments Page', () => {
   /* -------------------------- - ------------------------- */
   it('1--Matches the DOM snapshot', () => {
@@ -69,7 +71,6 @@ describe('Departments Page', () => {
       </Provider>
     );
     expect(tree.toJSON()).toMatchSnapshot();
-
   });
   /* -------------------------- - ------------------------- */
   it('2--After rendering useEffect fetch departments with status "loading', async () => {
@@ -134,7 +135,6 @@ describe('Departments Page', () => {
       </Provider>
     );
     expect(tree.toJSON()).toMatchSnapshot();
-
   });
   /* -------------------------- - ------------------------- */
   it('fetchDepartments action rejected and screen expect error message', async () => {
@@ -145,14 +145,15 @@ describe('Departments Page', () => {
         error: new Error('Network Error'),
       });
     });
+    console.log(store.getState().departments.error)
     expect(store.getState().departments.status).toEqual('failed');
     expect(screen.getByText('Network Error')).toBeInTheDocument();
   });
   /* -------------------------- - ------------------------- */
   it('fetchDepartments action rejected and screen expect error message comes from payload', async () => {
-    renderComponent(<Departments /> ,store)
+    renderComponent(<Departments />, store);
 
-    await act(async () => {
+     act( () => {
       store.dispatch({
         type: 'departments/fetch/rejected',
         payload: {
@@ -160,8 +161,9 @@ describe('Departments Page', () => {
         },
       });
     });
+    console.log(store.getState().departments.error)
     expect(store.getState().departments.status).toEqual('failed');
     expect(screen.getByText('Payload error')).toBeInTheDocument();
+    screen.debug()
   });
-
 });

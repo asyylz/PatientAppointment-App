@@ -206,7 +206,7 @@ exports[`Dasboard 1--Renders correctly before data is fetched 1`] = `
             1
           </p>
           <div
-            className="pagination__icon--wrapper"
+            className="pagination__icon--wrapper passive"
             onClick={[Function]}
           >
             <p>
@@ -493,7 +493,7 @@ exports[`Dasboard 7--Displays content correctly after data is successfully fetch
             1
           </p>
           <div
-            className="pagination__icon--wrapper passive"
+            className="pagination__icon--wrapper"
             onClick={[Function]}
           >
             <p>

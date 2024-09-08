@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import AuthPage from './AuthPage';
@@ -9,6 +9,7 @@ import { act } from 'react';
 import { combineReducers } from 'redux';
 import currentUserReducer from '../store/currentUser-slice';
 import { configureStore } from '@reduxjs/toolkit/react';
+import { renderComponent } from '../_testUtils/mocks/helper';
 //import configureStore from 'redux-mock-store';
 //import thunk from 'redux-thunk';
 import * as router from 'react-router-dom';
@@ -45,18 +46,18 @@ const store = configureStore({
 
 describe('AuthPage', () => {
   const navigate = jest.fn();
- // jest.spyOn(store, 'dispatch');
+  // jest.spyOn(store, 'dispatch');
   beforeEach(() => {
     jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
     jest.clearAllMocks();
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <AuthPage />
-        </MemoryRouter>
-      </Provider>
-    );
+    // render(
+    //   <Provider store={store}>
+    //     <MemoryRouter>
+    //       <AuthPage />
+    //     </MemoryRouter>
+    //   </Provider>
+    // );
   });
 
   /* -------------------------- - ------------------------- */
@@ -75,6 +76,7 @@ describe('AuthPage', () => {
 
   /* -------------------------- - ------------------------- */
   it('2--Should render login form', () => {
+    renderComponent(<AuthPage />, store);
     expect(screen.getAllByText('Login')[0]).toBeInTheDocument();
     expect(
       screen.getAllByPlaceholderText('Enter your email')[0]
@@ -89,6 +91,7 @@ describe('AuthPage', () => {
 
   /* -------------------------- - ------------------------- */
   it('3--Should render registration form', () => {
+    renderComponent(<AuthPage />, store);
     expect(screen.getByText('Registration')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument();
     expect(
@@ -109,24 +112,19 @@ describe('AuthPage', () => {
 
   /* -------------------------- - ------------------------- */
   it('4--Should dispatch login action on form submission', async () => {
+    renderComponent(<AuthPage />, store);
+
     expect(store.getState().currentUser.status).toEqual('idle');
+    console.log(store.getState().currentUser)
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[0];
     const passwordInput = screen.getAllByPlaceholderText(
       'Enter your password'
     )[0];
     const loginButton = screen.getByRole('button', { name: 'Login' });
-    //const form = screen.getByRole('form', { name: 'login-form' });
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(loginButton);
-    // fireEvent.submit(form);
-
-    await waitFor(() => {
-      expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'currentUser/login/pending',
-      });
-    });
 
     expect(store.getState().currentUser.status).toEqual('loading');
     await act(async () => {
@@ -164,6 +162,7 @@ describe('AuthPage', () => {
 
   /* -------------------------- - ------------------------- */
   it('5--Should dispatch register action on form submission', async () => {
+    renderComponent(<AuthPage />, store);
     const nameInput = screen.getByPlaceholderText('Enter your name');
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[1];
     const dobInput = screen.getByPlaceholderText('Enter your DOB');
@@ -237,6 +236,7 @@ describe('AuthPage', () => {
 
   /* -------------------------- - ------------------------- */
   it('6--Should forgotPassword action send email', async () => {
+    renderComponent(<AuthPage />, store);
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[0];
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     const forgotPasswordButton = screen.getByText('Click here');

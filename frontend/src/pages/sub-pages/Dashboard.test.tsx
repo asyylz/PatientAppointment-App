@@ -1,4 +1,5 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen,within,fireEvent } from '@testing-library/react';
+//import { , render, screen,  } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { act } from 'react';
 import renderer from 'react-test-renderer';
@@ -10,8 +11,10 @@ import { fetchAppointmentsForPatient } from '../../store/appointmentsForPatient-
 import Dashboard from './Dashboard';
 import {
   deleteAppointmentMock,
-  updateAppointmentMock,
+  updateAppointmentMock
+  
 } from '../../_testUtils/mocks/mockHttp';
+
 /* ------------------- Mock useEffect ------------------- */
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -21,6 +24,7 @@ jest.mock('react', () => ({
 /* ------------------- Mock useHttp ------------------ */
 // it needs to be declared at the top level of the test file to override the module system before any imports occur.
 jest.mock('../../hooks/useHttp');
+//jest.mock('./../../hooks/axiosInterceptors')
 
 /* -------------------- Initial state ------------------- */
 const initialState = {
@@ -132,8 +136,6 @@ describe('Dasboard', () => {
       store.dispatch(
         fetchAppointmentsForPatient({
           id: '6673662fbd42a966b75dec92', // id same with initialState currentUser Id
-          token:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NmMxZjEwYWQwMTVlNmRmMTdhOThlNCIsImlhdCI6MTcyMzI0MzI0NywiZXhwIjoxNzIzMjQ1MDQ3fQ.7QOdK3nCWtb5wQ1yWZD26GhZ731F8nZzlH-d9-oonrY',
         })
       );
     });
@@ -141,7 +143,7 @@ describe('Dasboard', () => {
     expect(store.getState().appointmentsForPatient.status).toEqual('loading');
     //console.log(store.getState().appointmentsForPatient.status);
     const fullfilledAction = {
-      type: 'appointmentsForPatient/fetchWithIdAndToken/fulfilled',
+      type: 'appointmentsForPatient/fetchWithId/fulfilled',
       payload: {
         appointmentsForPatient: [
           {
@@ -166,8 +168,8 @@ describe('Dasboard', () => {
     await act(async () => {
       store.dispatch(fullfilledAction);
     });
-    console.log(store.getState().appointmentsForPatient.status);
-    console.log(store.getState().appointmentsForPatient.entities);
+    //console.log(store.getState().appointmentsForPatient.status);
+    //console.log(store.getState().appointmentsForPatient.entities);
   });
 
   /* -------------------------- - ------------------------- */
@@ -235,7 +237,7 @@ describe('Dasboard', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  /* -------------------------- - ------------------------- */
+  // /* -------------------------- - ------------------------- */
   it('8--Opens Appointment form when the edit icon is clicked, fire delete button, opens modal window for confirmation, fire confirm button and trigger delete action', async () => {
     render(
       <>
@@ -294,7 +296,7 @@ describe('Dasboard', () => {
     expect(screen.queryByText('Update')).not.toBeInTheDocument();
     expect(screen.queryByText('Close')).not.toBeInTheDocument();
   });
-  /* -------------------------- - ------------------------- */
+   /* -------------------------- - ------------------------- */
   it('9--Opens Appointment form when the edit icon is clicked, fire delete button, opens modal window for confirmation, fire cancel button and close confirmation window', async () => {
     render(
       <>
@@ -336,7 +338,7 @@ describe('Dasboard', () => {
     expect(screen.queryByText('Confirm')).not.toBeInTheDocument();
     expect(screen.queryByText('Cancel')).not.toBeInTheDocument();
   });
-  /* -------------------------- - ------------------------- */
+   /* -------------------------- - ------------------------- */
   it('10--open an appointment form by clicking the edit icon, make changes in the inputs, fire the update button, trigger the update action, and finally close the modal window', async () => {
     render(
       <>
@@ -392,7 +394,7 @@ describe('Dasboard', () => {
     );
 
     const fullfilledAction = {
-      type: 'appointmentsForPatient/fetchWithIdAndToken/fulfilled',
+      type: 'appointmentsForPatient/fetchWithId/fulfilled',
       payload: {
         appointmentsForPatient: [
           {
@@ -426,7 +428,7 @@ describe('Dasboard', () => {
     const cells = screen.getAllByRole('cell');
     expect(cells[4]).toHaveTextContent('After update');
 
-    console.log(store.getState().appointmentsForPatient.status);
+    console.log(store.getState().appointmentsForPatient.error);
     console.log(store.getState().appointmentsForPatient);
   });
   /* -------------------------- - ------------------------- */
@@ -440,7 +442,7 @@ describe('Dasboard', () => {
     );
     await act(async () => {
       store.dispatch({
-        type: 'appointmentsForPatient/fetchWithIdAndToken/rejected',
+        type: 'appointmentsForPatient/fetchWithId/rejected',
         payload: new Error('Failed to fetch appointments for this patient'),
       });
     });

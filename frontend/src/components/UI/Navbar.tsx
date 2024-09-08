@@ -3,6 +3,7 @@ import classes from './Navbar.module.css';
 import { useSelector } from 'react-redux';
 
 const NavBar: React.FC = () => {
+  console.log('asiye')
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );

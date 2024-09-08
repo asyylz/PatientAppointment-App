@@ -11,7 +11,7 @@ const PasswordResetForm: React.FC = () => {
       confirmNewPassword: '',
     });
 
-  const { updatePassword } = useHttp();
+  const { updateUserPassword } = useHttp();
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -28,7 +28,7 @@ const PasswordResetForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (updatedUserPasswordData) {
-      updatePassword({
+      updateUserPassword({
         oldPassword: updatedUserPasswordData.oldPassword,
         newPassword: updatedUserPasswordData.newPassword,
         confirmNewPassword: updatedUserPasswordData.confirmNewPassword,

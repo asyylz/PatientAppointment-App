@@ -21,6 +21,8 @@ const PatientAppointmentsTable: React.FC<Props> = ({
   const { entities } = useSelector(
     (state: RootState) => state.appointmentsForPatient
   );
+  const { appointmentsForPatient } = entities;
+
   const { userData, token } = useSelector(
     (state: RootState) => state.currentUser
   );
@@ -68,7 +70,7 @@ const PatientAppointmentsTable: React.FC<Props> = ({
         </thead>
         <tbody data-testid="appointments-patient">
           <tr className={classes['gap--line']}></tr>
-          {entities?.map((appointment: Appointment, index: number) => (
+          {appointmentsForPatient?.map((appointment: Appointment, index: number) => (
             <React.Fragment key={appointment._id.toString()}>
               <tr
                 className={

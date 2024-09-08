@@ -57,6 +57,17 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 });
 
+export function setupStore(preloadedState?: Partial<RootState>) {
+  console.log('from index store',preloadedState); // i can see my preloaded state here  with mock data
+  const store = configureStore({
+    reducer: allReducers,
+    preloadedState,
+  });
+
+  console.log(store.getState());
+  return store;
+}
+
 export type AppDispatch = typeof store.dispatch;
 export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore['getState']>;

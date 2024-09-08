@@ -10,6 +10,7 @@
     "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types", "./types"],
     //  "types": ["@testing-library/jest-dom"],
+   // "types": ["vite/client", "node"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",

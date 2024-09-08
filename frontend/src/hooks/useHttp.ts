@@ -36,7 +36,7 @@ const useHttp = () => {
     return response;
   };
 
-  const updateUserPassWord = async (
+  const updateUserPassword = async (
     updatedUserData: UpdatedUserPasswordData
   ) => {
     const response = await axiosInterceptorsWithToken.patch(
@@ -105,7 +105,7 @@ const useHttp = () => {
     createAppointment,
     updateAppointment,
     deleteAppointment,
-    updateUserPassWord,
+    updateUserPassword,
     getDoctorAppointments,
     getDoctorWithAvailabilities,
     postReview,

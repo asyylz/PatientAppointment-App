@@ -8,7 +8,9 @@ export const fetchEntities = <T>(entity: string) =>
     const { axiosInterceptorsWithoutToken } = await import(
       '../hooks/axiosInterceptors'
     );
+
     const response = await axiosInterceptorsWithoutToken.get(url);
+
     return response.data.data[entity];
   });
 
@@ -26,9 +28,12 @@ export const fetchEntitiesWithId = <T>(
         '../hooks/axiosInterceptors'
       );
       const requestUrl = url(id, pagination);
+      //console.log(requestUrl); // http://localhost:3000/api/v1/appointments/doctors/mockDoctorID same url
+
       const response = await axiosInterceptorsWithToken.get(requestUrl);
-      //console.log(response.data.data);
-      return response.data.data[entity]; // Assuming the data is under the entity property
+      //console.log(response); 
+      console.log(response.data.data);
+      return response.data.data; // Assuming the data is under the entity property
     }
   );
 
@@ -60,14 +65,14 @@ export const createEntitySlice = <T>(
     },
     extraReducers: (builder) => {
       builder
-        .addCase(fetchEntityThunk.pending, (state, action) => {
-          console.log(action);
+        .addCase(fetchEntityThunk.pending, (state) => {
+          //console.log(action);
           state.status = 'loading';
         })
         .addCase(
           fetchEntityThunk.fulfilled,
           (state, action: PayloadAction<T | object>) => {
-            console.log(action);
+            //console.log(action);
             state.status = 'succeeded';
 
             state.entities = action.payload;
@@ -76,8 +81,9 @@ export const createEntitySlice = <T>(
           }
         )
         .addCase(fetchEntityThunk.rejected, (state, action) => {
-          console.log(action);
+          //console.log(action);
           state.status = 'failed';
+          console.log(action)
           if (action.payload) {
             console.log(action.payload);
             state.error = action.payload?.message;

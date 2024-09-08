@@ -17,10 +17,11 @@ const Appointments: React.FC = () => {
   >();
   const dispatch: AppDispatch = useDispatch();
   const { deleteAppointment } = useHttp();
-
+  //console.log('asiye');
   const [openModal, setOpenModal] = useState<string>('');
-  const [appointmentIdToDelete, setAppointmentIdToDelete] =
-    useState<string | null>(null);
+  const [appointmentIdToDelete, setAppointmentIdToDelete] = useState<
+    string | null
+  >(null);
 
   /* -------------------- Redux States -------------------- */
   const { userData, token } = useSelector(
@@ -29,8 +30,10 @@ const Appointments: React.FC = () => {
   const { entities, status, error } = useSelector(
     (state: RootState) => state.appointmentsForDoctor
   );
+  const { appointmentsForDoctor } = entities;
 
   useEffect(() => {
+    //console.log('asiye');
     if (userData?.doctorId) {
       dispatch(
         fetchAppointmentsForDoctor({ id: userData.doctorId.toString() })
@@ -103,49 +106,47 @@ const Appointments: React.FC = () => {
         </thead>
         <tbody data-testid="appointments">
           <tr className={classes.gapLine}></tr>
-          {entities?.map(
-            (appointment: SingleAppointmentForDoctor) => (
-              <React.Fragment key={appointment._id.toString()}>
-                <tr
-                  className={
-                    new Date(appointment.appointmentDateAndTime) > new Date()
-                      ? `${classes.row} ${classes.active}`
-                      : `${classes.row}`
-                  }
-                  onClick={() => handleClick(appointment)}
-                >
-                  <td>{appointment.patientId?.name}</td>
-                  <td>{appointment.patientId?.DOB.split('T')[0]}</td>
+          {appointmentsForDoctor?.map((appointment: SingleAppointmentForDoctor) => (
+            <React.Fragment key={appointment._id.toString()}>
+              <tr
+                className={
+                  new Date(appointment.appointmentDateAndTime) > new Date()
+                    ? `${classes.row} ${classes.active}`
+                    : `${classes.row}`
+                }
+                onClick={() => handleClick(appointment)}
+              >
+                <td>{appointment.patientId?.name}</td>
+                <td>{appointment.patientId?.DOB.split('T')[0]}</td>
 
-                  <td>
-                    {formatDateForUI(
-                      appointment.appointmentDateAndTime.split('T')[0]
-                    )}
-                  </td>
-                  <td>
-                    {appointment?.appointmentDateAndTime
-                      .split('T')[1]
-                      .slice(0, 5)}
-                  </td>
-                  <td>{appointment.reason}</td>
-                  <td>{appointment.diagnose}</td>
-                  <td>{appointment.referral ? 'Yes' : 'No'}</td>
-                  <td>{appointment.status ? 'Completed' : 'No'}</td>
-                  <td>
-                    <FaRegTrashAlt
-                      data-testid="trash-icon"
-                      className={`${classes.icons} ${classes.trash}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(appointment._id);
-                      }}
-                    />
-                  </td>
-                </tr>
-                <tr className={classes.gapLine}></tr>
-              </React.Fragment>
-            )
-          )}
+                <td>
+                  {formatDateForUI(
+                    appointment.appointmentDateAndTime.split('T')[0]
+                  )}
+                </td>
+                <td>
+                  {appointment?.appointmentDateAndTime
+                    .split('T')[1]
+                    .slice(0, 5)}
+                </td>
+                <td>{appointment.reason}</td>
+                <td>{appointment.diagnose}</td>
+                <td>{appointment.referral ? 'Yes' : 'No'}</td>
+                <td>{appointment.status ? 'Completed' : 'No'}</td>
+                <td>
+                  <FaRegTrashAlt
+                    data-testid="trash-icon"
+                    className={`${classes.icons} ${classes.trash}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(appointment._id);
+                    }}
+                  />
+                </td>
+              </tr>
+              <tr className={classes.gapLine}></tr>
+            </React.Fragment>
+          ))}
         </tbody>
       </table>
     </>

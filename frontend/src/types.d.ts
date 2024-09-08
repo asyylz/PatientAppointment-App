@@ -56,7 +56,7 @@ interface Doctor {
   image: string;
   availabilities: Availability[];
   phone: string;
-   address: Address;
+  address: Address;
   reviews: Reviews[];
   __v: number;
   firstName: string;
@@ -285,6 +285,7 @@ declare namespace NodeJS {
   interface Global {
     importMetaEnv: {
       VITE_BASE_URL: string;
+      VITE_NODE_ENV: string;
     };
   }
 }
@@ -292,6 +293,7 @@ declare let global: NodeJS.Global;
 
 interface ImportMeta {
   env: {
+    VITE_NODE_ENV: string;
     VITE_BASE_URL: string;
   };
 }

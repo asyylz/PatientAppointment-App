@@ -16,7 +16,7 @@ describe('AppointmentsForPatientReducer reducer', () => {
   it('2--Should convert the appointments received to an object', () => {
     const initialState = undefined;
     const action = {
-      type: 'appointmentsForPatient/fetchWithIdAndToken/fulfilled',
+      type: 'appointmentsForPatient/fetchWithId/fulfilled',
       payload: appointmentsForPatient,
     };
     const result: EntityStateForAppointments<AppointmentsForPatient> =

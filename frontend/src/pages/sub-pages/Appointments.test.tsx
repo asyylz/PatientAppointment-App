@@ -121,11 +121,15 @@ describe('Appointments Component', () => {
   /* -------------------------- - ------------------------- */
   it('2--Initializes state with status "idle', async () => {
     expect(store.getState().appointmentsForDoctor.status).toEqual('idle');
-    expect(
-      store.dispatch({
-        type: 'appointmentsForDoctor/fetchWithIdAndToken/pending',
-      })
-    ).toHaveBeenCalled;
+    //console.log(store.getState().appointmentsForDoctor);
+    
+    await waitFor(() => {
+      expect(
+        store.dispatch({
+          type: 'appointmentsForDoctor/fetchWithId/pending',
+        })
+      ).toHaveBeenCalled;
+    });
 
     expect(store.getState().appointmentsForDoctor.status).toEqual('loading');
     await waitFor(() => {
@@ -136,7 +140,7 @@ describe('Appointments Component', () => {
   it('3--Dispatches fetchAppointmentsForDoctor action and updates state with the action payload', async () => {
     await act(async () => {
       store.dispatch({
-        type: 'appointmentsForDoctor/fetchWithIdAndToken/fulfilled',
+        type: 'appointmentsForDoctor/fetchWithId/fulfilled',
         payload: {
           appointmentsForDoctor: [
             {
@@ -164,7 +168,7 @@ describe('Appointments Component', () => {
   });
   /* -------------------------- - ------------------------- */
   it('4--Renders 7 cells per row with correct values based on fetched data', () => {
-    console.log(store.getState().appointmentsForDoctor);
+    //console.log(store.getState().appointmentsForDoctor);
     const cells = screen.getAllByRole('cell');
     expect(cells.length).toBe(9);
 
@@ -283,7 +287,7 @@ describe('Appointments Component', () => {
   it('9--Should render error message in DOM if fetchAppointmentsForDoctor fails', async () => {
     await act(async () => {
       store.dispatch({
-        type: 'appointmentsForDoctor/fetchWithIdAndToken/rejected',
+        type: 'appointmentsForDoctor/fetchWithId/rejected',
         payload: { message: 'Error fetching appointments' },
       });
     });

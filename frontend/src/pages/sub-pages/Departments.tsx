@@ -13,11 +13,13 @@ const Departments: React.FC = () => {
     status,
     error,
   } = useSelector((state: RootState) => state.departments);
+  console.log(error)
 
   const [filteredDepartments, setFilteredDepartments] = useState(departments);
 
   const searchWord = useSelector((state: RootState) => state.search);
 console.log(departments)
+
 console.log(filteredDepartments)
   useEffect(() => {
     if (status === 'idle') {

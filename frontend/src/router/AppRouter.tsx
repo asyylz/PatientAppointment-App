@@ -20,7 +20,6 @@ import HomeLayout from '../pages/layouts/HomeLayout';
 const routes: RouteObject[] = [
   {
     path: '/',
-    // element: <HomePage />,
     element: <HomeLayout />,
     children: [
       { path: '/', element: <HomePage /> },

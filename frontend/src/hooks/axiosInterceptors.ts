@@ -27,6 +27,7 @@ const handleErrorResponse = async (error: any) => {
   return Promise.reject(error);
 };
 
+
 /* ------------------------------------------------------ */
 /*                       TOKEN CHECK                      */
 /* ------------------------------------------------------ */
@@ -80,8 +81,11 @@ axiosInterceptorsWithToken.interceptors.request.use(
   (config) => {
     const state = store.getState();
     const currentToken = state.currentUser.token;
-    console.log(currentToken);
+   // const currentToken = '1234';
+    
+    console.log('from axiosinterceptor',currentToken); // come here empty string from preloaded tstate
     if (currentToken) {
+      console.log('asiye')
       config.headers.Authorization = `Bearer ${currentToken}`;
     }
     return config;
