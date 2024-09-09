@@ -115,7 +115,7 @@ describe('AuthPage', () => {
     renderComponent(<AuthPage />, store);
 
     expect(store.getState().currentUser.status).toEqual('idle');
-    console.log(store.getState().currentUser)
+  
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[0];
     const passwordInput = screen.getAllByPlaceholderText(
       'Enter your password'
@@ -237,6 +237,7 @@ describe('AuthPage', () => {
   /* -------------------------- - ------------------------- */
   it('6--Should forgotPassword action send email', async () => {
     renderComponent(<AuthPage />, store);
+    
     const emailInput = screen.getAllByPlaceholderText('Enter your email')[0];
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     const forgotPasswordButton = screen.getByText('Click here');

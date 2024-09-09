@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { combineReducers } from 'redux';
@@ -11,6 +11,9 @@ import currentUserReducer from '../../store/currentUser-slice';
 import { act } from 'react';
 import * as router from 'react-router-dom';
 import { toastSuccessNotify } from '../../helper/ToastNotify';
+import * as currentUserSlice from '../../store/currentUser-slice';
+import { renderComponent } from './../../_testUtils/mocks/helper';
+//import { AppDispatch } from '../../store';
 
 jest.mock('../../helper/ToastNotify', () => ({
   toastSuccessNotify: jest.fn(),
@@ -25,6 +28,7 @@ jest.mock('redux-persist', () => {
     // }),
   };
 });
+
 // Mock useNavigate
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -64,23 +68,24 @@ const store = configureStore({
 
 describe('TopSearchBar Component', () => {
   const navigate = jest.fn();
+ // let mockPerformLogout;
+
   beforeEach(() => {
     jest.spyOn(store, 'dispatch');
     jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <TopSearchBar />
-        </MemoryRouter>
-      </Provider>
-    );
+    // mockPerformLogout = jest.fn().mockResolvedValue({});
+    // jest
+    //   .spyOn(currentUserSlice, 'performLogout')
+    //   .mockImplementation(mockPerformLogout);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
   /* -------------------------- - ------------------------- */
   it('1--Matches the DOM snapshot', () => {
+    renderComponent(<TopSearchBar />, store);
     const tree = renderer.create(
       <Provider store={store}>
         <MemoryRouter>
@@ -90,10 +95,12 @@ describe('TopSearchBar Component', () => {
     );
     expect(tree.toJSON()).toMatchSnapshot();
     expect(screen.getByText('Asiye'));
+    expect(screen.getByText('Logout'));
   });
   /* -------------------------- - ------------------------- */
-  it('Search input typed and trigger departments to be filtered', async () => {
-    const searchInput = screen.getByPlaceholderText('search here');
+  it('2--Search input typed and trigger departments to be filtered', async () => {
+    renderComponent(<TopSearchBar />, store);
+    const searchInput = screen.getByPlaceholderText('Search here');
     fireEvent.change(searchInput, { target: { value: 'Anesthesiology' } });
 
     expect(store.dispatch).not.toHaveBeenCalledWith({
@@ -118,36 +125,30 @@ describe('TopSearchBar Component', () => {
     expect(store.getState().search).toEqual('Anesthesiology');
   });
   /* -------------------------- - ------------------------- */
-  it('--Logout button should navigate user to home page', async () => {
+  it('3--Logout button should navigate user to home page', async () => {
+    renderComponent(<TopSearchBar />, store);
+  
+    // Mock the performLogout action
+    const mockPerformLogout = jest.fn().mockResolvedValue({ status: 'success' });
+    jest.spyOn(currentUserSlice, 'performLogout').mockImplementation(() => () => mockPerformLogout());
+
+    // Find and click the logout button
     const logoutButton = screen.getByText('Logout');
     fireEvent.click(logoutButton);
 
-    // Here we expilicitly update logout
-    await act(async () => {
-      store.dispatch({
-        type: 'currentUser/logout/fulfilled',
-      });
-    });
-
+    // Wait for performLogout to be called
     await waitFor(() => {
-      expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'currentUser/logout/fulfilled',
-      });
+      expect(mockPerformLogout).toHaveBeenCalled();
     });
 
-    await act(async () => {
-      store.dispatch({
-        type: 'currentUser/stateToIdle',
-      });
+    // Check if toastSuccessNotify was called
+    await waitFor(() => {
+      expect(toastSuccessNotify).toHaveBeenCalledWith('Successfully logged out!');
     });
-    expect(store.dispatch).toHaveBeenCalledWith({
-      type: 'currentUser/stateToIdle',
-    });
-    await waitFor(() => {});
 
-    const message = 'Successfully logout!';
-    toastSuccessNotify(message);
-    expect(toastSuccessNotify).toHaveBeenCalledWith(message);
-    expect(navigate).toHaveBeenCalledWith('/');
+    // Check if navigate was called
+    await waitFor(() => {
+      expect(navigate).toHaveBeenCalledWith('/');
+    });
   });
 });

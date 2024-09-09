@@ -27,6 +27,7 @@ const TopSearchBar: React.FC = () => {
   //6946224Asy!
   const handleLogout = async () => {
     await dispatch(performLogout());
+    console.log('asiye')
     toastSuccessNotify('Successfully logged out!');
     navigate('/');
   };

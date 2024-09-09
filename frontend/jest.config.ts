@@ -2,8 +2,8 @@ import type { Config } from 'jest';
 
 const config: Config = {
   //resetMocks: false,
-  coverageDirectory: '<rootDir>/src/_testUtils/coverage',
-  collectCoverage: true,
+  //coverageDirectory: '<rootDir>/src/_testUtils/coverage',
+  //collectCoverage: true,
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
   // This will force JSDOM to use the node (or default) export condition, which is the correct behavior.

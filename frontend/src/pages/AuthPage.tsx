@@ -28,7 +28,7 @@ const AuthPage = () => {
   const navigate = useNavigate();
   const { status } = useSelector((state: RootState) => state.currentUser);
 
-  console.log(status);
+  //console.log(status);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

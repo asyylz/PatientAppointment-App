@@ -11,7 +11,7 @@ exports[`TopSearchBar Component 1--Matches the DOM snapshot 1`] = `
       className="top__bar--search-input"
       name="search"
       onChange={[Function]}
-      placeholder="search here"
+      placeholder="Search here"
       type="text"
     />
     <div

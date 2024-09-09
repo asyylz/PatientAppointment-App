@@ -53,6 +53,10 @@ test('fetches & receives appointments after render due to useEffect', async () =
   expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
 });
 
+
+
+
+
 // should show no user initially, and not be fetching a user
 //expect(screen.getByText(/no user/i)).toBeInTheDocument();
 //expect(screen.queryByText(/Loading\.\.\./i)).not.toBeInTheDocument();

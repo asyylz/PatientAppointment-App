@@ -13,7 +13,7 @@ const Departments: React.FC = () => {
     status,
     error,
   } = useSelector((state: RootState) => state.departments);
-  console.log(error)
+ 
 
   const [filteredDepartments, setFilteredDepartments] = useState(departments);
 

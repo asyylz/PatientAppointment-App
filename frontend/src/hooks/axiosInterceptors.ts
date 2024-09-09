@@ -98,7 +98,7 @@ axiosInterceptorsWithToken.interceptors.response.use(
   async (error) => {
     const status = error.response ? error.response.status : 500;
     console.log(status);
-    console.log(error);
+    console.log(error.response);
     console.log(error.response.data.message);
     toastErrorNotify(error.response.data.message);
     handleErrorResponse;
