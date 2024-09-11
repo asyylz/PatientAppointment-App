@@ -79,8 +79,8 @@ describe('TopSearchBar Component', () => {
   /* -------------------------- - ------------------------- */
   it('1--Matches the DOM snapshot', () => {
     expect(asFragment()).toMatchSnapshot();
-    expect(screen.getByText('Asiye'));
-    expect(screen.getByText('Logout'));
+    expect(screen.getByText('Asiye')).toBeInTheDocument();
+    expect(screen.getByText('Logout')).toBeInTheDocument();
   });
   /* -------------------------- - ------------------------- */
   it('2--Search input typed and trigger departments to be filtered', async () => {
