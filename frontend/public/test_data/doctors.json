@@ -1,0 +1,48 @@
+[
+  {
+    "_id": "665f0f2959c971659af920e5",
+    "gender": "F",
+    "image": "/img/doctors/drmathai_small.jpg",
+    "phone": "647-722-2370",
+    "address": {
+      "street": "390 Steeles Avenue West",
+      "city": "Vaughan",
+      "prov": "ON",
+      "postal": "L4J",
+      "_id": "665f0f2959c971659af920e7"
+    },
+    "firstName": "Aytekin",
+    "lastName": "Yaliz",
+    "departmentId": {
+      "_id": "6660fbd12e3c00fe18cfceec",
+      "departmentMain": "Allergy & Immunology"
+    },
+    "userId": {
+      "_id": "666c1f10ad015e6df17a98e4",
+      "image": "https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1721905296892-doctor.jpg"
+    },
+    "reviews": []
+  },
+  {
+    "_id": "665f0f2959c971659af920ca",
+    "id": 1,
+    "gender": "M",
+    "image": "/img/doctors/chan_small.jpg",
+    "phone": "416-486-1956",
+    "address": {
+      "street": "473 Dupont Street",
+      "city": "Toronto",
+      "prov": "ON",
+      "postal": "M6G 1Y6",
+      "_id": "665f0f2959c971659af920cc"
+    },
+    "firstName": "Bowen",
+    "lastName": "Chan",
+    "departmentId": {
+      "_id": "6660fbd12e3c00fe18cfceef",
+      "departmentMain": "Pediatrics"
+    },
+    "doctorDescription": "Dr. Bowen Chan is board-certified in Pediatric Endocrinology and specializes in the diagnosis and management of hormonal disorders in children and adolescents. His areas of expertise include diabetes mellitus, growth disorders, and thyroid conditions.",
+    "reviews": []
+  }
+]

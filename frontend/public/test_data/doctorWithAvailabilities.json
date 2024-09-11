@@ -1,0 +1,572 @@
+[
+  {
+    "_id": "665f0f2959c971659af920ca",
+    "id": 1,
+    "gender": "M",
+    "image": "/img/doctors/chan_small.jpg",
+    "phone": "416-486-1956",
+    "address": {
+      "street": "473 Dupont Street",
+      "city": "Toronto",
+      "prov": "ON",
+      "postal": "M6G 1Y6",
+      "_id": "665f0f2959c971659af920cc"
+    },
+    "__v": 0,
+    "firstName": "Bowen",
+    "lastName": "Chan",
+    "departmentId": {
+      "_id": "6660fbd12e3c00fe18cfceef",
+      "departmentMain": "Pediatrics",
+      "departmentSub": [
+        "Adolescent Medicine",
+        "Child Neurology",
+        "Child Psychiatry",
+        "Developmental-Behavioral Pediatrics",
+        "Neonatal-Perinatal Medicine",
+        "Pediatrics",
+        "Pediatric Anesthesiology",
+        "Pediatric Cardiology",
+        "Pediatric Critical Care",
+        "Pediatric Emergency Medicine",
+        "Pediatric Endocrinology",
+        "Pediatric Gastroenterology",
+        "Pediatric Hematology-Oncology",
+        "Pediatric Infectious Disease",
+        "Pediatric Internal Medicine",
+        "Pediatric Nephrology",
+        "Pediatric Ophthalmology",
+        "Pediatric Orthopedic Surgery",
+        "Pediatric Otolaryngology",
+        "Pediatric Pathology",
+        "Pediatric Pulmonology",
+        "Pediatric Radiology",
+        "Pediatric Rheumatology",
+        "Pediatric Sports Medicine",
+        "Pediatric Surgery",
+        "Pediatric Urology",
+        "Perinatal Medicine"
+      ]
+    },
+    "doctorDescription": "Dr. Bowen Chan is board-certified in Pediatric Endocrinology and specializes in the diagnosis and management of hormonal disorders in children and adolescents. His areas of expertise include diabetes mellitus, growth disorders, and thyroid conditions.",
+    "availabilities": [
+      {
+        "_id": "667bf784d46e8fead6249f74",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "09:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T09:00:00.000Z"
+      },
+      {
+        "_id": "667bf802d46e8fead6249f75",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "09:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T09:30:00.000Z"
+      },
+      {
+        "_id": "667bf876d46e8fead6249f76",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "10:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T10:00:00.000Z"
+      },
+      {
+        "_id": "667bf8b0d46e8fead6249f77",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "10:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T10:30:00.000Z"
+      },
+      {
+        "_id": "667bf8bbd46e8fead6249f78",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "11:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T11:00:00.000Z"
+      },
+      {
+        "_id": "667bf8c3d46e8fead6249f79",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "11:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T11:30:00.000Z"
+      },
+      {
+        "_id": "667bf8d1d46e8fead6249f7a",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "13:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T13:00:00.000Z"
+      },
+      {
+        "_id": "667bf8ddd46e8fead6249f7b",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "13:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T13:30:00.000Z"
+      },
+      {
+        "_id": "667bf8e6d46e8fead6249f7c",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "14:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T14:00:00.000Z"
+      },
+      {
+        "_id": "667bf8edd46e8fead6249f7d",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "14:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T14:30:00.000Z"
+      },
+      {
+        "_id": "667bf8f5d46e8fead6249f7e",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "15:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T15:00:00.000Z"
+      },
+      {
+        "_id": "667bf8fed46e8fead6249f7f",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "15:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T15:30:00.000Z"
+      },
+      {
+        "_id": "667bf909d46e8fead6249f80",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "16:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T16:00:00.000Z"
+      },
+      {
+        "_id": "667bf910d46e8fead6249f81",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "16:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T16:30:00.000Z"
+      },
+      {
+        "_id": "667bf917d46e8fead6249f82",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Monday",
+        "time": "17:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-19T17:00:00.000Z"
+      },
+      {
+        "_id": "667bf933d46e8fead6249f83",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Tuesday",
+        "time": "09:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-20T09:00:00.000Z"
+      },
+      {
+        "_id": "667bf943d46e8fead6249f84",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Tuesday",
+        "time": "09:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-20T09:30:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f91",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "16:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T16:00:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f8d",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "14:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T14:00:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f92",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "16:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T16:30:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f88",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "10:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T10:30:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f89",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "11:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T11:00:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f8b",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "13:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T13:00:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f8c",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "13:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T13:30:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f8e",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "14:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T14:30:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f90",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "15:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T15:30:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f8a",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "11:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T11:30:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f8f",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "15:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T15:00:00.000Z"
+      },
+      {
+        "_id": "667bfa16d46e8fead6249f93",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Wednesday",
+        "time": "17:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-21T17:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f9c",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "14:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T14:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f9d",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "14:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T14:30:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f94",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "09:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T09:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f95",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "09:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T09:30:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f9e",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "15:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T15:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f9f",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "15:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T15:30:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249fa0",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "16:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T16:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249fa1",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "16:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T16:30:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f96",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "10:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T10:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f98",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "11:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T11:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249fa2",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "17:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T17:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f97",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "10:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T10:30:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f99",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "11:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T11:30:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f9a",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "13:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T13:00:00.000Z"
+      },
+      {
+        "_id": "667bfa62d46e8fead6249f9b",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "13:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T13:30:00.000Z"
+      },
+      {
+        "_id": "667bfaa0d46e8fead6249fa3",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Thursday",
+        "time": "09:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-22T09:00:00.000Z"
+      },
+      {
+        "_id": "667bfaa0d46e8fead6249fa4",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Thursday",
+        "time": "09:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-22T09:30:00.000Z"
+      },
+      {
+        "_id": "667bfaa0d46e8fead6249fa5",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Thursday",
+        "time": "10:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-22T10:00:00.000Z"
+      },
+      {
+        "_id": "667bfaa0d46e8fead6249fa6",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Thursday",
+        "time": "10:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-22T10:30:00.000Z"
+      },
+      {
+        "_id": "667bfaa0d46e8fead6249fa7",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Thursday",
+        "time": "11:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-22T11:00:00.000Z"
+      },
+      {
+        "_id": "667bfaa0d46e8fead6249fa8",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Thursday",
+        "time": "11:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-22T11:30:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fbe",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "13:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T13:00:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fbf",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "13:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T13:30:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fc3",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "15:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T15:30:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fc6",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "17:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T17:00:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fc1",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "14:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T14:30:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fc2",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "15:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T15:00:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fc4",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "16:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T16:00:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fc5",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "16:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T16:30:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fb8",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "09:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T09:00:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fb9",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "09:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T09:30:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fba",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "10:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T10:00:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fbb",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "10:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T10:30:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fbc",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "11:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T11:00:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fbd",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "11:30",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T11:30:00.000Z"
+      },
+      {
+        "_id": "667bfb6cd46e8fead6249fc0",
+        "doctorId": "665f0f2959c971659af920ca",
+        "day": "Friday",
+        "time": "14:00",
+        "currentWeekAvailabilityInDateFormat": "2024-08-23T14:00:00.000Z"
+      }
+    ],
+    "reviews": [
+      {
+        "_id": "669b8eb9ad22700121a75844",
+        "comments": "As I move towards my 50's I have added these tablets to my other growing list of daily supplements (magnesium, lions mane, biotin, collagen). Whilst eating a healthy diet is important some days it's just not possible to eat the amount of iron I need to stave off the mid afternoon slump at 3pm which makes me want to put my head on my desk and sleep.",
+        "doctorId": "665f0f2959c971659af920ca",
+        "userId": {
+          "_id": "6673662fbd42a966b75dec92",
+          "name": "Asiye",
+          "image": "https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1722605356602-asiye%20serife.jpeg"
+        },
+        "attributes": {
+          "staff": 4,
+          "punctual": 5,
+          "helpful": 5,
+          "knowledge": 3,
+          "_id": "669b8eb9ad22700121a75845"
+        },
+        "createdAt": "2024-07-20T10:17:29.514Z",
+        "updatedAt": "2024-07-20T10:17:29.514Z",
+        "__v": 0
+      },
+      {
+        "_id": "66a0dd4fac8f91ea5a0dc66c",
+        "comments": "deneme 1",
+        "doctorId": "665f0f2959c971659af920ca",
+        "userId": {
+          "_id": "6673662fbd42a966b75dec92",
+          "name": "Asiye",
+          "image": "https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1722605356602-asiye%20serife.jpeg"
+        },
+        "attributes": {
+          "staff": 4,
+          "punctual": 5,
+          "helpful": 5,
+          "knowledge": 3,
+          "_id": "669b8eb9ad22700121a75845"
+        },
+        "createdAt": "2024-07-20T10:17:29.514Z",
+        "updatedAt": "2024-07-20T10:17:29.514Z",
+        "__v": 0
+      },
+      {
+        "_id": "66a0dd57ac8f91ea5a0dc66d",
+        "comments": "deneme 2",
+        "doctorId": "665f0f2959c971659af920ca",
+        "userId": {
+          "_id": "6673662fbd42a966b75dec92",
+          "name": "Asiye",
+          "image": "https://patient-appointment-system.s3.eu-west-2.amazonaws.com/1722605356602-asiye%20serife.jpeg"
+        },
+        "attributes": {
+          "staff": 4,
+          "punctual": 5,
+          "helpful": 5,
+          "knowledge": 3,
+          "_id": "669b8eb9ad22700121a75845"
+        },
+        "createdAt": "2024-07-20T10:17:29.514Z",
+        "updatedAt": "2024-07-20T10:17:29.514Z",
+        "__v": 0
+      }
+    ]
+  }
+]

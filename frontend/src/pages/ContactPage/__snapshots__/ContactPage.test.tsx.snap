@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactPage Snapshot 1--Matches the DOM snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="contact-form__container"
+  >
+    <h1>
+      Contact Form
+    </h1>
+    <div
+      class="wrapper input"
+    >
+      <input
+        name="name"
+        placeholder="Name"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      class="wrapper input"
+    >
+      <input
+        name="email"
+        placeholder="Email"
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      class="wrapper input"
+    >
+      <input
+        name="subject"
+        placeholder="Subject"
+        type="text"
+        value=""
+      />
+    </div>
+    <textarea
+      name="message"
+      placeholder="Please write here..."
+    />
+    <div
+      class="buttons__wrapper"
+    >
+      <button
+        type="submit"
+      >
+        Submit
+      </button>
+      <button>
+        Cancel
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ContactPage Snapshot 1--Matches the DOM snapshot 2`] = `
+<DocumentFragment>
+  <div
+    class="contact-form__container"
+  >
+    <h1>
+      Contact Form
+    </h1>
+    <div
+      class="wrapper input"
+    >
+      <input
+        name="name"
+        placeholder="Name"
+        type="text"
+        value="Asiye"
+      />
+    </div>
+    <div
+      class="wrapper input"
+    >
+      <input
+        name="email"
+        placeholder="Email"
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      class="wrapper input"
+    >
+      <input
+        name="subject"
+        placeholder="Subject"
+        type="text"
+        value=""
+      />
+    </div>
+    <textarea
+      name="message"
+      placeholder="Please write here..."
+    />
+    <div
+      class="buttons__wrapper"
+    >
+      <button
+        type="submit"
+      >
+        Submit
+      </button>
+      <button>
+        Cancel
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

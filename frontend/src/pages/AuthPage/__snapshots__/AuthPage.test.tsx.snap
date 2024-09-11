@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthPage 1--Snapshot before and after policy checkbox interaction 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="wrapper"
+    >
+      <h2>
+        Login
+      </h2>
+      <form
+        aria-label="login-form"
+      >
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="email"
+            placeholder="Enter your email"
+            required=""
+            type="email"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="password"
+            placeholder="Enter your password"
+            required=""
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="forgot-password__wrapper"
+        >
+          <p>
+            Forgot your password?
+          </p>
+          <a>
+            Click here
+          </a>
+        </div>
+        <button
+          type="submit"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+    <div
+      class="wrapper"
+    >
+      <h2>
+        Registration
+      </h2>
+      <form>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="name"
+            placeholder="Enter your name"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="email"
+            placeholder="Enter your email"
+            required=""
+            type="email"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="DOB"
+            placeholder="Enter your DOB"
+            required=""
+            type="date"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="password"
+            placeholder="Enter your password"
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="passwordConfirm"
+            placeholder="Confirm your password"
+            required=""
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="policy__wrapper"
+        >
+          <input
+            name="policy"
+            required=""
+            type="checkbox"
+            value="false"
+          />
+          <h3>
+            I accept all terms & condition
+          </h3>
+        </div>
+        <button
+          type="submit"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AuthPage 1--Snapshot before and after policy checkbox interaction 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="wrapper"
+    >
+      <h2>
+        Login
+      </h2>
+      <form
+        aria-label="login-form"
+      >
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="email"
+            placeholder="Enter your email"
+            required=""
+            type="email"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="password"
+            placeholder="Enter your password"
+            required=""
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="forgot-password__wrapper"
+        >
+          <p>
+            Forgot your password?
+          </p>
+          <a>
+            Click here
+          </a>
+        </div>
+        <button
+          type="submit"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+    <div
+      class="wrapper"
+    >
+      <h2>
+        Registration
+      </h2>
+      <form>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="name"
+            placeholder="Enter your name"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="email"
+            placeholder="Enter your email"
+            required=""
+            type="email"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="DOB"
+            placeholder="Enter your DOB"
+            required=""
+            type="date"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="password"
+            placeholder="Enter your password"
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="wrapper input"
+        >
+          <input
+            name="passwordConfirm"
+            placeholder="Confirm your password"
+            required=""
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="policy__wrapper"
+        >
+          <input
+            name="policy"
+            required=""
+            type="checkbox"
+            value="true"
+          />
+          <h3>
+            I accept all terms & condition
+          </h3>
+        </div>
+        <button
+          type="submit"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

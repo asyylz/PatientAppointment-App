@@ -1,0 +1,24 @@
+import {
+  fetchEntitiesWithId,
+  createEntitySlice,
+} from './../create-generic-slice/create-generic-slice';
+
+export const doctorAppointmentsUrl = (id: string) => {
+  return `http://localhost:3000/api/v1/appointments/doctors/${id}`;
+};
+
+export const fetchAppointmentsForDoctor =
+  fetchEntitiesWithId<AppointmentsForDoctor>(
+    'appointmentsForDoctor',
+    doctorAppointmentsUrl
+  );
+
+const appointmentsForDoctorSlice = createEntitySlice<AppointmentsForDoctor>(
+  'appointmentsForDoctor',
+  fetchAppointmentsForDoctor
+);
+
+const { actions, reducer } = appointmentsForDoctorSlice;
+
+export const appointmentsForDoctorActions = actions;
+export default reducer;

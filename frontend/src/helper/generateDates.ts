@@ -1,12 +1,3 @@
-// const days = [
-//   'Monday',
-//   'Tuesday',
-//   'Wednesday',
-//   'Thursday',
-//   'Friday',
-//   'Saturday',
-//   'Sunday',
-// ];
 
 export const getWeekDatesFromToday = (week: 'current' | 'next') => {
   // Get today's date
@@ -102,40 +93,9 @@ export const getFormattedAvailabilityDate = (
 
   // Format to ISO string with Z (UTC) timezone
   const isoDateString = targetDate.toISOString();
- // console.log(isoDateString);
 
   return isoDateString;
 };
-
-// export const getWeekDatesFromToday = () => {
-//   const today = new Date();
-//   const currentDayIndex = today.getDay(); // 0 is Sunday, 1 is Monday, etc.
-//   const startOfWeek = new Date(today);
-
-//   // Adjust to start the week from the current day
-//   startOfWeek.setDate(
-//     today.getDate() - (currentDayIndex === 0 ? 6 : currentDayIndex - 1)
-//   );
-
-//   // Function to add days to a date
-//   const addDays = (date: Date, days: number) => {
-//     const newDate = new Date(date);
-//     newDate.setDate(date.getDate() + days);
-//     return newDate;
-//   };
-
-//   const weekDates = days.map((day, index) => {
-//     const date = addDays(startOfWeek, index);
-//     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(
-//       date.getMonth() + 1
-//     )
-//       .toString()
-//       .padStart(2, '0')}/${date.getFullYear()}`;
-//     return { date: formattedDate, day };
-//   });
-// console.log(weekDates)
-//   return weekDates;
-// };
 
 export const convertDateAndTimeStringToDate = (
   dateString: string,
@@ -223,16 +183,12 @@ export const convertToDateandDateString = (
   // Create a Date object for the availability
   const availabilityDateTime = new Date(availabilityDateTimeString);
 
-  //console.log(availabilityDateTimeString);
-  // Create a Date object for the current date and time
-  //const currentDateTime = new Date();
 
   // Compare the availability date and time with the current date and time
   return { availabilityDateTime, availabilityDateTimeString };
 };
 
 /* ---------------------- separate ---------------------- */
-
 export const formatDateForUI = (isoString: string) => {
   //console.log(isoString);
   // Extract the date part from the ISO string

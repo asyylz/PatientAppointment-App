@@ -1,7 +1,7 @@
 import {
   checkTokenExpiration,
   TOKEN_CHECK_INTERVAL,
-} from '../hooks/axiosInterceptors';
+} from '../services/axiosInterceptors';
 
 // Global variable to hold the interval ID
 let intervalId: NodeJS.Timeout | null = null;

@@ -1,0 +1,34 @@
+[
+  {
+    "_id": "66bc6d41a0c6ea472a2fcd4a",
+    "doctorId": "665f0f2959c971659af920e5",
+    "patientId": {
+      "_id": "6673662fbd42a966b75dec92",
+      "name": "Joe test",
+      "email": "alice@test.com",
+      "DOB": "1986-01-22T00:00:00.000Z"
+    },
+    "appointmentDateAndTime": "2024-08-16T15:30:00.000Z",
+    "reason": "test 1",
+    "diagnose": null,
+    "status": null,
+    "referral": false,
+    "__v": 0
+  },
+  {
+    "_id": "66bc6d41a0c6ea472a2fcd4b",
+    "doctorId": "665f0f2959c971659af920e5",
+    "patientId": {
+      "_id": "6673662fbd42a966b75dec92",
+      "name": "Mark test",
+      "email": "alice@test.com",
+      "DOB": "1986-01-22T00:00:00.000Z"
+    },
+    "appointmentDateAndTime": "2024-08-16T15:30:00.000Z",
+    "reason": "test 2",
+    "diagnose": null,
+    "status": null,
+    "referral": false,
+    "__v": 0
+  }
+]

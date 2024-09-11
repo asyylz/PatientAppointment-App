@@ -1,21 +1,21 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HomePage from './../pages/HomePage';
-import Departments from './../pages/sub-pages/Departments';
-import DoctorsPage from '../pages/sub-pages/DoctorsPage';
-import Dashboard from '../pages/sub-pages/Dashboard';
-import Appointments from '../pages/sub-pages/Appointments';
-import DoctorDetailsPage from './../pages/sub-pages/DoctorDetailsPage';
-import DoctorsLayout from '../pages/layouts/DoctorsLayout';
-import AuthPage from '../pages/AuthPage';
+import HomePage from '../pages/Homepage/HomePage';
+import Departments from '../pages/Departments/Departments';
+import DoctorsPage from '../pages/DoctorsPage/DoctorsPage';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import Appointments from '../pages/Appointments_Doctor/Appointments';
+import DoctorDetailsPage from '../pages/DoctorDetailForBooking/DoctorDetailsPage';
+import DoctorsLayout from '../layouts/DoctorsLayout';
+import AuthPage from '../pages/AuthPage/AuthPage';
 import PrivateRoute from './PrivateRoute';
 import PrivateRouteForRoles from './PrivateRouteForRoles';
-import MainLayout from '../pages/layouts/MainLayout';
-import SettingsPage from '../pages/sub-pages/SettingsPage';
-import ResetPassword from '../pages/sub-pages/ResetPassword';
-import ContactPage from '../pages/ContactPage';
-import HomeLayout from '../pages/layouts/HomeLayout';
+import MainLayout from '../layouts/MainLayout';
+import SettingsPage from '../pages/SettingsPage/SettingsPage';
+import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import ContactPage from '../pages/ContactPage/ContactPage';
+import HomeLayout from '../layouts/HomeLayout';
 
 const routes: RouteObject[] = [
   {
