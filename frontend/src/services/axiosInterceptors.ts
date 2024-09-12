@@ -12,7 +12,7 @@ import { ErrorResponse } from 'react-router-dom';
 /*                     ERROR HANDLING                     */
 /* ------------------------------------------------------ */
 // Centralized error management for both instances
-const handleErrorResponse = async (error: AxiosError<ErrorResponse>) => {
+const handleErrorResponse = async (error: AxiosError<ErrorResponse> | any) => {
   const status = error.response?.status;
   console.log(status);
   const message =
@@ -54,7 +54,7 @@ const forceLogout = async (message: string) => {
 let isRefreshing = false;
 
 export const TOKEN_CHECK_INTERVAL = 10000; // Check every 10 seconds
-const TOKEN_WARNING_THRESHOLD = 12000; // 1 minute before expiry
+const TOKEN_WARNING_THRESHOLD = 60000; // 1 minute before expiry
 
 export const checkTokenExpiration = async () => {
   const currentToken = store.getState().currentUser.token;
@@ -81,7 +81,7 @@ export const checkTokenExpiration = async () => {
         //console.log('Session successfully extended.');
         isRefreshing = false;
       } else {
-        console.log('from user not confirm')
+        console.log('from user not confirm');
         await store.dispatch(performLogout());
       }
     }

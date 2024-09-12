@@ -131,7 +131,7 @@ exports.updateAppointment = async (req, res, next) => {
       .status(404)
       .json({ status: 'error', message: 'Appointment not found for updated' });
   }
-  console.log('user appointment update', req.body);
+  //console.log('user appointment update', req.body);
 
   // Check if appointment date is in  past
   const today = new Date();
@@ -285,6 +285,7 @@ exports.createAppointment = async (req, res, next) => {
   // console.log('from createAppointment', req.body);
 
   const { appointmentDateAndTime, doctorId } = req.body;
+  console.log(appointmentDateAndTime);
   try {
     // Check if an appointment with the same date and time already exists
     const existingAppointment = await Appointment.findOne({

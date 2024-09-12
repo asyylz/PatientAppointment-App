@@ -4,7 +4,7 @@ import useHttp from '../../hooks/useHttp/useHttp';
 import {
   formatDateForInput,
   convertDateAndTimeStringToDate,
-} from '../../helper/generateDates';
+} from '../../helper/generateDates/generateDates';
 import CustomInput from '../CustomInput/CustomInput';
 
 interface AppointmentBookingFormProps {
@@ -35,6 +35,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
     ),
     reason: '',
   });
+console.log(appointment.appointmentDateAndTime)
 
   const handleChange = (
     e: React.ChangeEvent<

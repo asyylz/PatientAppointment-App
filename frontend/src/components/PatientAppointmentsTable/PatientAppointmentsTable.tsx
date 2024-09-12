@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { formatDateForUI } from '../../helper/generateDates';
+import { formatDateForUI } from '../../helper/generateDates/generateDates';
 import classes from './PatientAppointmentsTable.module.css';
 import { FaEdit } from 'react-icons/fa';
 import { fetchAppointmentsForPatient } from '../../store/appointmentsForPatient-slice/appointmentsForPatient-slice';

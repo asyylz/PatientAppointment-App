@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/index/index';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice/appointmentsForDoctor-slice';
 import useHttp from '../../hooks/useHttp/useHttp';
-import { formatDateForUI } from '../../helper/generateDates';
+import { formatDateForUI } from '../../helper/generateDates/generateDates';
 
 /* ---------------------- COMPONENT --------------------- */
 const Appointments: React.FC = () => {

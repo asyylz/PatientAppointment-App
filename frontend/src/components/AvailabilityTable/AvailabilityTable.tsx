@@ -6,7 +6,7 @@ import ModalCustom from '../ModalCustom/ModalCustom';
 import {
   getWeekDatesFromToday,
   getFormattedAvailabilityDate,
-} from '../../helper/generateDates';
+} from '../../helper/generateDates/generateDates';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/index';
 import { fetchAppointmentsForDoctor } from '../../store/appointmentsForDoctor-slice/appointmentsForDoctor-slice';

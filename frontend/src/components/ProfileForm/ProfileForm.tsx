@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classes from './ProfileForm.module.css';
 import CustomInput from '../CustomInput/CustomInput';
 import { useSelector } from 'react-redux';
-import { formatDateForInput } from '../../helper/generateDates';
+import { formatDateForInput } from '../../helper/generateDates/generateDates';
 import { updateUserInfo } from '../../store/currentUser-slice/currentUser-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/index';

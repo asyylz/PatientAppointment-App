@@ -5,7 +5,7 @@ import CustomInput from '../CustomInput/CustomInput';
 import ModalCustom from '../ModalCustom/ModalCustom';
 import ReviewInput from '../ReviewInput/ReviewInput';
 const reviewCriterias = ['Staff', 'Punctual', 'Helpful', 'Knowledge'];
-import { dateForCustomInput } from './../../helper/generateDates';
+import { dateForCustomInput } from '../../helper/generateDates/generateDates';
 
 interface AppointmentFormProps {
   setOpenModal: (openModal: string) => void;
