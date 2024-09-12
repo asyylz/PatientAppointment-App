@@ -1,33 +1,51 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import {
-  logout,
+  performLogout,
   refreshSession,
 } from '../store/currentUser-slice/currentUser-slice';
-import store from '../store/index';
+import store from '../store/index/index';
 import Cookies from 'js-cookie';
-import { toastErrorNotify } from '../helper/ToastNotify';
+import { toastErrorNotify, toastWarnNotify } from '../helper/ToastNotify';
+import { ErrorResponse } from 'react-router-dom';
 
 /* ------------------------------------------------------ */
 /*                     ERROR HANDLING                     */
 /* ------------------------------------------------------ */
 // Centralized error management for both instances
-const handleErrorResponse = async (error: any) => {
-  const status = error.response ? error.response.status : null;
-  console.log(error);
-  console.log(error.response.data.message);
+const handleErrorResponse = async (error: AxiosError<ErrorResponse>) => {
+  const status = error.response?.status;
+  console.log(status);
   const message =
     error.response?.data?.message || 'An unexpected error occurred';
 
-  if (status === 401) {
-    await store.dispatch(logout());
-    toastErrorNotify(error.response.data.message); // wrong logi credentials
-  } else if (status === 404) {
-    toastErrorNotify('Resource not found!');
-  } else {
-    toastErrorNotify(message);
+  console.error('API Error:', error);
+
+  switch (status) {
+    case 500:
+      await forceLogout('Session expired. Please log in again.');
+      break;
+    case 401:
+      await forceLogout('Session expired. Please log in again.');
+      break;
+    case 403:
+      toastErrorNotify('You do not have permission to perform this action.');
+      break;
+    case 404:
+      toastErrorNotify('Resource not found!');
+      break;
+    default:
+      toastErrorNotify(message);
   }
 
   return Promise.reject(error);
+};
+
+// Force logout function
+const forceLogout = async (message: string) => {
+  toastWarnNotify(message);
+  await store.dispatch(performLogout());
+  // Redirect to login page
+  window.location.href = '/';
 };
 
 /* ------------------------------------------------------ */
@@ -36,7 +54,7 @@ const handleErrorResponse = async (error: any) => {
 let isRefreshing = false;
 
 export const TOKEN_CHECK_INTERVAL = 10000; // Check every 10 seconds
-const TOKEN_WARNING_THRESHOLD = 60000; // 1 minute before expiry
+const TOKEN_WARNING_THRESHOLD = 15000; // 1 minute before expiry
 
 export const checkTokenExpiration = async () => {
   const currentToken = store.getState().currentUser.token;
@@ -45,6 +63,7 @@ export const checkTokenExpiration = async () => {
     const tokenExpiry = Cookies.get('jwtExpiry');
     const now = Date.now();
     const timeLeft = Number(tokenExpiry) - now;
+    console.log(timeLeft);
 
     console.log(`Token expiry from cookie: ${tokenExpiry}`);
     console.log(`Time left for token expiry: ${timeLeft}ms`);
@@ -62,7 +81,7 @@ export const checkTokenExpiration = async () => {
         //console.log('Session successfully extended.');
         isRefreshing = false;
       } else {
-        await store.dispatch(logout());
+        await store.dispatch(performLogout());
         console.log('asiye');
       }
     }
@@ -73,54 +92,52 @@ export const checkTokenExpiration = async () => {
 /*                       WITH TOKEN                       */
 /* ------------------------------------------------------ */
 
-const axiosInterceptorsWithToken = axios.create({
-  //baseURL: import.meta.env.VITE_BASE_URL,
-  withCredentials: true,
-  //timeout: 10000, // 10 seconds Set a timeout to handle slow network requests or unresponsive servers.
-});
-// Axios interceptor for attaching token to requests
-axiosInterceptorsWithToken.interceptors.request.use(
-  (config) => {
-    const state = store.getState();
-    const currentToken = state.currentUser.token;
-    // const currentToken = '1234';
+const createAxiosInstanceWithToken = (): AxiosInstance => {
+  const instance = axios.create({
+    //baseURL: API_BASE_URL,
+    withCredentials: true,
+    timeout: 10000,
+  });
 
-    console.log('from axiosinterceptor', currentToken); // come here empty string from preloaded tstate
-    if (currentToken) {
-      console.log('asiye');
-      config.headers.Authorization = `Bearer ${currentToken}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+  instance.interceptors.request.use(
+    (config) => {
+      const token = store.getState().currentUser.token;
+      if (token) {
+        config.headers = config.headers || {};
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
 
-axiosInterceptorsWithToken.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const status = error.response ? error.response.status : 500;
-    console.log(status);
-    console.log(error.response);
-    console.log(error.response.data.message);
-    toastErrorNotify(error.response.data.message);
-    handleErrorResponse;
-    return Promise.reject(error);
-  }
-);
+  instance.interceptors.response.use(
+    (response: AxiosResponse) => response,
+    handleErrorResponse
+  );
+
+  return instance;
+};
 
 /* ------------------------------------------------------ */
 /*                      WITHOUT TOKEN                     */
 /* ------------------------------------------------------ */
-const axiosInterceptorsWithoutToken = axios.create({
-  //baseURL: import.meta.env.VITE_BASE_URL,
-  withCredentials: true,
-});
+// Create Axios instance without token
+const createAxiosInstanceWithoutToken = (): AxiosInstance => {
+  const instance = axios.create({
+    // baseURL: API_BASE_URL,
+    withCredentials: true,
+    timeout: 10000,
+  });
 
-// Adding response interceptor for axiosInterceptorsWithoutToken
-axiosInterceptorsWithoutToken.interceptors.response.use(
-  (response) => response,
-  handleErrorResponse
-);
+  instance.interceptors.response.use(
+    (response: AxiosResponse) => response,
+    handleErrorResponse
+  );
 
+  return instance;
+};
+
+const axiosInterceptorsWithoutToken = createAxiosInstanceWithoutToken();
+const axiosInterceptorsWithToken = createAxiosInstanceWithToken();
 export { axiosInterceptorsWithToken, axiosInterceptorsWithoutToken };
-

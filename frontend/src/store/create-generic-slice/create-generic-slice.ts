@@ -8,10 +8,10 @@ export const fetchEntities = <T>(entity: string) =>
     const { axiosInterceptorsWithoutToken } = await import(
       '../../services/axiosInterceptors'
     );
-   // console.log(url)
+    // console.log(url)
     const response = await axiosInterceptorsWithoutToken.get(url);
     //console.log(response)
-   // console.log(url)
+    // console.log(url)
     return response.data.data[entity];
   });
 
@@ -64,7 +64,7 @@ export const createEntitySlice = <T>(
     extraReducers: (builder) => {
       builder
         .addCase(fetchEntityThunk.pending, (state) => {
-         // console.log(action);
+          // console.log(action);
           state.status = 'loading';
         })
         .addCase(

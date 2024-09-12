@@ -1,4 +1,4 @@
-import { axiosInterceptorsWithToken } from './../../services/axiosInterceptors'
+import { axiosInterceptorsWithToken } from '../../services/axiosInterceptors';
 /* ---------------- Mock axiosInterceptor --------------- */
 jest.mock('./../../hooks/axiosInterceptors', () => ({
   axiosInterceptorsWithToken: {

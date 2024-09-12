@@ -4,7 +4,7 @@ import currentUserReducer, {
   refreshSession,
   register,
   updateUserInfo,
-} from '../currentUser-slice/currentUser-slice'; 
+} from '../currentUser-slice/currentUser-slice';
 import '@testing-library/jest-dom';
 //import { toastSuccessNotify } from './../helper/ToastNotify';
 import { login } from '../currentUser-slice/currentUser-slice';

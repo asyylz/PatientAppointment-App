@@ -15,7 +15,6 @@ const DoctorDetails: React.FC = () => {
   const [pagination, setPagination] = useState<number>(1);
 
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
-  console.log(selectedDoctor)
 
   const {
     entities: reviews,
@@ -23,8 +22,6 @@ const DoctorDetails: React.FC = () => {
     error: reviewsError,
   } = useSelector((state: RootState) => state.reviews);
   
-  console.log(reviews)
-
   useEffect(() => {
     if (selectedDoctor) {
       dispatch(fetchReviews({ id: selectedDoctor._id.toString(), pagination }));

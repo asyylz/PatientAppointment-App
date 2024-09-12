@@ -23,7 +23,6 @@ const initialState: CurrentUser = {
 export const register = createAsyncThunk<CurrentUserPayload, Credentials>(
   'currentUser/register',
   async (credentials) => {
-
     const response = await axiosInterceptorsWithoutToken.post(
       'http://localhost:3000/api/v1/users/signup',
       credentials
@@ -59,7 +58,6 @@ export const performLogout = () => async (dispatch: AppDispatch) => {
     'http://localhost:3000/api/v1/users/logout'
   );
   if (response.data.status === 'success') {
-    console.log('asiye');
     dispatch(logout());
     stopTokenCheckInterval();
   }

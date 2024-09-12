@@ -5,8 +5,6 @@ import classes from './DoctorDetailsPage.module.css';
 import GlobalLink from '../../components/GlobalLink/GlobalLink';
 const DoctorDetailsPage: React.FC = () => {
   const { selectedDoctor } = useSelector((state: RootState) => state.doctors);
-
-  console.log(selectedDoctor);
   if (!selectedDoctor) {
     return <div>Doctor not found</div>;
   }

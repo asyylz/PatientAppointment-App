@@ -2,9 +2,7 @@ import { toastSuccessNotify } from '../../helper/ToastNotify';
 import {
   axiosInterceptorsWithoutToken,
   axiosInterceptorsWithToken,
-} from './../../services/axiosInterceptors';
-
-
+} from '../../services/axiosInterceptors';
 
 const useHttp = () => {
   const createAppointment = async (data: AppointmentForBooking) => {

@@ -183,7 +183,6 @@ describe('Dasboard Modal Window', () => {
   });
   /* -------------------------- - ------------------------- */
   it('1--Opens Appointment form when the edit icon is clicked, fire delete button, opens modal window for confirmation, fire confirm button and trigger delete action', async () => {
-
     // Check if the modal is rendered
     expect(document.getElementById('modal')).toBeInTheDocument();
 
@@ -217,10 +216,10 @@ describe('Dasboard Modal Window', () => {
     });
 
     // Additional logging
-   // console.log(
+    // console.log(
     //  'deleteAppointmentMock calls:',
-     // deleteAppointmentMock.mock.calls
-   // );
+    // deleteAppointmentMock.mock.calls
+    // );
 
     expect(
       screen.queryByRole('button', { name: 'Confirm' })

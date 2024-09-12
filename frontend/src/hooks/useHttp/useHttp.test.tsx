@@ -1,4 +1,4 @@
-import * as axiosInterceptors from './../../services/axiosInterceptors';
+import * as axiosInterceptors from '../../services/axiosInterceptors';
 import * as useHttp from './useHttp';
 import * as toast from '../../helper/ToastNotify';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
