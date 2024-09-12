@@ -13,14 +13,13 @@ const handleDuplicateFieldsDB = err => {
   return new AppError(message, 400);
 };
 const handleValidationErrorDB = err => {
-  console.log("asiye");
+  console.log('from handleValidationErrorDB');
   const errors = Object.values(err.errors).map(el => el.message);
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
 const handleJWTTokenExpireError = (err, req, res, next) => {
-  console.log('asiye', err.name);
-  console.log('user', req);
+  console.log('from handleJWTTokenExpireError ', err.name);
   const message = 'Your session expired. Please login again!';
   return new AppError(message, 401);
 };

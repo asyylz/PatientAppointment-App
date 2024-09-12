@@ -359,6 +359,42 @@
         "wholeMatch": false
       },
       "color": "yellow"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                       TOKEN CHECK                      */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "#2BFC88"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                       WITH TOKEN                       */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "#74FC2B"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                      WITHOUT TOKEN                     */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "#FCD82B"
+    },
+    {
+      "pattern": {
+        "type": "string",
+        "expression": "/* ------------------------------------------------------ */\n/*                     ERROR HANDLING                     */\n/* ------------------------------------------------------ */",
+        "ignoreCase": false,
+        "wholeMatch": false
+      },
+      "color": "#7FEEFC"
     }
   ]
 }

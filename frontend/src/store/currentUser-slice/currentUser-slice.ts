@@ -60,6 +60,7 @@ export const performLogout = () => async (dispatch: AppDispatch) => {
   if (response.data.status === 'success') {
     dispatch(logout());
     stopTokenCheckInterval();
+    window.location.href = '/';
   }
 
   return response.data;

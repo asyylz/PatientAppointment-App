@@ -54,7 +54,7 @@ const forceLogout = async (message: string) => {
 let isRefreshing = false;
 
 export const TOKEN_CHECK_INTERVAL = 10000; // Check every 10 seconds
-const TOKEN_WARNING_THRESHOLD = 15000; // 1 minute before expiry
+const TOKEN_WARNING_THRESHOLD = 12000; // 1 minute before expiry
 
 export const checkTokenExpiration = async () => {
   const currentToken = store.getState().currentUser.token;
@@ -81,8 +81,8 @@ export const checkTokenExpiration = async () => {
         //console.log('Session successfully extended.');
         isRefreshing = false;
       } else {
+        console.log('from user not confirm')
         await store.dispatch(performLogout());
-        console.log('asiye');
       }
     }
   }
