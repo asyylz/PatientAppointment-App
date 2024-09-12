@@ -15,9 +15,10 @@ const Review: React.FC<ReviewProps> = ({
   ratingsAndComment,
   setRatingsAndComment,
 }) => {
-
+console.log(ratingsAndComment)
 
   const handleRatingChange = (value: number) => {
+    console.log(value)
     setRatingsAndComment((prevRatings) => ({
       ...prevRatings,
       [attributeName.toLowerCase()]: value,

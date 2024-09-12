@@ -10,7 +10,6 @@
     "preview": "vite preview",
     "test": "jest",
     "test-w": "jest -- --watch"
-   
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",

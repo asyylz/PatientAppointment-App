@@ -1,8 +1,8 @@
 // jest-setup.ts
 import '@testing-library/jest-dom'; // std import Jest's globals (like expect)
 import 'cross-fetch/polyfill';
-import { toContainRole } from './src/_testUtils/mocks/helper';
-import {  expect } from '@jest/globals'; //afterAll, afterEach, beforeAll,
+import { toContainRole } from './_testUtils/mocks/helper';
+import { expect } from '@jest/globals'; //afterAll, afterEach, beforeAll,
 // import {
 //   TextEncoder as NodeTextEncoder,
 //   TextDecoder as NodeTextDecoder,
@@ -24,7 +24,5 @@ import {  expect } from '@jest/globals'; //afterAll, afterEach, beforeAll,
 // beforeAll(() => worker.start());
 // afterEach(() => worker.resetHandlers());
 // afterAll(() => worker.stop());
-
-
 
 expect.extend({ toContainRole });
