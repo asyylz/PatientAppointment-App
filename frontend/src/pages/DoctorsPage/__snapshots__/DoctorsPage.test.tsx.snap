@@ -1,37 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Doctors Page 1--Matches the DOM snapshot 1`] = `
-[
+<DocumentFragment>
   <p
-    className="header"
+    class="header"
   >
     OUR DOCTORS
-  </p>,
-  <hr />,
+  </p>
+  <hr />
   <div
-    className="container"
+    class="container"
     role="doctors-container"
-  />,
-  <div
-    className="pagination__wrapper"
   >
     <div
-      className="pagination__wrapper"
+      class="loader__container"
+      role="loader"
+    >
+       
+      <div
+        class="loader__ldsRipple"
+      >
+        <div />
+        <div />
+      </div>
+    </div>
+  </div>
+  <div
+    class="pagination__wrapper"
+  >
+    <div
+      class="pagination__wrapper"
     >
       <div
-        className="pagination__icon--wrapper"
-        onClick={[Function]}
+        class="pagination__icon--wrapper"
       >
         <svg
           fill="currentColor"
           height="1em"
           stroke="currentColor"
-          strokeWidth="0"
-          style={
-            {
-              "color": undefined,
-            }
-          }
+          stroke-width="0"
           viewBox="0 0 24 24"
           width="1em"
           xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +46,7 @@ exports[`Doctors Page 1--Matches the DOM snapshot 1`] = `
           <polyline
             fill="none"
             points="7 2 17 12 7 22"
-            strokeWidth="2"
+            stroke-width="2"
             transform="matrix(-1 0 0 1 24 0)"
           />
         </svg>
@@ -48,14 +55,12 @@ exports[`Doctors Page 1--Matches the DOM snapshot 1`] = `
         </p>
       </div>
       <p
-        className="pagination__page-number"
+        class="pagination__page-number"
       >
-        Page: 
-        1
+        Page: 1
       </p>
       <div
-        className="pagination__icon--wrapper passive"
-        onClick={[Function]}
+        class="pagination__icon--wrapper passive"
       >
         <p>
           Next
@@ -64,12 +69,7 @@ exports[`Doctors Page 1--Matches the DOM snapshot 1`] = `
           fill="currentColor"
           height="1em"
           stroke="currentColor"
-          strokeWidth="0"
-          style={
-            {
-              "color": undefined,
-            }
-          }
+          stroke-width="0"
           viewBox="0 0 24 24"
           width="1em"
           xmlns="http://www.w3.org/2000/svg"
@@ -77,11 +77,11 @@ exports[`Doctors Page 1--Matches the DOM snapshot 1`] = `
           <polyline
             fill="none"
             points="7 2 17 12 7 22"
-            strokeWidth="2"
+            stroke-width="2"
           />
         </svg>
       </div>
     </div>
-  </div>,
-]
+  </div>
+</DocumentFragment>
 `;

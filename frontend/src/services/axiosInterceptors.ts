@@ -104,25 +104,6 @@ axiosInterceptorsWithToken.interceptors.response.use(
     console.log(error.response.data.message);
     toastErrorNotify(error.response.data.message);
     handleErrorResponse;
-
-    // if (
-    //   (status === 401 &&
-    //     error.response.data.message ===
-    //       'Your session expired. Please login again!') ||
-    //   (status === 500 && error.response.data.message === 'jwt expired')
-    // ) {
-    //   await store.dispatch(logout());
-    //   console.log('aaa');
-    //   toastErrorNotify('Your session expired. Please login again!');
-    // } else if (status === 404) {
-    //   // Handle not found errors
-    // } else if (status === 401) {
-    //   toastErrorNotify(error.response.data.message);
-    //   console.log(error.response.data.message);
-    // } else {
-    //   toastErrorNotify(error.response.data.message); // status 400
-    // }
-
     return Promise.reject(error);
   }
 );
@@ -143,15 +124,3 @@ axiosInterceptorsWithoutToken.interceptors.response.use(
 
 export { axiosInterceptorsWithToken, axiosInterceptorsWithoutToken };
 
-//   } catch (error) {
-//     if (axios.isAxiosError(error)) {
-//       const axiosError = error as AxiosError;
-//       if (axiosError.response?.status === 401) {
-//         toastErrorNotify(
-//           `${(axiosError.response.data as { message: string }).message}`
-//         );
-//       }
-//       return rejectWithValue(error.message);
-//     }
-//     return rejectWithValue('An unexpected error occurred');
-//   }

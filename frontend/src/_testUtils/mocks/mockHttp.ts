@@ -1,4 +1,4 @@
-import useHttp from "../../hooks/useHttp/useHttp";
+import useHttp from '../../hooks/useHttp/useHttp';
 
 const deleteAppointmentMock = jest.fn();
 // we have response conditon in Dashboard component to be able to empty the states
@@ -25,12 +25,18 @@ getDoctorWithAvailabilitiesMock.mockResolvedValue({
   status: 'success',
 });
 
+const postReviewMock = jest.fn();
+postReviewMock.mockResolvedValue({
+  status: 'success',
+});
+
 (useHttp as jest.Mock).mockReturnValue({
   deleteAppointment: deleteAppointmentMock,
   updateAppointment: updateAppointmentMock,
   createAppointment: createAppointmentMock,
   getDoctorWithAvailabilities: getDoctorWithAvailabilitiesMock,
   submitContactForm: submitContactFormMock,
+  postReview: postReviewMock,
 });
 
 export {
@@ -39,4 +45,5 @@ export {
   createAppointmentMock,
   submitContactFormMock,
   getDoctorWithAvailabilitiesMock,
+  postReviewMock,
 };

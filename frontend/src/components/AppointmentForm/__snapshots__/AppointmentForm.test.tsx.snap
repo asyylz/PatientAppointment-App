@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppointmentForm Component 1--Matches the DOM snapshot 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="modal"
+    id="modal"
+  />
+  <div
+    class="container"
+  >
+    <p
+      class="title"
+    >
+      Appointment Details
+    </p>
+    <form>
+      <div
+        class="wrapper input"
+        style="opacity: 0.7;"
+      >
+        <input
+          readonly=""
+          style="background-color: lightgray;"
+          value="Dr. Bowen Chan"
+        />
+      </div>
+      <div
+        class="wrapper input"
+        style="opacity: 0.7;"
+      >
+        <input
+          name="appointmentDate"
+          placeholder="Appointment Date"
+          readonly=""
+          style="background-color: lightgray;"
+          type="date"
+          value="2024-08-14"
+        />
+      </div>
+      <div
+        class="wrapper input"
+        style="opacity: 0.7;"
+      >
+        <input
+          name="appointmentTime"
+          placeholder="Appointment Time"
+          readonly=""
+          step="1800"
+          style="background-color: lightgray;"
+          type="time"
+          value="15:30"
+        />
+      </div>
+      <textarea
+        class="reason"
+        cols="36"
+        name="reason"
+        placeholder="Please write your concerns..."
+        readonly=""
+        rows="8"
+        style="opacity: 0.7; background-color: lightgray;"
+      >
+        test1
+      </textarea>
+      <div
+        class="wrapper input"
+        style="opacity: 0.7;"
+      >
+        <input
+          readonly=""
+          style="background-color: lightgray;"
+          value="completed"
+        />
+      </div>
+      <div
+        class="wrapper input"
+        style="opacity: 0.7;"
+      >
+        <input
+          readonly=""
+          style="background-color: lightgray;"
+          value="Not referral"
+        />
+      </div>
+      <textarea
+        class="result"
+        cols="36"
+        name="diagnose"
+        placeholder="Please write diagnoses..."
+        readonly=""
+        rows="8"
+        style="opacity: 0.7; background-color: lightgray;"
+      />
+      <button
+        style="font-size: 12px; height: 30px; margin-bottom: 5px;"
+      >
+        Leave comment
+      </button>
+      <div
+        class="buttonContainer"
+      >
+        <button
+          type="submit"
+        >
+          Update
+        </button>
+        <button>
+          Delete
+        </button>
+        <button>
+          Close
+        </button>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;

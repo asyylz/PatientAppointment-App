@@ -8,9 +8,10 @@ export const fetchEntities = <T>(entity: string) =>
     const { axiosInterceptorsWithoutToken } = await import(
       '../../services/axiosInterceptors'
     );
-
+   // console.log(url)
     const response = await axiosInterceptorsWithoutToken.get(url);
-
+    //console.log(response)
+   // console.log(url)
     return response.data.data[entity];
   });
 

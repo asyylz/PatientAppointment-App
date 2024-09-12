@@ -1,172 +1,310 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Departments Page 1--Matches the DOM snapshot 1`] = `
-<div
-  className="mainWrapper"
->
+exports[`Departments Page  2--Should fetch departments and filter departments 1`] = `
+<DocumentFragment>
   <div
-    className="headerWrapper"
+    class="top__bar"
   >
-    <h2>
-      DEPARTMENTS
-    </h2>
-    <hr />
+    <div
+      class="top__bar--search"
+    >
+      <input
+        class="top__bar--search-input"
+        name="search"
+        placeholder="Search here"
+        type="text"
+      />
+      <div
+        class="top__bar--search-icon"
+      >
+        <i
+          class="fas fa-search"
+        />
+      </div>
+    </div>
+    <div
+      class="top__bar--search-user"
+    >
+      <h5>
+        Asiye
+      </h5>
+      <i
+        class="fas fa-bell"
+      />
+      <img
+        alt="User"
+        src="mockImgUrl"
+      />
+      <button>
+        Logout
+      </button>
+    </div>
   </div>
   <div
-    className="container"
-    role="departments-container"
-  />
-</div>
+    class="mainWrapper"
+  >
+    <div
+      class="headerWrapper"
+    >
+      <h2>
+        DEPARTMENTS
+      </h2>
+      <hr />
+    </div>
+    <div
+      class="container"
+      role="departments-container"
+    >
+      <div
+        class="department__wrapper"
+        role="department"
+      >
+        <div
+          class="department__button"
+        >
+          <div
+            class="department__button--name"
+          >
+            Allergy & Immunology
+          </div>
+        </div>
+        <div>
+          <ul
+            class="department__sub-wrapper"
+          >
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Allergy
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Allergy & Immunology
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Immunology
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Immunopathology
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Pediatric Allergy
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="department__wrapper"
+        role="department"
+      >
+        <div
+          class="department__button"
+        >
+          <div
+            class="department__button--name"
+          >
+            Anesthesiology
+          </div>
+        </div>
+        <div>
+          <ul
+            class="department__sub-wrapper"
+          >
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Anesthesiology
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Critical Care Anesthesiology
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Critical Care Medicine
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Pain Management
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="department__wrapper"
+        role="department"
+      >
+        <div
+          class="department__button"
+        >
+          <div
+            class="department__button--name"
+          >
+            Cardiology
+          </div>
+        </div>
+        <div>
+          <ul
+            class="department__sub-wrapper"
+          >
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Cardiovascular Disease
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Cardiovascular Surgery
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Interventional Cardiology
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Immunopathology
+              </a>
+            </li>
+            <li
+              class="department__sub--item"
+            >
+              <a
+                href="/"
+              >
+                Pediatric Cardiology
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`Departments Page After departments being fetched data should be in the snapshot 1`] = `
-<div
-  className="mainWrapper"
->
+exports[`Departments Page 1--Matches the DOM snapshot 1`] = `
+<DocumentFragment>
   <div
-    className="headerWrapper"
-  >
-    <h2>
-      DEPARTMENTS
-    </h2>
-    <hr />
-  </div>
-  <div
-    className="container"
-    role="departments-container"
+    class="top__bar"
   >
     <div
-      className="department__wrapper"
-      role="department"
+      class="top__bar--search"
     >
+      <input
+        class="top__bar--search-input"
+        name="search"
+        placeholder="Search here"
+        type="text"
+      />
       <div
-        className="department__button"
+        class="top__bar--search-icon"
       >
-        <div
-          className="department__button--name"
-          onClick={[Function]}
-        >
-          Allergy & Immunology
-        </div>
-      </div>
-      <div>
-        <ul
-          className="department__sub-wrapper"
-        >
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Allergy
-            </a>
-          </li>
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Allergy & Immunology
-            </a>
-          </li>
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Immunology
-            </a>
-          </li>
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Immunopathology
-            </a>
-          </li>
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Pediatric Allergy
-            </a>
-          </li>
-        </ul>
+        <i
+          class="fas fa-search"
+        />
       </div>
     </div>
     <div
-      className="department__wrapper"
-      role="department"
+      class="top__bar--search-user"
     >
-      <div
-        className="department__button"
-      >
-        <div
-          className="department__button--name"
-          onClick={[Function]}
-        >
-          Anesthesiology
-        </div>
-      </div>
-      <div>
-        <ul
-          className="department__sub-wrapper"
-        >
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Anesthesiology
-            </a>
-          </li>
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Critical Care Anesthesiology
-            </a>
-          </li>
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Critical Care Medicine
-            </a>
-          </li>
-          <li
-            className="department__sub--item"
-          >
-            <a
-              href="/"
-              onClick={[Function]}
-            >
-              Pain Management
-            </a>
-          </li>
-        </ul>
-      </div>
+      <h5>
+        Asiye
+      </h5>
+      <i
+        class="fas fa-bell"
+      />
+      <img
+        alt="User"
+        src="mockImgUrl"
+      />
+      <button>
+        Logout
+      </button>
     </div>
   </div>
-</div>
+  <div
+    class="mainWrapper"
+  >
+    <div
+      class="headerWrapper"
+    >
+      <h2>
+        DEPARTMENTS
+      </h2>
+      <hr />
+    </div>
+    <div
+      class="container"
+      role="departments-container"
+    >
+      <p>
+        Departments loading...
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
 `;

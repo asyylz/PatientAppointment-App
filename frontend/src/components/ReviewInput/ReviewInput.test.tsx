@@ -7,8 +7,6 @@ import { combineReducers } from 'redux';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import { AppStore } from '../../store/index/index.ts';
 
-//import userEvent from '@testing-library/user-event';
-
 const initialCurrentUserState: CurrentUser = {
   status: 'login success',
   token: 'someToken',
@@ -77,7 +75,7 @@ describe('Review Component', () => {
     expect(screen.getAllByRole('radio')).toHaveLength(5);
   });
   /* -------------------------- - ------------------------- */
-  it('4--Updates rating when a star is clicked',  () => {
+  it('4--Updates rating when a star is clicked', () => {
     const radioInputs = screen.getAllByRole('radio');
 
     fireEvent.click(radioInputs[0]); // Quality-rate5
@@ -90,37 +88,49 @@ describe('Review Component', () => {
     //const result = updateFunction({ knowledge: 4 }); // the previous state
     //expect(result).toEqual({ staff: 5, knowledge: 4 });
     const result = updateFunction(initialProps.ratingsAndComment);
-    console.log(result);
+
     expect(result).toEqual({
       ...initialProps.ratingsAndComment,
       staff: 5,
     });
   });
+});
+
+describe('Review Component', () => {
+  let store: AppStore;
+
+  const mockSetRatingsAndComment = jest.fn();
+  const initialProps = {
+    attributeName: 'Staff',
+    ratingsAndComment: {
+      staff: 3,
+      punctual: 0,
+      helpful: 0,
+      knowledge: 0,
+      comments: 'Good',
+    },
+    setRatingsAndComment: mockSetRatingsAndComment,
+  };
+
+  beforeEach(() => {
+    mockSetRatingsAndComment.mockClear();
+    const result = renderWithProviders(<ReviewInput {...initialProps} />, {
+      reducer: reducers,
+      preloadedState: { currentUser: initialCurrentUserState } as Partial<{
+        currentUser: CurrentUser & PersistPartial;
+      }>,
+    });
+    store = result.store;
+    jest.spyOn(store, 'dispatch');
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   /* -------------------------- - ------------------------- */
-
-  //   it('checks the correct star based on current rating', () => {
-  //     const props = {
-  //       ...initialProps,
-  //       ratingsAndComment: { quality: 3 },
-  //     };
-  //     render(<Review {...props} />);
-  //     const checkedStar = screen.getByLabelText('3') as HTMLInputElement;
-  //     expect(checkedStar.checked).toBe(true);
-  //   });
-
-  //   it('handles case-insensitive attribute names', () => {
-  //     const props = {
-  //       ...initialProps,
-  //       attributeName: 'QUALITY',
-  //       ratingsAndComment: { quality: 4 },
-  //     };
-  //     render(<Review {...props} />);
-  //     expect(screen.getByText('4')).toBeInTheDocument();
-  //   });
-
-  //   it('renders SVG stars', () => {
-  //     render(<Review {...initialProps} />);
-  //     const svgs = screen.getAllByRole('img', { hidden: true });
-  //     expect(svgs).toHaveLength(5);
-  //   });
+  it('1--Checks the correct star checked  props truthy', () => {
+    expect(screen.queryByText('3')).toBeInTheDocument();
+    const stars = screen.getAllByRole('radio') as HTMLInputElement[];
+    expect(stars[2].checked).toBe(true);
+  });
 });

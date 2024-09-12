@@ -217,10 +217,10 @@ describe('Dasboard Modal Window', () => {
     });
 
     // Additional logging
-    console.log(
-      'deleteAppointmentMock calls:',
-      deleteAppointmentMock.mock.calls
-    );
+   // console.log(
+    //  'deleteAppointmentMock calls:',
+     // deleteAppointmentMock.mock.calls
+   // );
 
     expect(
       screen.queryByRole('button', { name: 'Confirm' })

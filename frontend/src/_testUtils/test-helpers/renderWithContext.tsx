@@ -4,6 +4,7 @@ import type { RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { setupStore } from '../../store/index';
 import type { AppStore, RootState } from '../../store/index';
+import { MemoryRouter } from 'react-router-dom';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   reducer?: any;
@@ -21,7 +22,9 @@ export function renderWithProviders(
   //console.log(store.getState()); // Verify the state of the store
 
   const Wrapper = ({ children }: PropsWithChildren) => (
-    <Provider store={store}>{children}</Provider>
+    <Provider store={store}>
+      <MemoryRouter>{children}</MemoryRouter>
+    </Provider>
   );
 
   // Return an object with the store and all of RTL's query functions

@@ -6,6 +6,7 @@ import { fetchDepartments } from '../../store/departments-slice/departments-slic
 import { useEffect, useState } from 'react';
 
 const Departments: React.FC = () => {
+  
   const dispatch: AppDispatch = useDispatch();
 
   const {

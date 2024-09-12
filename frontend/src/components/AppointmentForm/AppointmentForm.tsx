@@ -28,8 +28,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       reason: appointment.reason,
     });
 
-  //console.log(typeof appointment._id);
-
   const [openModalDeleteOrComment, setOpenModalDeleteOrComment] =
     useState<string>('');
 
@@ -81,7 +79,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       }));
     }
   };
-
+  //console.log(ratingsAndComment.comments)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await updateAppointment(
@@ -168,18 +166,20 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               }`}
             />
             <div className={classes.reviewWrapper}>
-              {reviewCriterias.map((criteria: string) => {
+              {reviewCriterias.map((criteria: string, index) => {
                 return (
                   <ReviewInput
                     attributeName={criteria}
                     ratingsAndComment={ratingsAndComment}
                     setRatingsAndComment={setRatingsAndComment}
+                    key={index}
                   />
                 );
               })}
             </div>
             <textarea
               name="comments"
+              placeholder="Leave your comments here..."
               rows={8}
               cols={36}
               onChange={handleChange}
