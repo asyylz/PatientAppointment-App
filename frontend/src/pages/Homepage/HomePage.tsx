@@ -5,7 +5,11 @@ import { fetchDoctors } from '../../store/doctors-slice/doctors-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/index';
 
-
+const apiURL =
+  import.meta.env.NODE_ENV === 'production'
+    ? import.meta.env.VITE_SERVER_URL
+    : import.meta.env.VITE_LOCAL_URL;
+console.log(import.meta.env.VITE_LOCAL_URL)
 const images: { [key: string]: string } = {
   one: 'https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGVhbHRofGVufDB8fDB8fHwy',
   two: 'https://images.unsplash.com/photo-1488228469209-c141f8bcd723?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGhlYWx0aHxlbnwwfHwwfHx8Mg%3D%3D',
@@ -25,11 +29,7 @@ export default function HomePage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    dispatch(
-      fetchDoctors(
-        'http://localhost:3000/api/v1/doctors?limit=4&page=1&sort=firstName'
-      )
-    );
+    dispatch(fetchDoctors(`${apiURL}/doctors?limit=4&page=1&sort=firstName`));
   }, [dispatch]);
 
   useEffect(() => {

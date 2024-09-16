@@ -125,7 +125,7 @@ const createAxiosInstanceWithToken = (): AxiosInstance => {
 // Create Axios instance without token
 const createAxiosInstanceWithoutToken = (): AxiosInstance => {
   const instance = axios.create({
-    // baseURL: API_BASE_URL,
+    //baseURL: URL,
     withCredentials: true,
     timeout: 10000,
   });

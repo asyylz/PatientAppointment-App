@@ -17,6 +17,11 @@ const initialState: CurrentUser = {
   userData: null,
 };
 
+const apiURL =
+  import.meta.env.VITE_NODE_ENV === 'production'
+    ? import.meta.env.VITE_SERVER_URL
+    : import.meta.env.VITE_LOCAL_URL;
+
 /* ------------------------------------------------------ */
 /*                        REGISTER                        */
 /* ------------------------------------------------------ */
@@ -24,7 +29,7 @@ export const register = createAsyncThunk<CurrentUserPayload, Credentials>(
   'currentUser/register',
   async (credentials) => {
     const response = await axiosInterceptorsWithoutToken.post(
-      'http://localhost:3000/api/v1/users/signup',
+      `${apiURL}/users/signup`,
       credentials
     );
     toastSuccessNotify('Successfully registered!');
@@ -40,7 +45,7 @@ export const login = createAsyncThunk<
   { email: string; password: string }
 >('currentUser/login', async (credentials) => {
   const response = await axiosInterceptorsWithoutToken.post(
-    'http://localhost:3000/api/v1/users/login',
+    `${apiURL}/users/login`,
     credentials,
     { withCredentials: true }
   );
@@ -55,7 +60,7 @@ export const login = createAsyncThunk<
 /* ------------------------------------------------------ */
 export const performLogout = () => async (dispatch: AppDispatch) => {
   const response = await axiosInterceptorsWithToken.get(
-    'http://localhost:3000/api/v1/users/logout'
+    `${apiURL}/users/logout`
   );
   if (response.data.status === 'success') {
     dispatch(logout());
@@ -76,7 +81,7 @@ export const updateUserInfo = createAsyncThunk<
 >('currentUser/updateProfile', async (userUpdatedFormData) => {
   //try {
   const response = await axiosInterceptorsWithToken.patch(
-    'http://localhost:3000/api/v1/users/updateUser',
+    `${apiURL}/users/updateUser`,
     userUpdatedFormData
   );
 
@@ -93,7 +98,7 @@ export const refreshSession = createAsyncThunk<
   { rejectValue: string }
 >('currentUser/refreshSession', async () => {
   const response = await axiosInterceptorsWithToken.post(
-    'http://localhost:3000/api/v1/users/refresh-session'
+    `${apiURL}/users/refresh-session`
   );
 
   toastSuccessNotify('Your session has been extended another 15 mins!');

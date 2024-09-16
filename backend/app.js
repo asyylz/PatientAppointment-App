@@ -25,7 +25,9 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173',
-      'https://patientappointmentsystem.netlify.app'
+      'http://localhost:4173',
+      'https://patientappointmentsystem.netlify.app',
+      'https://patient-appointment-app-xi.vercel.app/'
     ], // Adjust based on your client URL
     credentials: true
   })

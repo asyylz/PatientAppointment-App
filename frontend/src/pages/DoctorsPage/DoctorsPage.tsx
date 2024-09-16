@@ -10,6 +10,11 @@ import PaginationButtons from '../../components/PaginationButtons/PaginationButt
 import { useLocation } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 
+const apiURL =
+  import.meta.env.VITE_NODE_ENV === 'production'
+    ? import.meta.env.VITE_SERVER_URL
+    : import.meta.env.VITE_LOCAL_URL;
+
 const Doctors: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { getDoctorWithAvailabilities } = useHttp();
@@ -33,16 +38,14 @@ const Doctors: React.FC = () => {
   const [pagination, setPagination] = useState<number>(1);
   const [filteredDoctors, setFilteredDoctors] = useState(doctors);
 
-
   // Extract departmentId from query parameters
   const queryParams = new URLSearchParams(location.search);
   const departmentId = queryParams.get('departmentId');
 
-
   useEffect(() => {
     dispatch(
       fetchDoctors(
-        `http://localhost:3000/api/v1/doctors?limit=2&page=${pagination}&sort=firstName${
+        `${apiURL}/doctors?limit=2&page=${pagination}&sort=firstName${
           departmentId ? `&departmentId=${departmentId}` : ''
         }`
       )

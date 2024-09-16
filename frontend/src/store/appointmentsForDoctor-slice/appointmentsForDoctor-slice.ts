@@ -2,9 +2,12 @@ import {
   fetchEntitiesWithId,
   createEntitySlice,
 } from './../create-generic-slice/create-generic-slice';
-
+const apiURL =
+  import.meta.env.VITE_NODE_ENV === 'production'
+    ? import.meta.env.VITE_SERVER_URL
+    : import.meta.env.VITE_LOCAL_URL;
 export const doctorAppointmentsUrl = (id: string) => {
-  return `http://localhost:3000/api/v1/appointments/doctors/${id}`;
+  return `${apiURL}/appointments/doctors/${id}`;
 };
 
 export const fetchAppointmentsForDoctor =

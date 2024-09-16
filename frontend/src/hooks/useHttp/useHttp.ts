@@ -1,13 +1,19 @@
 import { toastSuccessNotify } from '../../helper/ToastNotify';
+//import { server } from '../../mocks/server';
 import {
   axiosInterceptorsWithoutToken,
   axiosInterceptorsWithToken,
 } from '../../services/axiosInterceptors';
+const apiURL =
+  import.meta.env.VITE_NODE_ENV === 'production'
+    ? import.meta.env.VITE_SERVER_URL
+    : import.meta.env.VITE_LOCAL_URL;
 
 const useHttp = () => {
   const createAppointment = async (data: AppointmentForBooking) => {
     const response = await axiosInterceptorsWithToken.post(
-      'http://localhost:3000/api/v1/appointments',
+      `${apiURL}/appointments`,
+      //'http://localhost:3000/api/v1/appointments',
       data
     );
     toastSuccessNotify('Your appointment successfully placed.');
@@ -19,7 +25,7 @@ const useHttp = () => {
     id: string | undefined
   ) => {
     const response = await axiosInterceptorsWithToken.patch(
-      `http://localhost:3000/api/v1/appointments/${id}`,
+      `${apiURL}/appointments/${id}`,
       data
     );
     toastSuccessNotify('Your appointment successfully updated.');
@@ -28,7 +34,7 @@ const useHttp = () => {
 
   const deleteAppointment = async (id: string | undefined) => {
     const response = await axiosInterceptorsWithToken.delete(
-      `http://localhost:3000/api/v1/appointments/${id}`
+      `${apiURL}/appointments/${id}`
     );
     toastSuccessNotify('Your appointment successfully deleted.');
     return response;
@@ -38,7 +44,7 @@ const useHttp = () => {
     updatedUserData: UpdatedUserPasswordData
   ) => {
     const response = await axiosInterceptorsWithToken.patch(
-      `http://localhost:3000/api/v1/users/updateMyPassword`,
+      `${apiURL}/users/updateMyPassword`,
       updatedUserData
     );
     toastSuccessNotify('Your password successfully updated.');
@@ -47,21 +53,21 @@ const useHttp = () => {
 
   const getDoctorAppointments = async (id: string) => {
     const response = await axiosInterceptorsWithToken.get(
-      `http://localhost:3000/api/v1/appointments/doctors/${id}`
+      `${apiURL}/appointments/doctors/${id}`
     );
     return response.data.data.appointmentsForDoctor;
   };
 
   const getDoctorWithAvailabilities = async (id: string) => {
     const response = await axiosInterceptorsWithToken.get(
-      `http://localhost:3000/api/v1/doctors/${id}`
+      `${apiURL}/doctors/${id}`
     );
     return response.data.data;
   };
 
   const postReview = async (data: ReviewData) => {
     const response = await axiosInterceptorsWithToken.post(
-      `http://localhost:3000/api/v1/reviews`,
+      `${apiURL}/reviews`,
       data
     );
     toastSuccessNotify('Your review successfully posted.');
@@ -70,7 +76,8 @@ const useHttp = () => {
 
   const submitContactForm = async (data: ContactFormData) => {
     const response = await axiosInterceptorsWithoutToken.post(
-      'http://localhost:3000/api/v1/contact',
+      //'http://localhost:3000/api/v1/contact',
+      `${apiURL}/contact`,
       data
     );
     toastSuccessNotify('Your message successfully sent.');
@@ -78,7 +85,7 @@ const useHttp = () => {
   };
   const forgotPassword = async (email: string) => {
     const response = await axiosInterceptorsWithoutToken.post(
-      'http://localhost:3000/api/v1/users/forgotPassword',
+      `${apiURL}/users/forgotPassword`,
       email
     );
     toastSuccessNotify(`Email sent to ${email} successfully!`);
@@ -88,7 +95,7 @@ const useHttp = () => {
   const resetPassword = async (data: PasswordResetData) => {
     const { password, passwordConfirm, resetToken } = data;
     const response = await axiosInterceptorsWithoutToken.patch(
-      `http://localhost:3000/api/v1/users/resetPassword/${resetToken}`,
+      `${apiURL}/users/resetPassword/${resetToken}`,
       {
         password,
         passwordConfirm,

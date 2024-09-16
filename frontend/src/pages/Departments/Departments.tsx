@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from './../../store/index';
 import { fetchDepartments } from '../../store/departments-slice/departments-slice';
 import { useEffect, useState } from 'react';
+const apiURL =
+  import.meta.env.VITE_NODE_ENV === 'production'
+    ? import.meta.env.VITE_SERVER_URL
+    : import.meta.env.VITE_LOCAL_URL;
 
 const Departments: React.FC = () => {
-  
   const dispatch: AppDispatch = useDispatch();
 
   const {
@@ -18,14 +21,12 @@ const Departments: React.FC = () => {
   const [filteredDepartments, setFilteredDepartments] = useState(departments);
 
   const searchWord = useSelector((state: RootState) => state.search);
-  //console.log(departments)
 
-  //console.log(filteredDepartments)
   useEffect(() => {
     if (status === 'idle') {
       dispatch(
         fetchDepartments(
-          `http://localhost:3000/api/v1/departments?limit=24&page=1&sort=departmentMain`
+          `${apiURL}/departments?limit=24&page=1&sort=departmentMain`
         )
       ); // sending empty argument since it is optional
     }
