@@ -3,16 +3,18 @@ import classes from './Navbar.module.css';
 import { useSelector } from 'react-redux';
 
 const NavBar: React.FC = () => {
-  console.log('asiye')
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
+
+  console.log(import.meta.env.VITE_PUBLIC_URL);
   return (
     <nav className={classes.navbar}>
       <a
         className={`${classes['navbar__link']} ${classes['navbar__link--logo']}`}
       >
-        <img src="./public/PAS-LOGO.png" alt="" />
+        {/* <img src={import.meta.env.VITE_PUBLIC_URL + '/PAS-LOGO.png'} alt="" /> */}
+        <img src="./PAS-LOGO.png" alt="" />
       </a>
       <a href="/" className={classes['navbar__link']}>
         HOME

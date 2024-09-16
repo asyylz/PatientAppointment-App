@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
       <div className={classes['footer__partners']}>
         <div className={classes['footer__partnersList']}>
           <div className={classes['footer__logo']}>
-            <img src="/public/PAS-LOGO.png" alt="" />
+            <img src="./PAS-LOGO.png" alt="" />
           </div>
           <p className={classes['footer__partnersTitle']}>Our Partners:</p>
           <ul className={classes['footer__partnersItems']}>

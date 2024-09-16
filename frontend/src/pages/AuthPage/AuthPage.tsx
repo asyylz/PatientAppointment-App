@@ -30,7 +30,6 @@ const AuthPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
-  //console.log('asiye')
   const { status } = useSelector((state: RootState) => state.currentUser);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {

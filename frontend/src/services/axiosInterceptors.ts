@@ -14,7 +14,7 @@ import { ErrorResponse } from 'react-router-dom';
 // Centralized error management for both instances
 const handleErrorResponse = async (error: AxiosError<ErrorResponse> | any) => {
   const status = error.response?.status;
-  console.log(status);
+
   const message =
     error.response?.data?.message || 'An unexpected error occurred';
 

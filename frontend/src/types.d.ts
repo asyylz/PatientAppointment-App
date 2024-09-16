@@ -291,9 +291,4 @@ declare namespace NodeJS {
 }
 declare let global: NodeJS.Global;
 
-interface ImportMeta {
-  env: {
-    VITE_NODE_ENV: string;
-    VITE_BASE_URL: string;
-  };
-}
+

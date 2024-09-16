@@ -1,6 +1,6 @@
 // src/handler.ts
-import { http, HttpResponse,delay } from 'msw';
-import appointmentsForDoctor from './../../public/appointmentsForDoctor.json';
+import { http, HttpResponse, delay } from 'msw';
+import appointmentsForDoctor from '../../public/test_data/appointmentsForDoctor.json';
 
 // We use msw to intercept the network request during the test,
 // and return the response 'John Smith' after 150ms

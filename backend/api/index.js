@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: './.env.local' });
+dotenv.config({ path: '../.env.local' });
 
-const app = require('./app');
+const app = require('../app');
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
@@ -12,6 +12,8 @@ const DB = process.env.DATABASE.replace(
 
 mongoose
   .connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
     //.connect(process.env.DATABASE_LOCAL, {
   })
   .then(() => {
@@ -20,8 +22,11 @@ mongoose
 
 const port = process.env.PORT || 8000;
 
-app.use(require('./controllers/errorControllers'));
+app.use(require('../controllers/errorControllers'));
+
 
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
+
+module.exports = app;
