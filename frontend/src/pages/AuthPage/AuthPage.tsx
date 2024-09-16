@@ -94,9 +94,9 @@ const AuthPage = () => {
     }
   };
 
-  const handleClick = () => {
-    if (loginData && loginData.email) {
-      forgotPassword(loginData.email);
+  const handleClick = async() => {
+    if (loginData.email) {
+    await  forgotPassword(loginData.email);
     }
   };
 

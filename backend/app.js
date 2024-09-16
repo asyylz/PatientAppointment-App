@@ -20,19 +20,32 @@ const AppError = require('./utils/appError');
 
 const app = express();
 
-// Enable CORS for all routes
-app.use(
-  cors({
-    origin: [
-      'http://localhost:5173',
-      'http://localhost:4173',
-      'https://patientappointmentsystem.netlify.app',
-      'https://patient-appointment-app-xi.vercel.app/'
-    ], // Adjust based on your client URL
-    credentials: true
-  })
-);
-//app.options('*', cors());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:4173',
+  'https://patientappointmentsystem.netlify.app',
+  'https://patient-appointment-app-xi.vercel.app'
+];
+
+const corsOptions = {
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
+
+// Pre-flight requests
+app.options('*', cors(corsOptions));
 
 // Set security HTTP headers
 app.use(helmet());

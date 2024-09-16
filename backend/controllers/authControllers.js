@@ -106,7 +106,6 @@ exports.login = async (req, res, next) => {
 // Logout handler
 exports.logout = async (req, res, next) => {
   let token;
-
   try {
     if (
       req.headers.authorization &&
@@ -224,9 +223,6 @@ exports.forgotPassword = async (req, res, next) => {
 };
 /* ------------------- RESET PASSWORD ------------------- */
 exports.resetPassword = async (req, res, next) => {
-  //console.log('from reset password', req.body);
-  //console.log('from reset password', req.params);
-
   try {
     const hashedToken = crypto
       .createHash('sha256')
@@ -237,7 +233,6 @@ exports.resetPassword = async (req, res, next) => {
       passwordResetToken: hashedToken,
       passwordResetExpires: { $gt: Date.now() }
     });
-    //console.log(user);
     if (!user) {
       return next(
         new AppError('Password reset link is invalid or has expired', 400)

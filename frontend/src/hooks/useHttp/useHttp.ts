@@ -76,7 +76,6 @@ const useHttp = () => {
 
   const submitContactForm = async (data: ContactFormData) => {
     const response = await axiosInterceptorsWithoutToken.post(
-      //'http://localhost:3000/api/v1/contact',
       `${apiURL}/contact`,
       data
     );
@@ -84,6 +83,7 @@ const useHttp = () => {
     return response.data;
   };
   const forgotPassword = async (email: string) => {
+    console.log(email)
     const response = await axiosInterceptorsWithoutToken.post(
       `${apiURL}/users/forgotPassword`,
       email
@@ -102,7 +102,6 @@ const useHttp = () => {
       }
     );
     toastSuccessNotify(`Your password successfully re-set.`);
-    console.log(response.data);
     return response.data;
   };
 
