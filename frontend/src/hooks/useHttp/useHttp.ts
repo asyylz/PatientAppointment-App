@@ -83,10 +83,10 @@ const useHttp = () => {
     return response.data;
   };
   const forgotPassword = async (email: string) => {
-    console.log(email)
+    console.log(email);
     const response = await axiosInterceptorsWithoutToken.post(
       `${apiURL}/users/forgotPassword`,
-      email
+      { email }
     );
     toastSuccessNotify(`Email sent to ${email} successfully!`);
     return response.data;

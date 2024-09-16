@@ -25,13 +25,13 @@ const handleErrorResponse = async (error: AxiosError<ErrorResponse> | any) => {
       await forceLogout('Session expired. Please log in again.');
       break;
     case 401:
-      await forceLogout('Session expired. Please log in again.');
+     toastErrorNotify(message)
       break;
     case 403:
       toastErrorNotify('You do not have permission to perform this action.');
       break;
     case 404:
-      toastErrorNotify('Resource not found!');
+      toastErrorNotify(message);
       break;
     default:
       toastErrorNotify(message);

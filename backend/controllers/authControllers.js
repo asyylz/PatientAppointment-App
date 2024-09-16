@@ -81,7 +81,7 @@ exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     //const { email, password } = req.body.data;
-    console.log(email, password);
+    //console.log(email, password);
 
     // 1) Check if email and password exist
     if (!email || !password) {
@@ -188,7 +188,7 @@ exports.restrictTo = (...roles) => {
 /* ------------------- FORGOT PASSWORD ------------------ */
 exports.forgotPassword = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
-  // console.log(req.body.email);
+  //console.log('from forgotPassword', req.body.email);
 
   if (!user) {
     return next(new AppError('There is no user with this email address', 404));
