@@ -30,7 +30,10 @@ export default function LeftSideBar() {
         <li className={classes['sidebar__item']}>
           <Link to="/" className={classes['sidebar__item-link']}>
             <div className={classes['sidebar__logo']}>
-              <img src="../PAS-LOGO.png" alt="" />
+              <img
+                src="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/PAS-LOGO.png"
+                alt=""
+              />
             </div>
             <div className={classes['link__home']}>Home</div>
           </Link>

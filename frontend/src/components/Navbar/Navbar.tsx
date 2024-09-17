@@ -13,8 +13,8 @@ const NavBar: React.FC = () => {
       <a
         className={`${classes['navbar__link']} ${classes['navbar__link--logo']}`}
       >
-        {/* <img src={import.meta.env.VITE_PUBLIC_URL + '/PAS-LOGO.png'} alt="" /> */}
-        <img src="./PAS-LOGO.png" alt="" />
+        <img src="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/PAS-LOGO.png" alt="" />
+        
       </a>
       <a href="/" className={classes['navbar__link']}>
         HOME

@@ -7,15 +7,13 @@ const handleCastErrorDB = err => {
 
 const handleDuplicateFieldsDB = err => {
   const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-  console.log(value);
-
   const message = `Duplicate field value: ${value}. Please use another value!`;
   return new AppError(message, 400);
 };
 const handleValidationErrorDB = err => {
-  console.log('from handleValidationErrorDB');
+  //console.log('from handleValidationErrorDB');
   const errors = Object.values(err.errors).map(el => el.message);
-  const message = `Invalid input data. ${errors.join('. ')}`;
+  const message = `Invalid or missing input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
 const handleJWTTokenExpireError = (err, req, res, next) => {
@@ -53,6 +51,7 @@ const sendErrorProd = (err, res) => {
 
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
+  console.log('err', err);
   err.status = err.status || 'error';
   if (process.env.NODE_ENV === 'development') {
     console.log(err.name);

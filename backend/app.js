@@ -23,6 +23,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:4173',
+  'http://localhost:3000/api/v1',
   'https://patientappointmentsystem.netlify.app',
   'https://patient-appointment-app-xi.vercel.app'
 ];
@@ -32,6 +33,7 @@ const corsOptions = {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) !== -1) {
+      console.log(origin);
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));

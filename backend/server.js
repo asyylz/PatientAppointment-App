@@ -18,7 +18,7 @@ mongoose
     console.log('DB connection successful!');
   });
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3002;
 
 app.use(require('./controllers/errorControllers'));
 

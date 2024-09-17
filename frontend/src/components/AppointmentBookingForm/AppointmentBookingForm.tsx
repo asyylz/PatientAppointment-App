@@ -23,8 +23,11 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
   const { createAppointment } = useHttp();
 
   /* ----------------------- States ----------------------- */
-  const [appointmentDate, setAppointmentDate] = useState(slot.date);
-  const [appointmentTime, setAppointmentTime] = useState(slot.time);
+  const [appointmentDate, setAppointmentDate] = useState<string>();
+  const [appointmentTime, setAppointmentTime] = useState<string>();
+
+  console.log(appointmentDate);
+  console.log(formatDateForInput(slot.date));
 
   const [appointment, setAppointment] = useState<AppointmentForBooking>({
     doctorId: doctor?._id,
@@ -35,8 +38,7 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
     ),
     reason: '',
   });
-console.log(appointment.appointmentDateAndTime)
-
+  console.log(appointment.appointmentDateAndTime);
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -44,7 +46,7 @@ console.log(appointment.appointmentDateAndTime)
   ) => {
     const { name, value } = e.target;
 
-    if (name === 'appointmentDate') {
+    if (name === 'appointmentDate' && appointmentTime) {
       setAppointmentDate(value);
       const formattedDate = convertDateAndTimeStringToDate(
         value,
@@ -54,7 +56,7 @@ console.log(appointment.appointmentDateAndTime)
         ...prevValuesAppointment,
         appointmentDateAndTime: formattedDate,
       }));
-    } else if (name === 'appointmentTime') {
+    } else if (name === 'appointmentTime' && appointmentDate) {
       setAppointmentTime(value);
       const formattedDate = convertDateAndTimeStringToDate(
         appointmentDate,
@@ -115,12 +117,14 @@ console.log(appointment.appointmentDateAndTime)
           <CustomInput type="text" value={user.name} readOnly />
           <CustomInput
             type="date"
+            value={appointmentDate}
             defaultValue={formatDateForInput(slot.date)}
             name="appointmentDate"
             onChange={handleChange}
           />
           <CustomInput
             placeHolder="Appointment Time"
+            value={appointmentTime}
             defaultValue={slot.time}
             name="appointmentTime"
             type="time"

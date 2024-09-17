@@ -16,16 +16,18 @@ const handleErrorResponse = async (error: AxiosError<ErrorResponse> | any) => {
   const status = error.response?.status;
 
   const message =
-    error.response?.data?.message || 'An unexpected error occurred';
+    error.response?.data?.message  || 'An unexpected error occurred';
 
   console.error('API Error:', error);
 
   switch (status) {
     case 500:
-      await forceLogout('Session expired. Please log in again.');
+      //await forceLogout('Session expired. Please log in again.');
+      toastErrorNotify(message);
       break;
     case 401:
-     toastErrorNotify(message)
+     //toastErrorNotify(message)
+     await forceLogout('Session expired. Please log in again.')
       break;
     case 403:
       toastErrorNotify('You do not have permission to perform this action.');

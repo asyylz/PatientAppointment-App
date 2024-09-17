@@ -310,12 +310,13 @@ exports.createAppointment = async (req, res, next) => {
       }
     });
   } catch (err) {
-    //console.log(err.errors.reason.message);
-    res.status(404).json({
-      status: 'fail',
-      message: err.errors
-      //message: err.errors.reason.message
-    });
+    // console.log(err.errors.reason.message);
+    // res.status(404).json({
+    //   status: 'fail',
+    //   message: err.errors.reason.message
+    //   //message: err.errors.reason.message
+    // });
+    next(err);
   }
 };
 

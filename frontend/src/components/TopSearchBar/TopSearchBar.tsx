@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import classes from './TopSearchBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-//import { logoutSuccess } from '../../store/currentUser-slice';
 import { AppDispatch } from '../../store/index';
 import { useEffect, useState } from 'react';
 import { setSearch } from '../../store/search-slice/search-slice';
@@ -10,7 +9,7 @@ import { performLogout } from '../../store/currentUser-slice/currentUser-slice';
 
 const TopSearchBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
 
   const { token, userData } = useSelector(
