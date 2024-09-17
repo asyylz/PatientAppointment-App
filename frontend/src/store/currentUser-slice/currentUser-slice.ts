@@ -65,7 +65,8 @@ export const performLogout = () => async (dispatch: AppDispatch) => {
   if (response.data.status === 'success') {
     dispatch(logout());
     stopTokenCheckInterval();
-    //window.location.href = '/';
+    window.location.href = '/';
+    toastSuccessNotify('Successfully logged out!');
   }
 
   return response.data;

@@ -1,20 +1,28 @@
 import React from 'react';
 import classes from './Navbar.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { performLogout } from '../../store/currentUser-slice/currentUser-slice';
+import { AppDispatch } from '../../store/index';
 
 const NavBar: React.FC = () => {
   const { token, userData } = useSelector(
     (state: RootState) => state.currentUser
   );
+  const dispatch: AppDispatch = useDispatch();
+  
+  const handleLogout = async () => {
+    if (token) await dispatch(performLogout());
+  };
 
-  console.log(import.meta.env.VITE_PUBLIC_URL);
   return (
     <nav className={classes.navbar}>
       <a
         className={`${classes['navbar__link']} ${classes['navbar__link--logo']}`}
       >
-        <img src="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/PAS-LOGO.png" alt="" />
-        
+        <img
+          src="https://patient-appointment-system.s3.eu-west-2.amazonaws.com/PAS-LOGO.png"
+          alt=""
+        />
       </a>
       <a href="/" className={classes['navbar__link']}>
         HOME
@@ -25,12 +33,15 @@ const NavBar: React.FC = () => {
       <a href="/contact" className={classes['navbar__link']}>
         CONTACT
       </a>
+
       <a
         className={`${classes['navbar__link']} ${classes['navbar__link--login']}`}
         href="/auth"
+        onClick={handleLogout}
       >
         {token !== '' ? 'LOG OUT' : 'LOG IN'}
       </a>
+
       {token && (
         <a
           className={`${classes['navbar__link']} ${classes['navbar__link--user']}`}

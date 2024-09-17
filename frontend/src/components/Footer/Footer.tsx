@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './Footer.module.css';
+import { toastSuccessNotify } from '../../helper/ToastNotify';
 
 const Footer: React.FC = () => {
+  const [email, setEmail] = useState<string>();
+
+  const handleClick = () => {
+    toastSuccessNotify('You have subscribed.');
+  };
+
   return (
     <section className={classes.footer}>
-      <div className={classes['footer__subscribe']}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleClick();
+        }}
+        className={classes['footer__subscribe']}
+      >
         <input
           className={classes['footer__input']}
-          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
           placeholder="Enter your email address..."
+          required
         />
-        <button className={classes['footer__button']}>SUBSCRIBE</button>
-      </div>
+        <button type="submit" className={classes['footer__button']}>
+          SUBSCRIBE
+        </button>
+      </form>
       <div className={classes['footer__links']}>
         <div className={classes['footer__box']}>
           <h1 className={classes['footer__title']}>Discover</h1>
