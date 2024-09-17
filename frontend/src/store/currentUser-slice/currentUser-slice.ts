@@ -49,7 +49,7 @@ export const login = createAsyncThunk<
     credentials,
     { withCredentials: true }
   );
-
+  console.log(response.data);
   startTokenCheckInterval();
   toastSuccessNotify('Successfully login!');
   return response.data;
@@ -65,7 +65,7 @@ export const performLogout = () => async (dispatch: AppDispatch) => {
   if (response.data.status === 'success') {
     dispatch(logout());
     stopTokenCheckInterval();
-    window.location.href = '/';
+    //window.location.href = '/';
   }
 
   return response.data;

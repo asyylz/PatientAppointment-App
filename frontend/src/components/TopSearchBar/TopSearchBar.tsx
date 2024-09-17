@@ -29,7 +29,7 @@ const TopSearchBar: React.FC = () => {
     await dispatch(performLogout());
     console.log('asiye');
     toastSuccessNotify('Successfully logged out!');
-    navigate('/');
+    //navigate('/');
   };
 
   return (
