@@ -2,6 +2,7 @@ const Appointment = require('../models/appointmentModel');
 const Availability = require('../models/availabilityModel');
 const APIFeatures = require('../utils/apiFeatures');
 const { getWeekDate } = require('./../utils/datesOfTheCurrentWeek');
+
 // GET ALL //
 exports.getAllAppointments = async (req, res, next) => {
   try {
@@ -114,10 +115,6 @@ exports.getDoctorAppointments = async (req, res, next) => {
       }
     });
   } catch (err) {
-    // res.status(404).json({
-    //   status: 'fail',
-    //   message: err
-    // });
     next(err);
   }
 };
@@ -272,20 +269,14 @@ exports.getAppointment = async (req, res, next) => {
       }
     });
   } catch (err) {
-    // res.status(500).json({
-    //   status: 'error',
-    //   message: err.message
-    // });
     next(err);
   }
 };
 
 // POST //
 exports.createAppointment = async (req, res, next) => {
-  // console.log('from createAppointment', req.body);
-
   const { appointmentDateAndTime, doctorId } = req.body;
-  console.log(appointmentDateAndTime);
+
   try {
     // Check if an appointment with the same date and time already exists
     const existingAppointment = await Appointment.findOne({
@@ -310,12 +301,6 @@ exports.createAppointment = async (req, res, next) => {
       }
     });
   } catch (err) {
-    // console.log(err.errors.reason.message);
-    // res.status(404).json({
-    //   status: 'fail',
-    //   message: err.errors.reason.message
-    //   //message: err.errors.reason.message
-    // });
     next(err);
   }
 };

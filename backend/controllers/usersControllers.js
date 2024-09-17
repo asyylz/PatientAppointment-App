@@ -106,11 +106,8 @@ exports.updateUser = async (req, res, next) => {
       imagePath = req.fileLocation;
     }
   } catch (err) {
-    console.log(err);
+    next(err);
   }
-
-  // console.log('updateUser',identifierForImage);
-  //fs.unlink(`./public${user.image}`, err => console.log(err));
 
   if (req.body.password || req.body.passwordConfirm) {
     return next(

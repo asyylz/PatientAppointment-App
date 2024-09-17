@@ -24,8 +24,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:4173',
   'http://localhost:3000/api/v1',
-  'https://patientappointmentsystem.netlify.app',
-  'https://patient-appointment-app-xi.vercel.app'
+  'https://patientappointmentsystem.netlify.app'
 ];
 
 const corsOptions = {

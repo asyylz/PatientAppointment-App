@@ -60,6 +60,8 @@ const TOKEN_WARNING_THRESHOLD = 60000; // 1 minute before expiry
 
 export const checkTokenExpiration = async () => {
   const currentToken = store.getState().currentUser.token;
+  console.log(currentToken)
+  console.log(Cookies.get('jwtExpiry'))
 
   if (currentToken) {
     const tokenExpiry = Cookies.get('jwtExpiry');
@@ -77,7 +79,6 @@ export const checkTokenExpiration = async () => {
       );
       console.log(userConfirmed);
       if (userConfirmed) {
-        console.log('asiye');
         isRefreshing = true;
         await store.dispatch(refreshSession());
         //console.log('Session successfully extended.');

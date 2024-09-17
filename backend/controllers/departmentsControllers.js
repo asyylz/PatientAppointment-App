@@ -3,7 +3,6 @@ const APIFeatures = require('../utils/apiFeatures');
 
 exports.getAllDepartments = async (req, res) => {
   try {
-    console.log('hello from getalldepartments');
     // EXECUTE QUERY
     const features = new APIFeatures(Department.find(), req.query)
       .filter()
@@ -28,8 +27,7 @@ exports.getAllDepartments = async (req, res) => {
   }
 };
 
-exports.createDepartment = async (req, res) => {
-  console.log(req.body);
+exports.createDepartment = async (req, res, next) => {
   try {
     const newDepartment = await Department.create(req.body);
     res.status(201).json({
@@ -39,6 +37,6 @@ exports.createDepartment = async (req, res) => {
       }
     });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };

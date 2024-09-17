@@ -6,16 +6,3 @@
     width: 100%;
 }
 
-.wrapper p {
-    font-size: clamp(12px, 3vw, 20px)
-}
-
-.wrapper a {
-    color: #444;
-}
-
-.wrapper a:hover {
-    scale: 1.1;
-    color:var(--primary-background);
-    background-color: #444;
-}

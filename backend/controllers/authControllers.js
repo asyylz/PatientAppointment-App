@@ -8,7 +8,6 @@ const sendEmail = require('./../utils/email');
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN
-    //expiresIn: 60
   });
 };
 
@@ -18,18 +17,12 @@ const createSendToken = (user, statusCode, res, req) => {
   const expiresIn = decodedToken.exp * 1000; // Convert to milliseconds
   const expiresInDate = new Date(expiresIn);
 
-  // res.cookie('jwt', token, {
-  //   expires: expiresInDate,
-  //   httpOnly: false, // Set to true if you need to access via JavaScript
-  //   secure: process.env.NODE_ENV === 'production', // Set to true if using HTTPS in production
-  //   sameSite: 'Lax' // Adjust based on your requirements ('Strict', 'Lax', 'None')
-  // });
-
   res.cookie('jwtExpiry', expiresIn, {
     expires: expiresInDate,
-    httpOnly: false, // Set to false if you need to access via JavaScript
-    //secure: process.env.NODE_ENV === 'production', // Set to true if using HTTPS in production
-    sameSite: 'Lax' // Adjust based on your requirements ('Strict', 'Lax', 'None')
+    httpOnly: false, // Allow JavaScript access
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    path: '/'
   });
 
   user.password = undefined;
@@ -46,13 +39,6 @@ const createSendToken = (user, statusCode, res, req) => {
 /* ----------------------- SIGNUP ----------------------- */
 exports.signup = async (req, res, next) => {
   let imagePath;
-  //console.log('from signup controller', req.file);
-  // if (req.file) {
-  //   imagePath = `/userProfileImages/${req.file.filename}`;
-  // } else {
-  //   imagePath = `/userProfileImages/userDefaultAvatar.png`;
-  // }
-
   if (req.fileLocation) {
     imagePath = req.fileLocation;
   } else {
@@ -80,8 +66,6 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    //const { email, password } = req.body.data;
-    //console.log(email, password);
 
     // 1) Check if email and password exist
     if (!email || !password) {
@@ -91,7 +75,6 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password');
 
     // const correct = await user.correctPAssword(password, user.password);
-
     if (!user || !(await user.correctPassword(password, user.password))) {
       return next(new AppError('Incorrect email or password', 401));
     }
@@ -112,7 +95,6 @@ exports.logout = async (req, res, next) => {
       req.headers.authorization.startsWith('Bearer')
     ) {
       token = req.headers.authorization.split(' ')[1];
-      // console.log('logout', token);
     }
 
     res.cookie('jwtExpiry', '', {
@@ -147,7 +129,6 @@ exports.protect = async (req, res, next) => {
 
     // 2) Verification token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    //console.log('decoded', decoded);
 
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.id);

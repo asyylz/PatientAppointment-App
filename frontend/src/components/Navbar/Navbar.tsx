@@ -9,7 +9,7 @@ const NavBar: React.FC = () => {
     (state: RootState) => state.currentUser
   );
   const dispatch: AppDispatch = useDispatch();
-  
+
   const handleLogout = async () => {
     if (token) await dispatch(performLogout());
   };
@@ -34,13 +34,22 @@ const NavBar: React.FC = () => {
         CONTACT
       </a>
 
-      <a
-        className={`${classes['navbar__link']} ${classes['navbar__link--login']}`}
-        href="/auth"
-        onClick={handleLogout}
-      >
-        {token !== '' ? 'LOG OUT' : 'LOG IN'}
-      </a>
+      {token && (
+        <a
+          className={`${classes['navbar__link']} ${classes['navbar__link--login']}`}
+          onClick={handleLogout}
+        >
+          LOG OUT
+        </a>
+      )}
+      {!token && (
+        <a
+          className={`${classes['navbar__link']} ${classes['navbar__link--login']}`}
+          href="/auth"
+        >
+          LOG IN
+        </a>
+      )}
 
       {token && (
         <a

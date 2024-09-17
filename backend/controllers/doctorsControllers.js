@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const APIFeatures = require('../utils/apiFeatures');
 const Doctor = require('../models/doctorModel');
 const Availability = require('../models/availabilityModel');
@@ -6,66 +5,6 @@ const Review = require('./../models/reviewModel');
 
 const { getWeekDate } = require('./../utils/datesOfTheCurrentWeek');
 
-/* ------------------- ROUTES HANDLERS ------------------ */
-// GET ALL // Doctors:sending back to the client
-// exports.getAllDoctors = async (req, res, next) => {
-//   try {
-//     // EXECUTE QUERY //
-//  const doctorsWithAvailabilities = await mongoose.connection
-//   .collection('doctorsWithAvailabilities')
-//   .find()
-//   .toArray();
-
-//     const currentWeekDates = {
-//       Monday: getCurrentWeekDate('Monday'),
-//       Tuesday: getCurrentWeekDate('Tuesday'),
-//       Wednesday: getCurrentWeekDate('Wednesday'),
-//       Thursday: getCurrentWeekDate('Thursday'),
-//       Friday: getCurrentWeekDate('Friday'),
-//       Saturday: getCurrentWeekDate('Saturday'),
-//       Sunday: getCurrentWeekDate('Sunday')
-//     };
-
-//     //Map over the results and transform availabilities to include current week dates
-
-//     const transformedDoctors = doctorsWithAvailabilities.map(doctor => {
-//       const transformedAvailabilities = doctor.availabilities.map(avail => {
-//         const { day } = avail;
-//         return {
-//           ...avail,
-//           currentWeekAvailabilityInDateFormat: new Date(
-//             `${currentWeekDates[day]}T${avail.time}:00.000Z`
-//           )
-//         };
-//       });
-
-//       return {
-//         ...doctor,
-//         availabilities: transformedAvailabilities
-//       };
-//     });
-
-//     // Populate departmentId field if necessary
-//     const populatedDoctors = await mongoose
-//       .model('Doctor')
-//       .populate(transformedDoctors, { path: 'departmentId' });
-
-//     // SEND RESPONSE //
-//     res.status(200).json({
-//       status: 'success',
-//       results: populatedDoctors.length,
-//       data: {
-//         doctors: populatedDoctors
-//       }
-//     });
-//   } catch (err) {
-//     res.status(404).json({
-//       status: 'fail',
-//       message: err
-//     });
-//     next(err);
-//   }
-// };
 exports.getAllDoctors = async (req, res, next) => {
   try {
     const features = new APIFeatures(
@@ -147,7 +86,6 @@ exports.getDoctor = async (req, res, next) => {
         ).toISOString()
       };
     });
-    //console.log(availbilitiesInDateFormat);
 
     // Respond with populated data
     res.status(200).json({
@@ -188,7 +126,7 @@ exports.updateDoctor = async (req, res, next) => {
 };
 
 // POST //
-exports.createDoctor = async (req, res) => {
+exports.createDoctor = async (req, res, next) => {
   try {
     const newDoctor = await Doctor.create(req.body);
     res.status(201).json({
@@ -198,12 +136,12 @@ exports.createDoctor = async (req, res) => {
       }
     });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
 // DELETE //
-exports.deleteDoctor = async (req, res) => {
+exports.deleteDoctor = async (req, res, next) => {
   try {
     await Doctor.findByIdAndDelete(req.params.id);
     res.status(204).json({
@@ -211,9 +149,6 @@ exports.deleteDoctor = async (req, res) => {
       data: null
     });
   } catch (err) {
-    res.status(204).json({
-      status: 'success',
-      data: null
-    });
+    next(err);
   }
 };
