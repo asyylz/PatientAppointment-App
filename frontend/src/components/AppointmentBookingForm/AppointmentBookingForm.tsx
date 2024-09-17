@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import classes from './AppointmentBookingForm.module.css';
 import useHttp from '../../hooks/useHttp/useHttp';
 import {
-  formatDateForInput,
   convertDateAndTimeStringToDate,
 } from '../../helper/generateDates/generateDates';
 import CustomInput from '../CustomInput/CustomInput';
@@ -22,13 +21,6 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
 }) => {
   const { createAppointment } = useHttp();
 
-  /* ----------------------- States ----------------------- */
-  const [appointmentDate, setAppointmentDate] = useState<string>();
-  const [appointmentTime, setAppointmentTime] = useState<string>();
-
-  console.log(appointmentDate);
-  console.log(formatDateForInput(slot.date));
-
   const [appointment, setAppointment] = useState<AppointmentForBooking>({
     doctorId: doctor?._id,
     patientId: user._id,
@@ -38,47 +30,45 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
     ),
     reason: '',
   });
-  console.log(appointment.appointmentDateAndTime);
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value } = e.target;
 
-    if (name === 'appointmentDate' && appointmentTime) {
-      setAppointmentDate(value);
-      const formattedDate = convertDateAndTimeStringToDate(
-        value,
-        appointmentTime
-      );
-      setAppointment((prevValuesAppointment) => ({
-        ...prevValuesAppointment,
-        appointmentDateAndTime: formattedDate,
-      }));
-    } else if (name === 'appointmentTime' && appointmentDate) {
-      setAppointmentTime(value);
-      const formattedDate = convertDateAndTimeStringToDate(
-        appointmentDate,
-        value
-      );
-      setAppointment((prevValuesAppointment) => ({
-        ...prevValuesAppointment,
-        appointmentDateAndTime: formattedDate,
-      }));
-    } else {
-      setAppointment((prevValuesAppointment) => ({
-        ...prevValuesAppointment,
-        [name]: value,
-      }));
-    }
-  };
+  const handleChange = useCallback(
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >
+    ) => {
+      const { name, value } = e.target;
+
+      setAppointment((prev) => {
+        if (name === 'appointmentDate' || name === 'appointmentTime') {
+          const newDate =
+            name === 'appointmentDate'
+              ? value
+              : prev.appointmentDateAndTime.toISOString().split('T')[0];
+          const newTime =
+            name === 'appointmentTime'
+              ? value
+              : prev.appointmentDateAndTime
+                  .toISOString()
+                  .split('T')[1]
+                  .substring(0, 5);
+          return {
+            ...prev,
+            appointmentDateAndTime: convertDateAndTimeStringToDate(
+              newDate,
+              newTime
+            ),
+          };
+        }
+        return { ...prev, [name]: value };
+      });
+    },
+    []
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const response = await createAppointment(appointment);
-
     if (response.status === 'success') {
       setOpenModal(false);
     }
@@ -91,57 +81,58 @@ const AppointmentBookingForm: React.FC<AppointmentBookingFormProps> = ({
         className={classes['booking__container-form']}
         onSubmit={handleSubmit}
       >
-        <div>
-          <CustomInput
-            name="doctor"
-            value={`Dr.${doctor?.firstName} ${doctor?.lastName}`}
-            type="text"
-            readOnly
-          />
-          <CustomInput value={doctor?.departmentId.departmentMain} readOnly />
-          <select
-            className={classes['booking__container-select']}
-            name="subDepartmentName"
-            onChange={handleChange}
-            required
-          >
-            <option>Choose Sub Department</option>
-            {doctor?.departmentId.departmentSub.map((el, index) => (
-              <option key={index} value={el}>
-                {el}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <CustomInput type="text" value={user.name} readOnly />
-          <CustomInput
-            type="date"
-            value={appointmentDate}
-            defaultValue={formatDateForInput(slot.date)}
-            name="appointmentDate"
-            onChange={handleChange}
-          />
-          <CustomInput
-            placeHolder="Appointment Time"
-            value={appointmentTime}
-            defaultValue={slot.time}
-            name="appointmentTime"
-            type="time"
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <CustomInput
+          name="doctor"
+          value={`Dr.${doctor?.firstName} ${doctor?.lastName}`}
+          type="text"
+          readOnly
+        />
+        <CustomInput value={doctor?.departmentId.departmentMain} readOnly />
+        <select
+          className={classes['booking__container-select']}
+          name="subDepartmentName"
+          onChange={handleChange}
+          //value={appointment.subDepartmentName}
+          required
+        >
+          <option value="">Choose Sub Department</option>
+          {doctor?.departmentId.departmentSub.map((el, index) => (
+            <option key={index} value={el}>
+              {el}
+            </option>
+          ))}
+        </select>
+        <CustomInput type="text" value={user.name} readOnly />
+        <CustomInput
+          type="date"
+          value={appointment.appointmentDateAndTime.toISOString().split('T')[0]}
+          name="appointmentDate"
+          onChange={handleChange}
+        />
+        <CustomInput
+          placeHolder="Appointment Time"
+          value={appointment.appointmentDateAndTime
+            .toISOString()
+            .split('T')[1]
+            .substring(0, 5)}
+          name="appointmentTime"
+          type="time"
+          onChange={handleChange}
+          required
+        />
         <textarea
           className={classes['booking__container-reason']}
           placeholder="Please write your concerns..."
           name="reason"
           onChange={handleChange}
+          value={appointment.reason}
           rows={8}
           cols={45}
-        ></textarea>
+        />
         <button type="submit">Book</button>
-        <button onClick={() => setOpenModal(false)}>Close</button>
+        <button type="button" onClick={() => setOpenModal(false)}>
+          Close
+        </button>
       </form>
     </div>
   );
