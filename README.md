@@ -1,10 +1,10 @@
 <body>
     <header>
         <h1>Patient Appointment Booking App</h1>
-        <p>The Patient Appointment System is a modern, efficient web application designed to streamline the process of
-            managing patient appointments in healthcare facilities. Built with cutting-edge technologies, this system
-            offers a user-friendly interface for both patients and healthcare providers, enhancing the overall
-            appointment scheduling experience.</p>
+        <p>The Patient Appointment System is a modern, efficient full-stack web application designed to streamline the
+            process of managing patient appointments in healthcare facilities. Built with cutting-edge technologies for
+            both frontend and backend, this system offers a user-friendly interface for both patients and healthcare
+            providers, enhancing the overall appointment scheduling experience.</p>
     </header>
     <section id="table-of-contents">
         <h2>Table of Contents</h2>
@@ -33,6 +33,7 @@
     </section>
     <section id="technologies">
         <h2>Technologies</h2>
+        <h3>Frontend</h3>
         <ul>
             <li><strong>React:</strong> A JavaScript library for building user interfaces.</li>
             <li><strong>TypeScript:</strong> Adds static typing to JavaScript for improved developer experience.</li>
@@ -43,6 +44,25 @@
             <li><strong>Leaflet:</strong> Open-source JavaScript library for mobile-friendly interactive maps.</li>
             <li><strong>React Toastify:</strong> Add notifications to your app with ease.</li>
             <li><strong>Redux Persist:</strong> Persist and rehydrate a Redux store.</li>
+        </ul>
+        <h3>Backend</h3>
+        <ul>
+            <li><strong>Node.js:</strong> JavaScript runtime built on Chrome's V8 JavaScript engine.</li>
+            <li><strong>Express:</strong> Web application framework for Node.js.</li>
+            <li><strong>MongoDB:</strong> NoSQL database for storing application data.</li>
+            <li><strong>Mongoose:</strong> MongoDB object modeling for Node.js.</li>
+            <li><strong>JSON Web Token:</strong> Securely transmitting information between parties as a JSON object.
+            </li>
+            <li><strong>Bcrypt:</strong> Library for hashing passwords.</li>
+            <li><strong>AWS SDK:</strong> For integrating with Amazon Web Services (S3 for file storage).</li>
+            <li><strong>Multer & Multer-S3:</strong> Middleware for handling multipart/form-data and uploading to S3.
+            </li>
+            <li><strong>Nodemailer:</strong> Send emails from Node.js.</li>
+            <li><strong>Express Rate Limit:</strong> Basic rate-limiting middleware for Express.</li>
+            <li><strong>Helmet:</strong> Helps secure Express apps by setting various HTTP headers.</li>
+            <li><strong>CORS:</strong> Enable CORS with various options.</li>
+            <li><strong>Morgan:</strong> HTTP request logger middleware.</li>
+            <li><strong>Dotenv:</strong> Loads environment variables from a .env file.</li>
         </ul>
     </section>
     <section id="development-tools">
@@ -64,10 +84,19 @@
             <code>git clone git clone https://github.com/your-username/patient-appointment-system.git</code>
             <li>Navigate to the project directory:</li>
             <code>cd patient-appointment-system</code>
-            <li>Install project dependencies using npm:</li>
-            <code>npm install</code>
+            <li>Install dependencies for both frontend and backend:
+            </li>
+            <code>cd frontend && npm install
+                cd ../backend && npm install</code>
+            <li>Set up your environment variables:
+                Create a .env file in the backend directory
+                Add necessary environment variables (database URL, AWS credentials, etc.)</li>
             <li>Start the development server:</li>
-            <code>npm start</code>
+            <code># In the backend directory
+                npm run dev
+                
+                # In the frontend directory
+                npm run dev</code>
         </ol>
         <h3>Testing</h3>
         <ol>
