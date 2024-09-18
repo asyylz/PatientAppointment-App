@@ -9,11 +9,10 @@
     <section id="table-of-contents">
         <h2>Table of Contents</h2>
         <ul>
-            <li><a href="#description">Description</a></li>
             <li><a href="#features">Features</a></li>
-            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#technologies">Technologies</a></li>
+            <li><a href="#development-tools">Development Tools</a></li>
             <li><a href="#outcome">Outcome</a></li>
-            <li><a href="#notes">Notes</a></li>
             <li><a href="#contributing">Contributing</a></li>
             <li><a href="#license">License</a></li>
         </ul>
@@ -46,40 +45,39 @@
             <li><strong>Redux Persist:</strong> Persist and rehydrate a Redux store.</li>
         </ul>
     </section>
+    <section id="development-tools">
+        <h2>Development Tools</h2>
+        <ul>
+            <li><strong>Vite:</strong> Next generation frontend tooling for faster development.</li>
+            <li><strong>ESLint:</strong> Linting utility for JavaScript and TypeScript.</li>
+            <li><strong>Jest:</strong> JavaScript Testing Framework.</li>
+            <li><strong>React Testing Library:</strong> Testing utilities for React.</li>
+            <li><strong>MSW (Mock Service Worker):</strong> API mocking library for browser and Node.js.</li>
+        </ul>
+    </section>
     <section id="getting-started">
         <h2>Getting Started</h2>
         <p>To get started with the repository, follow these steps:</p>
         <h3>Installation</h3>
         <ol>
             <li>Clone the repository to your local machine using the following command:</li>
-            <code>git clone https://github.com/asyylz/NextJS.git</code>
-            <li>Navigate to the project directory you choose:</li>
-            <code>cd ..</code>
+            <code>git clone git clone https://github.com/your-username/patient-appointment-system.git</code>
+            <li>Navigate to the project directory:</li>
+            <code>cd patient-appointment-system</code>
             <li>Install project dependencies using npm:</li>
             <code>npm install</code>
             <li>Start the development server:</li>
             <code>npm start</code>
         </ol>
-    </section>
-    <section>
-        <h1>Outcome</h1>
-        <p>Reach outcome site <a href="">here</a> </p>
-    </section>
-    <section>
-        <h1>Resources</h1>
+        <h3>Testing</h3>
         <ol>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
+            <li>Run the test suite using npm:</li>
+            <code>npm test</code>
         </ol>
     </section>
-    <section class="notes">
-        <strong>
-            <h3>Notes:</h3>
-        </strong>
-        This project was created as part of an educational course on Udemy and is intended for learning purposes only.
-        All credit for the project idea and implementation goes to the course instructors and authors.
+    <section id="outcome">
+        <h1>Outcome</h1>
+        <p>Reach outcome site <a href="">here</a> </p>
     </section>
     <footer>
         <h2>Contributing</h2>
