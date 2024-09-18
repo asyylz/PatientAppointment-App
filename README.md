@@ -95,12 +95,11 @@
             <code># In the backend directory</code><br>
             <code>npm run dev</code><br>
             <code># In the frontend directory</code><br>
-            <code>npm run dev</code>
+            <code>npm run dev</code><br>
             <h3>Testing</h3>
-            <ol>
-                <li>Run the test suite using npm:</li>
-                <code>npm test</code>
-            </ol>
+            <li>Run the test suite using npm:</li>
+            <code>npm test</code>
+        </ol>
     </section>
     <section id="outcome">
         <h1>Outcome</h1>
