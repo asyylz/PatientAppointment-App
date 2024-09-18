@@ -286,6 +286,7 @@ declare namespace NodeJS {
     importMetaEnv: {
       VITE_BASE_URL: string;
       VITE_NODE_ENV: string;
+      VITE_SERVER_URL: string;
     };
   }
 }

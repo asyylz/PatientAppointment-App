@@ -279,7 +279,7 @@ describe('UseHttp Hook', () => {
       ).toHaveBeenCalled();
       expect(
         axiosInterceptors.axiosInterceptorsWithoutToken.post
-      ).toHaveBeenCalledWith(url, email);
+      ).toHaveBeenCalledWith(url, { email: 'mock@email.com' });
 
       expect(toast.toastSuccessNotify).toHaveBeenCalledWith(
         `Email sent to ${email} successfully!`

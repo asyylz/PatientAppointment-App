@@ -3,6 +3,10 @@ import { patientAppointmentsUrl } from './appointmentsForPatient-slice';
 import appointmentsForPatient from '../../../public/test_data/appointmentsForPatient.json';
 
 describe('AppointmentsForPatientReducer reducer', () => {
+  it('should load environment variables', () => {
+    expect(import.meta.env.VITE_LOCAL_URL).toBe('http://localhost:3000/api/v1');
+  });
+
   it('1--Should return the initial state when passed an empty action', () => {
     const initialState = undefined;
     const action = { type: '' };

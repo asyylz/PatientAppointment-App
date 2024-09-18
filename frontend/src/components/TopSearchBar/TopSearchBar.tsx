@@ -52,8 +52,6 @@ const TopSearchBar: React.FC = () => {
             <img src={userData.image} alt="User" />
             <button onClick={handleLogout}>Logout</button>
           </div>
-          // ) : (
-          //   <button onClick={() => navigate('/auth')}>Login</button>
         )}
       </div>
     </>

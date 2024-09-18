@@ -27,6 +27,12 @@
     "noFallthroughCasesInSwitch": true
   },
   //"include": ["src/**/*", "jest.config.ts","./jest-setup.ts", "types.d.s", "jest.d.ts"],
-  "include": ["src/**/*", "src/jest-setup.ts", "jest.config.ts"],
+  "include": [
+    "src/**/*",
+    "src/jest-setup.ts",
+    "jest.config.ts",
+    "types.d.s",
+    "jest.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

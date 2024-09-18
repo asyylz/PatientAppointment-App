@@ -192,15 +192,6 @@
     {
       "pattern": {
         "type": "string",
-        "expression": "convertToDateandDateString",
-        "ignoreCase": false,
-        "wholeMatch": false
-      },
-      "color": "green"
-    },
-    {
-      "pattern": {
-        "type": "string",
         "expression": "slotStatus",
         "ignoreCase": false,
         "wholeMatch": false

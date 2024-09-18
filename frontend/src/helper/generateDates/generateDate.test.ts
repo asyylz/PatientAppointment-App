@@ -195,7 +195,7 @@ describe('getDateFromDateString', () => {
 });
 
 describe('convertToDateandDateString', () => {
-  it('1--should convert availability day and time to correct date and date string', () => {
+  it('1--Should convert availability day and time to correct date and date string', () => {
     const availabilityDay = 'Wednesday';
     const availabilityTime = '14:30';
 
@@ -204,13 +204,14 @@ describe('convertToDateandDateString', () => {
 
     // Expected date is based on the upcoming Wednesday from the current date
     const expectedDate = new Date();
-    const currentDay = expectedDate.getDay();
+    const currentDay = expectedDate.getUTCDay(); // Use UTC day
     const daysUntilWednesday =
       3 - currentDay < 0 ? 7 + (3 - currentDay) : 3 - currentDay;
-    expectedDate.setDate(expectedDate.getDate() + daysUntilWednesday);
-    expectedDate.setHours(14 + 1, 30, 0, 0); // Adding 1 hour as per your logic
 
-    expect(availabilityDateTime).toEqual(expectedDate);
+    expectedDate.setUTCDate(expectedDate.getUTCDate() + daysUntilWednesday); // Use UTC date
+    expectedDate.setUTCHours(14, 30, 0, 0); // Set time in UTC (14:30)
+
+    expect(availabilityDateTime.toISOString()).toBe(expectedDate.toISOString()); // Compare using UTC
 
     const expectedDateString = `${
       expectedDate.toISOString().split('T')[0]
@@ -218,7 +219,7 @@ describe('convertToDateandDateString', () => {
     expect(availabilityDateTimeString).toBe(expectedDateString);
   });
 
-  it('2--should handle edge case of Sunday correctly', () => {
+  it('2--Should handle edge case of Sunday correctly', () => {
     const availabilityDay = 'Sunday';
     const availabilityTime = '09:00';
 
@@ -230,7 +231,7 @@ describe('convertToDateandDateString', () => {
     const currentDay = expectedDate.getDay();
     const daysUntilSunday = 7 - currentDay;
     expectedDate.setDate(expectedDate.getDate() + daysUntilSunday);
-    expectedDate.setHours(9 + 1, 0, 0, 0); // Adding 1 hour as per your logic
+    expectedDate.setHours(9, 0, 0, 0);
 
     expect(availabilityDateTime).toEqual(expectedDate);
 

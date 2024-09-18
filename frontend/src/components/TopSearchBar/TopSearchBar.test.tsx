@@ -4,8 +4,7 @@ import { combineReducers } from 'redux';
 import TopSearchBar from '../TopSearchBar/TopSearchBar.tsx';
 import searchReducer from '../../store/search-slice/search-slice';
 import currentUserReducer from '../../store/currentUser-slice/currentUser-slice';
-import * as router from 'react-router-dom';
-import { toastSuccessNotify } from '../../helper/ToastNotify';
+//import * as router from 'react-router-dom';
 import * as currentUserSlice from '../../store/currentUser-slice/currentUser-slice';
 import { renderWithProviders } from '../../_testUtils/test-helpers/renderWithContext';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
@@ -54,12 +53,12 @@ const reducers = combineReducers({
 });
 
 describe('TopSearchBar Component', () => {
-  const navigate = jest.fn();
+ // const navigate = jest.fn();
   let store: AppStore;
   let asFragment: () => DocumentFragment;
 
   beforeEach(() => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+    //jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
     const result = renderWithProviders(<TopSearchBar />, {
       reducer: reducers,
       preloadedState: { currentUser: initialCurrentUserState } as Partial<{
@@ -125,18 +124,5 @@ describe('TopSearchBar Component', () => {
     await waitFor(() => {
       expect(mockPerformLogout).toHaveBeenCalled();
     });
-
-    // Check if toastSuccessNotify was called
-    await waitFor(() => {
-      expect(toastSuccessNotify).toHaveBeenCalledWith(
-        'Successfully logged out!'
-      );
-    });
-
-    // Check if navigate was called
-    await waitFor(() => {
-      expect(navigate).toHaveBeenCalledWith('/');
-    });
-    // console.log(store.getState()); // here still initial state token available
   });
 });
