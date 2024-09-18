@@ -17,7 +17,7 @@ const handleErrorResponse = async (error: AxiosError<ErrorResponse> | any) => {
 
   const message =
     error.response?.data?.message || 'An unexpected error occurred';
-
+console.log(message)
   console.error('API Error:', error);
 
   switch (status) {

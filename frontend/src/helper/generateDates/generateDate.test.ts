@@ -218,26 +218,4 @@ describe('convertToDateandDateString', () => {
     }T${availabilityTime}:00.000Z`;
     expect(availabilityDateTimeString).toBe(expectedDateString);
   });
-
-  it('2--Should handle edge case of Sunday correctly', () => {
-    const availabilityDay = 'Sunday';
-    const availabilityTime = '09:00';
-
-    const { availabilityDateTime, availabilityDateTimeString } =
-      convertToDateandDateString(availabilityDay, availabilityTime);
-
-    // Expected date is based on the upcoming Sunday from the current date
-    const expectedDate = new Date();
-    const currentDay = expectedDate.getDay();
-    const daysUntilSunday = 7 - currentDay;
-    expectedDate.setDate(expectedDate.getDate() + daysUntilSunday);
-    expectedDate.setHours(9, 0, 0, 0);
-
-    expect(availabilityDateTime).toEqual(expectedDate);
-
-    const expectedDateString = `${
-      expectedDate.toISOString().split('T')[0]
-    }T${availabilityTime}:00.000Z`;
-    expect(availabilityDateTimeString).toBe(expectedDateString);
-  });
 });

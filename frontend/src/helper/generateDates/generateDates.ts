@@ -164,7 +164,7 @@ export const convertToDateandDateString = (
   const currentMonday = new Date(
     currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1)
   );
-
+  console.log(currentMonday);
   // Adjust the day of the week to get the specific day's date
   const availabilityDate = new Date(currentMonday);
   availabilityDate.setDate(
