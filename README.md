@@ -86,22 +86,21 @@
             <code>cd patient-appointment-system</code>
             <li>Install dependencies for both frontend and backend:
             </li>
-            <code>cd frontend && npm install <br>
-                cd ../backend && npm install</code>
+            <code>cd frontend && npm install</code>
+            <code>cd ../backend && npm install</code>
             <li>Set up your environment variables:
                 Create a .env file in the backend directory<br>
                 Add necessary environment variables (database URL, AWS credentials, etc.)</li>
             <li>Start the development server:</li>
-            <code># In the backend directory<br>
-                npm run dev<br>
-                # In the frontend directory<br>
-                npm run dev</code>
-        </ol>
-        <h3>Testing</h3>
-        <ol>
-            <li>Run the test suite using npm:</li>
-            <code>npm test</code>
-        </ol>
+            <code># In the backend directory</code>
+            <code>npm run dev</code>
+            <code># In the frontend directory</code>
+            <code>npm run dev</code>
+            <h3>Testing</h3>
+            <ol>
+                <li>Run the test suite using npm:</li>
+                <code>npm test</code>
+            </ol>
     </section>
     <section id="outcome">
         <h1>Outcome</h1>
