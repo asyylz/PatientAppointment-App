@@ -13,17 +13,18 @@ const signToken = id => {
 
 const createSendToken = (user, statusCode, res, req) => {
   const token = signToken(user._id);
-  const decodedToken = jwt.decode(token);
-  const expiresIn = decodedToken.exp * 1000; // Convert to milliseconds
-  const expiresInDate = new Date(expiresIn);
+  //const decodedToken = jwt.decode(token);
+  //const expiresIn = decodedToken.exp * 1000; // Convert to milliseconds
+  //const expiresInDate = new Date(expiresIn);
 
-  res.cookie('jwtExpiry', expiresIn, {
-    expires: expiresInDate,
-    httpOnly: false, // Allow JavaScript access
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    path: '/'
-  });
+  // res.cookie('jwtExpiry', expiresIn, {
+  //   expires: expiresInDate,
+  //   httpOnly: true,
+  //   secure: process.env.NODE_ENV === 'production',
+  //   //secure: true,
+  //   sameSite: 'None',
+  //   path: '/'
+  // });
 
   user.password = undefined;
 

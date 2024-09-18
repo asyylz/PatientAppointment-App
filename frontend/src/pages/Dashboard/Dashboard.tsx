@@ -29,6 +29,8 @@ const Dashboard: React.FC = () => {
     ),
   ];
 
+ 
+
   return (
     <>
       {openModal === 'open' && selectedAppointment && (

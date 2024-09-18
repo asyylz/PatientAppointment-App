@@ -49,7 +49,6 @@ export const login = createAsyncThunk<
     credentials,
     { withCredentials: true }
   );
-  console.log(response.data);
   startTokenCheckInterval();
   toastSuccessNotify('Successfully login!');
   return response.data;

@@ -4,7 +4,7 @@ import {
   refreshSession,
 } from '../store/currentUser-slice/currentUser-slice';
 import store from '../store/index/index';
-import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 import { toastErrorNotify, toastWarnNotify } from '../helper/ToastNotify';
 import { ErrorResponse } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ const handleErrorResponse = async (error: AxiosError<ErrorResponse> | any) => {
   const status = error.response?.status;
 
   const message =
-    error.response?.data?.message  || 'An unexpected error occurred';
+    error.response?.data?.message || 'An unexpected error occurred';
 
   console.error('API Error:', error);
 
@@ -26,8 +26,8 @@ const handleErrorResponse = async (error: AxiosError<ErrorResponse> | any) => {
       toastErrorNotify(message);
       break;
     case 401:
-     //toastErrorNotify(message)
-     await forceLogout('Session expired. Please log in again.')
+      //toastErrorNotify(message)
+      await forceLogout('Session expired. Please log in again.');
       break;
     case 403:
       toastErrorNotify('You do not have permission to perform this action.');
@@ -55,19 +55,20 @@ const forceLogout = async (message: string) => {
 /* ------------------------------------------------------ */
 let isRefreshing = false;
 
-export const TOKEN_CHECK_INTERVAL = 10000; // Check every 10 seconds
-const TOKEN_WARNING_THRESHOLD = 60000; // 1 minute before expiry
+export const TOKEN_CHECK_INTERVAL = 20000; // Check every 20 seconds
+const TOKEN_WARNING_THRESHOLD = 300000; // 5 minute before expiry
 
 export const checkTokenExpiration = async () => {
   const currentToken = store.getState().currentUser.token;
-  console.log(currentToken)
-  console.log(Cookies.get('jwtExpiry'))
 
   if (currentToken) {
-    const tokenExpiry = Cookies.get('jwtExpiry');
+    const decoded = jwtDecode(currentToken);
     const now = Date.now();
+    let tokenExpiry;
+    if (decoded.exp) {
+      tokenExpiry = decoded.exp * 1000;
+    }
     const timeLeft = Number(tokenExpiry) - now;
-    console.log(timeLeft);
 
     console.log(`Token expiry from cookie: ${tokenExpiry}`);
     console.log(`Time left for token expiry: ${timeLeft}ms`);
