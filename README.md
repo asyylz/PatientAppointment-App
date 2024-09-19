@@ -105,7 +105,7 @@
     <section id="outcome">
         <h1>Outcome</h1>
         <p>Reach outcome site <a href="https://patientappointmentsystem.netlify.app/">here</a> </p>
-        <img src="https://github.com/asyylz/PatientAppointment-App/blob/f2c602753c804d079f925a7609d2d2ed7ba98199/frontend/public/outcome.png"
+        <img src="https://github.com/asyylz/PatientAppointment-App/blob/b1e1840e120af6e57ebcfe8e52364754f0c2b6e2/frontend/public/outcome.gif"
             alt="">
     </section>
     <section id="test-coverage">
