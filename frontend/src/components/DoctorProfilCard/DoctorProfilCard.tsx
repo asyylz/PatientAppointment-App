@@ -11,6 +11,8 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
   doctor,
   onSelectDoctor,
 }) => {
+
+
   return (
     <div
       role="doctor"
