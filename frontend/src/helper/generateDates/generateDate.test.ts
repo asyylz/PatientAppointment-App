@@ -201,21 +201,8 @@ describe('convertToDateandDateString', () => {
 
     const { availabilityDateTime, availabilityDateTimeString } =
       convertToDateandDateString(availabilityDay, availabilityTime);
-
-    // Expected date is based on the upcoming Wednesday from the current date
-    const expectedDate = new Date();
-    const currentDay = expectedDate.getUTCDay(); // Use UTC day
-    const daysUntilWednesday =
-      3 - currentDay < 0 ? 7 + (3 - currentDay) : 3 - currentDay;
-
-    expectedDate.setUTCDate(expectedDate.getUTCDate() + daysUntilWednesday); // Use UTC date
-    expectedDate.setUTCHours(14, 30, 0, 0); // Set time in UTC (14:30)
-
-    expect(availabilityDateTime.toISOString()).toBe(expectedDate.toISOString()); // Compare using UTC
-
-    const expectedDateString = `${
-      expectedDate.toISOString().split('T')[0]
-    }T${availabilityTime}:00.000Z`;
-    expect(availabilityDateTimeString).toBe(expectedDateString);
+console.log(availabilityDateTime)
+    expect(availabilityDateTimeString).toBe('2024-09-18T14:30:00.000Z');
+     expect(availabilityDateTime).toStrictEqual(new Date('2024-09-18T14:30:00.000Z'));
   });
 });

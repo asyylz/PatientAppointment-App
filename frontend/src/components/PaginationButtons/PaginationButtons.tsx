@@ -15,8 +15,10 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   length,
   limit,
 }) => {
+
   const handlePaginationClick = (direction: string) => {
     setPagination((prevPagination) => {
+      console.log('asiye');
       if (direction === 'next' && length >= limit) {
         return prevPagination + 1;
       } else if (direction === 'prev') {
