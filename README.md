@@ -13,6 +13,7 @@
             <li><a href="#technologies">Technologies</a></li>
             <li><a href="#development-tools">Development Tools</a></li>
             <li><a href="#outcome">Outcome</a></li>
+            <li><a href="#test-coverage">Test Coverage</a></li>
             <li><a href="#contributing">Contributing</a></li>
             <li><a href="#license">License</a></li>
         </ul>
@@ -104,6 +105,12 @@
     <section id="outcome">
         <h1>Outcome</h1>
         <p>Reach outcome site <a href="">here</a> </p>
+    </section>
+    <section id="test-coverage">
+        <h1>Test Coverage</h1>
+        <img src="https://github.com/asyylz/PatientAppointment-App/blob/f2c602753c804d079f925a7609d2d2ed7ba98199/frontend/public/coverage-report.jpeg"
+            alt="">
+
     </section>
     <footer>
         <h2>Contributing</h2>
