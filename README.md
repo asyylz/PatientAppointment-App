@@ -104,13 +104,14 @@
     </section>
     <section id="outcome">
         <h1>Outcome</h1>
-        <p>Reach outcome site <a href="">here</a> </p>
+        <p>Reach outcome site <a href="https://patientappointmentsystem.netlify.app/">here</a> </p>
+        <img src="https://github.com/asyylz/PatientAppointment-App/blob/f2c602753c804d079f925a7609d2d2ed7ba98199/frontend/public/outcome.png"
+            alt="">
     </section>
     <section id="test-coverage">
         <h1>Test Coverage</h1>
         <img src="https://github.com/asyylz/PatientAppointment-App/blob/f2c602753c804d079f925a7609d2d2ed7ba98199/frontend/public/coverage-report.jpeg"
             alt="">
-
     </section>
     <footer>
         <h2>Contributing</h2>
