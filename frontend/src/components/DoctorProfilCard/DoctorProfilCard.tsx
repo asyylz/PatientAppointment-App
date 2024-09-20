@@ -38,7 +38,7 @@ const DoctorProfilCard: React.FC<DoctorProfilCardProps> = ({
           <div>
             <h4
               className={classes.name}
-            >{`${doctor.firstName} ${doctor.lastName}`}</h4>
+            >{`Dr ${doctor.firstName} ${doctor.lastName}`}</h4>
             <h4 className={classes.department}>
               {doctor.departmentId.departmentMain}
             </h4>
