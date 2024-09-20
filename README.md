@@ -104,6 +104,10 @@
     </section>
     <section id="outcome">
         <h1>Outcome</h1>
+        <p>To experience the application you can use following email and password:</p><br>
+        <p><strong>email:</strong> alice@test.com<br>
+            <strong>password:</strong> Newpass123.
+        </p>
         <p>Reach outcome site <a href="https://patientappointmentsystem.netlify.app/">here</a> </p>
         <img src="https://github.com/asyylz/PatientAppointment-App/blob/b1e1840e120af6e57ebcfe8e52364754f0c2b6e2/frontend/public/outcome.gif"
             alt="">
