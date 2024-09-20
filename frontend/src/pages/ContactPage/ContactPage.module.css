@@ -10,15 +10,11 @@
 
 }
 
-.contact-form__container h1 {
-    font-size: clamp(12px, 2vw, 2.5vw);
-}
 
 .buttons__wrapper {
     display: flex;
     margin-bottom: 3rem;
 }
-
 
 @media (min-width: 375px) and (max-width:834px) {
     .contact-form__container {
@@ -26,7 +22,11 @@
     }
 }
 
-@media (min-width: 375px) and (max-width:413px) {}
+@media (min-width: 375px) and (max-width:413px) {
+    .contact-form__container h1 {
+        font-size: 26px;
+    }
+}
 
 .logo {
     height: 100px;

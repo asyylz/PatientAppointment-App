@@ -26,9 +26,8 @@ const handleErrorResponse = async (error: AxiosError<ErrorResponse> | any) => {
       toastErrorNotify(message);
       break;
     case 401:
-      console.log('asiye')
-      //toastErrorNotify(message)
-      await forceLogout('Session expired. Please log in again.');
+      if (message === 'Incorrect email or password') toastErrorNotify(message);
+      else await forceLogout('Session expired. Please log in again.');
       break;
     case 403:
       toastErrorNotify('You do not have permission to perform this action.');
